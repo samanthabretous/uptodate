@@ -1,0 +1,35 @@
+{
+  "name": "juxt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ENVIRONMENT=DEV npm run watch & ./node_modules/.bin/electron .",
+    "build": "./node_modules/.bin/webpack",
+    "watch": "./node_modules/.bin/webpack-dev-server --hot --inline",
+    "osx-package": "./node_modules/.bin/webpack -p && ./node_modules/electron-packager/cli.js ./ MagicSchoolBus --out ./bin --platform=darwin --arch=x64 --version=1.4.15 --overwrite --ignore=\"ignore|bin|node_modules\""
+
+  },
+  "keywords": [],
+  "author": "Samantha Bretous <sam@samanthabretous.com>",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^1.4.15"
+  },
+  "devDependencies": {
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-react": "^6.11.1",
+    "css-loader": "^0.26.1",
+    "electron-packager": "^8.5.1",
+    "node-sass": "^4.4.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "sass-loader": "^4.1.1",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.2"
+  }
+}
