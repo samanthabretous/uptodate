@@ -1,8 +1,15 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var Work = sequelize.define('Work', {
-    file: DataTypes.STRING,
-    submitted: DataTypes.DATEONLY
+    file: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    submitted: {
+      type: DataTypes.DATEONLY,
+      allowNull: false,
+      isDate: true
+    }
   }, {
     classMethods: {
       associate: function(models) {
