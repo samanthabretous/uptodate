@@ -16,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
     location: {
       type: DataTypes.STRING,
       allowNull: true
-    }
+    },
     enrollmentCode: {
       type: DataTypes.STRING,
       allowNull:false
