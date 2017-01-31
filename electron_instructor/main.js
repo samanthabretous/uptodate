@@ -1,17 +1,18 @@
-const electron = require('electron')
-const app = electron.app
-const BrowserWindow = electron.BrowserWindow
+const electron = require('electron');
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
+const Menu = electron.Menu
 
 const path = require('path')
 const url = require('url')
 
-let mainWindow
+let mainWindow;
 
 function createWindow () {
-  mainWindow = new BrowserWindow({width: 800, height: 600})
+  mainWindow = new BrowserWindow(require('./config/default').window)
 
   mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
+    pathname: path.join(__dirname, 'client/index.html'),
     protocol: 'file:',
     slashes: true
   }))
@@ -36,3 +37,7 @@ app.on('activate', function () {
     createWindow()
   }
 })
+
+const menu = Menu.buildFromTemplate(require('./config/menu')(app));
+Menu.setApplicationMenu(menu);
+

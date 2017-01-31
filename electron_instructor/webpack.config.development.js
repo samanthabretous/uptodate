@@ -2,7 +2,7 @@ var webpack = require('webpack');
 var webpackTargetElectronRenderer = require('webpack-target-electron-renderer');
 
 var config = {
-  context: __dirname + '/src',
+  context: __dirname + '/client/src',
   entry: [
     'webpack-hot-middleware/client?reload=true&path=http://localhost:9000/__webpack_hmr',
     './entry.js'
@@ -10,13 +10,13 @@ var config = {
 
   output: {
     filename: 'bundle.js',
-    path: __dirname + '/build',
-    publicPath: 'http://localhost:9000/build/'
+    path: __dirname + '/client/build',
+    publicPath: 'http://localhost:9000/client/build/'
   },
 
   module: {
     loaders: [
-      { test: /\.js$/, 
+      { test: [/\.jsx?$/, /\.js?$/], 
         loader: 'babel-loader', 
         exclude: /node_modules/,
         query: {
@@ -33,7 +33,9 @@ var config = {
     extensions: ['', '.js', '.jsx'],
   },
   plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
   ]
 };
 

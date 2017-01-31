@@ -5,13 +5,13 @@
   <title>Electron App</title>
 </head>
 <body>
-  <div id="react-root"></div>
+  <div id="root"></div>
     <script>
     (function (){
       var bundlePath = './build/bundle.js';
 
       if(typeof process !== 'undefined' && process.env.ENVIRONMENT === 'DEV') {
-        bundlePath = 'http://localhost:9000/build/bundle.js';
+        bundlePath = 'http://localhost:9000/client/build/bundle.js';
       }
 
       var bundleScriptEl = document.createElement('script');
