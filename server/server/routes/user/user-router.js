@@ -1,11 +1,10 @@
 const router = require('express').Router();
-const postNewUser = require('./user-middleware').postNewUser;
-const getUserAuthentication = require('./user-middleware').getUserAuthentication;
+const middleware = require('./user-middleware')
 
-router.route('/register')
-  .post(postNewUser)
+router.route('/registration')
+  .post(middleware.postNewUser)
 
-router.route('/authenticate')
-  .post(getUserAuthentication)
+router.route('/authentication')
+  .post(middleware.getUserAuthentication)
 
 module.exports = router;

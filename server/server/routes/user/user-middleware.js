@@ -1,8 +1,8 @@
-const user = require('../../../db/models/index').user;
+const models = require('../../../db/models/index');
 
-// user registration
+// /api/users/registration -- user registration
 const postNewUser = (req, res) => {
-  user.findOrCreate({
+  models.user.findOrCreate({
     where: {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -13,17 +13,26 @@ const postNewUser = (req, res) => {
     }
   })
   .then(user => res.send(user))
+  .catch(error => res.send(error))
 }
 
-// user authentication
+// /api/users/authentication -- user authentication
 const getUserAuthentication = (req, res) => {
-  user.findOne({
+  models.user.findOne({
     where: {
       username: req.body.username,
       password: req.body.password
     }
   })
-  .then(user => res.send(user))
+  .then(user => {
+    if(!user) {
+      res.send('User credentials not found.')
+    }
+    else {
+      res.send(user)
+    }
+  })
+  .catch(error => res.send(error))
 }
 
 module.exports = {
