@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var Lesson = sequelize.define('Lesson', {
+  var Lesson = sequelize.define('lesson', {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    mdFileLink: {
+    link: { //name not final, REMEMBER TO CHANGE!!!
       type: DataTypes.STRING,
       allowNull: false,
       isUrl: true
@@ -17,8 +17,8 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        Lesson.belongsTo(models.Class);
-        Lesson.hasMany(models.Assignment);
+        Lesson.belongsTo(models.class);
+        Lesson.hasMany(models.assignment);
       }
     }
   });

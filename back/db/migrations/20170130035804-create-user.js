@@ -26,11 +26,8 @@ module.exports = {
       type: {
         type: Sequelize.STRING
       },
-      uuid: {
-        type: Sequelize.STRING
-      },
       lastClassViewed: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

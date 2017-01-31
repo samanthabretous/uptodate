@@ -1,8 +1,12 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var Assignment = sequelize.define('Assignment', {
+  var Assignment = sequelize.define('assignment', {
     instructions: {
       type: DataTypes.TEXT,
+      allowNull: true
+    },
+    file: {
+      type: DataTypes.STRING,
       allowNull: true
     },
     exercises: {
@@ -17,9 +21,9 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        Assignment.belongsTo(models.Class);
-        Assignment.belongsTo(models.Lesson);
-        Assignment.hasMany(models.Work);
+        Assignment.belongsTo(models.class);
+        Assignment.belongsTo(models.lesson);
+        Assignment.hasMany(models.work);
       }
     }
   });

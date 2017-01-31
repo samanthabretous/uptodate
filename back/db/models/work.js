@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var Work = sequelize.define('Work', {
+  var Work = sequelize.define('work', {
     file: {
       type: DataTypes.STRING,
       allowNull: false
@@ -9,12 +9,16 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATEONLY,
       allowNull: false,
       isDate: true
+    },
+    grade: {
+      type: DataTypes.INTEGER,
+      allowNull: true
     }
   }, {
     classMethods: {
       associate: function(models) {
-        Work.belongsToMany(models.User);
-        Work.belongsTo(models.Assignment);
+        Work.belongsToMany(models.user, {through: 'student_work'});
+        Work.belongsTo(models.assignment);
       }
     }
   });

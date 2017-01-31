@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var User = sequelize.define('User', {
+  var User = sequelize.define('user', {
     firstName: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -32,23 +32,17 @@ module.exports = function(sequelize, DataTypes) {
     type: {
       type: DataTypes.STRING,
       allowNull: false,
-      isIn: [['Intructor', 'Student', 'Mentor', 'T.A.']]
-    },
-    uuid: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      isUUID: 4
+      isIn: [['Instructor', 'Student', 'Mentor', 'T.A.']]
     },
     lastClassViewed: {
-      type: DataTypes.STRING,
-      allowNull: true,
-
+      type: DataTypes.INTEGER,
+      allowNull: true
     }
   }, {
     classMethods: {
       associate: function(models) {
-        User.belongsToMany(models.Class);
-        User.belongsToMany(models.Work);
+        User.belongsToMany(models.class, {through: 'user_class'});
+        User.belongsToMany(models.work, {through: 'student_work'});
       }
     }
   });

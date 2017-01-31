@@ -1,20 +1,32 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var Class = sequelize.define('Class', {
+  var Class = sequelize.define('class', {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    subject: {
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
+    schedule: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
+    },
+    location: {
+      type: DataTypes.STRING,
+      allowNull: true
+    }
+    enrollmentCode: {
+      type: DataTypes.STRING,
+      allowNull:false
     }
   }, {
     classMethods: {
       associate: function(models) {
-        Class.belongsToMany(models.User);
-        Class.hasMany(models.Lesson);
-        Class.hasMany(models.Assignment);
+        Class.belongsToMany(models.user, {through: 'user_class'});
+        Class.hasMany(models.lesson);
+        Class.hasMany(models.assignment);
       }
     }
   });
