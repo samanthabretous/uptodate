@@ -1,6 +1,6 @@
-const app = require('./back/server');
-const sequelizeConnection = require('./back/db/models');
-const environmentVariables = require('./back/env');
+const app = require('./server/server');
+const sequelizeConnection = require('./server/db/models');
+const environmentVariables = require('./server/env');
 
 sequelizeConnection.sequelize
 .authenticate()

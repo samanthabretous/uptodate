@@ -2,9 +2,9 @@ const webpack = require('webpack');
 const LiveReloadPlugin = require('webpack-livereload-plugin');
 
 module.exports = {
-  entry: ["./front/Entry.jsx"],
+  entry: ["./client/Entry.jsx"],
   output: {
-    path: __dirname + "/front/bundle",
+    path: __dirname + "/client/bundle",
     filename: "bundle.js",
     devtoolModuleFilenameTemplate: '[resourcePath]',
     devtoolFallbackModuleFilenameTemplate: '[resourcePath]?[hash]'
