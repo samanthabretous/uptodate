@@ -8,6 +8,7 @@ module.exports = {
   "globals": {
     "document": true,
     "foo": true,
-    "window": true
+    "window": true,
+    "localStorage": true,
   }
 };
