@@ -1,6 +1,6 @@
 const models = require('../../../db/models/index');
 
-
+// /api/classes/newclass
 const postNewClass = (req, res) => {
   models.class.findOrCreate({
     where: {
@@ -15,6 +15,7 @@ const postNewClass = (req, res) => {
   .catch(error => res.send(error))
 }
 
+// /api/classes/:enrollmentCode
 const getClassByEnrollmentCode = (req, res) => {
   models.class.findOne({
     where: {
