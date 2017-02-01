@@ -4,6 +4,7 @@ import { Router, hashHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import configureStore from './store/store';
 import routes from './routes';
+import '../css/index.scss';
 
 const state = JSON.parse(localStorage.getItem('state'));
 const store = configureStore(state || {});

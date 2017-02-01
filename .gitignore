@@ -4,3 +4,5 @@ bundle
 config.json
 build/
 
+electron_instructor/client/src/utils/
+

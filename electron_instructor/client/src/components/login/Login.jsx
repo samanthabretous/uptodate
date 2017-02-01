@@ -9,7 +9,7 @@ export default class Login extends Component {
       username: '',
       email: '',
       password: '',
-      authenticationError: null
+      authenticationError: null,
     };
     this.checkFormValidation = this.checkFormValidation.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -27,7 +27,7 @@ export default class Login extends Component {
     const { loginFormErrors } = this.state;
 
     // change the component state based off  input
-    const whichInput = () => {
+    const updateWhichInput = () => {
       this.setState({ [event.target.name]: event.target.value });
     };
 
@@ -35,10 +35,10 @@ export default class Login extends Component {
     if (loginFormErrors[event.target.name]) {
       const errors = Object.assign({}, loginFormErrors);
       delete errors[event.target.name];
-      whichInput();
+      updateWhichInput();
       this.checkFormValidation(errors);
     } else {
-      whichInput();
+      updateWhichInput();
     }
   }
 
@@ -52,12 +52,20 @@ export default class Login extends Component {
     if (username === '') errors.username = 'Can not be empty';
     if (email.indexOf('@') === -1 && email.indexOf('.' === -1)) errors.email = 'Must be a vaild email';
     if (password.length < 6) errors.password = 'Password must be at least 6 characters long';
-    console.log(errors)
     this.checkFormValidation(errors);
 
     // before sending form request to back end check to make sure there are no errors
     const isValid = Object.keys(errors).length === 0;
-    if (isValid){
+    if (isValid) {
+      console.log('send data to api');
+      // fetch('api/login', {
+      //   type: 'GET',
+      // })
+      // .then((user) => {
+      //   if (user){
+
+      //   }
+      // });
 
       // display loading signal
       // loginLoadingAction(true)
@@ -86,7 +94,7 @@ export default class Login extends Component {
   renderInput(type, variable) {
     const { loginFormErrors } = this.state;
     return (
-      <div className={`input ${!!loginFormErrors[this.state[variable]] ? 'error' : ''}`}>
+      <div className={`input ${!!loginFormErrors[type] ? 'error' : ''}`}>
         <label htmlFor={`${type}`}>{type}</label>
         <input
           id={type}
@@ -103,13 +111,12 @@ export default class Login extends Component {
   }
 
   render() {
-    const { username, email, password, authenticationError, loginFormErrors } = this.state;
+    const { username, email, password, authenticationError } = this.state;
     return (
       <div>
         {this.renderInput('username', username)}
         {this.renderInput('email', email)}
         {this.renderInput('password', password)}
-        {loginFormErrors['password'] && <span>{loginFormErrors['password']}</span>}
         <button onClick={this.handleSubmit}>
           <span>GO</span>
           <i className="fa fa-check" />
