@@ -12,7 +12,7 @@ const postNewClass = (req, res) => {
     },
   })
   .then(singleClass => res.send(singleClass))
-  .catch(error => res.send(error));
+  .catch(() => res.sendStatus(500));
 };
 
 // /api/classes/:enrollmentCode
@@ -23,13 +23,13 @@ const getClassByEnrollmentCode = (req, res) => {
     },
   })
   .then((singleClass) => {
-    if (!singleClass) {
-      res.send('Class not found.');
-    } else {
+    if (singleClass) {
       res.send(singleClass);
+    } else {
+      throw new Error();
     }
   })
-  .catch(error => res.send(error));
+  .catch(() => res.sendStatus(500));
 };
 
 module.exports = {

@@ -13,7 +13,7 @@ const postNewUser = (req, res) => {
     },
   })
   .then(user => res.send(user))
-  .catch(error => res.send(error));
+  .catch(() => res.sendStatus(500));
 };
 
 // /api/users/authentication -- user authentication
@@ -25,13 +25,13 @@ const getUserAuthentication = (req, res) => {
     },
   })
   .then((user) => {
-    if (!user) {
-      res.send('User credentials not found.');
-    } else {
+    if (user) {
       res.send(user);
+    } else {
+      throw new Error();
     }
   })
-  .catch(error => res.send(error));
+  .catch(() => res.sendStatus(500));
 };
 
 module.exports = {
