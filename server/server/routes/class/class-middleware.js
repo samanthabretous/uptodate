@@ -8,33 +8,31 @@ const postNewClass = (req, res) => {
       description: req.body.description,
       schedule: req.body.schedule,
       location: req.body.location,
-      enrollmentCode: req.body.enrollmentCode
-    }
+      enrollmentCode: req.body.enrollmentCode,
+    },
   })
   .then(singleClass => res.send(singleClass))
-  .catch(error => res.send(error))
-}
+  .catch(error => res.send(error));
+};
 
 // /api/classes/:enrollmentCode
 const getClassByEnrollmentCode = (req, res) => {
   models.class.findOne({
     where: {
-      enrollmentCode: req.params.enrollmentCode
+      enrollmentCode: req.params.enrollmentCode,
+    },
+  })
+  .then((singleClass) => {
+    if (!singleClass) {
+      res.send('Class not found.');
+    } else {
+      res.send(singleClass);
     }
   })
-  .then(singleClass => {
-    console.log(singleClass);
-    if(!singleClass) {
-      res.send('Class not found')
-    }
-    else {
-      res.send(singleClass)
-    }
-  })
-  .catch(error => res.send(error))
-}
+  .catch(error => res.send(error));
+};
 
 module.exports = {
   postNewClass,
-  getClassByEnrollmentCode
-}
+  getClassByEnrollmentCode,
+};

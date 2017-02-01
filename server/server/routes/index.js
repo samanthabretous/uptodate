@@ -5,5 +5,4 @@ router.use('/users', require('./user/user-router'));
 router.use('/classes', require('./class/class-router'));
 
 
-
 module.exports = router;
