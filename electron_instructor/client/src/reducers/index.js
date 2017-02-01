@@ -1,12 +1,6 @@
-import {combineReducers} from 'redux';
-
-const test = (state=[], action) => {
-  switch(action.type) {
-    default:
-      return state
-  }
-}
+import { combineReducers } from 'redux';
+import { loginReducer } from '../components';
 
 export default combineReducers({
-  test
-})
+  loginReducer,
+});

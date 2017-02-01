@@ -1,33 +1,34 @@
-var webpack = require('webpack');
-var webpackTargetElectronRenderer = require('webpack-target-electron-renderer');
+const path = require('path');
+const webpack = require('webpack');
+const webpackTargetElectronRenderer = require('webpack-target-electron-renderer');
 
-var config = {
-  context: __dirname + '/client/src',
+const config = {
+  context: path.join(__dirname, '/client/src'),
   entry: [
     'webpack-hot-middleware/client?reload=true&path=http://localhost:9000/__webpack_hmr',
-    './entry.js'
+    './entry.jsx',
   ],
 
   output: {
     filename: 'bundle.js',
-    path: __dirname + '/client/build',
-    publicPath: 'http://localhost:9000/client/build/'
+    path: path.join(__dirname, '/client/build'),
+    publicPath: 'http://localhost:9000/client/build/',
   },
 
   module: {
     loaders: [
-      { test: [/\.jsx?$/, /\.js?$/], 
-        loader: 'babel-loader', 
+      { test: [/\.jsx?$/, /\.js?$/],
+        loader: 'babel-loader',
         exclude: /node_modules/,
         query: {
-          presets:['react']
-        } 
+          presets: ['react'],
+        },
       },
-      { 
-        test: /\.scss$/, 
-        loader: 'style-loader!css-loader!sass-loader' 
-      }
-    ]
+      {
+        test: /\.scss$/,
+        loader: 'style-loader!css-loader!sass-loader',
+      },
+    ],
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],
@@ -35,8 +36,8 @@ var config = {
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
-  ]
+    new webpack.NoErrorsPlugin(),
+  ],
 };
 
 config.target = webpackTargetElectronRenderer(config);
