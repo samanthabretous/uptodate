@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const middleware = require('./class-middleware');
+const middleware = require('./class_middleware');
 
 router.route('/:enrollmentCode')
   .get(middleware.getClassByEnrollmentCode);
