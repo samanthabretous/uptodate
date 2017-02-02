@@ -44,7 +44,7 @@ app.on('activate', () => {
 //   app.quit();
 // });
 
-const menu = Menu.buildFromTemplate(require('./config/menu')(app));
+// const menu = Menu.buildFromTemplate(require('./config/menu')(app));
 
-Menu.setApplicationMenu(menu);
+// Menu.setApplicationMenu(menu);
 

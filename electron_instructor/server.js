@@ -11,12 +11,12 @@ const app = express();
 app.use(webpackDevMiddleware(compiler, {
   publicPath: config.output.publicPath,
   stats: {
-    colors: true
-  }
+    colors: true,
+  },
 }));
 
 app.use(webpackHotMiddleware(compiler));
 
-app.listen(9000, function () {
-  console.log("Desktop app is listening to port 9000")
+app.listen(9000, () => {
+  console.log('Desktop app is listening to port 9000');
 });

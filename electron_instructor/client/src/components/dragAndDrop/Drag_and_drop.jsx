@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Drop from './Drop';
 
 export default class DragAndDrop extends Component {
   constructor() {
@@ -14,15 +15,6 @@ export default class DragAndDrop extends Component {
     this.setState({ inputValue: e.target.value });
   }
 
-  // handleDrop(e) {
-  //   e.preventDefault();
-  //   console.log("evnt",e.preventDefault())
-  //   for (let f of e.dataTransfer.files) {
-  //     console.log('File(s) you dragged here: ', f.path);
-  //   }
-  //   return false;
-  // }
-
   render() {
     const { inputValue } = this.state;
     return (
@@ -32,6 +24,7 @@ export default class DragAndDrop extends Component {
           onChange={this.handleInput}
           type="text"
         />
+        <Drop />
       </div>
     );
   }
