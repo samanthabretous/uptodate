@@ -57,37 +57,8 @@ export default class Login extends Component {
     // before sending form request to back end check to make sure there are no errors
     const isValid = Object.keys(errors).length === 0;
     if (isValid) {
-      console.log('send data to api');
-      // fetch('api/login', {
-      //   type: 'GET',
-      // })
-      // .then((user) => {
-      //   if (user){
-
-      //   }
-      // });
-
-      // display loading signal
-      // loginLoadingAction(true)
-
-      // confirm create login info and send user to next page
-      // auth.login(isRegistered, username, email, password, (loggedIn) => {
-      //   if (!loggedIn) {
-      //     return loginErrorAction(true)
-      //   }
-
-      //   if (location.state && location.state.nextPathname) {
-
-      //     // if(location.state.nextPathname === '/play'){
-
-      //     // } else {
-      //       //if trying to access a authorized page after login it will redirect to the give path or go back to home
-      //       router.replace(location.state.nextPathname)
-      //     //}
-      //   } else {
-      //     router.replace('/play')
-      //   }
-      // })
+      // place api call here
+      // then send user to next route
     }
   }
 

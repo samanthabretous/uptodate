@@ -1,6 +1,9 @@
 .DS_store
 node_modules
 bundle
+build
+electron_instructor/build
 config.json
 server/env
 server/db/models/index.js
+electron_instructor/main.js
