@@ -14,3 +14,13 @@ render(
   </Provider>,
   document.getElementById('root'));
 
+if (module.hot) {
+  module.hot.accept('./routes', () => {
+    const nextRoutes = require('./routes').default;
+    render(
+      <Provider store={store}>
+        <Router history={browserHistory} routes={nextRoutes} />
+      </Provider>,
+      document.getElementById('root'));
+  });
+}

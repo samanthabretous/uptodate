@@ -11,6 +11,6 @@ app.use('/api', routes);
 // return our react app for all non-API routes
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../../', 'client/index.html'));
-});
+}); 
 
 module.exports = app;
