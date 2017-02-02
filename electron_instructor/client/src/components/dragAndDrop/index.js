@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import App from './App';
+import DragAndDrop from './Drag_and_drop';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -12,4 +12,4 @@ const mapStateToProps = state => ({
 
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(DragAndDrop);

@@ -1,0 +1,12 @@
+body {
+  background: red;
+  -webkit-app-region: drag;
+}
+
+.dropArea {
+  border: 3px solid blue;
+  width: 50vw;
+  height: 50vh;
+  font-size: 50px;
+  background: blue;
+}
