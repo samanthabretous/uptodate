@@ -1,30 +1,17 @@
-import React from 'react';
-import $ from 'jQuery';
-import {Navbar} from '../index';
+import React, { Component } from 'react';
 
-const App = React.createClass({
-  componentDidMount() {
-    $.ajax({
-      method: 'GET',
-      url: '/auth'
-    })
-    .done((username) => {
-      if(username && username[0] !== '<') {
-        console.log(username + ' is logged in!');
-        this.setState({username: username});
-      } else {
-        console.log('No on is logged in');
-      }
-    })
-  },
+export default class App extends Component {
   render() {
+    const { children } = this.props;
     return (
       <div>
-        <Navbar items={[{text: 'Home', url: '/'}, {text: 'Login', url: '/login'}]} />
-        {this.props.children}
+        {children}
       </div>
-    )
+    );
   }
-});
+}
 
-export default App;
+App.propTypes = {
+  children: React.PropTypes.element.isRequired,
+};
+
