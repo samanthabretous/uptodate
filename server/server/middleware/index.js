@@ -11,7 +11,7 @@ const applyExpressMiddleware = (app) => {
 */
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
-  app.use(express.static(path.join(__dirname, '../../../', '/front/bundle')));
+  app.use(express.static(path.join(__dirname, '../../../', '/client/bundle')));
 };
 
 module.exports = applyExpressMiddleware;
