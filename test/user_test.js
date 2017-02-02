@@ -8,7 +8,7 @@ const server = require('../server/server/index');
 
 describe('User tests', () => {
   before(() => {
-    models.sequelize.sync({force: true}).then(() => {
+    models.sequelize.sync({ force: true }).then(() => {
       seed();
     });
   });
