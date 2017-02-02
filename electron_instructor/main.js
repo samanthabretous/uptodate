@@ -1,6 +1,4 @@
 const electron = require('electron');
-// const ipc = require('ipc');
-
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 const Menu = electron.Menu;
@@ -39,10 +37,6 @@ app.on('activate', () => {
     createWindow();
   }
 });
-
-// ipc.on('close-main-window', () => {
-//   app.quit();
-// });
 
 const menu = Menu.buildFromTemplate(require('./config/menu')(app));
 

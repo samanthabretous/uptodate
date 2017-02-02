@@ -5,7 +5,8 @@
   "main": "start.js",
   "scripts": {
     "start": "npm test & nodemon start.js & webpack --watch ",
-    "test": "mocha --watch"
+    "test": "mocha --watch",
+    "eslint": "./node_modules/.bin/eslint ."
   },
   "keywords": [],
   "author": "",
