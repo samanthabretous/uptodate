@@ -13,7 +13,7 @@ describe('User tests', () => {
     });
   });
 
-  it(`'/api/users/registration' should respond with a new user`, (done) => {
+  it('"/api/users/registration" should respond with a new user', (done) => {
     const newUser = { firstName: 'Mickey', lastName: 'Mouse', email: 'mickey@disney.com', username: 'mickey', password: 'pass1', type: 'Instructor' };
     supertest(server)
     .post('/api/users/registration')
@@ -33,7 +33,7 @@ describe('User tests', () => {
     });
   });
 
-  it(`'/api/users/authentication' should respond with a user`, (done) => {
+  it('"/api/users/authentication" should respond with a user', (done) => {
     const user = { username: 'vfrizzle', password: 'pass1' };
     supertest(server)
     .post('/api/users/authentication')
