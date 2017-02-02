@@ -57,7 +57,8 @@ export default class Login extends Component {
     // before sending form request to back end check to make sure there are no errors
     const isValid = Object.keys(errors).length === 0;
     if (isValid) {
-      // run api here
+      // place api call here
+      // then send user to next route
     }
   }
 

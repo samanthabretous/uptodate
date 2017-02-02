@@ -1,8 +1,21 @@
+<!DOCTYPE html>
+<html>
 <head>
-  <script src='/bundle.js' defer></script>
 </head>
 <body>
-  <div id='app'>
-  hello
-  </div>
+  <div id='root'></div>
+<script>
+  (function () {
+    let bundlePath = './bundle.js';
+
+    if (typeof process !== 'undefined' && process.env.ENVIRONMENT === 'DEV') {
+      bundlePath = 'http://localhost:2020/client/bundle/bundle.js';
+    }
+
+    const bundleScriptEl = document.createElement('script');
+    bundleScriptEl.src = bundlePath;
+    document.currentScript.parentNode.insertBefore(bundleScriptEl, document.currentScript);
+  }());
+</script>
 </body>
+</html>

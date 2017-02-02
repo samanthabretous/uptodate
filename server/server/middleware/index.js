@@ -1,6 +1,13 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const path = require('path');
+const webpack = require('webpack');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
+
+const config = require('../../../webpack.config');
+
+const compiler = webpack(config);
 
 // add all middleware to the following function:
 const applyExpressMiddleware = (app) => {
@@ -12,6 +19,15 @@ const applyExpressMiddleware = (app) => {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
   app.use(express.static(path.join(__dirname, '../../../', '/client/bundle')));
+
+  app.use(webpackDevMiddleware(compiler, {
+    publicPath: config.output.publicPath,
+    stats: {
+      colors: true,
+    },
+  }));
+
+  app.use(webpackHotMiddleware(compiler));
 };
 
 module.exports = applyExpressMiddleware;

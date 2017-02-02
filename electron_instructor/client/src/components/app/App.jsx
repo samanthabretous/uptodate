@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 export default class App extends Component {
   render() {
-    const {children} = this.props
+    const { children } = this.props;
     return (
       <div>Whats up!!!
         HELLO!!
@@ -16,3 +16,8 @@ export default class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+  children: React.PropTypes.element.isRequired,
+};
+

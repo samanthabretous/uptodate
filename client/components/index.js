@@ -1,7 +1,20 @@
-import App from './app/App.jsx';
-import Home from './home/Home.jsx';
-import Login from './login/Login.jsx';
-import Routes from './routes/Routes.jsx';
-import Navbar from './navbar/Navbar.jsx';
+// containers
+import LoginContainer from './login';
 
-export {App, Home, Login, Routes, Navbar};
+// reducers
+import loginReducer from './login/login_reducer';
+
+// components
+import App from './app/App';
+import Home from './home/Home';
+import Navbar from './navbar/Navbar';
+
+// containers
+export { LoginContainer };
+
+// reducers
+export { loginReducer };
+
+// components
+export { App, Home, Navbar };
+

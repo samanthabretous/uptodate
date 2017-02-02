@@ -3,4 +3,7 @@ node_modules
 bundle
 config.json
 build/
+npm-debug.log
+
+electron_instructor/client/src/utils/
 

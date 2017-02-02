@@ -4,8 +4,9 @@
   "description": "",
   "main": "start.js",
   "scripts": {
-    "start": "npm test & webpack --watch & nodemon start.js",
-    "test": "mocha --watch"
+    "start": "npm test & nodemon start.js & webpack --watch ",
+    "test": "mocha --watch",
+    "eslint": "./node_modules/.bin/eslint ."
   },
   "keywords": [],
   "author": "",
@@ -27,12 +28,16 @@
     "pg-hstore": "^2.3.2",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
+    "react-redux": "^5.0.2",
     "react-router": "^3.0.0",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0",
     "sequelize": "^3.27.0",
     "sequelize-cli": "^2.5.1",
-    "supertest": "^2.0.1",
-    "webpack": "^1.13.3",
-    "webpack-livereload-plugin": "^0.9.0"
+    "webpack": "2.1.0-beta.21",
+    "webpack-dev-middleware": "^1.10.0",
+    "webpack-hot-middleware": "^2.16.1",
+    "supertest": "^2.0.1"
   },
   "devDependencies": {
     "css-loader": "^0.26.1",

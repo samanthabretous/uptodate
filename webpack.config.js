@@ -1,13 +1,17 @@
-const LiveReloadPlugin = require('webpack-livereload-plugin');
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
-  entry: ['./client/Entry.jsx'],
+  entry: [
+    'webpack-hot-middleware/client?reload=true&path=http://localhost:2020/__webpack_hmr',
+    './client/Entry.jsx',
+  ],
   output: {
     path: path.join(__dirname, '/client/bundle'),
     filename: 'bundle.js',
     devtoolModuleFilenameTemplate: '[resourcePath]',
     devtoolFallbackModuleFilenameTemplate: '[resourcePath]?[hash]',
+    publicPath: 'http://localhost:2020/client/bundle/',
   },
   module: {
     loaders: [
@@ -20,8 +24,8 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/,
-        loader: 'style-loader!css-loader',
+        test: /\.scss$/,
+        loader: 'style-loader!css-loader!sass-loader',
       },
     ],
   },
@@ -30,6 +34,7 @@ module.exports = {
     extensions: ['', '.js', '.jsx'],
   },
   plugins: [
-    new LiveReloadPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
   ],
 };
