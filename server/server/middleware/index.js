@@ -10,7 +10,8 @@ const applyExpressMiddleware = (app) => {
   that data will be accessible as req.body)
 */
   app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(express.static(path.join(__dirname, '../../../', '/front/bundle')));
+  app.use(bodyParser.json());
+  app.use(express.static(path.join(__dirname, '../../../', '/client/bundle')));
 };
 
 module.exports = applyExpressMiddleware;
