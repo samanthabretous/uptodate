@@ -17,6 +17,7 @@ const applyExpressMiddleware = (app) => {
   that data will be accessible as req.body)
 */
   app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
   app.use(express.static(path.join(__dirname, '../../../', '/client/bundle')));
 
   app.use(webpackDevMiddleware(compiler, {

@@ -10,5 +10,8 @@ module.exports = {
     "foo": true,
     "window": true,
     "localStorage": true,
+    "describe": true,
+    "before": true,
+    "it": true
   }
 };
