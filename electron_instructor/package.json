@@ -9,7 +9,6 @@
     "dev": "concurrently -k './node_modules/.bin/nodemon server.js' 'npm start'"
   },
   "keywords": [],
-  "author": "Samantha Bretous <sam@samanthabretous.com>",
   "license": "MIT",
   "babel": {
     "presets": [

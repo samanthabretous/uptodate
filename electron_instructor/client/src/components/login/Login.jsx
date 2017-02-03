@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Link } from 'react-router';
 
 export default class Login extends Component {
   constructor(props) {
@@ -93,6 +93,7 @@ export default class Login extends Component {
           <i className="fa fa-check" />
         </button>
         {authenticationError && <span>There was an error logging in</span>}
+        <Link to="drop-file">Go to drop file page</Link>
       </div>
     );
   }

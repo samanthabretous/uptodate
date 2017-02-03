@@ -5,6 +5,6 @@ import { AppContainer, LoginContainer, DragAndDropContainer } from '../component
 export default (
   <Route path="/" component={AppContainer}>
     <IndexRoute component={LoginContainer} />
-    <IndexRoute component={DragAndDropContainer} />
+    <Route path="drop-file"component={DragAndDropContainer} />
   </Route>
 );
