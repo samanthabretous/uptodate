@@ -6,6 +6,6 @@ router.route('/')
   })
   .post((req, res) => {
     res.send('post route goes here');
-  })
+  });
 
 module.exports = router;

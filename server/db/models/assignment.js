@@ -1,31 +1,31 @@
-'use strict';
-module.exports = function(sequelize, DataTypes) {
-  var Assignment = sequelize.define('assignment', {
+
+module.exports = (sequelize, DataTypes) => {
+  const Assignment = sequelize.define('assignment', {
     instructions: {
       type: DataTypes.TEXT,
-      allowNull: true
+      allowNull: true,
     },
     file: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: true,
     },
     exercises: {
       type: DataTypes.TEXT,
-      allowNull: true
+      allowNull: true,
     },
     due: {
       type: DataTypes.DATEONLY,
       allowNull: false,
-      isDate: true
-    }
+      isDate: true,
+    },
   }, {
     classMethods: {
-      associate: function(models) {
+      associate(models) {
         Assignment.belongsTo(models.class);
         Assignment.belongsTo(models.lesson);
         Assignment.hasMany(models.work);
-      }
-    }
+      },
+    },
   });
   return Assignment;
 };

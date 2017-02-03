@@ -1,32 +1,40 @@
+const path = require('path');
 const webpack = require('webpack');
-const LiveReloadPlugin = require('webpack-livereload-plugin');
 
 module.exports = {
-  entry: ["./client/Entry.jsx"],
+  entry: [
+    'webpack-hot-middleware/client?reload=true&path=http://localhost:2020/__webpack_hmr',
+    './client/Entry.jsx',
+  ],
   output: {
-    path: __dirname + "/client/bundle",
-    filename: "bundle.js",
+    path: path.join(__dirname, '/client/bundle'),
+    filename: 'bundle.js',
     devtoolModuleFilenameTemplate: '[resourcePath]',
-    devtoolFallbackModuleFilenameTemplate: '[resourcePath]?[hash]'
+    devtoolFallbackModuleFilenameTemplate: '[resourcePath]?[hash]',
+    publicPath: 'http://localhost:2020/client/bundle/',
   },
   module: {
-    loaders: [{
-      test: [/\.jsx?$/, /\.js?$/],
-      exclude: /(node_modules)/,
-      loader: 'babel',
-      query: {
-        presets: ['es2015', 'react']
-      }
-    }, {
-      test: /\.css$/,
-      loader: 'style-loader!css-loader'
-    }, ]
+    loaders: [
+      {
+        test: [/\.jsx?$/, /\.js?$/],
+        exclude: /(node_modules)/,
+        loader: 'babel',
+        query: {
+          presets: ['es2015', 'react'],
+        },
+      },
+      {
+        test: /\.scss$/,
+        loader: 'style-loader!css-loader!sass-loader',
+      },
+    ],
   },
   devtool: 'source-map',
   resolve: {
-    extensions: ["", ".js", ".jsx"]
+    extensions: ['', '.js', '.jsx'],
   },
   plugins: [
-    new LiveReloadPlugin()
-  ]
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
+  ],
 };

@@ -1,5 +1,8 @@
-
 .DS_store
 node_modules
 bundle
 config.json
+build/
+npm-debug.log
+
+
