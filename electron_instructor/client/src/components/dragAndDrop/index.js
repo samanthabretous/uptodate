@@ -9,7 +9,7 @@ const mapDispatchToProps = dispatch => (
 );
 
 const mapStateToProps = state => ({
-
+  state,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DragAndDrop);

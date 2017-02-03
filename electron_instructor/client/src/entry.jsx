@@ -13,8 +13,7 @@ render(
   <Provider store={store}>
     <Router history={hashHistory} routes={routes} />
   </Provider>,
-  document.getElementById('root')
-);
+  document.getElementById('root'));
 
 if (module.hot) {
   module.hot.accept('./routes', () => {
@@ -23,7 +22,6 @@ if (module.hot) {
       <Provider store={store}>
         <Router history={hashHistory} routes={nextRoutes} />
       </Provider>,
-      document.getElementById('root')
-    );
+      document.getElementById('root'));
   });
 }

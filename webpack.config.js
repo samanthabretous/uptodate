@@ -34,7 +34,6 @@ module.exports = {
     extensions: ['', '.js', '.jsx'],
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
   ],
