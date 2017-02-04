@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -104,6 +105,7 @@ export class Login extends Component {
           <i className="fa fa-check" />
         </button>
         {authenticationError && <span>There was an error logging in</span>}
+        <Link to="/drop-file">Go to drag</Link>
       </div>
     );
   }

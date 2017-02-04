@@ -1,4 +1,3 @@
-const debug = require('debug')('API_ROUTES');
 const models = require('../../db/models/index');
 
 // /api/users/registration -- user registration
