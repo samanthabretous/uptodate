@@ -1,16 +1,17 @@
 process.env.NODE_ENV = 'test';
 
-const models = require('../server/db/models/index');
-const seed = require('../server/server/seed/index');
+const models = require('../server/web/db/models/index');
+const seed = require('../server/web/seed/index').user;
 const expect = require('chai').expect;
 const supertest = require('supertest');
-const server = require('../server/server/index');
+const server = require('../server/web');
 
 describe('User tests', () => {
-  before(() => {
-    models.sequelize.sync({ force: true }).then(() => {
+  before((done) => {
+    models.user.sync({ force: true }).then(() => {
       seed();
     });
+    done();
   });
 
   it('"/api/users/registration" should respond with a new user', (done) => {

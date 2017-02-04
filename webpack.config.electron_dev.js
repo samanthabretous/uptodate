@@ -1,28 +1,25 @@
 const path = require('path');
 const webpack = require('webpack');
 
-module.exports = {
+const config = {
   entry: [
-    'webpack-hot-middleware/client?reload=true&path=http://localhost:2020/__webpack_hmr',
-    './client/web_view/Entry.jsx',
+    'webpack-hot-middleware/client?reload=true&path=http://localhost:9000/__webpack_hmr',
+    './client/electron_view/entry.jsx',
   ],
   output: {
-    path: path.join(__dirname, '/client/web_view/bundle'),
+    path: path.join(__dirname, '/client/electron_view/build'),
     filename: 'bundle.js',
     devtoolModuleFilenameTemplate: '[resourcePath]',
     devtoolFallbackModuleFilenameTemplate: '[resourcePath]?[hash]',
-    publicPath: 'http://localhost:2020/client/web_view/bundle/',
+    publicPath: 'http://localhost:9000/client/electron_view/build/',
   },
-  watch: true,
-  watchOptions: { ignored: /node_modules/ },
   module: {
     loaders: [
-      {
-        test: [/\.jsx?$/, /\.js?$/],
-        exclude: /(node_modules)/,
-        loader: 'babel',
+      { test: [/\.jsx?$/, /\.js?$/],
+        loader: 'babel-loader',
+        exclude: /node_modules/,
         query: {
-          presets: ['es2015', 'react'],
+          presets: ['react'],
         },
       },
       {
@@ -31,7 +28,6 @@ module.exports = {
       },
     ],
   },
-  devtool: 'source-map',
   resolve: {
     extensions: ['', '.js', '.jsx'],
   },
@@ -40,3 +36,6 @@ module.exports = {
     new webpack.NoErrorsPlugin(),
   ],
 };
+
+
+module.exports = config;
