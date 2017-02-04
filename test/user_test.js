@@ -1,10 +1,10 @@
 process.env.NODE_ENV = 'test';
 
-const models = require('../server/db/models/index');
-const seed = require('../server/server/seed/index');
+const models = require('../server/web/db/models/index');
+const seed = require('../server/web/seed/index');
 const expect = require('chai').expect;
 const supertest = require('supertest');
-const server = require('../server/server/index');
+const server = require('../server/web');
 
 describe('User tests', () => {
   before(() => {

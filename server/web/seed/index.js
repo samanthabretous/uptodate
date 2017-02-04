@@ -1,4 +1,4 @@
-const models = require('../../db/models/index');
+const models = require('../db/models/index');
 
 const seedFunction = () => {
   models.user.bulkCreate([{

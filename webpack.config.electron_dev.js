@@ -1,6 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-const webpackTargetElectronRenderer = require('webpack-target-electron-renderer');
 
 const config = {
   entry: [
@@ -37,7 +36,5 @@ const config = {
     new webpack.NoErrorsPlugin(),
   ],
 };
-
-// config.target = webpackTargetElectronRenderer(config);
 
 module.exports = config;
