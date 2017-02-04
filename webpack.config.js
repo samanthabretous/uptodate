@@ -14,6 +14,7 @@ module.exports = {
     publicPath: 'http://localhost:2020/client/web_view/bundle/',
   },
   watch: true,
+  watchOptions: { ignored: /node_modules/ },
   module: {
     loaders: [
       {

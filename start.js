@@ -1,6 +1,7 @@
 const app = require('./server/web');
 const sequelizeConnection = require('./server/web/db/models').sequelize;
 const environmentVariables = require('./server/web/env');
+const seed = require('./server/web/seed');
 
 sequelizeConnection
 .authenticate()

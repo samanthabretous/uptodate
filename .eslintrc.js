@@ -12,6 +12,7 @@ module.exports = {
     "localStorage": true,
     "describe": true,
     "before": true,
+    "after": true,
     "it": true
   }
 };

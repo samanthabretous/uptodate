@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const webpackTargetElectronRenderer = require('webpack-target-electron-renderer');
 
 const config = {
   entry: [
@@ -16,7 +17,7 @@ const config = {
   module: {
     loaders: [
       { test: [/\.jsx?$/, /\.js?$/],
-        loader: 'babel',
+        loader: 'babel-loader',
         exclude: /node_modules/,
         query: {
           presets: ['react'],
@@ -36,5 +37,7 @@ const config = {
     new webpack.NoErrorsPlugin(),
   ],
 };
+
+config.target = webpackTargetElectronRenderer(config);
 
 module.exports = config;

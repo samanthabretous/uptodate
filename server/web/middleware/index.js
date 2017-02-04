@@ -25,6 +25,9 @@ const applyExpressMiddleware = (app) => {
     stats: {
       colors: true,
     },
+    watchOptions: { ignored: /node_modules/ },
+    clientLogLevel: 'none',
+    noInfo: true,
   }));
 
   app.use(webpackHotMiddleware(compiler));

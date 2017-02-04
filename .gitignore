@@ -4,5 +4,6 @@ bundle
 config.json
 build/
 npm-debug.log
+.tmp/
 
 
