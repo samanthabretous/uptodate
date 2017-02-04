@@ -57,5 +57,7 @@ const seedFunction = () => {
     }]));
 };
 
+seedFunction();
+
 module.exports = seedFunction;
 

@@ -7,4 +7,7 @@ router.route('/registration')
 router.route('/authentication')
   .post(middleware.getUserAuthentication);
 
+router.route('/:userId/lastclass')
+  .get(middleware.getLastClassViewed);
+
 module.exports = router;
