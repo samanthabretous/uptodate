@@ -57,8 +57,27 @@ const getLastClassViewed = (req, res) => {
   .catch(() => res.sendStatus(500));
 };
 
+const updateLastClassViewed = (req, res) => {
+  models.user.update({
+    lastClassViewed: req.params.classId,
+  }, {
+    where: {
+      id: req.params.userId,
+    },
+  })
+  .then((user) => {
+    if (user[0]) {
+      res.send(user);
+    } else {
+      throw new Error();
+    }
+  })
+  .catch(() => res.sendStatus(500));
+};
+
 module.exports = {
   postNewUser,
   getUserAuthentication,
   getLastClassViewed,
+  updateLastClassViewed,
 };
