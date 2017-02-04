@@ -4,6 +4,6 @@ bundle
 config.json
 build/
 npm-debug.log
+.tmp/
 
-electron_instructor/client/src/utils/
 
