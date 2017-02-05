@@ -7,7 +7,7 @@ module.exports = {
     './client/web_view/Entry.jsx',
   ],
   output: {
-    path: path.join(__dirname, '/client/web_view/bundle'),
+    path: path.join(__dirname, '/client/web_view/public/bundle'),
     filename: 'bundle.js',
     devtoolModuleFilenameTemplate: '[resourcePath]',
     devtoolFallbackModuleFilenameTemplate: '[resourcePath]?[hash]',
