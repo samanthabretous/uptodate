@@ -18,12 +18,12 @@ const rawData = (req, res) => {
       publicFolderArr = publicFolderArr.splice(publicFolderArr.length - 2, 1);
       console.log(publicFolderArr);
       let tempPath = publicFolderArr[0];
-      // for (let i = 0; i < publicFolderArr.length; i += 1) {
-      //   let makeThisDirector = path.join(__dirname, '../../../../client/web_view/public/files/', tempPath);
-      //   fs.mkdir(makeThisDirector, err => console.log(err));
-      //   if (publicFolderPath[i + 1]) {
-      //     tempPath += publicFolderPath[i + 1];
-      //   }
+      for (let i = 0; i < publicFolderArr.length; i += 1) {
+        let makeThisDirector = path.join(__dirname, '../../../../client/web_view/public/files/', tempPath);
+        fs.mkdir(makeThisDirector, err => console.log(err));
+        if (publicFolderPath[i + 1]) {
+          tempPath += publicFolderPath[i + 1];
+        }
       }
       // publicFolderArr.reduce((string, b) => {
         // console.log('string', string);
@@ -31,8 +31,7 @@ const rawData = (req, res) => {
         // return `${string}/${b}`;
       // });
       // console.log(err);
-    // }
-    );
+    });
   res.send("hello");
 };
 
