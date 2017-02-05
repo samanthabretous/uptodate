@@ -3,7 +3,7 @@ module.exports = {
   "plugins": [
       "react",
       "jsx-a11y",
-      "import"
+      "import",
   ],
   "globals": {
     "document": true,
@@ -13,6 +13,8 @@ module.exports = {
     "describe": true,
     "before": true,
     "after": true,
-    "it": true
+    "it": true,
+    "chokidar": true,
+    "fs": true,
   }
 };
