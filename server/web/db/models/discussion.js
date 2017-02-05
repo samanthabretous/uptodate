@@ -3,12 +3,12 @@ module.exports = (sequelize, DataTypes) => {
     {
       comment: {
         type: DataTypes.TEXT,
-        allowNull: false
+        allowNull: false,
       },
       response: {
         type: DataTypes.TEXT,
-        allowNull: true
-      }
+        allowNull: true,
+      },
     },
     {
       classMethods: {
