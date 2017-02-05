@@ -15,7 +15,11 @@ const rawData = (req, res) => {
   publicFolderPath = publicFolderPath.slice(publicPathLocationStart + 1).join('/');
   // joins path based on servers location pointing to public fodler
   const finalPublicFilePath = path.join(__dirname, '../../../../client/web_view/public/files/', publicFolderPath);
-  fs.writeFile(finalPublicFilePath, data);
+  fs.writeFile(finalPublicFilePath, data, (err) => {
+    if (err) {
+      res.sendStatus(500);
+    }
+  });
   res.sendStatus(200);
 };
 
@@ -31,7 +35,11 @@ const addDir = (req, res) => {
   publicFolderArr = publicFolderArr.slice(publicPathLocationStart + 1).join('/');
   // joins path based on servers location pointing to public fodler
   const finalPublicDirectory = path.join(__dirname, '../../../../client/web_view/public/files/', publicFolderArr);
-  mkdirp(finalPublicDirectory);
+  mkdirp(finalPublicDirectory, (err) => {
+    if (err) {
+      res.sendStatus(500);
+    }
+  });
   res.sendStatus(200);
 };
 
