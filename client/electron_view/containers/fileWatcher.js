@@ -10,10 +10,10 @@ export default (pathWatch) => {
   .on('addDir', (path) => {
     // to prevent ajax call on root directory watch
     if (path !== pathWatch) {
-      let startingDirectorForPublic = pathWatch.split('/');
-      startingDirectorForPublic = startingDirectorForPublic[startingDirectorForPublic.length - 1];
+      let directoryForPublic = pathWatch.split('/');
+      directoryForPublic = directoryForPublic[directoryForPublic.length - 1];
       axios.post('http://localhost:2020/api/publicFile/addDir', {
-        publicPath: startingDirectorForPublic,
+        publicPath: directoryForPublic,
         localPath: path,
       });
     }
@@ -23,10 +23,10 @@ export default (pathWatch) => {
     if (path.indexOf('.') !== -1 && event === 'change') {
       fs.readFile(path, 'utf8', (err, data) => {
         // this will be used in the router for the public folder.
-        let startingDirectorForPublic = pathWatch.split('/');
-        startingDirectorForPublic = startingDirectorForPublic[startingDirectorForPublic.length - 1];
+        let directoryForPublic = pathWatch.split('/');
+        directoryForPublic = directoryForPublic[directoryForPublic.length - 1];
         axios.post('http://localhost:2020/api/publicFile', {
-          publicPath: startingDirectorForPublic,
+          publicPath: directoryForPublic,
           localPath: path,
           data,
         });
