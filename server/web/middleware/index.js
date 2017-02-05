@@ -18,7 +18,7 @@ const applyExpressMiddleware = (app) => {
 */
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
-  app.use(express.static(path.join(__dirname, '../../../', '/client/web_view/bundle')));
+  app.use(express.static(path.join(__dirname, '../../../', '/client/web_view/public/bundle')));
 
   app.use(webpackDevMiddleware(compiler, {
     publicPath: config.output.publicPath,
