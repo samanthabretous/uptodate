@@ -8,7 +8,7 @@ router.route('/authentication')
   .post(middleware.getUserAuthentication);
 
 router.route('/:userId/lastclass')
-  .get(middleware.getLastClassViewed)
+  .get(middleware.getLastClassViewed);
 
 router.route('/:userId/lastclass/:classId')
   .put(middleware.updateLastClassViewed);
