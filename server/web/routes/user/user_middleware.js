@@ -34,7 +34,50 @@ const getUserAuthentication = (req, res) => {
   .catch(() => res.sendStatus(500));
 };
 
+// /api/users/:userId/lastclass
+const getLastClassViewed = (req, res) => {
+  models.user.findById(req.params.userId)
+  .then((user) => {
+    if (user) {
+      return models.class.findOne({
+        where: {
+          id: user.dataValues.lastClassViewed,
+        },
+      });
+    }
+    throw new Error();
+  })
+  .then((singleClass) => {
+    if (singleClass) {
+      res.send(singleClass);
+    } else {
+      throw new Error();
+    }
+  })
+  .catch(() => res.sendStatus(500));
+};
+
+const updateLastClassViewed = (req, res) => {
+  models.user.update({
+    lastClassViewed: req.params.classId,
+  }, {
+    where: {
+      id: req.params.userId,
+    },
+  })
+  .then((user) => {
+    if (user[0]) {
+      res.send(user);
+    } else {
+      throw new Error();
+    }
+  })
+  .catch(() => res.sendStatus(500));
+};
+
 module.exports = {
   postNewUser,
   getUserAuthentication,
+  getLastClassViewed,
+  updateLastClassViewed,
 };
