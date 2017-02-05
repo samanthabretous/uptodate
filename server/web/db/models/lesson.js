@@ -20,6 +20,8 @@ module.exports = (sequelize, DataTypes) => {
         associate(models) {
           Lesson.belongsTo(models.class);
           Lesson.hasMany(models.assignment);
+          Lesson.hasMany(models.discussion);
+          Lesson.hasMany(models.vote);
         },
       },
     });
