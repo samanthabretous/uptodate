@@ -2,16 +2,33 @@ const models = require('../../db/models/index');
 
 // /api/classes/newclass
 const postNewClass = (req, res) => {
-  models.class.findOrCreate({
+// Check db to see if that enrollment code exists OR if schedule AND location are taken
+  models.class.find({
     where: {
-      name: req.body.name,
-      description: req.body.description,
-      schedule: req.body.schedule,
-      location: req.body.location,
-      enrollmentCode: req.body.enrollmentCode,
+      $or: [{
+        enrollmentCode: req.body.enrollmentCode 
+      }, {
+        schedule: req.body.schedule,
+        location: req.body.location,
+      }],
     },
   })
-  .then(singleClass => res.send(singleClass))
+// if that class doesn't exist create and send
+  .then((findClass) => {
+    if (!findClass) {
+      models.class.create({
+        name: req.body.name,
+        description: req.body.description,
+        schedule: req.body.schedule,
+        location: req.body.location,
+        enrollmentCode: req.body.enrollmentCode,
+      })
+      .then(newClass => res.send(newClass));
+// else send error
+    } else {
+      res.status(500).send('Invalid class info.');
+    }
+  })
   .catch(() => res.sendStatus(500));
 };
 

@@ -2,17 +2,33 @@ const models = require('../../db/models/index');
 
 // /api/users/registration -- user registration
 const postNewUser = (req, res) => {
-  models.user.findOrCreate({
+// Check db to see if that username OR email is already taken
+  models.user.find({
     where: {
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      username: req.body.username,
-      password: req.body.password,
-      type: req.body.type,
+      $or: [{
+        email: req.body.email,
+      }, {
+        username: req.body.username,
+      }],
     },
   })
-  .then(user => res.send(user))
+// if neither username nor email is taken create and send new user
+  .then((user) => {
+    if (!user) {
+      models.user.create({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        username: req.body.username,
+        password: req.body.password,
+        type: req.body.type,
+      })
+      .then(newUser => res.send(newUser));
+// else send error
+    } else {
+      res.status(500).send('Invalid registration info.');
+    }
+  })
   .catch(() => res.sendStatus(500));
 };
 
@@ -57,6 +73,7 @@ const getLastClassViewed = (req, res) => {
   .catch(() => res.sendStatus(500));
 };
 
+// /api/users/:userId/lastclass/:classId
 const updateLastClassViewed = (req, res) => {
   models.user.update({
     lastClassViewed: req.params.classId,
