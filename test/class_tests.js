@@ -15,9 +15,9 @@ describe('Class API tests', () => {
   });
 
   // GET by id
-  it('"/api/class/:classId" should respond with a specific class and all of it\'s associations', (done) => {
+  it('"/api/classes/info/:classId" should respond with a specific class and all of it\'s associations', (done) => {
     supertest(server)
-    .get('/api/class/2')
+    .get('/api/classes/info/2')
     .end((err, res) => {
       expect(res.body).to.be.a('object');
       expect(res.body.id).to.eql(2);

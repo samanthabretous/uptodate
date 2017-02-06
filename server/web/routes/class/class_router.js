@@ -4,6 +4,9 @@ const middleware = require('./class_middleware');
 router.route('/:enrollmentCode')
   .get(middleware.getClassByEnrollmentCode);
 
+router.route('/info/:classId')
+  .get(middleware.fetchClassInfo);
+
 router.route('/newclass')
   .post(middleware.postNewClass);
 

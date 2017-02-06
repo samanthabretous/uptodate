@@ -32,7 +32,21 @@ const getClassByEnrollmentCode = (req, res) => {
   .catch(() => res.sendStatus(500));
 };
 
+const fetchClassInfo = (req, res) => {
+  models.class.findById(req.params.classId, {
+    include: [{ all: true }],
+  })
+  .then((classInfo) => {
+    res.send(classInfo);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.sendStatus(500);
+  });
+};
+
 module.exports = {
   postNewClass,
   getClassByEnrollmentCode,
+  fetchClassInfo,
 };
