@@ -40,10 +40,11 @@ describe('Lesson API tests', () => {
     supertest(server)
     .get('/api/lessons/3')
     .end((err, res) => {
-      expect(res.body).isObject();
+      expect(res.body).to.be.a('object');
       expect(res.body.id).to.eql(3);
       expect(res.body.name).to.eql('Gravity and why Yo Momma has her own pull');
       expect(res.body).to.have.keys(['assignments', 'discussions', 'votes']);
+      done();
     });
   });
 
@@ -51,9 +52,9 @@ describe('Lesson API tests', () => {
   it('"/api/lessons/:lessonId" should update a lesson in our DB and respond with a 200 status', (done) => {
     supertest(server)
     .put('/api/lessons/5')
-    .send({ name: 'Trigonometry and why it\'s is incredibly useful' })
+    .send({ name: 'Trigonometry and why it\'s is incredibly useful', lecture: 'test test test' })
     .end((err, res) => {
-      expect(res.status).equal(200);
+      expect(res.body.name).equal('Trigonometry and why it\'s is incredibly useful');
       done();
     });
   });
