@@ -4,21 +4,24 @@ const models = require('../server/web/db/models/index');
 const seed = require('../server/web/seed/index').lesson;
 const expect = require('chai').expect;
 const supertest = require('supertest');
-const server = require('../server/web');
+const server = require('../start.js');
 
 describe('Lesson API tests', () => {
+  // fake data we'll be using for the tests
+
   before((done) => {
-    models.lesson.sync({ force: true }).then(() => {
-      seed();
-    });
-    done();
+    models.lesson.sync({ force: true })
+      .then(() => {
+        seed();
+      })
+      .then(() => done());
   });
 
   // POST request
   it('"/api/lessons/new-lesson" should create a new lesson in our DB', (done) => {
     const newLesson = {
       name: 'Trigonometry and why you\'ll never use it again',
-      lecture: 'Nam mauris turpis, laoreet non bibendum in, eleifend sit amet dui. Suspendisse blandit maximus ex non bibendum. Proin turpis quam, ullamcorper quis fermentum sed, iaculis id dui. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc eu elit metus. Etiam fringilla molestie leo, vel vestibulum nibh tincidunt ut. Fusce dictum rutrum massa vel dignissim. Curabitur imperdiet, ipsum ac rutrum sollicitudin, orci sem semper dui, eget rutrum justo massa vel ex. Quisque nisl ex, mattis vel convallis vitae, imperdiet nec tellus. Praesent venenatis sit amet ante eu porttitor. Curabitur accumsan augue fringilla, pellentesque sem ultrices, posuere diam. Integer vulputate porta cursus. Fusce eu tincidunt nisi, in pulvinar diam. Maecenas tincidunt magna vel hendrerit pretium. Aenean fringilla, diam porttitor interdum pretium, purus nisl interdum velit, ut vestibulum magna lacus at nisi.',
+      lecture: 'Nam mauris turpis,',
       link: null,
       classId: 4,
     };
@@ -26,6 +29,7 @@ describe('Lesson API tests', () => {
     .post('/api/lessons/new-lesson')
     .send(newLesson)
     .end((err, res) => {
+      console.log("ITS RIGHT HERE =======>", res.body)
       expect(res.body).to.be.a('object');
       expect(res.body.name).to.eql(newLesson.name);
       expect(res.body.lecture).to.eql(newLesson.lecture);

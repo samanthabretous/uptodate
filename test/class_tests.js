@@ -4,14 +4,15 @@ const models = require('../server/web/db/models/index');
 const seed = require('../server/web/seed/index').lesson;
 const expect = require('chai').expect;
 const supertest = require('supertest');
-const server = require('../server/web');
+const server = require('../start');
 
 describe('Class API tests', () => {
   before((done) => {
-    models.class.sync({ force: true }).then(() => {
-      seed();
-    });
-    done();
+    models.class.sync({ force: true })
+      .then(() => {
+        seed();
+      })
+      .then(() => done());
   });
 
   // GET by id
