@@ -75,21 +75,28 @@ const getLastClassViewed = (req, res) => {
 
 // /api/users/:userId/lastclass/:classId
 const updateLastClassViewed = (req, res) => {
-  models.user.update({
-    lastClassViewed: req.params.classId,
-  }, {
+  models.class.find({
     where: {
-      id: req.params.userId,
+      id: req.params.classId,
     },
   })
-  .then((user) => {
-    if (user[0]) {
-      res.send(user);
+  .then((findClass) => {
+    if (findClass) {
+      models.user.update({
+        lastClassViewed: req.params.classId,
+      }, {
+        where: {
+          id: req.params.userId,
+        },
+      })
+      .then((update) => {
+        res.send(update);
+      });
     } else {
-      throw new Error();
+      res.status(500).send('Class not found.');
     }
   })
-  .catch(() => res.sendStatus(500));
+   .catch(() => res.sendStatus(500));
 };
 
 module.exports = {

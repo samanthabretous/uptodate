@@ -2,11 +2,19 @@ const models = require('../../db/models/index');
 
 // /api/classes/newclass
 const postNewClass = (req, res) => {
+// generate random enrollment code
+  const generateEnrollmentCode = () => {
+    let enrollmentCode = req.body.name.substr(0, 3);
+    const randomNumber = Math.round((Math.random() * 100000) + 1);
+    enrollmentCode += randomNumber;
+    return enrollmentCode;
+  };
+  const newEnrollmentCode = generateEnrollmentCode();
 // Check db to see if that enrollment code exists OR if schedule AND location are taken
   models.class.find({
     where: {
       $or: [{
-        enrollmentCode: req.body.enrollmentCode 
+        enrollmentCode: newEnrollmentCode,
       }, {
         schedule: req.body.schedule,
         location: req.body.location,
@@ -21,7 +29,7 @@ const postNewClass = (req, res) => {
         description: req.body.description,
         schedule: req.body.schedule,
         location: req.body.location,
-        enrollmentCode: req.body.enrollmentCode,
+        enrollmentCode: newEnrollmentCode,
       })
       .then(newClass => res.send(newClass));
 // else send error
