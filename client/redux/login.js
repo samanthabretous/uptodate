@@ -22,16 +22,14 @@ export const addSignUpInfoAction = (firstName, lastName, position) => ({
   position,
 });
 
-export const userInfoAction = user => {
-  console.log(user)
-  return {
+export const userInfoAction = user => ({
   type: ADD_USER,
   username: user.username,
   email: user.email,
   firstName: user.firstName,
   lastName: user.lastName,
   position: user.position,
-}};
+});
 
 // -------------------
 // reducer
