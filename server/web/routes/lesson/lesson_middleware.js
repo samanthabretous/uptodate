@@ -2,12 +2,14 @@ const Lesson = require('../../db/models/index').lesson;
 
 // /api/lessons/new-lesson -- create new row in lesson table
 const createNewLesson = (req, res) => {
+  console.log("YOU'RE HITTING ME, IT WORKS. STOP IT")
   Lesson.create(req.body)
     .then((newLesson) => {
+      console.log('NEW LESSON ========>', newLesson)
       res.send(newLesson);
     })
     .catch((err) => {
-      console.error(err);
+      console.log(err);
       res.sendStatus(500);
     });
 };
