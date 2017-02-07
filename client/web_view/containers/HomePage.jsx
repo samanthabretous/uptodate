@@ -42,9 +42,9 @@ class HomePage extends Component {
   }
 }
 
-// HomePage.propTypes = {
-//   router: PropTypes.object.isRequired,
-// };
+HomePage.propTypes = {
+  router: PropTypes.object.isRequired,
+};
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
