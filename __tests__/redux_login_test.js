@@ -12,9 +12,9 @@ describe('login reducer', () => {
         username: '',
         email: '',
         password: '',
-        firstname: '',
-        lastname: '',
-        type: '',
+        firstName: '',
+        lastName: '',
+        position: '',
       },
     );
   });
@@ -39,31 +39,35 @@ describe('login reducer', () => {
     expect(
       reducer([], {
         type: ADD_SIGN_UP_INFO,
-        firstname: 'John',
-        lastname: 'Doe',
+        firstName: 'John',
+        lastName: 'Doe',
         position: 'Student',
       }),
     ).toEqual(
       {
-        firstname: 'John',
-        lastname: 'Doe',
-        type: 'Student',
+        firstName: 'John',
+        lastName: 'Doe',
+        position: 'Student',
       },
     );
   });
-  it('should handle ADD_SIGN_UP_INFO', () => {
+  it('should handle ADD_USER', () => {
     expect(
       reducer([], {
         type: ADD_USER,
-        firstname: 'John',
-        lastname: 'Doe',
+        username: 'Johnny5',
+        email: 'john_doe@gmail.com',
+        firstName: 'John',
+        lastName: 'Doe',
         position: 'Student',
       }),
     ).toEqual(
       {
-        firstname: 'John',
-        lastname: 'Doe',
-        type: 'Student',
+        username: 'Johnny5',
+        email: 'john_doe@gmail.com',
+        firstName: 'John',
+        lastName: 'Doe',
+        position: 'Student',
       },
     );
   });

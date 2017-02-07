@@ -15,21 +15,23 @@ export const signUpInfoAction = (username, email, password) => ({
   password,
 });
 
-export const addSignUpInfoAction = (firstname, lastname, position) => ({
+export const addSignUpInfoAction = (firstName, lastName, position) => ({
   type: ADD_SIGN_UP_INFO,
-  firstname,
-  lastname,
+  firstName,
+  lastName,
   position,
 });
 
-export const userInfoAction = user => ({
+export const userInfoAction = user => {
+  console.log(user)
+  return {
   type: ADD_USER,
   username: user.username,
   email: user.email,
-  firstname: user.firstname,
-  lastname: user.lastname,
+  firstName: user.firstName,
+  lastName: user.lastName,
   position: user.position,
-});
+}};
 
 // -------------------
 // reducer
@@ -38,9 +40,9 @@ const initialState = {
   username: '',
   email: '',
   password: '',
-  firstname: '',
-  lastname: '',
-  type: '',
+  firstName: '',
+  lastName: '',
+  position: '',
 };
 
 export default (state = initialState, action) => {
@@ -53,9 +55,17 @@ export default (state = initialState, action) => {
       });
     case ADD_SIGN_UP_INFO:
       return Object.assign({}, state, {
-        firstname: action.firstname,
-        lastname: action.lastname,
-        type: action.position,
+        firstName: action.firstName,
+        lastName: action.lastName,
+        position: action.position,
+      });
+    case ADD_USER:
+      return Object.assign({}, state, {
+        username: action.username,
+        email: action.email,
+        firstName: action.firstName,
+        lastName: action.lastName,
+        position: action.position,
       });
     default:
       return state;

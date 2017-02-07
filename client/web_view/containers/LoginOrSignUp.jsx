@@ -21,9 +21,9 @@ class LoginOrSignUp extends Component {
     super(props);
     this.state = {
       loginFormErrors: {},
-      username: '',
+      username: 'vfrizzle',
       email: '',
-      password: '',
+      password: 'password1',
       authenticationError: null,
     };
     this.checkFormValidation = this.checkFormValidation.bind(this);
@@ -86,10 +86,10 @@ class LoginOrSignUp extends Component {
           username,
           password,
         })
-        .then(userInfo => {
-          if (userInfo) {
+        .then((res) => {
+          if (res.data) {
             // send logged in user information to the store
-            this.props.userInfoAction(userInfo)
+            this.props.userInfoAction(res.data)
             // take user to the dashboard
             this.props.router.push('/dashboard');
           }

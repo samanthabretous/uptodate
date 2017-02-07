@@ -17,8 +17,8 @@ class StudentOrTeacher extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstname: '',
-      lastname: '',
+      firstName: '',
+      lastName: '',
       position: '',
       nameErrors: {},
     };
@@ -70,8 +70,8 @@ class StudentOrTeacher extends Component {
           <button onClick={() => this.setPosition('Instructor')}>Instructor</button>
         </div>
         <form onSubmit={this.enterClassRoom}>
-          <input type="text" name="firstname" onChange={this.handleChange} />
-          <input type="text" name="lastname" onChange={this.handleChange} />
+          <input type="text" name="firstName" onChange={this.handleChange} />
+          <input type="text" name="lastName" onChange={this.handleChange} />
         </form>
       </div>
     );
