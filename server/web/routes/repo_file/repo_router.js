@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const middleware = require('./public_middleware');
+const middleware = require('./repo_middleware');
 
-router.route('/')
+router.route('/updateFile')
   .post(middleware.rawData);
 
 router.route('/addDir')
