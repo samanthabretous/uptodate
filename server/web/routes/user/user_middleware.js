@@ -2,8 +2,7 @@ const models = require('../../db/models/index');
 
 // /api/users/registration -- user registration
 const postNewUser = (req, res) => {
-// Check db to see if that username OR email is already taken
-  models.user.find({
+  models.user.findOrCreate({
     where: {
       $or: [{
         email: req.body.email,
@@ -11,25 +10,24 @@ const postNewUser = (req, res) => {
         username: req.body.username,
       }],
     },
+    defaults: {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      username: req.body.username,
+      password: req.body.password,
+      type: req.body.type,
+    },
   })
-// if neither username nor email is taken create and send new user
-  .then((user) => {
-    if (!user) {
-      models.user.create({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        username: req.body.username,
-        password: req.body.password,
-        type: req.body.type,
-      })
-      .then(newUser => res.send(newUser));
-// else send error
-    } else {
-      res.status(500).send('Invalid registration info.');
+  .spread((user, created) => {
+    if (created) {
+      res.send(user);
     }
+    throw new Error('Invalid registration info.');
   })
-  .catch(() => res.sendStatus(500));
+  .catch((err) => {
+    res.status(500).send(err.message);
+  });
 };
 
 // /api/users/authentication -- user authentication
