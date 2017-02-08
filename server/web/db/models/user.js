@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     classMethods: {
       associate(models) {
         // this column is for which class info should be displayed on the User's profile page.
-        User.belongsTo(models.class, { as: 'lastClassViewed' });
+        User.belongsTo(models.class, { foreignKey: 'lastClassViewed' });
         User.belongsToMany(models.class, { through: 'user_class' });
         User.belongsToMany(models.work, { through: 'student_work' });
         User.hasMany(models.discussion);
