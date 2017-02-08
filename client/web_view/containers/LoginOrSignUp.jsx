@@ -89,9 +89,9 @@ class LoginOrSignUp extends Component {
         .then((res) => {
           if (res.data) {
             // send logged in user information to the store
-            this.props.userInfoAction(res.data)
+            this.props.userInfoAction(res.data);
             // take user to the dashboard
-            this.props.router.push('/dashboard');
+            this.props.router.push(`/dashboard/${res.data.user_id}/${res.data.lastClassViewed.name}`);
           }
         })
         .catch(() => {
