@@ -13,12 +13,10 @@ const postNewClass = (req, res) => {
 // Check db to see if that enrollment code exists OR if schedule AND location are taken
   models.class.find({
     where: {
-      $or: [{
-        enrollmentCode: newEnrollmentCode,
-      }, {
-        schedule: req.body.schedule,
-        location: req.body.location,
-      }],
+      name: req.body.name,
+      description: req.body.description,
+      schedule: req.body.schedule,
+      location: req.body.location,
     },
   })
 // if that class doesn't exist create and send
