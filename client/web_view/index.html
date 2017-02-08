@@ -6,7 +6,7 @@
   <div id='root'></div>
 <script>
   (function () {
-    let bundlePath = './bundle/bundle.js';
+    let bundlePath = '/bundle/bundle.js';
 
     if (typeof process !== 'undefined' && process.env.ENVIRONMENT === 'DEV') {
       bundlePath = 'http://localhost:2020/client/web_view/public/bundle/bundle.js';
