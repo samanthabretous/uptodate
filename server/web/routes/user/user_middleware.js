@@ -45,10 +45,10 @@ const getUserAuthentication = (req, res) => {
     if (user) {
       res.send(user);
     } else {
-      throw new Error();
+      throw new Error('Invalid login info.');
     }
   })
-  .catch(() => res.sendStatus(500));
+  .catch(err => res.status(500).send(err.message));
 };
 
 // /api/users/:userId/lastclass
