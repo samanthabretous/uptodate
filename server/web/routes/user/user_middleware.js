@@ -62,16 +62,16 @@ const getLastClassViewed = (req, res) => {
         },
       });
     }
-    throw new Error();
+    throw new Error('User not found.');
   })
   .then((singleClass) => {
     if (singleClass) {
       res.send(singleClass);
     } else {
-      throw new Error();
+      throw new Error('Class not found.');
     }
   })
-  .catch(() => res.sendStatus(500));
+  .catch(err => res.status(500).send(err.message));
 };
 
 // /api/users/:userId/lastclass/:classId
@@ -83,21 +83,18 @@ const updateLastClassViewed = (req, res) => {
   })
   .then((findClass) => {
     if (findClass) {
-      models.user.update({
+      return models.user.update({
         lastClassViewed: req.params.classId,
       }, {
         where: {
           id: req.params.userId,
         },
-      })
-      .then((update) => {
-        res.send(update);
       });
-    } else {
-      res.status(500).send('Class not found.');
     }
+    throw new Error('Class not found.');
   })
-   .catch(() => res.sendStatus(500));
+  .then(update => res.send(update))
+  .catch(err => res.status(500).send(err.message));
 };
 
 module.exports = {
