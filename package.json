@@ -10,6 +10,7 @@
     "web": "concurrently -k './node_modules/.bin/nodemon start.js' 'webpack --config webpack.config.js'",
     "server": "concurrently -k 'nodemon start.js'",
     "test": "DEBUG=API_ROUTES concurrently -k 'yarn server' 'mocha --watch'",
+    "redux-test": "./node_modules/.bin/jest",
     "test:mocha": "mocha --watch",
     "eslint": "./node_modules/.bin/eslint ."
   },
@@ -32,6 +33,7 @@
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.22.0",
+    "babel-preset-stage-2": "^6.22.0",
     "body-parser": "^1.15.2",
     "chai": "^3.5.0",
     "chokidar": "^1.6.1",
@@ -76,7 +78,11 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^3.0.2",
     "eslint-plugin-react": "^6.9.0",
+    "jest": "^18.1.0",
     "mocha": "^3.2.0",
     "style-loader": "^0.13.1"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }

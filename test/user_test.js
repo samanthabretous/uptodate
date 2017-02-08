@@ -45,7 +45,6 @@ describe('User tests', () => {
       expect(res.body.lastName).equal('Frizzle');
       expect(res.body.email).equal('vfrizzle@msb.com');
       expect(res.body.username).equal('vfrizzle');
-      expect(res.body.password).equal('pass1');
       expect(res.body.type).equal('Instructor');
       done();
     });
