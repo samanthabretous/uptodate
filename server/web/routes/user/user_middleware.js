@@ -37,6 +37,9 @@ const getUserAuthentication = (req, res) => {
       username: req.body.username,
       password: req.body.password,
     },
+    attributes: {
+      exclude: ['createdAt', 'updatedAt', 'password'],
+    },
   })
   .then((user) => {
     if (user) {
