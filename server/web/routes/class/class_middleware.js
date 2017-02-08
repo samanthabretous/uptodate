@@ -8,7 +8,6 @@ const postNewClass = (req, res) => {
       description: req.body.description,
       schedule: req.body.schedule,
       location: req.body.location,
-      enrollmentCode: req.body.enrollmentCode,
     },
   })
   .then(singleClass => res.send(singleClass))
