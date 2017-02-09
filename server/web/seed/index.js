@@ -36,7 +36,7 @@ module.exports = () => {
     .then(() => {
       models.assignment.bulkCreate(assignmentData);
     })
-    .then(()=> models.work.create(workData[0]))
+    .then(() => models.work.create(workData[0]))
     .then((work) => {
       work.addUser(1);
       return models.work.create(workData[1]);
