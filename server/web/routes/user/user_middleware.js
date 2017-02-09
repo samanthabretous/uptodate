@@ -4,6 +4,13 @@ const models = require('../../db/models/index');
 const postNewUser = (req, res) => {
   models.user.findOrCreate({
     where: {
+      $or: [{
+        email: req.body.email,
+      }, {
+        username: req.body.username,
+      }],
+    },
+    defaults: {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
@@ -12,8 +19,16 @@ const postNewUser = (req, res) => {
       type: req.body.type,
     },
   })
-  .then(user => res.send(user))
-  .catch(() => res.sendStatus(500));
+  .spread((user, created) => {
+    if (created) {
+      res.send(user);
+    } else {
+      throw new Error('Invalid registration info.');
+    }
+  })
+  .catch((err) => {
+    res.status(500).send(err.message);
+  });
 };
 
 // /api/users/authentication -- user authentication
@@ -23,15 +38,18 @@ const getUserAuthentication = (req, res) => {
       username: req.body.username,
       password: req.body.password,
     },
+    attributes: {
+      exclude: ['createdAt', 'updatedAt', 'password'],
+    },
   })
   .then((user) => {
     if (user) {
       res.send(user);
     } else {
-      throw new Error();
+      throw new Error('Invalid login info.');
     }
   })
-  .catch(() => res.sendStatus(500));
+  .catch(err => res.status(500).send(err.message));
 };
 
 // /api/users/:userId/lastclass
@@ -45,34 +63,39 @@ const getLastClassViewed = (req, res) => {
         },
       });
     }
-    throw new Error();
+    throw new Error('User not found.');
   })
   .then((singleClass) => {
     if (singleClass) {
       res.send(singleClass);
     } else {
-      throw new Error();
+      throw new Error('Class not found.');
     }
   })
-  .catch(() => res.sendStatus(500));
+  .catch(err => res.status(500).send(err.message));
 };
 
+// /api/users/:userId/lastclass/:classId
 const updateLastClassViewed = (req, res) => {
-  models.user.update({
-    lastClassViewed: req.params.classId,
-  }, {
+  models.class.find({
     where: {
-      id: req.params.userId,
+      id: req.params.classId,
     },
   })
-  .then((user) => {
-    if (user[0]) {
-      res.send(user);
-    } else {
-      throw new Error();
+  .then((findClass) => {
+    if (findClass) {
+      return models.user.update({
+        lastClassViewed: req.params.classId,
+      }, {
+        where: {
+          id: req.params.userId,
+        },
+      });
     }
+    throw new Error('Class not found.');
   })
-  .catch(() => res.sendStatus(500));
+  .then(update => res.send(update))
+  .catch(err => res.status(500).send(err.message));
 };
 
 module.exports = {

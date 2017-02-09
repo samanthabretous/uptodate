@@ -7,10 +7,7 @@ const assignmentData = require('./assignment_seed');
 const workData = require('./work_seed');
 const voteData = require('./vote_seed');
 
-
-  // .then(() => models.user.bulkCreate(userData))
-  // add user and work associations
-    // .then(() => {
+// add user and work associations
 module.exports = () => {
   models.class.bulkCreate(classData)
     .then(() => models.user.create(userData[0]))
@@ -29,7 +26,7 @@ module.exports = () => {
     .then((user) => {
       user.addClasses([1, 2, 3]);
     })
-  // create lesson assications
+    // create lesson assoications
     .then(() => {
       models.lesson.bulkCreate(lessonData);
     })

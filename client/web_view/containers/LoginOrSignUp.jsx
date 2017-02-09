@@ -1,10 +1,14 @@
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
-import React, { Component } from 'react';
+import axios from 'axios';
+import { signUpInfoAction, userInfoAction } from '../../redux/login';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
-
+    signUpInfoAction,
+    userInfoAction,
   }, dispatch)
 );
 
@@ -12,14 +16,14 @@ const mapStateToProps = state => ({
   state,
 });
 
-export class Login extends Component {
+class LoginOrSignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loginFormErrors: {},
-      username: '',
+      username: 'vfrizzle',
       email: '',
-      password: '',
+      password: 'password1',
       authenticationError: null,
     };
     this.checkFormValidation = this.checkFormValidation.bind(this);
@@ -57,22 +61,47 @@ export class Login extends Component {
   * do this before sending user infomation over to the back end*/
   handleSubmit() {
     const { username, email, password } = this.state;
-
     // form validation
     const errors = {};
     if (username === '') errors.username = 'Can not be empty';
-    if (email.indexOf('@') === -1 && email.indexOf('.' === -1)) errors.email = 'Must be a vaild email';
+    // only check email if the user is signing up
+    if (this.props.pathname === '/') {
+      if (email.indexOf('@') === -1 && email.indexOf('.' === -1)) errors.email = 'Must be a vaild email';
+    }
     if (password.length < 6) errors.password = 'Password must be at least 6 characters long';
     this.checkFormValidation(errors);
 
     // before sending form request to back end check to make sure there are no errors
     const isValid = Object.keys(errors).length === 0;
     if (isValid) {
-      // run api here
+      /* if user is trying to sign up to the site
+       * send info to the store
+       * then continue asking questions on the next page
+       */
+      if (this.props.pathname === '/') {
+        this.props.signUpInfoAction(username, email, password);
+        this.props.router.push('/student-or-teacher');
+      } else {
+        axios.post('/api/users/authentication', {
+          username,
+          password,
+        })
+        .then((res) => {
+          if (res.data) {
+            // send logged in user information to the store
+            this.props.userInfoAction(res.data);
+            // take user to the dashboard
+            this.props.router.push(`/dashboard/${res.data.user_id}/${res.data.lastClassViewed.name}`);
+          }
+        })
+        .catch(() => {
+
+        });
+      }
     }
   }
 
-  renderInput(type, variable) {
+  renderInput(type) {
     const { loginFormErrors } = this.state;
     return (
       <div className={`input ${!!loginFormErrors[type] ? 'error' : ''}`}>
@@ -82,7 +111,7 @@ export class Login extends Component {
           type={type === 'password' ? 'password' : 'text'}
           onChange={this.handleChange}
           name={`${type}`}
-          value={this.state[variable]}
+          value={this.state[type]}
           placeholder={`Enter ${type}`}
         />
         {/* display error message when user enters infomation incorrectly */}
@@ -92,12 +121,13 @@ export class Login extends Component {
   }
 
   render() {
-    const { username, email, password, authenticationError } = this.state;
+    const { authenticationError } = this.state;
     return (
       <div>
-        {this.renderInput('username', username)}
-        {this.renderInput('email', email)}
-        {this.renderInput('password', password)}
+        {this.renderInput('username')}
+        {/* render input box if user is trying to sign up */}
+        {this.props.pathname === '/' && this.renderInput('email')}
+        {this.renderInput('password')}
         <button onClick={this.handleSubmit}>
           <span>GO</span>
           <i className="fa fa-check" />
@@ -108,5 +138,16 @@ export class Login extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+LoginOrSignUp.propTypes = {
+  router: PropTypes.object.isRequired,
+  pathname: PropTypes.string,
+  signUpInfoAction: PropTypes.func.isRequired,
+  userInfoAction: PropTypes.func.isRequired,
+};
+
+LoginOrSignUp.defaultProps = {
+  pathname: '/login',
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginOrSignUp));
 
