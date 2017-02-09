@@ -30,7 +30,7 @@ export class DragAndDrop extends Component {
 
   submit(e) {
     e.preventDefault();
-    fileWatcher();
+    fileWatcher('/Users/Joshua/Desktop/projects/test_watching');
   }
 
   render() {

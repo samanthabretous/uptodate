@@ -41,16 +41,18 @@ const getUserAuthentication = (req, res) => {
 const getLastClassViewed = (req, res) => {
   models.user.findById(req.params.userId)
   .then((user) => {
+    console.log('first then', user)
     if (user) {
       return models.class.findOne({
         where: {
-          id: user.dataValues.lastClassViewed,
+          id: user.dataValues.lastClassViewedId,
         },
       });
     }
     throw new Error();
   })
   .then((singleClass) => {
+    console.log('second then', singleClass)
     if (singleClass) {
       res.send(singleClass);
     } else {

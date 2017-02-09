@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
         isUrl: true,
       },
+      repo: {
+        type: DataTypes.JSON,
+        allowNull: true,
+      },
     },
     {
       classMethods: {

@@ -1,6 +1,9 @@
 const fs = require('fs-extra');
 const path = require('path');
 const mkdirp = require('mkdirp');
+const models = require('../../db/models');
+
+const Lesson = models.lesson;
 
 
 const pathMaker = (directoryBeingWatched, usersLocalPath) => {
@@ -47,31 +50,36 @@ const addDir = (req, res) => {
 
 const addFile = (req, res) => {
   const { repoPath, localPath, data } = req.body;
-  const finalrepoFilePath = pathMaker(repoPath, localPath);
-  fs.writeFile(finalrepoFilePath, data, (err) => {
-    if (err) {
-      res.sendStatus(500);
-    } else {
+  console.log(req.body);
+  Lesson.findById(1)
+  .then(data => {
+    console.log(data)
+  })
+  // const finalrepoFilePath = pathMaker(repoPath, localPath);
+  // fs.writeFile(finalrepoFilePath, data, (err) => {
+  //   if (err) {
+  //     res.sendStatus(500);
+  //   } else {
       res.sendStatus(200);
-    }
-  });
+  //   }
+  // });
 };
 
 const deleteFile = (req, res) => {
   // repoPath = directory being watched
   // localPath = full local path change was made on
   const { repoPath, localPath } = req.body;
-  const finalrepoFilePath = pathMaker(repoPath, localPath);
+  // const finalrepoFilePath = pathMaker(repoPath, localPath);
   // this if ensures you never erase the root direcroty
-  if (finalrepoFilePath.length > 28) {
-    fs.remove(finalrepoFilePath, (err) => {
-      if (err) {
-        res.sendStatus(500);
-      } else {
-        res.sendStatus(200);
-      }
-    });
-  }
+  // if (finalrepoFilePath.length > 28) {
+  //   fs.remove(finalrepoFilePath, (err) => {
+  //     if (err) {
+  //       res.sendStatus(500);
+  //     } else {
+  //       res.sendStatus(200);
+  //     }
+  //   });
+  // }
 };
 
 const deleteDir = (req, res) => {
