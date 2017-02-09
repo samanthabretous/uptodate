@@ -1,7 +1,7 @@
 
 module.exports = (sequelize, DataTypes) => {
   const Work = sequelize.define('work', {
-    file: {
+    zipFile: {
       type: DataTypes.STRING,
       allowNull: false,
     },

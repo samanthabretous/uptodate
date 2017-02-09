@@ -5,14 +5,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      response: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-      },
     },
     {
       classMethods: {
         associate(models) {
+          Discussion.belongsTo(models.discussion, { as: 'responseTo' });
           Discussion.belongsTo(models.user);
           Discussion.belongsTo(models.lesson);
         },

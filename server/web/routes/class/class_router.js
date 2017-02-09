@@ -7,6 +7,9 @@ router.route('/:enrollmentCode')
 router.route('/titlebar/:currentClassEnrollmentCode/:userId')
   .get(middleware.getTitlebarInfo);
 
+router.route('/info/:classId')
+  .get(middleware.fetchClassInfo);
+
 router.route('/newclass')
   .post(middleware.postNewClass);
 
