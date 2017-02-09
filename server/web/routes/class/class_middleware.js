@@ -32,6 +32,7 @@ const getClassByEnrollmentCode = (req, res) => {
   .catch(() => res.sendStatus(500));
 };
 
+// /api/classes/info/:classId
 const fetchClassInfo = (req, res) => {
   models.class.findById(req.params.classId, {
     include: [{ all: true }],
