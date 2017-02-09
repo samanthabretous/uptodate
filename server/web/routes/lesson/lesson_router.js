@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const middleware = require('./lesson_middleware');
 
-router.route('/new-lesson')
+router.route('/new_lesson')
   .post(middleware.createNewLesson);
 
 router.route('/:lessonId')

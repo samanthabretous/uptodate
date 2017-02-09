@@ -2,10 +2,8 @@ const Lesson = require('../../db/models/index').lesson;
 
 // /api/lessons/new-lesson -- create new row in lesson table
 const createNewLesson = (req, res) => {
-  console.log("YOU'RE HITTING ME, IT WORKS. STOP IT")
   Lesson.create(req.body)
     .then((newLesson) => {
-      console.log('NEW LESSON ========>', newLesson)
       res.send(newLesson);
     })
     .catch((err) => {
@@ -14,6 +12,7 @@ const createNewLesson = (req, res) => {
     });
 };
 
+// /api/lessons/:lessonId
 const fetchLesson = (req, res) => {
   Lesson.findById(req.params.lessonId, {
     include: [{ all: true }],
@@ -27,15 +26,16 @@ const fetchLesson = (req, res) => {
   });
 };
 
+// api/lessons/:lessonId
 const updateLesson = (req, res) => {
   Lesson.update({
     name: req.body.name,
     lecture: req.body.lecture,
   }, {
-    where: { id: req.params.id },
+    where: { id: req.params.lessonId },
   })
-  .then((updatedLesson) => {
-    res.send(updatedLesson);
+  .then(() => {
+    res.sendStatus(200);
   })
   .catch((err) => {
     console.error(err);
