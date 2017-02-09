@@ -9,6 +9,7 @@
     "electron-build": "webpack --config webpack.config.electron_dev.js",
     "web": "concurrently -k './node_modules/.bin/nodemon start.js' 'webpack --config webpack.config.js'",
     "server": "concurrently -k 'nodemon start.js'",
+    "seed": "node ./server/web/seed",
     "test": "DEBUG=API_ROUTES concurrently -k 'yarn server' 'mocha --watch'",
     "test:mocha": "mocha --watch",
     "eslint": "./node_modules/.bin/eslint ."
