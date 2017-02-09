@@ -9,7 +9,7 @@ const postNewUser = (req, res) => {
       email: req.body.email,
       username: req.body.username,
       password: req.body.password,
-      type: req.body.type,
+      position: req.body.position,
     },
   })
   .then(user => res.send(user))
@@ -24,8 +24,13 @@ const getUserAuthentication = (req, res) => {
       password: req.body.password,
     },
     attributes: {
-      exclude: ['createdAt', 'updatedAt', 'password'],
+      exclude: ['createdAt', 'updatedAt', 'password', 'lastClassViewed'],
     },
+    include: [{
+      model: models.class,
+      as: 'currentClass',
+      attributes: ['enrollmentCode'],
+    }],
   })
   .then((user) => {
     if (user) {
@@ -60,9 +65,10 @@ const getLastClassViewed = (req, res) => {
   .catch(() => res.sendStatus(500));
 };
 
+// /api/users/:userId/lastclass/:classId
 const updateLastClassViewed = (req, res) => {
   models.user.update({
-    lastClassViewed: req.params.classId,
+    lastClassViewedId: req.params.classId,
   }, {
     where: {
       id: req.params.userId,
