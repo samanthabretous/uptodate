@@ -1,18 +1,33 @@
 process.env.NODE_ENV = 'test';
 
-const models = require('../server/web/db/models/index');
-const seed = require('../server/web/seed/index').user;
+const User = require('../server/web/db/models/index').user;
 const expect = require('chai').expect;
 const supertest = require('supertest');
-const server = require('../server/web');
+const server = require('../start.js');
 
 describe('User tests', () => {
-  before((done) => {
-    models.user.sync({ force: true }).then(() => {
-      seed();
-    });
-    done();
-  });
+  // fake data we'll be using for the tests
+  const users = [
+    {
+      firstName: 'Valerie',
+      lastName: 'Frizzle',
+      email: 'vfrizzle@msb.com',
+      username: 'vfrizzle',
+      password: 'pass1',
+      position: 'Instructor',
+    }, {
+      firstName: 'Keesha',
+      lastName: 'Franklin',
+      email: 'kfranklin@msb.com',
+      username: 'kfranklin',
+      password: 'pass2',
+      position: 'Student',
+    },
+  ];
+
+  before(() => User.sync({ force: true })
+      .then(() => User.bulkCreate(users, { returning: true }))
+      .catch(err => console.log('DB Err!', err)));
 
   it('"/api/users/registration" should respond with a new user', (done) => {
     const newUser = { firstName: 'Mickey', lastName: 'Mouse', email: 'mickey@disney.com', username: 'mickey', password: 'pass1', type: 'Instructor' };
@@ -20,7 +35,6 @@ describe('User tests', () => {
     .post('/api/users/registration')
     .send(newUser)
     .end((err, res) => {
-      expect(res.body).be.a('array');
       expect(res.body[0]).be.a('object');
       expect(res.body[0]).to.have.property('firstName');
       expect(res.body[0]).to.have.property('lastName');
