@@ -68,7 +68,7 @@ const getLastClassViewed = (req, res) => {
 // /api/users/:userId/lastclass/:classId
 const updateLastClassViewed = (req, res) => {
   models.user.update({
-    lastClassViewedId: req.params.classId,
+    lastClassViewed: req.params.classId,
   }, {
     where: {
       id: req.params.userId,
