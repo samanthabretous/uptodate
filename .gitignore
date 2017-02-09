@@ -6,5 +6,6 @@ build/
 npm-debug.log
 .tmp/
 z_electron_notes.js
+client/redux/test
 
 
