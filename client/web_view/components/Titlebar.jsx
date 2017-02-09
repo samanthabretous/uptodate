@@ -9,25 +9,63 @@ const mapDispatchToProps = dispatch => (
 );
 
 const mapStateToProps = state => ({
-  state,
+  firstName: state.titlebar.userInfo.firstName,
+  id: state.titlebar.id,
+  name: state.titlebar.name,
+  enrollmentCode: state.titlebar.enrollmentCode,
+  numberOfInstructorsInCurrentClass: state.titlebar.numberOfInstructorsInCurrentClass,
+  numberOfStudentsInCurrentClass: state.titlebar.numberOfStudentsInCurrentClass,
 });
 
-class Titlebar extends Component {
-  render() {
-    return (
+const Titlebar = props =>
+  (
+    <div>
+      { /* first title bar */ }
       <div>
-        Titlebar
+        <div> 
+          <h1>Up To Date</h1>
+        </div>
+        <h2>Hi, {props.firstName}</h2>
       </div>
-    );
-  }
-}
+      { /* second title bar */ }
+      <div>
+        <div>
+          <div> 
+            <h2>{props.name}</h2>
+            <p>{props.enrollmentCode}</p>
+          </div>
+          <div>
+            <div>
+              <h6>Students</h6>
+              <h3>{props.numberOfStudentsInCurrentClass}</h3>
+            </div>
+            <div>
+              <h6>Instructors</h6>
+              <h3>{props.numberOfInstructorsInCurrentClass}</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
 
 Titlebar.propTypes = {
-  user: PropTypes.object,
+  firstName: PropTypes.string,
+  id: PropTypes.number,
+  name: PropTypes.string,
+  enrollmentCode: PropTypes.string,
+  numberOfInstructorsInCurrentClass: PropTypes.number,
+  numberOfStudentsInCurrentClass: PropTypes.number,
 };
 
 Titlebar.defaultProps = {
-  user: null,
+  firstName: null,
+  id: null,
+  name: '',
+  enrollmentCode: '',
+  numberOfInstructorsInCurrentClass: 0,
+  numberOfStudentsInCurrentClass: 0,
 };
 
 

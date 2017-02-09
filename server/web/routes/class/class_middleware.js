@@ -35,7 +35,7 @@ const getClassByEnrollmentCode = (req, res) => {
 const getTitlebarInfo = (req, res) => {
   models.user.findById(req.params.userId, {
     attributes: {
-      exclude: ['createdAt', 'updatedAt', 'lastClassViewed'],
+      exclude: ['createdAt', 'updatedAt', 'lastClassViewed', 'password', 'description', 'location', 'schedule'],
     },
     include: [
       // information about the current class
