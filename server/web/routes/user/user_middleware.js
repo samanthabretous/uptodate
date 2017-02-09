@@ -22,8 +22,9 @@ const postNewUser = (req, res) => {
   .spread((user, created) => {
     if (created) {
       res.send(user);
+    } else {
+      throw new Error('Invalid registration info.');
     }
-    throw new Error('Invalid registration info.');
   })
   .catch((err) => {
     res.status(500).send(err.message);
