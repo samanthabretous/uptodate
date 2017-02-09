@@ -29,7 +29,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       len: [6, 100],
     },
-    type: { // this is to differentiate between which views to serve up depending on type of user.
+    position: {
+    // this is to differentiate between which views to serve up depending on type of user.
       type: DataTypes.STRING,
       allowNull: false,
       isIn: [['Instructor', 'Student', 'Mentor', 'T.A.']],
