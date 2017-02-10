@@ -13,6 +13,7 @@ module.exports = [
     username: 'kfranklin',
     password: 'pass2',
     position: 'Student',
+    lastClassViewed: 1,
   }, {
     firstName: 'Phoebe',
     lastName: 'Terese',
