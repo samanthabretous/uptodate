@@ -5,7 +5,15 @@ const models = require('../../db/models');
 
 const Lesson = models.lesson;
 
-
+/**
+ * creates a path to repo on server
+ * @param {String} directoryBeingWatched
+ * @param {String} usersLocalPath
+ * @return {object} finalRepoPath, subPath, fileName
+ * finalRepoPath = path to repo storage
+ * subPath = path after 'repo/' directory
+ * fileName = full file name
+ */
 const pathMaker = (directoryBeingWatched, usersLocalPath) => {
   let repoFolderPath = usersLocalPath.split('/');
   // this is used to remove everything prior to the ${repoPath} in localPath
@@ -93,7 +101,6 @@ const deleteFile = (req, res) => {
   // localPath = full local path change was made on
   const { repoPath, localPath } = req.body;
   const { finalRepoPath, fileName } = pathMaker(repoPath, localPath);
-  // this if ensures you never erase the root direcroty
   Lesson.findById(1)
   .then((lesson) => {
     const repo = lesson.get('repo');
@@ -106,6 +113,7 @@ const deleteFile = (req, res) => {
       });
   })
   .then((updated) => {
+    // this if ensures you never erase the root direcroty
     if (updated && finalRepoPath.length > 28) {
       fs.remove(finalRepoPath, (err) => {
         if (err) {
