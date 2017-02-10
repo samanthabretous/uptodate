@@ -31,7 +31,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       len: [6, 100],
     },
-    type: { // this is to differentiate between which views to serve up depending on type of user.
+    position: {
+    // this is to differentiate between which views to serve up depending on type of user.
       type: DataTypes.STRING,
       allowNull: false,
       isIn: [['Instructor', 'Student', 'Mentor', 'T.A.']],
@@ -40,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
     classMethods: {
       associate(models) {
         // this column is for which class info should be displayed on the User's profile page.
-        User.belongsTo(models.class, { as: 'lastClassViewed' });
+        User.belongsTo(models.class, { as: 'currentClass', foreignKey: 'lastClassViewed' });
         User.belongsToMany(models.class, { through: 'user_class' });
         User.belongsToMany(models.work, { through: 'student_work' });
         User.hasMany(models.discussion);

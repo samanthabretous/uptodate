@@ -1,0 +1,61 @@
+module.exports = [{
+  zipFile: 'pede_lobortis_ligula.js',
+  submitted: '04/18/2016',
+  grade: 12,
+  assignmentId: 1,
+}, {
+  zipFile: 'in.html',
+  submitted: '10/22/2016',
+  grade: 51,
+  assignmentId: 1,
+}, {
+  zipFile: 'velit_vivamus.js',
+  submitted: '01/11/2017',
+  grade: 37,
+  assignmentId: 1,
+}, {
+  zipFile: 'posuere.js',
+  submitted: '06/22/2016',
+  grade: 98,
+  assignmentId: 2,
+}, {
+  zipFile: 'maecenas_ut_massa.css',
+  submitted: '01/25/2017',
+  grade: 36,
+  assignmentId: 2,
+}, {
+  zipFile: 'diam_cras.js',
+  submitted: '04/30/2016',
+  grade: 63,
+  assignmentId: 2,
+}, {
+  zipFile: 'mi_integer.js',
+  submitted: '09/15/2016',
+  grade: 22,
+  assignmentId: 3,
+}, {
+  zipFile: 'ut_nulla.js',
+  submitted: '07/19/2016',
+  grade: 42,
+  assignmentId: 3,
+}, {
+  zipFile: 'auctor.js',
+  submitted: '03/15/2016',
+  grade: 56,
+  assignmentId: 3,
+}, {
+  zipFile: 'venenatis.java',
+  submitted: '06/08/2016',
+  grade: 58,
+  assignmentId: 4,
+}, {
+  zipFile: 'cras.js',
+  submitted: '09/11/2016',
+  grade: 3,
+  assignmentId: 4,
+}, {
+  zipFile: 'a_odio.css',
+  submitted: '01/06/2017',
+  grade: 99,
+  assignmentId: 5,
+}];
