@@ -5,5 +5,15 @@ import StudentOrTeacher from './StudentOrTeacher';
 import Dashboard from './Dashboard';
 import Lesson from './Lesson';
 import Overview from './Overview';
+import ViewInstructorCode from './ViewInstructorCode';
 
-export { App, LoginOrSignUp, HomePage, StudentOrTeacher, Lesson, Dashboard, Overview };
+export { App,
+        LoginOrSignUp,
+        HomePage,
+        StudentOrTeacher,
+        Lesson,
+        Dashboard,
+        Overview,
+        ViewInstructorCode,
+      };
+
