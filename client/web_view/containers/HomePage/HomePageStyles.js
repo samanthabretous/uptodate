@@ -42,3 +42,4 @@ export default {
     fontSize: '2em',
   },
 };
+
