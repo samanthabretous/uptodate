@@ -1,6 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import style from './TitlebarStyles';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -19,29 +20,29 @@ const mapStateToProps = state => ({
 
 const Titlebar = props =>
   (
-    <div>
+    <div style={style.dashbar}>
       { /* first title bar */ }
-      <div>
-        <div> 
-          <h1>Up To Date</h1>
+      <div style={style.firstDashbar}>
+        <div>
+          <h1 style={style.logo}>Up To Date</h1>
         </div>
-        <h2>Hi, {props.firstName}</h2>
+        <h2 style={style.firstName}>Hi, {props.firstName}</h2>
       </div>
       { /* second title bar */ }
-      <div>
-        <div>
-          <div> 
-            <h2>{props.name}</h2>
-            <p>{props.enrollmentCode}</p>
-          </div>
+      <div style={style.secondDashbar}>
+        <div style={style.classInfo}>
           <div>
-            <div>
-              <h6>Students</h6>
-              <h3>{props.numberOfStudentsInCurrentClass}</h3>
+            <h2 style={style.className}>{props.name}</h2>
+            <p style={style.enrollmentCode}>enrollment code: {props.enrollmentCode}</p>
+          </div>
+          <div style={style.classUserInfo}>
+            <div style={style.userTotal}>
+              <h6 style={style.type}>Students</h6>
+              <h3 style={style.amount}>{props.numberOfStudentsInCurrentClass}</h3>
             </div>
-            <div>
-              <h6>Instructors</h6>
-              <h3>{props.numberOfInstructorsInCurrentClass}</h3>
+            <div style={style.userTotal}>
+              <h6 style={style.type}>Instructors</h6>
+              <h3 style={style.amount}>{props.numberOfInstructorsInCurrentClass}</h3>
             </div>
           </div>
         </div>
