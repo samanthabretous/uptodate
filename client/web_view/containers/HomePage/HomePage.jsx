@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
+import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { LoginOrSignUp } from './index';
+import { LoginOrSignUp } from '../index';
+import style from './HomePageStyles';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -13,7 +15,7 @@ const mapStateToProps = state => ({
   state,
 });
 
-
+@Radium
 class HomePage extends Component {
   constructor(props) {
     super(props);
@@ -26,14 +28,15 @@ class HomePage extends Component {
   render() {
     return (
       <div>
-        <nav>
-          <div>Logo</div>
-          <button onClick={this.goToLogin}>Login</button>
+        <nav style={style.homebar}>
+          <div style={style.logo}>Logo</div>
+          <button style={style.loginButton} onClick={this.goToLogin}>Login</button>
         </nav>
-        <section className="landing_view">
-          <div>
-            <h1>Tool for Students. Made by Students</h1>
-            <h2>BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH</h2>
+        <section style={style.topSection}>
+          <div style={style.headlineContainer}>
+            <h1 style={style.headline}>Tool for Students.</h1>
+            <h1 style={style.headline}>Made by Students</h1>
+            <h2 style={style.tagline}>BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH</h2>
           </div>
           <LoginOrSignUp pathname={this.props.location.pathname}/>
         </section>
