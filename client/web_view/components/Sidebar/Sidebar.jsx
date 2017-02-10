@@ -1,8 +1,10 @@
 import React from 'react';
+import Radium from 'radium';
 import { Link } from 'react-router';
+import style from './SidebarStyles';
 
 const Sidebar = () => (
-  <div>
+  <div style={style.sidebar}>
     <Link>
       <h4>Dashboard</h4>
       <div>Icon</div>
@@ -30,4 +32,4 @@ const Sidebar = () => (
   </div>
 );
 
-export default Sidebar;
+export default Radium(Sidebar);
