@@ -1,4 +1,3 @@
-import color from 'color';
 import colors from '../App/colors';
 
 export default {
