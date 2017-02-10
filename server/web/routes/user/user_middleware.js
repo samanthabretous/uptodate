@@ -16,7 +16,7 @@ const postNewUser = (req, res) => {
       email: req.body.email,
       username: req.body.username,
       password: req.body.password,
-      type: req.body.type,
+      position: req.body.position,
     },
   })
   .spread((user, created) => {
@@ -39,8 +39,13 @@ const getUserAuthentication = (req, res) => {
       password: req.body.password,
     },
     attributes: {
-      exclude: ['createdAt', 'updatedAt', 'password'],
+      exclude: ['createdAt', 'updatedAt', 'password', 'lastClassViewed'],
     },
+    include: [{
+      model: models.class,
+      as: 'currentClass',
+      attributes: ['enrollmentCode'],
+    }],
   })
   .then((user) => {
     if (user) {
