@@ -8,5 +8,14 @@ import Lesson from './Lesson/Lesson';
 import Overview from './Overview/Overview';
 import ViewInstructorCode from './ViewInstructorCode/ViewInstructorCode';
 
-export { colors, App, LoginOrSignUp, HomePage, StudentOrTeacher, Lesson, Dashboard, Overview, ViewInstructorCode };
+export { colors,
+         App,
+         LoginOrSignUp,
+         HomePage,
+         StudentOrTeacher,
+         Lesson,
+         Dashboard,
+         Overview,
+         ViewInstructorCode,
+       };
 
