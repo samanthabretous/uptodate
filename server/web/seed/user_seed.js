@@ -4,14 +4,14 @@ module.exports = [
     lastName: 'Frizzle',
     email: 'vfrizzle@msb.com',
     username: 'vfrizzle',
-    password: 'pass1',
+    password: 'password1',
     position: 'Instructor',
   }, {
     firstName: 'Keesha',
     lastName: 'Franklin',
     email: 'kfranklin@msb.com',
     username: 'kfranklin',
-    password: 'pass2',
+    password: 'password2',
     position: 'Student',
     lastClassViewed: 1,
   }, {
@@ -19,14 +19,14 @@ module.exports = [
     lastName: 'Terese',
     email: 'pterese@msb.com',
     username: 'pterese',
-    password: 'pass3',
+    password: 'password3',
     position: 'Student',
   }, {
     firstName: 'Ralphi',
     lastName: 'Tennelli',
     email: 'rtennelli@msb.com',
     username: 'rtennelli',
-    password: 'pass4',
+    password: 'password4',
     position: 'Student',
   },
 ];

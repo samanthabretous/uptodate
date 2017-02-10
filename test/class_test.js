@@ -21,11 +21,12 @@ describe('Class API tests', () => {
 
   it('"/api/classes/titlebar/:currentClassEnrollmentCode/:userId" should respond all userinfo and currentClass info', (done) => {
     supertest(server)
-    .get('/api/classes/titlebar/456/1')
+    .get('/api/classes/titlebar/456/2')
     .end((err, res) => {
       expect(res.body).to.be.a('object');
       expect(res.body).to.have.property('classes').be.a('array');
       expect(res.body).to.have.property('currentClass').be.a('object');
+      expect(res.body).to.have.deep.property('currentClass.users').be.a('array');
 
       done();
     });
