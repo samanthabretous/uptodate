@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
+import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Sidebar, Titlebar } from '../components';
+import { Sidebar, Titlebar } from '../../components';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -12,7 +13,6 @@ const mapDispatchToProps = dispatch => (
 const mapStateToProps = state => ({
   state,
 });
-
 
 class Dashboard extends Component {
   render() {
