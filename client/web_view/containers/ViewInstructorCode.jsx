@@ -14,13 +14,11 @@ const mapStateToProps = state => ({
   state,
 });
 
-const ViewInstructorCode = () => {
-  return (
-    <div>
-      <Directory />
-      <TextEditor />
-    </div>
-  );
-};
+const ViewInstructorCode = () => (
+  <div>
+    <Directory />
+    <TextEditor />
+  </div>
+);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewInstructorCode);
