@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
-import { signUpInfoAction, userInfoAction } from '../../redux/login';
+import { signUpInfoAction, userInfoAction } from '../../../redux/login';
+import style from './LoginOrSignUpStyles';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -26,10 +27,24 @@ class LoginOrSignUp extends Component {
       password: 'password1',
       authenticationError: null,
     };
+    this.isSignupPage = this.isSignupPage.bind(this);
+    this.isValidEmail = this.isValidEmail.bind(this);
+    this.isValidPassword = this.isValidPassword.bind(this);
     this.checkFormValidation = this.checkFormValidation.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.renderInput = this.renderInput.bind(this);
+  }
+
+  // check to see if we need to render the signup info 
+  isSignupPage() {
+    return this.props.pathname === '/';
+  }
+  isValidEmail(email) {
+    return email.indexOf('@') === -1 && email.indexOf('.' === -1);
+  }
+  isValidPassword(password) {
+    return password.length < 6;
   }
 
   checkFormValidation(errors) {
@@ -65,10 +80,10 @@ class LoginOrSignUp extends Component {
     const errors = {};
     if (username === '') errors.username = 'Can not be empty';
     // only check email if the user is signing up
-    if (this.props.pathname === '/') {
-      if (email.indexOf('@') === -1 && email.indexOf('.' === -1)) errors.email = 'Must be a vaild email';
+    if (this.isSignupPage()) {
+      if (this.isValidEmail(email)) errors.email = 'Must be a valid email';
     }
-    if (password.length < 6) errors.password = 'Password must be at least 6 characters long';
+    if (this.isValidPassword(password)) errors.password = 'Password must be at least 6 characters long';
     this.checkFormValidation(errors);
 
     // before sending form request to back end check to make sure there are no errors
@@ -78,7 +93,7 @@ class LoginOrSignUp extends Component {
        * send info to the store
        * then continue asking questions on the next page
        */
-      if (this.props.pathname === '/') {
+      if (this.isSignupPage()) {
         this.props.signUpInfoAction(username, email, password);
         this.props.router.push('/student-or-teacher');
       } else {
@@ -105,8 +120,8 @@ class LoginOrSignUp extends Component {
     const { loginFormErrors } = this.state;
     return (
       <div className={`input ${!!loginFormErrors[type] ? 'error' : ''}`}>
-        <label htmlFor={`${type}`}>{type}</label>
         <input
+          style={style.userInput}
           id={type}
           type={type === 'password' ? 'password' : 'text'}
           onChange={this.handleChange}
@@ -123,14 +138,17 @@ class LoginOrSignUp extends Component {
   render() {
     const { authenticationError } = this.state;
     return (
-      <div>
-        {this.renderInput('username')}
+      <div
+        style={this.isSignupPage()
+        ? style.signupForm
+        : style.loginForm}
+      >
         {/* render input box if user is trying to sign up */}
         {this.props.pathname === '/' && this.renderInput('email')}
+        {this.renderInput('username')}
         {this.renderInput('password')}
-        <button onClick={this.handleSubmit}>
-          <span>GO</span>
-          <i className="fa fa-check" />
+        <button style={style.signupButton} onClick={this.handleSubmit}>
+          sign up for free
         </button>
         {authenticationError && <span>There was an error logging in</span>}
       </div>
