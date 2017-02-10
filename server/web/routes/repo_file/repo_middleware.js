@@ -10,9 +10,11 @@ const pathMaker = (directoryBeingWatched, usersLocalPath) => {
   let repoFolderPath = usersLocalPath.split('/');
   // this is used to remove everything prior to the ${repoPath} in localPath
   const repoPathLocationStart = repoFolderPath.indexOf(directoryBeingWatched);
+  const fileName = repoFolderPath[repoFolderPath.length -1];
   repoFolderPath = repoFolderPath.slice(repoPathLocationStart + 1).join('/');
+
   // joins path based on servers location pointing to repo fodler
-  return path.join(__dirname, '../../../../repo/', repoFolderPath);
+  return { finalRepoPath: path.join(__dirname, '../../../../repo/', repoFolderPath), subPath: repoFolderPath, fileName };
 };
 
 // api/repoFile/updateFile
@@ -22,8 +24,8 @@ const rawData = (req, res) => {
   // localPath = full local path change was made on
   // data = inner file text
   const { repoPath, localPath, data } = req.body;
-  const finalrepoFilePath = pathMaker(repoPath, localPath);
-  fs.writeFile(finalrepoFilePath, data, (err) => {
+  const { finalRepoPath } = pathMaker(repoPath, localPath);
+  fs.writeFile(finalRepoPath, data, (err) => {
     if (err) {
       res.sendStatus(500);
     } else {
@@ -38,8 +40,8 @@ const addDir = (req, res) => {
   // repoPath = directory being watched
   // localPath = full local path change was made on
   const { repoPath, localPath } = req.body;
-  const finalrepoDirectory = pathMaker(repoPath, localPath);
-  mkdirp(finalrepoDirectory, (err) => {
+  const { finalRepoPath } = pathMaker(repoPath, localPath);
+  mkdirp(finalRepoPath, (err) => {
     if (err) {
       res.sendStatus(500);
     } else {
@@ -48,48 +50,87 @@ const addDir = (req, res) => {
   });
 };
 
+// api/repo_file/addFile
+// ~ this is to create a file in webs repo file directory (addDir of chokidari)
 const addFile = (req, res) => {
+  // repoPath = directory being watched
+  // localPath = full local path change was made on
   const { repoPath, localPath, data } = req.body;
-  console.log(req.body);
+  const { finalRepoPath, subPath, fileName } = pathMaker(repoPath, localPath);
   Lesson.findById(1)
-  .then(data => {
-    console.log(data)
+  .then((lesson) => {
+    const repo = lesson.get('repo');
+    repo[fileName] = subPath;
+    return Lesson.update({ repo },
+      {
+        where: {
+          id: 1,
+        },
+      });
   })
-  // const finalrepoFilePath = pathMaker(repoPath, localPath);
-  // fs.writeFile(finalrepoFilePath, data, (err) => {
-  //   if (err) {
-  //     res.sendStatus(500);
-  //   } else {
-      res.sendStatus(200);
-  //   }
-  // });
+  .then((updated) => {
+    if (updated) {
+      fs.writeFile(finalRepoPath, data, (err) => {
+        if (err) {
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(200);
+        }
+      });
+    } else {
+      throw new Error();
+    }
+  })
+  .catch(() => {
+    res.sendStatus(500);
+  });
 };
 
+// api/repo_file/addFile
+// ~ this is to delete a file in webs repo file directory (addDir of chokidari)
 const deleteFile = (req, res) => {
   // repoPath = directory being watched
   // localPath = full local path change was made on
   const { repoPath, localPath } = req.body;
-  // const finalrepoFilePath = pathMaker(repoPath, localPath);
+  const { finalRepoPath, fileName } = pathMaker(repoPath, localPath);
   // this if ensures you never erase the root direcroty
-  // if (finalrepoFilePath.length > 28) {
-  //   fs.remove(finalrepoFilePath, (err) => {
-  //     if (err) {
-  //       res.sendStatus(500);
-  //     } else {
-  //       res.sendStatus(200);
-  //     }
-  //   });
-  // }
+  Lesson.findById(1)
+  .then((lesson) => {
+    const repo = lesson.get('repo');
+    delete repo[fileName];
+    return Lesson.update({ repo },
+      {
+        where: {
+          id: 1,
+        },
+      });
+  })
+  .then((updated) => {
+    if (updated && finalRepoPath.length > 28) {
+      fs.remove(finalRepoPath, (err) => {
+        if (err) {
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(200);
+        }
+      });
+    } else {
+      throw new Error();
+    }
+  })
+  .catch(() => {
+    res.sendStatus(500);
+  });
 };
 
 const deleteDir = (req, res) => {
   // repoPath = directory being watched
   // localPath = full local path change was made on
   const { repoPath, localPath } = req.body;
-  const finalrepoDirectory = pathMaker(repoPath, localPath);
+  const { finalRepoPath } = pathMaker(repoPath, localPath);
   // this if ensures you never erase the root direcroty
-  if (finalrepoDirectory.length > 28) {
-    fs.remove(finalrepoDirectory, (err) => {
+  if (finalRepoPath.length > 28) {
+    fs.remove(finalRepoPath, (err) => {
       if (err) {
         res.sendStatus(500);
       } else {
