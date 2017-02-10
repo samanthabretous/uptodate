@@ -24,6 +24,7 @@ class Directory extends Component {
 
   render() {
     const { directory } = this.state;
+    // shortid generates 7-14 digit unique ids, useful for looping functions
     const files = Object.entries(directory).map(val => <li key={shortid.generate()}>{val[0]}</li>);
     return (
       <div>
