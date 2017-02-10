@@ -7,9 +7,9 @@ const Lesson = models.lesson;
 
 /**
  * creates a path to repo on server
- * @param {String} directoryBeingWatched
- * @param {String} usersLocalPath
- * @return {object} finalRepoPath, subPath, fileName
+ * @param { String } directoryBeingWatched
+ * @param { String } usersLocalPath
+ * @return { object } finalRepoPath, subPath, fileName
  * finalRepoPath = path to repo storage
  * subPath = path after 'repo/' directory
  * fileName = full file name
@@ -18,7 +18,7 @@ const pathMaker = (directoryBeingWatched, usersLocalPath) => {
   let repoFolderPath = usersLocalPath.split('/');
   // this is used to remove everything prior to the ${repoPath} in localPath
   const repoPathLocationStart = repoFolderPath.indexOf(directoryBeingWatched);
-  const fileName = repoFolderPath[repoFolderPath.length -1];
+  const fileName = repoFolderPath[repoFolderPath.length - 1];
   repoFolderPath = repoFolderPath.slice(repoPathLocationStart + 1).join('/');
 
   // joins path based on servers location pointing to repo fodler
