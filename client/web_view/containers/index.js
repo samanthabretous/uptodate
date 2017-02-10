@@ -6,5 +6,16 @@ import StudentOrTeacher from './StudentOrTeacher/StudentOrTeacher';
 import Dashboard from './Dashboard/Dashboard';
 import Lesson from './Lesson/Lesson';
 import Overview from './Overview/Overview';
+import ViewInstructorCode from './ViewInstructorCode/ViewInstructorCode';
 
-export { colors, App, LoginOrSignUp, HomePage, StudentOrTeacher, Lesson, Dashboard, Overview };
+export { colors,
+         App,
+         LoginOrSignUp,
+         HomePage,
+         StudentOrTeacher,
+         Lesson,
+         Dashboard,
+         Overview,
+         ViewInstructorCode,
+       };
+
