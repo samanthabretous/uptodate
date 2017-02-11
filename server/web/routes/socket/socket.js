@@ -1,5 +1,4 @@
 const _ = require('lodash');
-const models = require('../../db/models');
 const debug = require('debug')('SOCKET');
 
 module.exports = ((app, io) => {
@@ -21,30 +20,4 @@ module.exports = ((app, io) => {
       socket.leave();
     });
   });
-  // socket.on('message', payload => {
-  //   const {room, msg, userId, username, chatroomId} = payload;
-  //   Message.create({
-  //     msg, 
-  //     UserId: userId,
-  //     ChatroomId: chatroomId
-  //   })
-  //   .then(message => {
-  //     return Message.findById(message.id,{
-  //       include: [
-  //         {
-  //           model: User,
-  //           attributes: ['username']
-  //         },
-  //         {
-  //           model: Chatroom,
-  //           attributes: ['name']
-  //         }
-  //       ]
-  //     })
-  //   })
-  //   .then(message => {
-  //     io.to(room).emit('received-message', message)
-  //   })
-
-  // })
 });

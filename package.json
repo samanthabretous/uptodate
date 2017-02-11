@@ -8,9 +8,9 @@
     "electron": "concurrently -k './node_modules/.bin/nodemon server/electron/server.js' 'yarn electron-start'",
     "electron-build": "webpack --config webpack.config.electron_dev.js",
     "web": "concurrently -k './node_modules/.bin/nodemon start.js' 'webpack --config webpack.config.js'",
-    "server": "concurrently -k 'nodemon start.js'",
+    "server": "nodemon start.js",
     "seed": "node ./server/web/seed",
-    "test": "DEBUG=API_ROUTES,SOCKET nodemon start.js & mocha --watch",
+    "test": "DEBUG=API_ROUTES,SOCKET concurrently -k 'yarn server' 'mocha --watch --colors --timeout 3500'",
     "redux-test": "./node_modules/.bin/jest",
     "eslint": "./node_modules/.bin/eslint ."
   },
