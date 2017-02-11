@@ -9,20 +9,46 @@ const Lesson = models.lesson;
  * creates a path to repo on server
  * @param { String } directoryBeingWatched
  * @param { String } usersLocalPath
- * @return { object } finalRepoPath, subPath, fileName
+ * @return { object } finalRepoPath, subPath, fileDirectory
  * finalRepoPath = path to repo storage
  * subPath = path after 'repo/' directory
- * fileName = full file name
+ * fileDirectory = { arr } full file directory
  */
 const pathMaker = (directoryBeingWatched, usersLocalPath) => {
   let repoFolderPath = usersLocalPath.split('/');
   // this is used to remove everything prior to the ${repoPath} in localPath
   const repoPathLocationStart = repoFolderPath.indexOf(directoryBeingWatched);
-  const fileName = repoFolderPath[repoFolderPath.length - 1];
+  const fileDirectory = repoFolderPath.slice(repoPathLocationStart + 1);
   repoFolderPath = repoFolderPath.slice(repoPathLocationStart + 1).join('/');
 
   // joins path based on servers location pointing to repo fodler
-  return { finalRepoPath: path.join(__dirname, '../../../../repo/', repoFolderPath), subPath: repoFolderPath, fileName };
+  return { finalRepoPath: path.join(__dirname, '../../../../repo/', repoFolderPath), subPath: repoFolderPath, fileDirectory };
+};
+
+/**
+* adds to the nested tree structure using firstChildNode sicne its pass by
+* refrence there is no need to save this functions return into a object
+* @param {Array} firstChildNode
+* @param {Array} splitFileDirectory
+* @param {String} subpath
+* @returns {firstNestedNode}
+*/
+const addToTree = (firstChildNode, splitFileDirectory, subpath) => {
+
+  if (splitFileDirectory.length === 1) {
+    firstChildNode.push({ title: splitFileDirectory[0], path: subpath });
+    return firstChildNode;
+  } else {
+    for (let i = 0; i < firstChildNode.length; i += 1) {
+      if (firstChildNode[i].title === splitFileDirectory[0]) {
+        return addToTree(firstChildNode[i].childNodes, splitFileDirectory.slice(1), subpath);
+      }
+    }
+    const splitFileDirectorycopy = splitFileDirectory.slice(1);
+    const node = addToTree([], splitFileDirectorycopy, subpath);
+    firstChildNode.push({ title: splitFileDirectory[0], childNodes: node });
+    return firstChildNode;
+  }
 };
 
 // api/repoFile/updateFile
@@ -64,11 +90,11 @@ const addFile = (req, res) => {
   // repoPath = directory being watched
   // localPath = full local path change was made on
   const { repoPath, localPath, data } = req.body;
-  const { finalRepoPath, subPath, fileName } = pathMaker(repoPath, localPath);
+  const { finalRepoPath, subPath, fileDirectory } = pathMaker(repoPath, localPath);
   Lesson.findById(1)
   .then((lesson) => {
-    const repo = lesson.get('repo');
-    repo[fileName] = subPath;
+    let repo = lesson.get('repo');
+    addToTree(repo, fileDirectory, subPath);
     return Lesson.update({ repo },
       {
         where: {
