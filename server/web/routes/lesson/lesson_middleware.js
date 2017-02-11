@@ -6,10 +6,7 @@ const createNewLesson = (req, res) => {
     .then((newLesson) => {
       res.send(newLesson);
     })
-    .catch((err) => {
-      console.log(err);
-      res.sendStatus(500);
-    });
+    .catch(err => res.status(500).send(err.message));
 };
 
 // /api/lessons/:lessonId
@@ -20,10 +17,7 @@ const fetchLesson = (req, res) => {
   .then((lesson) => {
     res.send(lesson);
   })
-  .catch((err) => {
-    console.error(err);
-    res.sendStatus(500);
-  });
+  .catch(err => res.status(500).send(err.message));
 };
 
 // api/lessons/:lessonId
@@ -37,10 +31,7 @@ const updateLesson = (req, res) => {
   .then(() => {
     res.sendStatus(200);
   })
-  .catch((err) => {
-    console.error(err);
-    res.sendStatus(500);
-  });
+  .catch(err => res.status(500).send(err.message));
 };
 
 module.exports = {

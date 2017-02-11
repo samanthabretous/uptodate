@@ -53,10 +53,7 @@ const fetchClassInfo = (req, res) => {
   .then((classInfo) => {
     res.send(classInfo);
   })
-  .catch((err) => {
-    console.error(err);
-    res.sendStatus(500);
-  });
+  .catch(err => res.status(500).send(err.message));
 };
 
 // /api/classes/titlebar/:currentClassEnrollmentCode/:userId
