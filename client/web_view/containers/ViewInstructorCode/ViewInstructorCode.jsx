@@ -15,7 +15,7 @@ const mapStateToProps = state => ({
 });
 
 const ViewInstructorCode = () => (
-  <div>
+  <div style={{ display: 'flex' }}>
     <Directory />
     <TextEditor />
   </div>

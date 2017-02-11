@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import shortid from 'shortid';
+import TreeNode from '../TreeNode/TreeNode';
 import dummyDirectory from './dummy_directory';
 
 const mapDispatchToProps = dispatch => (
@@ -24,12 +24,10 @@ class Directory extends Component {
 
   render() {
     const { directory } = this.state;
-    // shortid generates 7-14 digit unique ids, useful for looping functions
-    const files = Object.entries(directory).map(val => <li key={shortid.generate()}>{val[0]}</li>);
     return (
       <div>
         <h3>Instructor Directory</h3>
-        {files}
+        <TreeNode node={directory} />
       </div>
     );
   }
