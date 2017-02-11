@@ -1,10 +1,8 @@
 const _ = require('lodash');
-const debug = require('debug')('SOCKET');
 
 module.exports = ((app, io) => {
   io.on('connection', (socket) => {
     socket.on('connection-name', (user) => {
-      debug("user",user)
       io.sockets.emit('new user', `${user.username} has joined.`);
     });
 

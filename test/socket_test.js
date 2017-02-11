@@ -1,6 +1,5 @@
 const expect = require('chai').expect;
 const io = require('socket.io-client');
-const debug = require('debug')('SOCKET');
 
 const socketURL = 'http://localhost:2020';
 
@@ -12,10 +11,6 @@ const options = {
 const user1 = { id: 1, email: 'vfrizzle@msb.com', username: 'vfrizzle', password: 'password1', position: 'Instructor' };
 
 describe('Socket Test Server', () => {
-  before((done) => {
-    const server = require('../start').listen();
-    done();
-  });
   /* Test 1 - A Single User */
   it('should broadcast new user once they connect', (done) => {
     // connect the user to the server
@@ -26,7 +21,6 @@ describe('Socket Test Server', () => {
     });
 
     socket.on('new user', (usersName) => {
-      debug(usersName);
       expect(usersName).be.a('string');
       expect(usersName).equal(`${user1.username} has joined.`);
       /* If this socket doesn't disconnect it will interfere with the next test */
