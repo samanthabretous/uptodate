@@ -5,6 +5,10 @@ import { Provider } from 'react-redux';
 import store from '../redux/createStore';
 import routes from './routes';
 
+// socket
+import SocketListeners from './socket/socket';
+
+SocketListeners(store);
 
 const renderApp = (CurrentRoute) => {
   render(
