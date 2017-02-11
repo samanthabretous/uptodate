@@ -86,7 +86,7 @@ const seedFunction = () => {
     return models.work.create(workData[11]);
   })
   .then(() => models.discussion.bulkCreate(discussionData))
-  .then(() => models.vote.bulkCreate(voteData))
+  .then(() => models.vote.bulkCreate(voteData));
 };
 
 seedFunction();

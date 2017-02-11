@@ -8,11 +8,10 @@
     "electron": "concurrently -k './node_modules/.bin/nodemon server/electron/server.js' 'yarn electron-start'",
     "electron-build": "webpack --config webpack.config.electron_dev.js",
     "web": "concurrently -k './node_modules/.bin/nodemon start.js' 'webpack --config webpack.config.js'",
-    "server": "concurrently -k 'nodemon start.js'",
+    "server": "nodemon start.js",
     "seed": "node ./server/web/seed",
-    "test": "DEBUG=API_ROUTES concurrently -k 'yarn server' 'mocha --watch'",
+    "test": "DEBUG=API_ROUTES,SOCKET concurrently -k 'yarn server' 'mocha --watch --colors --timeout 3500'",
     "redux-test": "./node_modules/.bin/jest",
-    "test:mocha": "mocha --watch",
     "eslint": "./node_modules/.bin/eslint ."
   },
   "babel": {
@@ -74,6 +73,8 @@
     "sequelize": "^3.27.0",
     "sequelize-cli": "^2.5.1",
     "shortid": "^2.2.6",
+    "socket.io": "^1.7.2",
+    "socket.io-client": "^1.7.2",
     "supertest": "^2.0.1",
     "test-bed": "^0.77.77",
     "webpack": "2.1.0-beta.21",
