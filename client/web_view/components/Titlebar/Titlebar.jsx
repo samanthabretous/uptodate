@@ -44,6 +44,9 @@ const Titlebar = props =>
               <h6 style={style.type}>Instructors</h6>
               <h3 style={style.amount}>{props.numberOfInstructorsInCurrentClass}</h3>
             </div>
+            <div>
+              <button>ADD ASSIGNMENT</button>
+            </div>
           </div>
         </div>
       </div>
