@@ -19,16 +19,27 @@ class StudentOrTeacher extends Component {
     this.state = {
       firstName: '',
       lastName: '',
+      enrollmentCode: '',
+      createClass: null,
       position: '',
       nameErrors: {},
     };
     this.setPosition = this.setPosition.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.enterClassRoom = this.enterClassRoom.bind(this);
+    this.enterOrCreateClass = this.enterOrCreateClass.bind(this);
   }
 
   setPosition(position) {
     this.setState({ position });
+  }
+
+  enterOrCreateClass(e) {
+    if (e.target.name === 'createClass') {
+      this.setState({ createClass: true });
+    } else {
+      this.setState({ createClass: false });
+    }
   }
 
   handleChange(event) {
@@ -62,16 +73,33 @@ class StudentOrTeacher extends Component {
   }
 
   render() {
+    const { position, createClass } = this.state;
+    const enterClassroomStyle = {
+      display: position === 'Student' || position === 'Instructor' && createClass === false ? 'initial' : 'none',
+    };
+
+    const isInstructorStyle = {
+      display: position === 'Instructor' ? 'initial' : 'none',
+    };
+
     return (
       <div>
         <h2>Are you?</h2>
+        {/* Choose between student or instructor */}
         <div>
           <button onClick={() => this.setPosition('Student')}>Student</button>
           <button onClick={() => this.setPosition('Instructor')}>Instructor</button>
         </div>
+        {/* if instructor choose between entering a classroom and creating a classroom */}
+        <div style={isInstructorStyle}>
+          <button name="enterClass" onClick={this.enterOrCreateClass}>Enter classroom</button>
+          <button name="createClass" onClick={this.enterOrCreateClass}>Create class</button> <br />
+        </div>
+        {/* if student or if instructor and entering a classroom */}
         <form onSubmit={this.enterClassRoom}>
-          <input type="text" name="firstName" onChange={this.handleChange} />
-          <input type="text" name="lastName" onChange={this.handleChange} />
+          <input type="text" placeholder="Enter first name" name="firstName" onChange={this.handleChange} /> <br />
+          <input type="text" placeholder="Enter last name" name="lastName" onChange={this.handleChange} /> <br />
+          <input style={enterClassroomStyle} type="text" placeholder="Enter enrollment code" name="enrollmentCode" onChange={this.handleChange} /> <br />
         </form>
       </div>
     );

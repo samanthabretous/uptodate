@@ -21,7 +21,7 @@ class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      openLogin: false,
+      openLoginModal: false,
     }
     this.goToLogin = this.goToLogin.bind(this);
   }
@@ -36,7 +36,7 @@ class HomePage extends Component {
         <nav style={style.homebar}>
           <div style={style.logo}>Logo</div>
           <button style={style.loginButton} onClick={this.goToLogin}>Login</button>
-          <LoginModal isOpen={this.state.openLogin} />
+          <LoginModal isOpen={this.state.openLoginModal} />
         </nav>
         <section style={style.topSection}>
           <div style={style.headlineContainer}>
