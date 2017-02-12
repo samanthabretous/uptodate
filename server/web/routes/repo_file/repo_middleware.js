@@ -26,7 +26,7 @@ const pathMaker = (directoryBeingWatched, usersLocalPath) => {
 };
 
 /**
-* adds to the nested tree structure using firstChildNode since its pass by
+* add to the nested tree structure using firstChildNode since its pass by
 * refrence there is no need to save this functions return into a variable
 * @param {Array} firstChildNode
 * @param {Array} splitFileDirectory
