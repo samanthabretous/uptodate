@@ -6,23 +6,49 @@ const models = require('../../db/models');
 const Lesson = models.lesson;
 
 /**
- * creates a path to repo on server
+ * creates a path to repo on server based on useresLocalPath
  * @param { String } directoryBeingWatched
  * @param { String } usersLocalPath
- * @return { object } finalRepoPath, subPath, fileName
- * finalRepoPath = path to repo storage
+ * @return { object } pathToRepoStorage, subPath, fileDirectory
+ * pathToRepoStorage = path to repo storage
  * subPath = path after 'repo/' directory
- * fileName = full file name
+ * fileDirectory = { arr } full file directory
  */
 const pathMaker = (directoryBeingWatched, usersLocalPath) => {
   let repoFolderPath = usersLocalPath.split('/');
-  // this is used to remove everything prior to the ${repoPath} in localPath
+  // removes everything prior to the ${repoPath} in localPath
   const repoPathLocationStart = repoFolderPath.indexOf(directoryBeingWatched);
-  const fileName = repoFolderPath[repoFolderPath.length - 1];
+  const fileDirectory = repoFolderPath.slice(repoPathLocationStart + 1);
   repoFolderPath = repoFolderPath.slice(repoPathLocationStart + 1).join('/');
 
-  // joins path based on servers location pointing to repo fodler
-  return { finalRepoPath: path.join(__dirname, '../../../../repo/', repoFolderPath), subPath: repoFolderPath, fileName };
+  // join path based on servers location pointing to repo fodler
+  return { pathToRepoStorage: path.join(__dirname, '../../../../repo/', repoFolderPath), subPath: repoFolderPath, fileDirectory };
+};
+
+/**
+* adds to the nested tree structure using firstChildNode since its pass by
+* refrence there is no need to save this functions return into a variable
+* @param {Array} firstChildNode
+* @param {Array} splitFileDirectory
+* @param {String} subpath
+* @returns {firstNestedNode}
+*/
+const addNodeToTree = (firstChildNode, splitFileDirectory, subpath) => {
+
+  if (splitFileDirectory.length === 1) {
+    firstChildNode.push({ title: splitFileDirectory[0], path: subpath });
+    return firstChildNode;
+  } else {
+    for (let i = 0; i < firstChildNode.length; i += 1) {
+      if (firstChildNode[i].title === splitFileDirectory[0]) {
+        return addNodeToTree(firstChildNode[i].childNodes, splitFileDirectory.slice(1), subpath);
+      }
+    }
+    const splitFileDirectorycopy = splitFileDirectory.slice(1);
+    const node = addNodeToTree([], splitFileDirectorycopy, subpath);
+    firstChildNode.push({ title: splitFileDirectory[0], childNodes: node });
+    return firstChildNode;
+  }
 };
 
 // api/repoFile/updateFile
@@ -32,8 +58,8 @@ const rawData = (req, res) => {
   // localPath = full local path change was made on
   // data = inner file text
   const { repoPath, localPath, data } = req.body;
-  const { finalRepoPath } = pathMaker(repoPath, localPath);
-  fs.writeFile(finalRepoPath, data, (err) => {
+  const { pathToRepoStorage } = pathMaker(repoPath, localPath);
+  fs.writeFile(pathToRepoStorage, data, (err) => {
     if (err) {
       res.sendStatus(500);
     } else {
@@ -48,8 +74,8 @@ const addDir = (req, res) => {
   // repoPath = directory being watched
   // localPath = full local path change was made on
   const { repoPath, localPath } = req.body;
-  const { finalRepoPath } = pathMaker(repoPath, localPath);
-  mkdirp(finalRepoPath, (err) => {
+  const { pathToRepoStorage } = pathMaker(repoPath, localPath);
+  mkdirp(pathToRepoStorage, (err) => {
     if (err) {
       res.sendStatus(500);
     } else {
@@ -64,11 +90,11 @@ const addFile = (req, res) => {
   // repoPath = directory being watched
   // localPath = full local path change was made on
   const { repoPath, localPath, data } = req.body;
-  const { finalRepoPath, subPath, fileName } = pathMaker(repoPath, localPath);
+  const { pathToRepoStorage, subPath, fileDirectory } = pathMaker(repoPath, localPath);
   Lesson.findById(1)
   .then((lesson) => {
-    const repo = lesson.get('repo');
-    repo[fileName] = subPath;
+    let repo = lesson.get('repo');
+    addNodeToTree(repo, fileDirectory, subPath);
     return Lesson.update({ repo },
       {
         where: {
@@ -78,7 +104,7 @@ const addFile = (req, res) => {
   })
   .then((updated) => {
     if (updated) {
-      fs.writeFile(finalRepoPath, data, (err) => {
+      fs.writeFile(pathToRepoStorage, data, (err) => {
         if (err) {
           res.sendStatus(500);
         } else {
@@ -100,7 +126,7 @@ const deleteFile = (req, res) => {
   // repoPath = directory being watched
   // localPath = full local path change was made on
   const { repoPath, localPath } = req.body;
-  const { finalRepoPath, fileName } = pathMaker(repoPath, localPath);
+  const { pathToRepoStorage, fileName } = pathMaker(repoPath, localPath);
   Lesson.findById(1)
   .then((lesson) => {
     const repo = lesson.get('repo');
@@ -114,8 +140,8 @@ const deleteFile = (req, res) => {
   })
   .then((updated) => {
     // this if ensures you never erase the root direcroty
-    if (updated && finalRepoPath.length > 28) {
-      fs.remove(finalRepoPath, (err) => {
+    if (updated && pathToRepoStorage.length > 28) {
+      fs.remove(pathToRepoStorage, (err) => {
         if (err) {
           res.sendStatus(500);
         } else {
@@ -135,10 +161,10 @@ const deleteDir = (req, res) => {
   // repoPath = directory being watched
   // localPath = full local path change was made on
   const { repoPath, localPath } = req.body;
-  const { finalRepoPath } = pathMaker(repoPath, localPath);
+  const { pathToRepoStorage } = pathMaker(repoPath, localPath);
   // this if ensures you never erase the root direcroty
-  if (finalRepoPath.length > 28) {
-    fs.remove(finalRepoPath, (err) => {
+  if (pathToRepoStorage.length > 28) {
+    fs.remove(pathToRepoStorage, (err) => {
       if (err) {
         res.sendStatus(500);
       } else {
