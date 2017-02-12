@@ -26,7 +26,7 @@ class HomePage extends Component {
     this.goToLogin = this.goToLogin.bind(this);
   }
   goToLogin() {
-    this.setState({ openLogin: !this.state.openLogin })
+    this.setState({ openLoginModal: !this.state.openLoginModal })
     // this.props.router.push('/login');
   }
 

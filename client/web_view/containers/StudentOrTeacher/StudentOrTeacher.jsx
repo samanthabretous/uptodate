@@ -19,6 +19,10 @@ class StudentOrTeacher extends Component {
     this.state = {
       firstName: '',
       lastName: '',
+      className: '',
+      classDescription: '',
+      classSchedule: '',
+      classLocation: '',
       enrollmentCode: '',
       createClass: null,
       position: '',
@@ -82,6 +86,10 @@ class StudentOrTeacher extends Component {
       display: position === 'Instructor' ? 'initial' : 'none',
     };
 
+    const createClassStyle = {
+      display: createClass ? 'initial' : 'none',
+    };
+
     return (
       <div>
         <h2>Are you?</h2>
@@ -95,11 +103,21 @@ class StudentOrTeacher extends Component {
           <button name="enterClass" onClick={this.enterOrCreateClass}>Enter classroom</button>
           <button name="createClass" onClick={this.enterOrCreateClass}>Create class</button> <br />
         </div>
-        {/* if student or if instructor and entering a classroom */}
+    
         <form onSubmit={this.enterClassRoom}>
           <input type="text" placeholder="Enter first name" name="firstName" onChange={this.handleChange} /> <br />
           <input type="text" placeholder="Enter last name" name="lastName" onChange={this.handleChange} /> <br />
-          <input style={enterClassroomStyle} type="text" placeholder="Enter enrollment code" name="enrollmentCode" onChange={this.handleChange} /> <br />
+          {/* if student or if instructor and entering a classroom */}
+          <div style={enterClassroomStyle}>
+            <input type="text" placeholder="Enter enrollment code" name="enrollmentCode" onChange={this.handleChange} /> <br />
+          </div>
+        {/* if instructor and creating a class */}
+          <div style={createClassStyle}>
+            <input type="text" placeholder="Enter class name" name="className" onChange={this.handleChange} /> <br />
+            <input type="text" placeholder="Enter class description" name="classDescription" onChange={this.handleChange} /> <br />
+            <input type="text" placeholder="Enter class schedule" name="classSchedule" onChange={this.handleChange} /> <br />
+            <input type="text" placeholder="Enter class location" name="classLocation" onChange={this.handleChange} /> <br />
+          </div>
         </form>
       </div>
     );
