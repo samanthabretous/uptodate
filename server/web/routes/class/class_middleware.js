@@ -1,4 +1,5 @@
 const models = require('../../db/models/index');
+const io = require('../../index.js').io;
 
 // /api/classes/newclass
 const postNewClass = (req, res) => {
@@ -28,6 +29,7 @@ const postNewClass = (req, res) => {
 
 // /api/classes/:enrollmentCode
 const getClassByEnrollmentCode = (req, res) => {
+  console.log("io classes ======================",io);
   models.class.findOne({
     where: {
       enrollmentCode: req.params.enrollmentCode,
