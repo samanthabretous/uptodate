@@ -25,7 +25,6 @@ module.exports = (sequelize, DataTypes) => {
     classMethods: {
       associate(models) {
         Class.belongsToMany(models.user, { through: 'user_class' });
-        Class.belongsTo(models.user, { as: 'owner' });
         Class.hasMany(models.lesson);
         Class.hasMany(models.assignment);
       },
