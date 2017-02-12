@@ -19,11 +19,13 @@ module.exports = (sequelize, DataTypes) => {
     },
     enrollmentCode: {
       type: DataTypes.STRING,
+      unique: true,
     },
   }, {
     classMethods: {
       associate(models) {
         Class.belongsToMany(models.user, { through: 'user_class' });
+        Class.belongsTo(models.user, { as: 'owner' });
         Class.hasMany(models.lesson);
         Class.hasMany(models.assignment);
       },
