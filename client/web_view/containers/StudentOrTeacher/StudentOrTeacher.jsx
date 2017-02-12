@@ -117,8 +117,8 @@ class StudentOrTeacher extends Component {
         password: this.props.state.login.password,
         position,
         lastClassViewed: data.id,
-      })
-    })
+      });
+    });
   }
 
   handleWhichSubmit() {
