@@ -36,7 +36,7 @@ class LoginOrSignUp extends Component {
     this.renderInput = this.renderInput.bind(this);
   }
 
-  // check to see if we need to render the signup info 
+  // check to see if we need to render the signup info
   isSignupPage() {
     return this.props.pathname === '/';
   }
@@ -105,6 +105,7 @@ class LoginOrSignUp extends Component {
           if (res.data) {
             // send logged in user information to the store
             this.props.userInfoAction(res.data);
+            console.log(this.props.state);
             // take user to the dashboard
             this.props.router.push(`/dashboard/${res.data.id}/${res.data.currentClass.enrollmentCode}`);
           }

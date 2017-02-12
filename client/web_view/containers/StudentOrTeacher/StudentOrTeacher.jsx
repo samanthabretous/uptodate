@@ -37,7 +37,7 @@ class StudentOrTeacher extends Component {
       this.setState(prevState => ({
         loginFormErrors: Object.assign(prevState.loginFormErrors, errors),
       }));
-    };   
+    };
     // change the component state based off  input
     const updateWhichInput = () => {
       this.setState({ [event.target.name]: event.target.value });

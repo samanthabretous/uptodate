@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { LoginOrSignUp } from '../index';
 import style from './HomePageStyles';
+import LoginModal from '../LoginModal/LoginModal'
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -19,10 +20,14 @@ const mapStateToProps = state => ({
 class HomePage extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      openLogin: false,
+    }
     this.goToLogin = this.goToLogin.bind(this);
   }
   goToLogin() {
-    this.props.router.push('/login');
+    this.setState({ openLogin: !this.state.openLogin })
+    // this.props.router.push('/login');
   }
 
   render() {
@@ -31,6 +36,7 @@ class HomePage extends Component {
         <nav style={style.homebar}>
           <div style={style.logo}>Logo</div>
           <button style={style.loginButton} onClick={this.goToLogin}>Login</button>
+          <LoginModal isOpen={this.state.openLogin} />
         </nav>
         <section style={style.topSection}>
           <div style={style.headlineContainer}>
