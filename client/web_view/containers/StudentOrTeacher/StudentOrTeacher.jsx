@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import axios from 'axios';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -19,10 +20,10 @@ class StudentOrTeacher extends Component {
     this.state = {
       firstName: '',
       lastName: '',
-      className: '',
-      classDescription: '',
-      classSchedule: '',
-      classLocation: '',
+      name: '',
+      description: '',
+      schedule: '',
+      location: '',
       enrollmentCode: '',
       createClass: null,
       position: '',
@@ -30,12 +31,18 @@ class StudentOrTeacher extends Component {
     };
     this.setPosition = this.setPosition.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.enterClassRoom = this.enterClassRoom.bind(this);
     this.enterOrCreateClass = this.enterOrCreateClass.bind(this);
+    this.handleWhichSubmit = this.handleWhichSubmit.bind(this);
+    this.handleStudentAndInstructorSubmit = this.handleStudentAndInstructorSubmit.bind(this);
+    this.handleInstructorAndNewClassSubmit = this.handleInstructorAndNewClassSubmit.bind(this);
   }
 
   setPosition(position) {
-    this.setState({ position });
+    if (position === 'Student') {
+      this.setState({ position, createClass: null });
+    } else {
+      this.setState({ position });
+    }
   }
 
   enterOrCreateClass(e) {
@@ -72,11 +79,68 @@ class StudentOrTeacher extends Component {
     }
   }
 
-  enterClassRoom() {
-    
+  handleStudentAndInstructorSubmit(position, firstName, lastName, enrollmentCode) {
+    // ADD ERROR HANDLING AND REROUTING
+    axios.get(`/api/classes/${enrollmentCode}`)
+    .then(res => (
+      res.data
+    ))
+    .then((data) => {
+      axios.post('/api/users/registration', {
+        firstName,
+        lastName,
+        email: this.props.state.login.email,
+        username: this.props.state.login.username,
+        password: this.props.state.login.password,
+        position,
+        lastClassViewed: data.id,
+      });
+    });
+  }
+
+  handleInstructorAndNewClassSubmit(position, firstName, lastName, enrollmentCode, name, description, schedule, location) {
+    axios.post('/api/classes/newclass', {
+      name,
+      description,
+      schedule,
+      location,
+    })
+    .then(res => (
+      res.data
+    ))
+    .then((data) => {
+      axios.post('/api/users/registration', {
+        firstName,
+        lastName,
+        email: this.props.state.login.email,
+        username: this.props.state.login.username,
+        password: this.props.state.login.password,
+        position,
+        lastClassViewed: data.id,
+      })
+    })
+  }
+
+  handleWhichSubmit() {
+    const { position,
+            createClass,
+            firstName,
+            lastName,
+            enrollmentCode,
+            name,
+            description,
+            schedule,
+            location,
+          } = this.state;
+    if (position === 'Student' || createClass === false) {
+      this.handleStudentAndInstructorSubmit(position, firstName, lastName, enrollmentCode);
+    } else if (createClass) {
+      this.handleInstructorAndNewClassSubmit(position, firstName, lastName, enrollmentCode, name, description, schedule, location);
+    }
   }
 
   render() {
+    console.log(this.state.createClass)
     const { position, createClass } = this.state;
     const enterClassroomStyle = {
       display: position === 'Student' || position === 'Instructor' && createClass === false ? 'initial' : 'none',
@@ -103,22 +167,21 @@ class StudentOrTeacher extends Component {
           <button name="enterClass" onClick={this.enterOrCreateClass}>Enter classroom</button>
           <button name="createClass" onClick={this.enterOrCreateClass}>Create class</button> <br />
         </div>
-    
-        <form onSubmit={this.enterClassRoom}>
-          <input type="text" placeholder="Enter first name" name="firstName" onChange={this.handleChange} /> <br />
-          <input type="text" placeholder="Enter last name" name="lastName" onChange={this.handleChange} /> <br />
-          {/* if student or if instructor and entering a classroom */}
-          <div style={enterClassroomStyle}>
-            <input type="text" placeholder="Enter enrollment code" name="enrollmentCode" onChange={this.handleChange} /> <br />
-          </div>
+
+        <input type="text" placeholder="Enter first name" name="firstName" onChange={this.handleChange} /> <br />
+        <input type="text" placeholder="Enter last name" name="lastName" onChange={this.handleChange} /> <br />
+        {/* if student or if instructor and entering a classroom */}
+        <div style={enterClassroomStyle}>
+          <input type="text" placeholder="Enter enrollment code" name="enrollmentCode" onChange={this.handleChange} /> <br />
+        </div>
         {/* if instructor and creating a class */}
-          <div style={createClassStyle}>
-            <input type="text" placeholder="Enter class name" name="className" onChange={this.handleChange} /> <br />
-            <input type="text" placeholder="Enter class description" name="classDescription" onChange={this.handleChange} /> <br />
-            <input type="text" placeholder="Enter class schedule" name="classSchedule" onChange={this.handleChange} /> <br />
-            <input type="text" placeholder="Enter class location" name="classLocation" onChange={this.handleChange} /> <br />
-          </div>
-        </form>
+        <div style={createClassStyle}>
+          <input type="text" placeholder="Enter class name" name="name" onChange={this.handleChange} /> <br />
+          <input type="text" placeholder="Enter class description" name="description" onChange={this.handleChange} /> <br />
+          <input type="text" placeholder="Enter class schedule" name="schedule" onChange={this.handleChange} /> <br />
+          <input type="text" placeholder="Enter class location" name="location" onChange={this.handleChange} /> <br />
+        </div>
+        <button onClick={this.handleWhichSubmit}>Complete Sign-up</button>
       </div>
     );
   }
