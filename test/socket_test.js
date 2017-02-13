@@ -1,6 +1,5 @@
 const expect = require('chai').expect;
 const io = require('socket.io-client');
-const debug = require('debug')('SOCKET');
 
 const socketURL = 'http://localhost:2020';
 

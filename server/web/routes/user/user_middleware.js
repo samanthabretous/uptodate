@@ -1,9 +1,12 @@
 const models = require('../../db/models/index');
-const debug = require('debug')('SOCKET');
 
 class SocketConnection {
-  constructor(io){
+  constructor(io) {
     this.io = io;
+    this.postNewUser = this.postNewUser.bind(this);
+    this.getUserAuthentication = this.getUserAuthentication.bind(this);
+    this.getLastClassViewed = this.getLastClassViewed.bind(this);
+    this.updateLastClassViewed = this.updateLastClassViewed.bind(this);
   }
   // /api/users/registration -- user registration
   postNewUser(req, res) {
@@ -54,6 +57,7 @@ class SocketConnection {
     .then((user) => {
       if (user) {
         res.send(user);
+        this.io.sockets.emit('test');
       } else {
         throw new Error('Invalid login info.');
       }

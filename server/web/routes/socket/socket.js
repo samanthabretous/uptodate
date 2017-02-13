@@ -1,5 +1,4 @@
-const debug = require('debug')('SOCKET');
-const SocketListeners = require('./socketListeners.js');
+const SocketListeners = require('./socket_listeners.js');
 
 module.exports = ((app, io) => {
   io.on('connection', (socket) => {
@@ -17,4 +16,3 @@ module.exports = ((app, io) => {
     socketOn.disconnectSocket(socket);
   });
 });
-
