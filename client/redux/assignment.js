@@ -20,6 +20,10 @@ export const AsyncGetLessons = classId => (dispatch) => {
   });
 };
 
+export const AsyncPostAssignment = data => () => {
+  axios.post('/api/assignments', data);
+};
+
 // -------------------
 // reducer
 // -------------------
