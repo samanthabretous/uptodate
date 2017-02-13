@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import axios from 'axios';
 import s from 'underscore.string';
 import { studentTeacherModalAction } from '../../../redux/login';
+import style from './StudentOrTeacherStyle';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -31,14 +32,13 @@ class StudentOrTeacher extends Component {
       nameErrors: {},
     };
     this.setPosition = this.setPosition.bind(this);
-    this.handleChange = this.handleChange.bind(this);
     this.enterOrCreateClass = this.enterOrCreateClass.bind(this);
     this.handleWhichSubmit = this.handleWhichSubmit.bind(this);
     this.handleStudentAndInstructorSubmit = this.handleStudentAndInstructorSubmit.bind(this);
     this.handleInstructorAndNewClassSubmit = this.handleInstructorAndNewClassSubmit.bind(this);
     this.handleRegistration = this.handleRegistration.bind(this);
     this.renderInput = this.renderInput.bind(this);
-    this.renderButton = this.renderButton.bind(this);
+    this.updateWhichInput = this.updateWhichInput.bind(this);
   }
 
   setPosition(position) {
@@ -57,30 +57,8 @@ class StudentOrTeacher extends Component {
     }
   }
 
-  handleChange(event) {
-    const { nameErrors } = this.state;
-    const checkFormValidation = (errors) => {
-      this.setState(prevState => ({
-        loginFormErrors: Object.assign(prevState.loginFormErrors, errors),
-      }));
-    };
-    // change the component state based off  input
-    const updateWhichInput = () => {
-      this.setState({ [event.target.name]: event.target.value });
-    };
-
-    /*
-    * when the user enter in the wrong infomation
-    * add the type of error to the object
-    */
-    if (nameErrors[event.target.name]) {
-      const errors = Object.assign({}, nameErrors);
-      delete errors[event.target.name];
-      updateWhichInput();
-      checkFormValidation(errors);
-    } else {
-      updateWhichInput();
-    }
+  updateWhichInput(e) {
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   handleRegistration(position, firstName, lastName, data) {
@@ -95,6 +73,7 @@ class StudentOrTeacher extends Component {
     });
   }
 
+// handles registration when user already has enrollment code
   handleStudentAndInstructorSubmit(position, firstName, lastName, enrollmentCode) {
     axios.get(`/api/classes/${enrollmentCode}`)
     .then(res => (
@@ -105,6 +84,7 @@ class StudentOrTeacher extends Component {
     });
   }
 
+// handles instructor registration when instructor also needs to register a new class
   handleInstructorAndNewClassSubmit(position, firstName, lastName, enrollmentCode, name, description, schedule, location) {
     axios.post('/api/classes/newclass', {
       name,
@@ -129,12 +109,12 @@ class StudentOrTeacher extends Component {
     }
   }
 
-  renderInput(field) {
+  renderInput(field, style) {
     return (
-      <div>
+      <div style={style}>
         <input
           type="text"
-          onChange={this.handleChange}
+          onChange={this.updateWhichInput}
           name={field}
           value={this.state[field]}
           placeholder={'Enter ' + field.split(/(?=[A-Z])/).join(' ').toLowerCase()}
@@ -145,9 +125,9 @@ class StudentOrTeacher extends Component {
 
   renderButton(name, clickHandler, style) {
     return (
-      <div>
+      <div style={style}>
         <button name={name} onClick={clickHandler}>
-          {name.split(/(?=[A-Z])/).join(' ').toLowerCase()}
+          {s(name).capitalize().value()}
         </button>
       </div>
     );
@@ -155,46 +135,27 @@ class StudentOrTeacher extends Component {
 
   render() {
     const { position, createClass } = this.state;
-    const enterClassroomStyle = {
-      display: position === 'Student' || position === 'Instructor' && createClass === false ? 'initial' : 'none',
-    };
-
-    const isInstructorStyle = {
-      display: position === 'Instructor' ? 'initial' : 'none',
-    };
-
-    const createClassStyle = {
-      display: createClass ? 'initial' : 'none',
-    };
 
     return (
       <div>
         <h2>Are you?</h2>
         {/* Choose between student or instructor */}
-        <div>
-          {this.renderButton('Student', () => this.setPosition('Student'))}
-          {this.renderButton('Instructor', () => this.setPosition('Instructor'))}
-        </div>
+        {this.renderButton('Student', () => this.setPosition('Student'))}
+        {this.renderButton('Instructor', () => this.setPosition('Instructor'))}
         {/* if instructor choose between entering a classroom and creating a classroom */}
-        <div style={isInstructorStyle}>
-          <button name="enterClass" onClick={this.enterOrCreateClass}>Enter classroom</button>
-          <button name="createClass" onClick={this.enterOrCreateClass}>Create class</button> <br />
-        </div>
+        {this.renderButton('enterClass', this.enterOrCreateClass, style.isInstructorStyle(position))}
+        {this.renderButton('createClass', this.enterOrCreateClass, style.isInstructorStyle(position))}
         <div>
-          {this.renderInput('firstName')}
-          {this.renderInput('lastName')}
+        {this.renderInput('firstName')}
+        {this.renderInput('lastName')}
         </div>
         {/* if student or if instructor and entering a classroom */}
-        <div style={enterClassroomStyle}>
-          {this.renderInput('enrollmentCode')}
-        </div>
+        {this.renderInput('enrollmentCode', style.enterClassroomStyle(position, createClass))}
         {/* if instructor and creating a class */}
-        <div style={createClassStyle}>
-          {this.renderInput('name')}
-          {this.renderInput('description')}
-          {this.renderInput('schedule')}
-          {this.renderInput('location')}
-        </div>
+        {this.renderInput('name', style.createClassStyle(position, createClass))}
+        {this.renderInput('description', style.createClassStyle(position, createClass))}
+        {this.renderInput('schedule', style.createClassStyle(position, createClass))}
+        {this.renderInput('location', style.createClassStyle(position, createClass))}
         <button onClick={this.handleWhichSubmit}>Complete Sign-up</button>
       </div>
     );
