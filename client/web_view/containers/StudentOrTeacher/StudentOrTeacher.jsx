@@ -108,10 +108,10 @@ class StudentOrTeacher extends Component {
       this.handleInstructorAndNewClassSubmit(position, firstName, lastName, enrollmentCode, name, description, schedule, location);
     }
   }
-
-  renderInput(field, style) {
+// dynamically creates input fields
+  renderInput(field, inputStyle) {
     return (
-      <div style={style}>
+      <div style={inputStyle}>
         <input
           type="text"
           onChange={this.updateWhichInput}
@@ -122,12 +122,12 @@ class StudentOrTeacher extends Component {
       </div>
     );
   }
-
-  renderButton(name, clickHandler, style) {
+// dynamically create buttons
+  renderButton(name, clickHandler, buttonStyle) {
     return (
-      <div style={style}>
+      <div style={buttonStyle}>
         <button name={name} onClick={clickHandler}>
-          {s(name).capitalize().value()}
+          {s(name).capitalize().value().split(/(?=[A-Z])/).join(' ')}
         </button>
       </div>
     );
@@ -135,6 +135,7 @@ class StudentOrTeacher extends Component {
 
   render() {
     const { position, createClass } = this.state;
+    // array of buttons we want to create
     const buttons = [
       { name: 'Student',
         clickHandler: () => this.setPosition('Student'),
@@ -151,7 +152,7 @@ class StudentOrTeacher extends Component {
         style: style.isInstructorStyle(position),
       },
     ];
-
+    // array of inputs we want to create
     const inputs = [
       { name: 'firstName' },
       { name: 'lastName' },
@@ -171,7 +172,7 @@ class StudentOrTeacher extends Component {
         style: style.createClassStyle(position, createClass),
       },
     ];
-
+// map over buttons/inputs arrays to create 
     const renderButtons = buttons.map((val, idx) => (
       <div key={idx}>
         {this.renderButton(val.name, val.clickHandler, val.style)}
