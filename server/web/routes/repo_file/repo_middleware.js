@@ -10,42 +10,41 @@ const Lesson = models.lesson;
  * @param { String } directoryBeingWatched
  * @param { String } usersLocalPath
  * @return { object } pathToRepoStorage, subPath, fileDirectory
- * pathToRepoStorage = path to repo storage
  * subPath = path after 'repo/' directory
  * fileDirectory = { arr } full file directory
  */
 const pathMaker = (directoryBeingWatched, usersLocalPath) => {
-  let repoFolderPath = usersLocalPath.split('/');
-  // removes everything prior to the ${repoPath} in localPath
-  const repoPathLocationStart = repoFolderPath.indexOf(directoryBeingWatched);
-  const fileDirectory = repoFolderPath.slice(repoPathLocationStart + 1);
-  repoFolderPath = repoFolderPath.slice(repoPathLocationStart + 1).join('/');
+  let subPath = usersLocalPath.split('/');
+  // remove everything prior to the ${repoPath} in localPath
+  const repoPathLocationStart = subPath.indexOf(directoryBeingWatched);
+  const fileDirectory = subPath.slice(repoPathLocationStart + 1);
+  subPath = subPath.slice(repoPathLocationStart + 1).join('/');
 
   // join path based on servers location pointing to repo fodler
-  return { pathToRepoStorage: path.join(__dirname, '../../../../repo/', repoFolderPath), subPath: repoFolderPath, fileDirectory };
+  const pathToRepoStorage = path.join(__dirname, '../../../../repo/', subPath);
+  return { pathToRepoStorage, subPath, fileDirectory };
 };
 
 /**
-* adds to the nested tree structure using firstChildNode since its pass by
+* add to the nested tree structure using firstChildNode since its pass by
 * refrence there is no need to save this functions return into a variable
 * @param {Array} firstChildNode
 * @param {Array} splitFileDirectory
-* @param {String} subpath
+* @param {String} subPath
 * @returns {firstNestedNode}
 */
-const addNodeToTree = (firstChildNode, splitFileDirectory, subpath) => {
-
+const addNodeToTree = (firstChildNode, splitFileDirectory, subPath) => {
   if (splitFileDirectory.length === 1) {
-    firstChildNode.push({ title: splitFileDirectory[0], path: subpath });
+    firstChildNode.push({ title: splitFileDirectory[0], path: subPath });
     return firstChildNode;
   } else {
     for (let i = 0; i < firstChildNode.length; i += 1) {
       if (firstChildNode[i].title === splitFileDirectory[0]) {
-        return addNodeToTree(firstChildNode[i].childNodes, splitFileDirectory.slice(1), subpath);
+        return addNodeToTree(firstChildNode[i].childNodes, splitFileDirectory.slice(1), subPath);
       }
     }
     const splitFileDirectorycopy = splitFileDirectory.slice(1);
-    const node = addNodeToTree([], splitFileDirectorycopy, subpath);
+    const node = addNodeToTree([], splitFileDirectorycopy, subPath);
     firstChildNode.push({ title: splitFileDirectory[0], childNodes: node });
     return firstChildNode;
   }
