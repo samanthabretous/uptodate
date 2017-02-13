@@ -5,9 +5,9 @@
   "main": "start.js",
   "scripts": {
     "electron-start": "ENVIRONMENT=DEV ./node_modules/.bin/electron server/electron/main.js",
-    "electron": "concurrently -k './node_modules/.bin/nodemon server/electron/server.js' 'yarn electron-start'",
+    "electron": "concurrently -k 'yarn server' 'nodemon server/electron/server.js' 'yarn electron-start'",
     "electron-build": "webpack --config webpack.config.electron_dev.js",
-    "web": "concurrently -k './node_modules/.bin/nodemon start.js' 'webpack --config webpack.config.js'",
+    "web": "concurrently -k 'nodemon start.js' 'webpack --config webpack.config.js'",
     "server": "nodemon start.js",
     "seed": "node ./server/web/seed",
     "test": "DEBUG=API_ROUTES,SOCKET concurrently -k 'yarn server' 'mocha --watch --colors --timeout 3500'",

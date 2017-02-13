@@ -1,11 +1,15 @@
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import React, { Component } from 'react';
-import { Link } from 'react-router';
+import axios from 'axios';
+import { shell } from 'electron';
+import { signUpInfoAction, userInfoAction } from '../../../redux/login';
+import style from './LoginStyles';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
-
+    signUpInfoAction,
+    userInfoAction,
   }, dispatch)
 );
 
@@ -13,20 +17,24 @@ const mapStateToProps = state => ({
   state,
 });
 
-export class Login extends Component {
+class LoginOrSignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loginFormErrors: {},
-      username: '',
-      email: '',
-      password: '',
+      username: 'vfrizzle',
+      password: 'password1',
       authenticationError: null,
     };
+    this.isValidPassword = this.isValidPassword.bind(this);
     this.checkFormValidation = this.checkFormValidation.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.renderInput = this.renderInput.bind(this);
+  }
+
+  isValidPassword(password) {
+    return password.length < 6;
   }
 
   checkFormValidation(errors) {
@@ -43,7 +51,6 @@ export class Login extends Component {
       this.setState({ [event.target.name]: event.target.value });
     };
 
-
     if (loginFormErrors[event.target.name]) {
       const errors = Object.assign({}, loginFormErrors);
       delete errors[event.target.name];
@@ -57,34 +64,45 @@ export class Login extends Component {
   /* check the form to make sure the user enter the required data
   * do this before sending user infomation over to the back end*/
   handleSubmit() {
-    const { username, email, password } = this.state;
-
+    const { username, password } = this.state;
     // form validation
     const errors = {};
     if (username === '') errors.username = 'Can not be empty';
-    if (email.indexOf('@') === -1 && email.indexOf('.' === -1)) errors.email = 'Must be a vaild email';
-    if (password.length < 6) errors.password = 'Password must be at least 6 characters long';
+    if (this.isValidPassword(password)) errors.password = 'Password must be at least 6 characters long';
     this.checkFormValidation(errors);
 
     // before sending form request to back end check to make sure there are no errors
     const isValid = Object.keys(errors).length === 0;
     if (isValid) {
-      // run api here
-      console.log(this.props.state)
+      axios.post('/api/users/authentication', {
+        username,
+        password,
+      })
+      .then((res) => {
+        if (res.data) {
+          // send logged in user information to the store
+          this.props.userInfoAction(res.data);
+          // take user to the dashboard
+          this.props.router.push(`/dashboard/${res.data.id}/${res.data.currentClass.enrollmentCode}`);
+        }
+      })
+      .catch(() => {
+
+      });
     }
   }
 
-  renderInput(type, variable) {
+  renderInput(type) {
     const { loginFormErrors } = this.state;
     return (
-      <div className={`input ${!!loginFormErrors[type] ? 'error' : ''}`}>
-        <label htmlFor={`${type}`}>{type}</label>
+      <div className={`input ${loginFormErrors[type] ? 'error' : ''}`}>
         <input
+          style={style.userInput}
           id={type}
           type={type === 'password' ? 'password' : 'text'}
           onChange={this.handleChange}
-          name={`${type}`}
-          value={this.state[variable]}
+          name={type}
+          value={this.state[type]}
           placeholder={`Enter ${type}`}
         />
         {/* display error message when user enters infomation incorrectly */}
@@ -94,22 +112,31 @@ export class Login extends Component {
   }
 
   render() {
-    const { username, email, password, authenticationError } = this.state;
+    const { authenticationError } = this.state;
     return (
-      <div>
-        {this.renderInput('username', username)}
-        {this.renderInput('email', email)}
-        {this.renderInput('password', password)}
-        <button onClick={this.handleSubmit}>
-          <span>GO</span>
-          <i className="fa fa-check" />
+      <div style={style.loginForm}>
+        {this.renderInput('username')}
+        {this.renderInput('password')}
+        <button style={style.signupButton} onClick={this.handleSubmit}>
+          Login
         </button>
+        <button>{shell.openExternal('localhost:2020')}</button>
         {authenticationError && <span>There was an error logging in</span>}
-        <Link to="/drop-file">Go to drag</Link>
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+LoginOrSignUp.propTypes = {
+  router: PropTypes.object.isRequired,
+  pathname: PropTypes.string,
+  signUpInfoAction: PropTypes.func.isRequired,
+  userInfoAction: PropTypes.func.isRequired,
+};
+
+LoginOrSignUp.defaultProps = {
+  pathname: '/login',
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginOrSignUp);
 
