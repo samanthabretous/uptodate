@@ -78,6 +78,7 @@
     "socket.io-client": "^1.7.2",
     "supertest": "^2.0.1",
     "test-bed": "^0.77.77",
+    "underscore.string": "^3.3.4",
     "webpack": "2.1.0-beta.21",
     "webpack-dev-middleware": "^1.10.0",
     "webpack-hot-middleware": "^2.16.1",

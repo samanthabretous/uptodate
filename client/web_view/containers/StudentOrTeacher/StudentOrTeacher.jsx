@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
+import s from 'underscore.string';
 import { studentTeacherModalAction } from '../../../redux/login';
 
 const mapDispatchToProps = dispatch => (
@@ -36,6 +37,8 @@ class StudentOrTeacher extends Component {
     this.handleStudentAndInstructorSubmit = this.handleStudentAndInstructorSubmit.bind(this);
     this.handleInstructorAndNewClassSubmit = this.handleInstructorAndNewClassSubmit.bind(this);
     this.handleRegistration = this.handleRegistration.bind(this);
+    this.renderInput = this.renderInput.bind(this);
+    this.renderButton = this.renderButton.bind(this);
   }
 
   setPosition(position) {
@@ -126,6 +129,30 @@ class StudentOrTeacher extends Component {
     }
   }
 
+  renderInput(field) {
+    return (
+      <div>
+        <input
+          type="text"
+          onChange={this.handleChange}
+          name={field}
+          value={this.state[field]}
+          placeholder={'Enter ' + field.split(/(?=[A-Z])/).join(' ').toLowerCase()}
+        />
+      </div>
+    );
+  }
+
+  renderButton(name, clickHandler, style) {
+    return (
+      <div>
+        <button name={name} onClick={clickHandler}>
+          {name.split(/(?=[A-Z])/).join(' ').toLowerCase()}
+        </button>
+      </div>
+    );
+  }
+
   render() {
     const { position, createClass } = this.state;
     const enterClassroomStyle = {
@@ -145,8 +172,8 @@ class StudentOrTeacher extends Component {
         <h2>Are you?</h2>
         {/* Choose between student or instructor */}
         <div>
-          <button onClick={() => this.setPosition('Student')}>Student</button>
-          <button onClick={() => this.setPosition('Instructor')}>Instructor</button>
+          {this.renderButton('Student', () => this.setPosition('Student'))}
+          {this.renderButton('Instructor', () => this.setPosition('Instructor'))}
         </div>
         {/* if instructor choose between entering a classroom and creating a classroom */}
         <div style={isInstructorStyle}>
@@ -154,19 +181,19 @@ class StudentOrTeacher extends Component {
           <button name="createClass" onClick={this.enterOrCreateClass}>Create class</button> <br />
         </div>
         <div>
-          <input type="text" placeholder="Enter first name" name="firstName" onChange={this.handleChange} /> <br />
-          <input type="text" placeholder="Enter last name" name="lastName" onChange={this.handleChange} /> <br />
+          {this.renderInput('firstName')}
+          {this.renderInput('lastName')}
         </div>
         {/* if student or if instructor and entering a classroom */}
         <div style={enterClassroomStyle}>
-          <input type="text" placeholder="Enter enrollment code" name="enrollmentCode" onChange={this.handleChange} /> <br />
+          {this.renderInput('enrollmentCode')}
         </div>
         {/* if instructor and creating a class */}
         <div style={createClassStyle}>
-          <input type="text" placeholder="Enter class name" name="name" onChange={this.handleChange} /> <br />
-          <input type="text" placeholder="Enter class description" name="description" onChange={this.handleChange} /> <br />
-          <input type="text" placeholder="Enter class schedule" name="schedule" onChange={this.handleChange} /> <br />
-          <input type="text" placeholder="Enter class location" name="location" onChange={this.handleChange} /> <br />
+          {this.renderInput('name')}
+          {this.renderInput('description')}
+          {this.renderInput('schedule')}
+          {this.renderInput('location')}
         </div>
         <button onClick={this.handleWhichSubmit}>Complete Sign-up</button>
       </div>
