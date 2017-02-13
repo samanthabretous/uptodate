@@ -12,7 +12,6 @@ const StudentTeacherModal = props => (
     isOpen={props.isOpen}
     contentLabel="Student or Teacher Modal"
   >
-    <h1>Are You A Student or Teacher?</h1>
     <StudentOrTeacher />
   </Modal>
 );

@@ -12,7 +12,7 @@ const LoginModal = props => (
     isOpen={props.isOpen}
     contentLabel="Login Modal"
   >
-    <h1>Login here!</h1>
+    <h1>Login!</h1>
     <LoginOrSignUp />
   </Modal>
 );

@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { LoginOrSignUp } from '../index';
 import style from './HomePageStyles';
 import { loginModalAction } from '../../../redux/login';
-import LoginModal from '../LoginModal/LoginModal';
+import { LoginModal } from '../index';
 import StudentTeacherModal from '../StudentTeacherModal/StudentTeacherModal';
 
 const mapDispatchToProps = dispatch => (
@@ -26,8 +26,6 @@ class HomePage extends Component {
   }
   goToLogin() {
     this.props.loginModalAction(true)
-    // this.setState({ openLoginModal: !this.state.openLoginModal })
-    // this.props.router.push('/login');
   }
 
   render() {

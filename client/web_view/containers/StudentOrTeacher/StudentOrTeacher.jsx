@@ -35,6 +35,7 @@ class StudentOrTeacher extends Component {
     this.handleWhichSubmit = this.handleWhichSubmit.bind(this);
     this.handleStudentAndInstructorSubmit = this.handleStudentAndInstructorSubmit.bind(this);
     this.handleInstructorAndNewClassSubmit = this.handleInstructorAndNewClassSubmit.bind(this);
+    this.handleRegistration = this.handleRegistration.bind(this);
   }
 
   setPosition(position) {
@@ -79,21 +80,25 @@ class StudentOrTeacher extends Component {
     }
   }
 
+  handleRegistration(position, firstName, lastName, data) {
+    axios.post('/api/users/registration', {
+      firstName,
+      lastName,
+      email: this.props.state.login.email,
+      username: this.props.state.login.username,
+      password: this.props.state.login.password,
+      position,
+      lastClassViewed: data.id,
+    });
+  }
+
   handleStudentAndInstructorSubmit(position, firstName, lastName, enrollmentCode) {
     axios.get(`/api/classes/${enrollmentCode}`)
     .then(res => (
       res.data
     ))
     .then((data) => {
-      axios.post('/api/users/registration', {
-        firstName,
-        lastName,
-        email: this.props.state.login.email,
-        username: this.props.state.login.username,
-        password: this.props.state.login.password,
-        position,
-        lastClassViewed: data.id,
-      });
+      this.handleRegistration(position, firstName, lastName, data);
     });
   }
 
@@ -108,29 +113,12 @@ class StudentOrTeacher extends Component {
       res.data
     ))
     .then((data) => {
-      axios.post('/api/users/registration', {
-        firstName,
-        lastName,
-        email: this.props.state.login.email,
-        username: this.props.state.login.username,
-        password: this.props.state.login.password,
-        position,
-        lastClassViewed: data.id,
-      });
+      this.handleRegistration(position, firstName, lastName, data);
     });
   }
 
   handleWhichSubmit() {
-    const { position,
-            createClass,
-            firstName,
-            lastName,
-            enrollmentCode,
-            name,
-            description,
-            schedule,
-            location,
-          } = this.state;
+    const { position, createClass, firstName, lastName, enrollmentCode, name, description, schedule, location } = this.state;
     if (position === 'Student' || createClass === false) {
       this.handleStudentAndInstructorSubmit(position, firstName, lastName, enrollmentCode);
     } else if (createClass) {
