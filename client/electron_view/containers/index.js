@@ -1,5 +1,5 @@
 import App from './App/App';
 import Login from './Login/Login';
-import DragAndDropContainer from './DragAndDrop';
+import AddLesson from './AddLesson/AddLesson';
 
-export { App, Login, DragAndDropContainer };
+export { App, Login, AddLesson };

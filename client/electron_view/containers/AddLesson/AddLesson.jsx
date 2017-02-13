@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Drop from './Drop';
-import fileWatcher from './fileWatcher';
+import { DropFolder } from '../../components';
+import fileWatcher from '../../utils/fileWatcher';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -10,11 +10,13 @@ const mapDispatchToProps = dispatch => (
   }, dispatch)
 );
 
-const mapStateToProps = state => ({
-  state,
-});
+const mapStateToProps = state => {
+  console.log(state)
+  return {
+  folderPath: state.lesson.folderPath,
+}};
 
-export class DragAndDrop extends Component {
+class AddLesson extends Component {
   constructor() {
     super();
     this.state = {
@@ -35,6 +37,8 @@ export class DragAndDrop extends Component {
 
   render() {
     const { inputValue } = this.state;
+    const { folderPath } = this.props;
+    
     return (
       <div>
         <input
@@ -46,10 +50,18 @@ export class DragAndDrop extends Component {
           onClick={this.submit}
           type="submit"
         />
-        <Drop />
+        <DropFolder />
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DragAndDrop);
+AddLesson.proptypes = {
+  folderPath: PropTypes.string,
+};
+
+AddLesson.defaultProps = {
+  folderPath: null,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddLesson);
