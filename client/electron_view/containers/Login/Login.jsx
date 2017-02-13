@@ -74,7 +74,7 @@ class LoginOrSignUp extends Component {
     // before sending form request to back end check to make sure there are no errors
     const isValid = Object.keys(errors).length === 0;
     if (isValid) {
-      axios.post('/api/users/authentication', {
+      axios.post('http://localhost:2020/api/users/authentication', {
         username,
         password,
       })
@@ -83,7 +83,7 @@ class LoginOrSignUp extends Component {
           // send logged in user information to the store
           this.props.userInfoAction(res.data);
           // take user to the dashboard
-          this.props.router.push(`/dashboard/${res.data.id}/${res.data.currentClass.enrollmentCode}`);
+          this.props.router.push('/drop-file');
         }
       })
       .catch(() => {
@@ -120,7 +120,7 @@ class LoginOrSignUp extends Component {
         <button style={style.signupButton} onClick={this.handleSubmit}>
           Login
         </button>
-        <button>{shell.openExternal('localhost:2020')}</button>
+        {/*<button>{shell.openExternal('localhost:2020')}</button>*/}
         {authenticationError && <span>There was an error logging in</span>}
       </div>
     );
