@@ -1,5 +1,6 @@
 import colors from './App/colors';
 import App from './App/App';
+import AddAssignment from './AddAssignment/AddAssignment';
 import LoginOrSignUp from './LoginOrSignUp/LoginOrSignUp';
 import HomePage from './HomePage/HomePage';
 import StudentOrTeacher from './StudentOrTeacher/StudentOrTeacher';
@@ -9,6 +10,7 @@ import Overview from './Overview/Overview';
 import ViewInstructorCode from './ViewInstructorCode/ViewInstructorCode';
 
 export { colors,
+         AddAssignment,
          App,
          LoginOrSignUp,
          HomePage,

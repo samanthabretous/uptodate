@@ -34,8 +34,21 @@ const updateLesson = (req, res) => {
   .catch(err => res.status(500).send(err.message));
 };
 
+const lessonByClassId = (req, res) => {
+  Lesson.findAll({
+    where: {
+      classId: req.params.classId,
+    },
+  })
+  .then((data) => {
+    res.send(data);
+  })
+  .catch(err => res.status(500).send(err.message));
+};
+
 module.exports = {
   createNewLesson,
   fetchLesson,
+  lessonByClassId,
   updateLesson,
 };

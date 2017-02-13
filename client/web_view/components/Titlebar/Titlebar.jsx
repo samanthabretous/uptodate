@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import style from './TitlebarStyles';
@@ -45,7 +46,10 @@ const Titlebar = props =>
               <h3 style={style.amount}>{props.numberOfInstructorsInCurrentClass}</h3>
             </div>
             <div>
-              <button>ADD ASSIGNMENT</button>
+              <button onClick={()=>{
+                const curentLocation = props.router.getCurrentLocation().pathname
+                props.router.push(`${curentLocation}/assignment/${props.id}`);
+              }}>ADD ASSIGNMENT</button>
             </div>
           </div>
         </div>
@@ -61,6 +65,7 @@ Titlebar.propTypes = {
   enrollmentCode: PropTypes.string,
   numberOfInstructorsInCurrentClass: PropTypes.number,
   numberOfStudentsInCurrentClass: PropTypes.number,
+  router: PropTypes.object.isRequired,
 };
 
 Titlebar.defaultProps = {
@@ -73,4 +78,4 @@ Titlebar.defaultProps = {
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Titlebar);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Titlebar));
