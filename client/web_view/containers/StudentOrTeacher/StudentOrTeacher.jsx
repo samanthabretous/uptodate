@@ -117,7 +117,7 @@ class StudentOrTeacher extends Component {
           onChange={this.updateWhichInput}
           name={field}
           value={this.state[field]}
-          placeholder={'Enter ' + field.split(/(?=[A-Z])/).join(' ').toLowerCase()}
+          placeholder={`Enter ${field.split(/(?=[A-Z])/).join(' ').toLowerCase()}`}
         />
       </div>
     );
@@ -135,27 +135,60 @@ class StudentOrTeacher extends Component {
 
   render() {
     const { position, createClass } = this.state;
+    const buttons = [
+      { name: 'Student',
+        clickHandler: () => this.setPosition('Student'),
+      },
+      { name: 'Instructor',
+        clickHandler: () => this.setPosition('Instructor'),
+      },
+      { name: 'enterClass',
+        clickHandler: this.enterOrCreateClass,
+        style: style.isInstructorStyle(position),
+      },
+      { name: 'createClass',
+        clickHandler: this.enterOrCreateClass,
+        style: style.isInstructorStyle(position),
+      },
+    ];
+
+    const inputs = [
+      { name: 'firstName' },
+      { name: 'lastName' },
+      { name: 'enrollmentCode',
+        style: style.enterClassroomStyle(position, createClass),
+      },
+      { name: 'name',
+        style: style.createClassStyle(position, createClass),
+      },
+      { name: 'description',
+        style: style.createClassStyle(position, createClass),
+      },
+      { name: 'schedule',
+        style: style.createClassStyle(position, createClass),
+      },
+      { name: 'location',
+        style: style.createClassStyle(position, createClass),
+      },
+    ];
+
+    const renderButtons = buttons.map((val, idx) => (
+      <div key={idx}>
+        {this.renderButton(val.name, val.clickHandler, val.style)}
+      </div>
+      ));
+
+    const renderInputs = inputs.map((val, idx) => (
+      <div key={idx}>
+        {this.renderInput(val.name, val.style)}
+      </div>
+    ));
 
     return (
       <div>
         <h2>Are you?</h2>
-        {/* Choose between student or instructor */}
-        {this.renderButton('Student', () => this.setPosition('Student'))}
-        {this.renderButton('Instructor', () => this.setPosition('Instructor'))}
-        {/* if instructor choose between entering a classroom and creating a classroom */}
-        {this.renderButton('enterClass', this.enterOrCreateClass, style.isInstructorStyle(position))}
-        {this.renderButton('createClass', this.enterOrCreateClass, style.isInstructorStyle(position))}
-        <div>
-        {this.renderInput('firstName')}
-        {this.renderInput('lastName')}
-        </div>
-        {/* if student or if instructor and entering a classroom */}
-        {this.renderInput('enrollmentCode', style.enterClassroomStyle(position, createClass))}
-        {/* if instructor and creating a class */}
-        {this.renderInput('name', style.createClassStyle(position, createClass))}
-        {this.renderInput('description', style.createClassStyle(position, createClass))}
-        {this.renderInput('schedule', style.createClassStyle(position, createClass))}
-        {this.renderInput('location', style.createClassStyle(position, createClass))}
+        {renderButtons}
+        {renderInputs}
         <button onClick={this.handleWhichSubmit}>Complete Sign-up</button>
       </div>
     );
