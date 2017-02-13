@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
-import { signUpInfoAction, userInfoAction } from '../../../redux/login';
+import { signUpInfoAction, userInfoAction, studentTeacherModalAction } from '../../../redux/login';
 import style from './LoginOrSignUpStyles';
-import StudentTeacherModal from '../StudentTeacherModal/StudentTeacherModal';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
     signUpInfoAction,
     userInfoAction,
+    studentTeacherModalAction,
   }, dispatch)
 );
 
@@ -27,7 +27,6 @@ class LoginOrSignUp extends Component {
       email: '',
       password: 'password1',
       authenticationError: null,
-      openStudentTeacherModal: false,
     };
     this.isSignupPage = this.isSignupPage.bind(this);
     this.isValidEmail = this.isValidEmail.bind(this);
@@ -97,7 +96,7 @@ class LoginOrSignUp extends Component {
        */
       if (this.isSignupPage()) {
         this.props.signUpInfoAction(username, email, password);
-        this.setState(prevState => ({ openStudentTeacherModal: !prevState.openStudentTeacherModal }));
+        this.props.studentTeacherModalAction(true);
       } else {
         axios.post('/api/users/authentication', {
           username,
@@ -107,7 +106,6 @@ class LoginOrSignUp extends Component {
           if (res.data) {
             // send logged in user information to the store
             this.props.userInfoAction(res.data);
-            console.log(this.props.state)
             // take user to the dashboard
             this.props.router.push(`/dashboard/${res.data.id}/${res.data.currentClass.enrollmentCode}`);
           }
@@ -139,7 +137,7 @@ class LoginOrSignUp extends Component {
   }
 
   render() {
-    const { authenticationError, openStudentTeacherModal } = this.state;
+    const { authenticationError } = this.state;
     return (
       <div
         style={this.isSignupPage()
@@ -153,7 +151,6 @@ class LoginOrSignUp extends Component {
         <button style={style.signupButton} onClick={this.handleSubmit}>
           sign up for free
         </button>
-        <StudentTeacherModal isOpen={openStudentTeacherModal} />
         {authenticationError && <span>There was an error logging in</span>}
       </div>
     );

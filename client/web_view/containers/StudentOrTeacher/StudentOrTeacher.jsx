@@ -2,17 +2,17 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
+import { studentTeacherModalAction } from '../../../redux/login';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
-
+    studentTeacherModalAction,
   }, dispatch)
 );
 
 const mapStateToProps = state => ({
   state,
 });
-
 
 class StudentOrTeacher extends Component {
   constructor(props) {
@@ -80,7 +80,6 @@ class StudentOrTeacher extends Component {
   }
 
   handleStudentAndInstructorSubmit(position, firstName, lastName, enrollmentCode) {
-    // ADD ERROR HANDLING AND REROUTING
     axios.get(`/api/classes/${enrollmentCode}`)
     .then(res => (
       res.data
@@ -140,7 +139,6 @@ class StudentOrTeacher extends Component {
   }
 
   render() {
-    console.log(this.state.createClass)
     const { position, createClass } = this.state;
     const enterClassroomStyle = {
       display: position === 'Student' || position === 'Instructor' && createClass === false ? 'initial' : 'none',
@@ -167,9 +165,10 @@ class StudentOrTeacher extends Component {
           <button name="enterClass" onClick={this.enterOrCreateClass}>Enter classroom</button>
           <button name="createClass" onClick={this.enterOrCreateClass}>Create class</button> <br />
         </div>
-
-        <input type="text" placeholder="Enter first name" name="firstName" onChange={this.handleChange} /> <br />
-        <input type="text" placeholder="Enter last name" name="lastName" onChange={this.handleChange} /> <br />
+        <div>
+          <input type="text" placeholder="Enter first name" name="firstName" onChange={this.handleChange} /> <br />
+          <input type="text" placeholder="Enter last name" name="lastName" onChange={this.handleChange} /> <br />
+        </div>
         {/* if student or if instructor and entering a classroom */}
         <div style={enterClassroomStyle}>
           <input type="text" placeholder="Enter enrollment code" name="enrollmentCode" onChange={this.handleChange} /> <br />

@@ -4,11 +4,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { LoginOrSignUp } from '../index';
 import style from './HomePageStyles';
-import LoginModal from '../LoginModal/LoginModal'
+import { loginModalAction } from '../../../redux/login';
+import LoginModal from '../LoginModal/LoginModal';
+import StudentTeacherModal from '../StudentTeacherModal/StudentTeacherModal';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
-
+    loginModalAction,
   }, dispatch)
 );
 
@@ -20,13 +22,11 @@ const mapStateToProps = state => ({
 class HomePage extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      openLoginModal: false,
-    }
     this.goToLogin = this.goToLogin.bind(this);
   }
   goToLogin() {
-    this.setState({ openLoginModal: !this.state.openLoginModal })
+    this.props.loginModalAction(true)
+    // this.setState({ openLoginModal: !this.state.openLoginModal })
     // this.props.router.push('/login');
   }
 
@@ -36,7 +36,7 @@ class HomePage extends Component {
         <nav style={style.homebar}>
           <div style={style.logo}>Logo</div>
           <button style={style.loginButton} onClick={this.goToLogin}>Login</button>
-          <LoginModal isOpen={this.state.openLoginModal} />
+          <LoginModal />
         </nav>
         <section style={style.topSection}>
           <div style={style.headlineContainer}>
@@ -45,6 +45,7 @@ class HomePage extends Component {
             <h2 style={style.tagline}>BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH</h2>
           </div>
           <LoginOrSignUp pathname={this.props.location.pathname}/>
+          <StudentTeacherModal />
         </section>
       </div>
     );

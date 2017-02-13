@@ -1,6 +1,11 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import { LoginOrSignUp } from '../index';
+
+const mapStateToProps = state => ({
+  isOpen: state.login.openLoginModal,
+});
 
 const LoginModal = props => (
   <Modal
@@ -16,4 +21,4 @@ LoginModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
 };
 
-export default LoginModal;
+export default connect(mapStateToProps)(LoginModal);

@@ -1,6 +1,11 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import { StudentOrTeacher } from '../index';
+
+const mapStateToProps = state => ({
+  isOpen: state.login.openStudentTeacherModal,
+});
 
 const StudentTeacherModal = props => (
   <Modal
@@ -16,5 +21,5 @@ StudentTeacherModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
 };
 
-export default StudentTeacherModal;
+export default connect(mapStateToProps)(StudentTeacherModal);
 
