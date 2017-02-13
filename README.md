@@ -1,6 +1,6 @@
 # The Magic Schoolbus
 
-CodeEd is a content management tool built to help both istructors and students keep up with a fast paced programming curriculum. 
+CodeEd is a content management tool built to help both instructors and students keep up with a fast paced programming curriculum. 
 
 ### CodeEd is built on a number of open source projects:
 
