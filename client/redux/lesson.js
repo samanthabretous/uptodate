@@ -7,7 +7,7 @@ export const DROPPED_FOLDER = 'dropped_folder';
 // actions
 // -------------------
 
-export const droppedFolderAction = (folderPath) => ({
+export const droppedFolderAction = folderPath => ({
   type: DROPPED_FOLDER,
   folderPath,
 });

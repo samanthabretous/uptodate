@@ -10,11 +10,9 @@ const mapDispatchToProps = dispatch => (
   }, dispatch)
 );
 
-const mapStateToProps = state => {
-  console.log(state)
-  return {
+const mapStateToProps = state => ({
   folderPath: state.lesson.folderPath,
-}};
+});
 
 class AddLesson extends Component {
   constructor() {
@@ -38,7 +36,7 @@ class AddLesson extends Component {
   render() {
     const { inputValue } = this.state;
     const { folderPath } = this.props;
-    
+
     return (
       <div>
         <input

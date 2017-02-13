@@ -1,4 +1,5 @@
 const electron = require('electron');
+const windowConfig = require('./config/default').window
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 const Menu = electron.Menu;
@@ -9,7 +10,7 @@ const url = require('url');
 let mainWindow;
 
 const createWindow = () => {
-  mainWindow = new BrowserWindow(require('./config/default').window);
+  mainWindow = new BrowserWindow(windowConfig);
 
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, '../../', 'client/electron_view/index.html'),
@@ -23,7 +24,7 @@ const createWindow = () => {
     mainWindow = null;
   });
 };
-
+app.setName('upToDate');
 app.on('ready', createWindow);
 
 app.on('window-all-closed', () => {
