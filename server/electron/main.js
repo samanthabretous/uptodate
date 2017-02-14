@@ -1,8 +1,9 @@
 const electron = require('electron');
-const windowConfig = require('./config/default').window
+const windowConfig = require('./config/default').window;
+
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
-const Menu = electron.Menu;
+
 
 const path = require('path');
 const url = require('url');
@@ -24,7 +25,7 @@ const createWindow = () => {
     mainWindow = null;
   });
 };
-app.setName('upToDate');
+
 app.on('ready', createWindow);
 
 app.on('window-all-closed', () => {
@@ -39,7 +40,4 @@ app.on('activate', () => {
   }
 });
 
-const menu = Menu.buildFromTemplate(require('./config/menu')(app));
-
-Menu.setApplicationMenu(menu);
 

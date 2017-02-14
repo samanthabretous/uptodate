@@ -1,7 +1,8 @@
 /* when loading electron files on the front end then the render process is triggered
 *remote requires allows us to require the menu from the main process
 */
-const { remote } = require('electron');
+import { remote } from 'electron';
+
 const { app, Menu } = remote;
 
 const template = [
@@ -16,7 +17,7 @@ const template = [
       { role: 'paste' },
       { role: 'delete' },
       { role: 'selectall' },
-    ]
+    ],
   },
   {
     label: 'View',
@@ -54,77 +55,43 @@ if (process.platform === 'darwin') {
   template.unshift({
     label: app.getName(),
     submenu: [
-      {
-        role: 'about'
-      },
-      {
-        type: 'separator'
-      },
+      { role: 'about' },
+      { type: 'separator' },
       {
         role: 'services',
-        submenu: []
+        submenu: [],
       },
-      {
-        type: 'separator'
-      },
-      {
-        role: 'hide'
-      },
-      {
-        role: 'hideothers'
-      },
-      {
-        role: 'unhide'
-      },
-      {
-        type: 'separator'
-      },
-      {
-        role: 'quit'
-      }
-    ]
-  })
-  // Edit menu.
-  template[1].submenu.push(
-    {
-      type: 'separator'
-    },
-    {
-      label: 'Speech',
-      submenu: [
-        {
-          role: 'startspeaking'
-        },
-        {
-          role: 'stopspeaking'
-        }
-      ]
-    }
-  )
+      { type: 'separator' },
+      { role: 'hide' },
+      { role: 'hideothers' },
+      { role: 'unhide' },
+      { type: 'separator' },
+      { role: 'quit' },
+    ],
+  });
+
   // Window menu.
   template[3].submenu = [
     {
       label: 'Close',
       accelerator: 'CmdOrCtrl+W',
-      role: 'close'
+      role: 'close',
     },
     {
       label: 'Minimize',
       accelerator: 'CmdOrCtrl+M',
-      role: 'minimize'
+      role: 'minimize',
     },
     {
       label: 'Zoom',
-      role: 'zoom'
+      role: 'zoom',
     },
-    {
-      type: 'separator'
-    },
+    { type: 'separator' },
     {
       label: 'Bring All to Front',
-      role: 'front'
-    }
+      role: 'front',
+    },
   ];
 }
 const menu = Menu.buildFromTemplate(template);
-Menu.setApplicationMenu(menu)
+Menu.setApplicationMenu(menu);

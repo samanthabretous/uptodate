@@ -38,7 +38,7 @@ class DropFolder extends Component {
     e.preventDefault();
     _.forEach(e.dataTransfer.files, (file) => {
       // make sure file dropped is a folder and not a file
-      if (file.type === ''){
+      if (file.type === '') {
         this.props.droppedFolderAction(file.path);
       }
     });
@@ -47,24 +47,22 @@ class DropFolder extends Component {
 
   render() {
     return (
-      <div>
-        <div
-          draggable
-          onDragOver={this.handleDrag}
-          onDragLeave={this.stopDropDefault}
-          onDragEnd={this.stopDropDefault}
-          onDrop={this.handleDrop}
-          id="holder"
-          style={{
-            border: '3px solid blue',
-            width: '50vw',
-            height: '50vh',
-            fontSize: 50,
-            background: 'blue',
-          }}
-        >
-          Drop your file here
-        </div>
+      <div
+        draggable
+        onDragOver={this.handleDrag}
+        onDragLeave={this.stopDropDefault}
+        onDragEnd={this.stopDropDefault}
+        onDrop={this.handleDrop}
+        id="holder"
+        style={{
+          border: '3px solid blue',
+          width: '50vw',
+          height: '50vh',
+          fontSize: 50,
+          background: 'blue',
+        }}
+      >
+        {this.props.children}
       </div>
     );
   }
@@ -72,6 +70,7 @@ class DropFolder extends Component {
 
 DropFolder.propTypes = {
   droppedFolderAction: PropTypes.func.isRequired,
-}
+  children: PropTypes.node.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(DropFolder);

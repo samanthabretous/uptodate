@@ -1,5 +1,6 @@
-import App from './App/App';
-import Login from './Login/Login';
 import AddLesson from './AddLesson/AddLesson';
+import App from './App/App';
+import DropFolder from './DropFolder/DropFolder';
+import Login from './Login/Login';
 
-export { App, Login, AddLesson };
+export { AddLesson, App, DropFolder, Login };
