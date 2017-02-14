@@ -5,7 +5,10 @@ const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 
-const config = require('../../../webpack.config');
+// determine which config file to execute base on the node enviroment
+const config = process.env.NODE_ENV === 'electron'
+ ? require('../../webpack.config.electron_dev')
+ : require('../../webpack.config');
 
 const compiler = webpack(config);
 
@@ -18,7 +21,7 @@ const applyExpressMiddleware = (app) => {
 */
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
-  app.use(express.static(path.join(__dirname, '../../../', '/client/web_view/public')));
+  app.use(express.static(path.join(__dirname, '../../', '/client/web_view/public')));
 
   app.use(webpackDevMiddleware(compiler, {
     publicPath: config.output.publicPath,
@@ -26,7 +29,6 @@ const applyExpressMiddleware = (app) => {
       colors: true,
     },
     watchOptions: { ignored: /node_modules/ },
-    clientLogLevel: 'none',
     noInfo: true,
   }));
 

@@ -31,7 +31,6 @@ class AddLesson extends Component {
 
   render() {
     const { folderPath } = this.props;
-    console.log(this.props)
     return (
       <div>
         <DisplayClasses />

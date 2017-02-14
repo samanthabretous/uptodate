@@ -34,7 +34,6 @@ const DisplayClasses = (props) => {
   );
 };
 
-
 DisplayClasses.propTypes = {
   classes: PropTypes.array,
   AsyncGetLessons: PropTypes.func.isRequired,

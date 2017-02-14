@@ -16,7 +16,7 @@
       let bundlePath = './build/bundle.js';
 
       if (typeof process !== 'undefined' && process.env.ENVIRONMENT === 'DEV') {
-        bundlePath = 'http://localhost:9000/client/electron_view/build/bundle.js';
+        bundlePath = 'http://localhost:2020/client/electron_view/build/bundle.js';
       }
 
       const bundleScriptEl = document.createElement('script');

@@ -1,4 +1,4 @@
-const _ = require('lodash');
+const SocketListeners = require('./socket_listeners.js');
 
 module.exports = ((app, io) => {
   io.on('connection', (socket) => {
@@ -6,16 +6,13 @@ module.exports = ((app, io) => {
       io.sockets.emit('new user', `${user.username} has joined.`);
     });
 
-    socket.on('join-rooms', (userChannels) => {
-      _.map(userChannels, (channel) => {
-        socket.join(channel);
-      });
+    socket.on('join-classroom', (classroom) => {
+      socket.join(classroom);
       const rooms = Object.keys(io.sockets.adapter.sids[socket.id]);
       socket.emit('rooms-joined', rooms);
     });
 
-    socket.on('disconnect', () => {
-      socket.leave();
-    });
+    const socketOn = new SocketListeners(socket);
+    socketOn.disconnectSocket(socket);
   });
 });
