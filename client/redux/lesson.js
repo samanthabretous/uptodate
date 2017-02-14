@@ -25,7 +25,7 @@ export const droppedFolderAction = folderPath => ({
 export const selectedLessonAction = lessonId => ({
   type: SELECTED_LESSON,
   lessonId,
-}); 
+});
 
 export const AsyncGetLessons = (classId, platform) => (dispatch) => {
   axios.get(`http://localhost:2020/api/lessons/byClass/${platform}/${classId}`)
@@ -57,7 +57,6 @@ export default (state = initialState, action) => {
       const classname = action.data[0].class.name || '';
       return Object.assign({}, state, { classLessons: action.data, classname });
     case SELECTED_LESSON:
-    console.log(action.lessonId)
       return Object.assign({}, state, { lessonId: action.lessonId });
     case DROPPED_FOLDER:
       return Object.assign({}, state, { folderPath: action.folderPath });
