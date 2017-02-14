@@ -13,6 +13,8 @@ app.use(webpackDevMiddleware(compiler, {
   stats: {
     colors: true,
   },
+  watchOptions: { ignored: /node_modules/ },
+  noInfo: true,
 }));
 
 app.use(webpackHotMiddleware(compiler));
