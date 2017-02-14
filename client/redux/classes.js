@@ -36,7 +36,10 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_CLASSES:
-      return Object.assign({}, state, { classes: action.classes.classes, firstName: action.classes.firstName });
+      return Object.assign({}, state, {
+        classes: action.classes.classes,
+        firstName: action.classes.firstName,
+      });
     default:
       return state;
   }

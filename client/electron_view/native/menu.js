@@ -1,7 +1,7 @@
 /* when loading electron files on the front end then the render process is triggered
 *remote requires allows us to require the menu from the main process
 */
-import { remote } from 'electron';
+import { remote, shell } from 'electron';
 
 const { app, Menu } = remote;
 
@@ -45,7 +45,7 @@ const template = [
     submenu: [
       {
         label: 'Go to dashboard',
-        click() { require('electron').shell.openExternal('http://localhost:2020')},
+        click() { shell.openExternal('http://localhost:2020'); },
       },
     ],
   },
