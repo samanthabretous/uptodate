@@ -39,11 +39,12 @@ describe('User tests', () => {
   });
 
   // clean up database after running test
-  after(() => {
+  after((done) => {
     models.user.destroy({
       where: {
         username: 'mickey',
       },
     });
+    done();
   });
 });

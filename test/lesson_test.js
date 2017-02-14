@@ -51,11 +51,12 @@ describe('Lesson API tests', () => {
   });
 
   // clean up database after test
-  after(() => {
+  after((done) => {
     models.lesson.destroy({
       where: {
         name: 'Trigonometry and why you\'ll never use it again',
       },
     });
+    done();
   });
 });

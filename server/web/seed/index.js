@@ -15,7 +15,10 @@ const voteData = require('./vote_seed');
 const seedFunction = () => {
   models.sequelize.sync({ force: true })
   .then(() => {
-    models.class.bulkCreate(classData);
+    models.class.create(classData[0]);
+    models.class.create(classData[1]);
+    models.class.create(classData[2]);
+    models.class.create(classData[3]);
   })
   .then(() => models.user.create(userData[0]))
   .then((user) => {
@@ -86,7 +89,7 @@ const seedFunction = () => {
     return models.work.create(workData[11]);
   })
   .then(() => models.discussion.bulkCreate(discussionData))
-  .then(() => models.vote.bulkCreate(voteData))
+  .then(() => models.vote.bulkCreate(voteData));
 };
 
 seedFunction();
