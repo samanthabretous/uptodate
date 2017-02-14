@@ -4,8 +4,9 @@ import createStore from './createStore';
 // -------------------
 // types
 // -------------------
-const GET_LESSONS = 'GET_LESSONS';
-export const DROPPED_FOLDER = 'dropped_folder';
+const GET_LESSONS = 'get_lessons';
+const DROPPED_FOLDER = 'dropped_folder';
+const SELECTED_LESSON = 'selected_lesson';
 
 
 // -------------------
@@ -16,8 +17,18 @@ const getLessons = data => ({
   data,
 });
 
-export const AsyncGetLessons = classId => (dispatch) => {
-  axios.get(`/api/lessons/byClass/${classId}`)
+export const droppedFolderAction = folderPath => ({
+  type: DROPPED_FOLDER,
+  folderPath,
+});
+
+export const selectedLessonAction = lessonId => ({
+  type: SELECTED_LESSON,
+  lessonId,
+});
+
+export const AsyncGetLessons = (classId, platform) => (dispatch) => {
+  axios.get(`http://localhost:2020/api/lessons/byClass/${platform}/${classId}`)
   .then((lessons) => {
     dispatch(getLessons(lessons.data));
   });
@@ -28,10 +39,6 @@ export const enterGetLessons = () => {
   return createStore.dispatch(AsyncGetLessons(state.titlebar.id));
 };
 
-export const droppedFolderAction = folderPath => ({
-  type: DROPPED_FOLDER,
-  folderPath,
-});
 
 // -------------------
 // reducer
@@ -40,12 +47,17 @@ export const droppedFolderAction = folderPath => ({
 const initialState = {
   folderPath: null,
   classLessons: null,
+  classname: '',
+  lessonId: null,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_LESSONS:
-      return Object.assign({}, state, { classLessons: action.data });
+      const classname = action.data[0].class.name || '';
+      return Object.assign({}, state, { classLessons: action.data, classname });
+    case SELECTED_LESSON:
+      return Object.assign({}, state, { lessonId: action.lessonId });
     case DROPPED_FOLDER:
       return Object.assign({}, state, { folderPath: action.folderPath });
     default:

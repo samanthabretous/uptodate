@@ -1,6 +1,6 @@
 process.env.NODE_ENV = 'test';
 
-const models = require('../server/web/db/models/index');
+const models = require('../server/db/models/index');
 const expect = require('chai').expect;
 const supertest = require('supertest');
 const server = require('../start.js');
