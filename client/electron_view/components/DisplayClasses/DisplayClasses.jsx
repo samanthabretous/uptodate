@@ -5,9 +5,7 @@ const mapStateToProps = state => ({
   classes: state.classes.classes,
 });
 
-const DisplayClasses = props => {
-  console.log(props.classes)
-  return (
+const DisplayClasses = props => (
   <div>
     {props.classes && props.classes.map(oneClass => (
       <article key={oneClass.id}>
@@ -15,8 +13,8 @@ const DisplayClasses = props => {
       </article>
     ))}
   </div>
-  )
-};
+);
+
 
 DisplayClasses.propTypes = {
   classes: PropTypes.array,

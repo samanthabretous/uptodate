@@ -4,14 +4,17 @@
   "description": "",
   "main": "start.js",
   "scripts": {
-    "electron-start": "ENVIRONMENT=DEV ./node_modules/.bin/electron server/electron/main.js",
-    "electron": "concurrently -k 'yarn server' 'nodemon server/electron/server.js' 'yarn electron-start'",
+    "electron-start": "./node_modules/.bin/electron server/electron/main.js",
+    "electron": "cross-env NODE_ENV=electron concurrently -k 'yarn electron-build' 'yarn server' 'yarn electron-start'",
     "electron-build": "webpack --config webpack.config.electron_dev.js",
+<<<<<<< HEAD
+    "web": "DEBUG=SOCKET concurrently -k  --prefix '[{name}]' --names 'Server' -c 'bgBlue,bgMagenta' 'yarn server' 'webpack --config webpack.config.js'",
+=======
     "web": "DEBUG=SOCKET concurrently -k  --prefix '[{name}]' --names 'Server' -c 'bgBlue,bgMagenta' './node_modules/.bin/nodemon start.js' 'webpack --config webpack.config.js'",
+>>>>>>> sprint2
     "server": "DEBUG=SOCKET nodemon start.js",
     "seed": "node ./server/web/seed",
     "test": "DEBUG=API_ROUTES,SOCKET concurrently -k 'yarn server' 'mocha --watch --colors --timeout 3500'",
-    "redux-test": "./node_modules/.bin/jest",
     "eslint": "./node_modules/.bin/eslint ."
   },
   "babel": {
@@ -40,6 +43,7 @@
     "codemirror": "^5.23.0",
     "color": "^1.0.3",
     "concurrently": "^3.1.0",
+    "cross-env": "^3.1.4",
     "debug": "^2.6.0",
     "electron": "^1.4.15",
     "electron-packager": "^8.5.1",

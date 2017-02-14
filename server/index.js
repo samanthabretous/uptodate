@@ -19,7 +19,7 @@ Promise.resolve(userSocket)
 
   // return our react app for all non-API routes
   app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../', 'client/web_view/index.html'));
+    res.sendFile(path.join(__dirname, '../', 'client/web_view/index.html'));
   });
   return app;
 });

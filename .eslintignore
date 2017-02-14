@@ -4,8 +4,9 @@ bundle
 build
 client/electron_view/build
 config.json
-server/web/env
-server/web/db/models/index.js
+server/env
+server/index.js
+server/db/models/index.js
 server/electron/main.js
 z_electron_notes.js
 client/redux/createStore.js
