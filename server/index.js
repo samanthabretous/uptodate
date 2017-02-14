@@ -27,5 +27,4 @@ Promise.resolve(userSocket)
 module.exports = {
   server,
   userSocket,
-  io
 };

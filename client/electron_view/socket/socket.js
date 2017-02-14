@@ -1,11 +1,9 @@
 import io from 'socket.io-client';
 
-export const socket = io.connect();
-console.log(socket)
+export const socket = io.connect('http://localhost:2020');
 
 export default (store) => {
   socket.on('connect', () => {
-    console.log('socked connected');
     store.dispatch({
       type: 'CONNECT',
     });

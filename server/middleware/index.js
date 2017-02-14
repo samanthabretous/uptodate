@@ -5,14 +5,12 @@ const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 
+// determine which config file to execute base on the node enviroment
 const config = process.env.NODE_ENV === 'electron'
  ? require('../../webpack.config.electron_dev')
  : require('../../webpack.config');
- 
- console.log(process.env.NODE_ENV)
 
 const compiler = webpack(config);
-console.log(config.output.publicPath);
 
 // add all middleware to the following function:
 const applyExpressMiddleware = (app) => {

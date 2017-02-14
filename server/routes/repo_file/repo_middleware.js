@@ -92,7 +92,7 @@ const addFile = (req, res) => {
   const { pathToRepoStorage, subPath, fileDirectory } = pathMaker(repoPath, localPath);
   Lesson.findById(1)
   .then((lesson) => {
-    let repo = lesson.get('repo');
+    const repo = lesson.get('repo');
     addNodeToTree(repo, fileDirectory, subPath);
     return Lesson.update({ repo },
       {
