@@ -34,6 +34,7 @@ const updateLesson = (req, res) => {
   .catch(err => res.status(500).send(err.message));
 };
 
+// api/lessons/byClass/:classId
 const lessonByClassId = (req, res) => {
   Lesson.findAll({
     where: {

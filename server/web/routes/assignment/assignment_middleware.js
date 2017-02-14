@@ -9,6 +9,10 @@ const lessonIdExist = lessonId =>
 const fileExist = file =>
   file[0];
 
+/*
+* accepts req from express middleware returns an assignment object
+* add file & lessonID to assignment if it exist
+*/
 const assignmentCreator = (req) => {
   const { classId, due, instructions, exercises, lessonId } = req.body;
   const file = req.files;

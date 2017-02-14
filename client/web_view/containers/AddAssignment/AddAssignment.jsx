@@ -2,19 +2,18 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import FileInput from 'react-file-input';
-import { AsyncGetLessons, AsyncPostAssignment } from '../../../redux/assignment';
+import { AsyncPostAssignment } from '../../../redux/assignment';
 
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
-    AsyncGetLessons,
     AsyncPostAssignment,
   }, dispatch)
 );
 
 const mapStateToProps = state => ({
-  classId: 1,
-  classLessons: state.assignment.classLessons,
+  classId: state.titlebar.id,
+  classLessons: state.lesson.classLessons,
 });
 
 class AddAssignment extends Component {
@@ -32,10 +31,6 @@ class AddAssignment extends Component {
     this.handelChange = this.handelChange.bind(this);
     this.submit = this.submit.bind(this);
     this.fileExist = this.fileExist.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.AsyncGetLessons(this.props.classId);
   }
 
   buildLessonList() {
@@ -68,6 +63,7 @@ class AddAssignment extends Component {
 
   submit(e) {
     e.preventDefault();
+    // push data into FormData because files must be sent in FormData
     const { lessonId, classId, due, instructions, exercises, file } = this.state;
     const data = new FormData();
     if (this.fileExist()) {
@@ -94,27 +90,23 @@ class AddAssignment extends Component {
             </option>
             {this.buildLessonList()}
           </select>
-          <br />
           <input
             type="date"
             onChange={this.handelChange}
             name="due"
           />
-          <br />
           <input
             type="text"
             placeholder="instructions"
             onChange={this.handelChange}
             name="instructions"
           />
-          <br />
           <input
             type="text"
             placeholder="exercise"
             onChange={this.handelChange}
             name="exercises"
           />
-          <br />
           <FileInput
             name="file"
             accept=".zip"
@@ -122,11 +114,7 @@ class AddAssignment extends Component {
             className="inputClass"
             onChange={this.handelChange}
           />
-          <br />
-          <input
-            type="submit"
-            value="create Assignment"
-          />
+          <button>create Assignment</button>
         </form>
       </div>
     );
@@ -134,10 +122,14 @@ class AddAssignment extends Component {
 }
 
 AddAssignment.propTypes = {
-  classId: PropTypes.number.isRequired,
-  classLessons: PropTypes.Array.isRequired,
-  AsyncGetLessons: PropTypes.func.isRequired,
+  classId: PropTypes.number,
+  classLessons: PropTypes.array,
   AsyncPostAssignment: PropTypes.func.isRequired,
+};
+
+AddAssignment.defaultProps = {
+  classId: null,
+  classLessons: [],
 };
 
 
