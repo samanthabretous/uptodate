@@ -4,7 +4,12 @@ import { Router, hashHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import store from '../redux/createStore';
 import routes from './routes';
-import './css/index.scss';
+import './native/menu';
+
+// // socket
+import SocketListeners from './socket/socket';
+
+SocketListeners(store);
 
 const renderApp = (CurrentRoute) => {
   render(

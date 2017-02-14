@@ -1,9 +1,9 @@
 const path = require('path');
 const webpack = require('webpack');
 
-const config = {
+module.exports = {
   entry: [
-    'webpack-hot-middleware/client?reload=true&path=http://localhost:9000/__webpack_hmr',
+    'webpack-hot-middleware/client?reload=true&path=http://localhost:2020/__webpack_hmr',
     './client/electron_view/entry.jsx',
   ],
   output: {
@@ -11,31 +11,38 @@ const config = {
     filename: 'bundle.js',
     devtoolModuleFilenameTemplate: '[resourcePath]',
     devtoolFallbackModuleFilenameTemplate: '[resourcePath]?[hash]',
-    publicPath: 'http://localhost:9000/client/electron_view/build/',
+    publicPath: 'http://localhost:2020/client/electron_view/build/',
   },
+  watch: true,
+  watchOptions: { ignored: /node_modules/ },
   module: {
+    noParse: ['ws'],
     loaders: [
       { test: [/\.jsx?$/, /\.js?$/],
-        loader: 'babel-loader',
-        exclude: /node_modules/,
+        exclude: /(node_modules)/,
+        loader: 'babel',
         query: {
-          presets: ['react'],
+          presets: ['es2015', 'react'],
         },
       },
       {
-        test: /\.scss$/,
+        test: [/\.scss$/, /\.css$/],
         loader: 'style-loader!css-loader!sass-loader',
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader',
       },
     ],
   },
+  externals: ['ws'],
+  devtool: 'source-map',
   resolve: {
     extensions: ['', '.js', '.jsx'],
   },
+  target: 'electron-renderer',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
   ],
 };
-
-
-module.exports = config;
