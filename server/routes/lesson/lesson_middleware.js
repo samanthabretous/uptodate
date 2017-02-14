@@ -1,4 +1,6 @@
-const Lesson = require('../../db/models/index').lesson;
+const models = require('../../db/models/index');
+
+const Lesson = models.lesson;
 
 // /api/lessons/new-lesson -- create new row in lesson table
 const createNewLesson = (req, res) => {
@@ -34,7 +36,7 @@ const updateLesson = (req, res) => {
   .catch(err => res.status(500).send(err.message));
 };
 
-// api/lessons/byClass/:classId
+// api/lessons/byClass/web/:classId
 const lessonByClassId = (req, res) => {
   Lesson.findAll({
     where: {
@@ -47,9 +49,28 @@ const lessonByClassId = (req, res) => {
   .catch(err => res.status(500).send(err.message));
 };
 
+// api/lessons/byClass/electron/:classId
+const lessonByClassIdElectron = (req, res) => {
+  Lesson.findAll({
+    where: {
+      classId: req.params.classId,
+    },
+    attributes: ['id', 'name', 'repo'],
+    include: [{
+      model: models.class,
+      attributes: ['name'],
+    }],
+  })
+  .then((lessonInfo) => {
+    res.send(lessonInfo);
+  })
+  .catch(err => res.status(500).send(err.message));
+};
+
 module.exports = {
   createNewLesson,
   fetchLesson,
   lessonByClassId,
+  lessonByClassIdElectron,
   updateLesson,
 };
