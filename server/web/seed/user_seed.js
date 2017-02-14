@@ -6,7 +6,6 @@ module.exports = [
     username: 'vfrizzle',
     password: 'password1',
     position: 'Instructor',
-    lastClassViewed: '1e2f3',
   }, {
     firstName: 'Keesha',
     lastName: 'Franklin',
