@@ -8,7 +8,10 @@ router.route('/:lessonId')
   .get(middleware.fetchLesson)
   .put(middleware.updateLesson);
 
-router.route('/byClass/:classId')
+router.route('/byClass/web/:classId')
   .get(middleware.lessonByClassId);
+
+router.route('/byClass/electron/:classId')
+  .get(middleware.lessonByClassIdElectron);
 
 module.exports = router;

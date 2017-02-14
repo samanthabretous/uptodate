@@ -21,7 +21,7 @@ const pathMaker = (directoryBeingWatched, usersLocalPath) => {
   subPath = subPath.slice(repoPathLocationStart + 1).join('/');
 
   // join path based on servers location pointing to repo fodler
-  const pathToRepoStorage = path.join(__dirname, '../../../../repo/', subPath);
+  const pathToRepoStorage = path.join(__dirname, '../../../repo/', subPath);
   return { pathToRepoStorage, subPath, fileDirectory };
 };
 
