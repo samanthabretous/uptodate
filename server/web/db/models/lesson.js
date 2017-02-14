@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       repo: {
         type: DataTypes.JSON,
-        defaultValue: {},
+        defaultValue: [],
         allowNull: true,
       },
     },

@@ -1,6 +1,6 @@
 module.exports = [
   {
-    name: 'Chemistry',
+    name: 'Chemistry 123',
     description: 'Chemistry is Sodium fun!',
     schedule: 'Tuesdays, 3pm',
     location: 'Room 110B',

@@ -23,7 +23,7 @@ describe('User tests', () => {
   });
 
   it('"/api/users/authentication" should respond with a user', (done) => {
-    const user = { username: 'vfrizzle', password: 'pass1' };
+    const user = { username: 'vfrizzle', password: 'password1' };
     supertest(server)
     .post('/api/users/authentication')
     .send(user)
@@ -39,11 +39,12 @@ describe('User tests', () => {
   });
 
   // clean up database after running test
-  after(() => {
+  after((done) => {
     models.user.destroy({
       where: {
         username: 'mickey',
       },
     });
+    done();
   });
 });

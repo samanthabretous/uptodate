@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
    * enrollment code allows users to have access to the class
    */
   Class.beforeCreate((classModel, options, fn) => {
-    const code = classModel.name + Math.floor(Math.random() * 4555);
+    const code = classModel.name.split(' ').join('').toLowerCase() + Math.floor(Math.random() * 4555);
     classModel.enrollmentCode = code;
     fn(null, options);
   });

@@ -53,10 +53,25 @@ const fetchClassInfo = (req, res) => {
   .then((classInfo) => {
     res.send(classInfo);
   })
-  .catch((err) => {
-    console.error(err);
-    res.sendStatus(500);
-  });
+  .catch(err => res.status(500).send(err.message));
+};
+
+// /api/classes/allClasses/:userId
+const getAllUserClasses = (req, res) => {
+  models.user.findById(req.params.userId, {
+    attributes: ['firstName', 'id'],
+    include: [{
+      model: models.class,
+      attributes: ['id', 'name'],
+      through: {
+        attributes: [],
+      },
+    }],
+  })
+  .then((classes) => {
+    res.send(classes);
+  })
+  .catch(err => res.status(500).send(err.message));
 };
 
 // /api/classes/titlebar/:currentClassEnrollmentCode/:userId
@@ -103,4 +118,5 @@ module.exports = {
   getClassByEnrollmentCode,
   getTitlebarInfo,
   fetchClassInfo,
+  getAllUserClasses,
 };

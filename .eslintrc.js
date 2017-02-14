@@ -12,9 +12,11 @@ module.exports = {
     "localStorage": true,
     "describe": true,
     "before": true,
+    "beforeEach": true,
     "after": true,
     "it": true,
     "chokidar": true,
     "fs": true,
+    "FormData": true,
   }
 };
