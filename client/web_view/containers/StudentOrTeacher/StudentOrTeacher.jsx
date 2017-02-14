@@ -72,7 +72,6 @@ class StudentOrTeacher extends Component {
       lastClassViewed: data.id,
     })
     .then((res) => {
-      console.log(res.data)
       this.props.router.push(`/dashboard/${res.data.id}/${data.enrollmentCode}`);
     });
   }
