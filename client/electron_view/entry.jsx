@@ -4,8 +4,7 @@ import { Router, hashHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import store from '../redux/createStore';
 import routes from './routes';
-import './css/index.scss';
-
+import './native/menu.js';
 const renderApp = (CurrentRoute) => {
   render(
     <Provider store={store}>

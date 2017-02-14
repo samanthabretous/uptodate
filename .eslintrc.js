@@ -17,5 +17,6 @@ module.exports = {
     "it": true,
     "chokidar": true,
     "fs": true,
+    "FormData": true,
   }
 };

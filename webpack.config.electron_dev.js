@@ -26,16 +26,20 @@ const config = {
         test: /\.scss$/,
         loader: 'style-loader!css-loader!sass-loader',
       },
+      {
+        test: /\.json$/,
+        loader: 'json-loader',
+      },
     ],
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],
   },
+  target: 'electron-renderer',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
   ],
 };
-
 
 module.exports = config;

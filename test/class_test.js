@@ -30,4 +30,16 @@ describe('Class API tests', () => {
       done();
     });
   });
+
+  it('"/api/classes/allClasses/:userId" should respond with all user\'s classes', (done) => {
+    supertest(server)
+    .get('/api/classes/allClasses/1')
+    .end((err, res) => {
+      expect(res.body).to.be.a('object');
+      expect(res.body).to.have.property('classes').be.a('array');
+      expect(res.body).to.have.property('firstName').be.a('string');
+      expect(res.body).to.have.property('id').be.a('number');
+      done();
+    });
+  });
 });
