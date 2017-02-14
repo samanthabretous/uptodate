@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import TextEditor from '../../components/TextEditor/TextEditor';
-import Directory from '../../components/Directory/Directory';
+import { TreeNode, TextEditor } from '../../components/index';
+import dummyDirectory from './dummy_directory';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -16,7 +16,7 @@ const mapStateToProps = state => ({
 
 const ViewInstructorCode = () => (
   <div style={{ display: 'flex' }}>
-    <Directory />
+    <TreeNode node={dummyDirectory} />
     <TextEditor />
   </div>
 );
