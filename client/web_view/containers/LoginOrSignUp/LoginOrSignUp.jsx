@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { withRouter, Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
 import { signUpInfoAction, userInfoAction, studentTeacherModalAction } from '../../../redux/login';
@@ -149,9 +149,12 @@ class LoginOrSignUp extends Component {
         {this.props.pathname === '/' && this.renderInput('email')}
         {this.renderInput('username')}
         {this.renderInput('password')}
-        <button style={style.signupButton} onClick={this.handleSubmit}>
+          <Link to={{
+            pathname: '/student-or-teacher',
+            state: { modal: true, returnTo: this.props.location.pathname }
+          }}><button style={style.signupButton} onClick={this.handleSubmit}>
           sign up for free
-        </button>
+        </button></Link>
         {authenticationError && <span>There was an error logging in</span>}
       </div>
     );
