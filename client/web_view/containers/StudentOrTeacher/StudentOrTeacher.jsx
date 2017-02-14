@@ -70,6 +70,9 @@ class StudentOrTeacher extends Component {
       password: this.props.state.login.password,
       position,
       lastClassViewed: data.id,
+    })
+    .then((res) => {
+      this.props.router.push(`/dashboard/${res.data.id}/${res.data.enrollmentCode}`);
     });
   }
 

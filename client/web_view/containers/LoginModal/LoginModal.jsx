@@ -7,15 +7,17 @@ const mapStateToProps = state => ({
   isOpen: state.login.openLoginModal,
 });
 
-const LoginModal = props => (
-  <Modal
-    isOpen={props.isOpen}
-    contentLabel="Login Modal"
-  >
-    <h1>Login!</h1>
-    <LoginOrSignUp />
-  </Modal>
-);
+const LoginModal = props => {
+  return (
+    <Modal
+      isOpen={props.isOpen}
+      contentLabel="Login Modal"
+    >
+      <h1>Login!</h1>
+      <LoginOrSignUp />
+    </Modal>
+  );
+};
 
 LoginModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,

@@ -2,11 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { LoginOrSignUp } from '../index';
 import style from './HomePageStyles';
 import { loginModalAction } from '../../../redux/login';
-import { LoginModal } from '../index';
-import StudentTeacherModal from '../StudentTeacherModal/StudentTeacherModal';
+import { LoginOrSignUp, LoginModal, StudentTeacherModal } from '../index';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -25,7 +23,7 @@ class HomePage extends Component {
     this.goToLogin = this.goToLogin.bind(this);
   }
   goToLogin() {
-    this.props.loginModalAction(true)
+    this.props.router.push('/login')
   }
 
   render() {
@@ -34,7 +32,6 @@ class HomePage extends Component {
         <nav style={style.homebar}>
           <div style={style.logo}>Logo</div>
           <button style={style.loginButton} onClick={this.goToLogin}>Login</button>
-          <LoginModal />
         </nav>
         <section style={style.topSection}>
           <div style={style.headlineContainer}>
@@ -43,7 +40,6 @@ class HomePage extends Component {
             <h2 style={style.tagline}>BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH</h2>
           </div>
           <LoginOrSignUp pathname={this.props.location.pathname}/>
-          <StudentTeacherModal />
         </section>
       </div>
     );

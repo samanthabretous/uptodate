@@ -96,7 +96,7 @@ class LoginOrSignUp extends Component {
        */
       if (this.isSignupPage()) {
         this.props.signUpInfoAction(username, email, password);
-        this.props.studentTeacherModalAction(true);
+        this.props.router.push('/student-or-teacher');
       } else {
         axios.post('/api/users/authentication', {
           username,
@@ -107,6 +107,7 @@ class LoginOrSignUp extends Component {
             // send logged in user information to the store
             this.props.userInfoAction(res.data);
             // take user to the dashboard
+            console.log(res.data)
             this.props.router.push(`/dashboard/${res.data.id}/${res.data.currentClass.enrollmentCode}`);
           }
         })
