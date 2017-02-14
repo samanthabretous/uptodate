@@ -1,4 +1,4 @@
-const server = require('./server/web');
+const server = require('./server/web').server;
 const sequelizeConnection = require('./server/web/db/models').sequelize;
 const environmentVariables = require('./server/web/env');
 
