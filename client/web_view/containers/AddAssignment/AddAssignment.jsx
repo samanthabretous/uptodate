@@ -85,8 +85,13 @@ class AddAssignment extends Component {
     return (
       <div>
         <form onSubmit={this.submit}>
-          <select onChange={this.handelChange} name="lessonId" >
-            <option value={null}>General Class Assignment</option>
+          <select
+            onChange={this.handelChange}
+            name="lessonId"
+          >
+            <option value={null}>
+              General Class Assignment
+            </option>
             {this.buildLessonList()}
           </select>
           <br />
@@ -96,9 +101,19 @@ class AddAssignment extends Component {
             name="due"
           />
           <br />
-          <input type="text" placeholder="instructions" onChange={this.handelChange} name="instructions" />
+          <input
+            type="text"
+            placeholder="instructions"
+            onChange={this.handelChange}
+            name="instructions"
+          />
           <br />
-          <input type="text" placeholder="exercise" onChange={this.handelChange} name="exercises" />
+          <input
+            type="text"
+            placeholder="exercise"
+            onChange={this.handelChange}
+            name="exercises"
+          />
           <br />
           <FileInput
             name="file"
@@ -108,7 +123,10 @@ class AddAssignment extends Component {
             onChange={this.handelChange}
           />
           <br />
-          <input type="submit" value="create Assignment" />
+          <input
+            type="submit"
+            value="create Assignment"
+          />
         </form>
       </div>
     );
@@ -116,6 +134,10 @@ class AddAssignment extends Component {
 }
 
 AddAssignment.propTypes = {
+  classId: PropTypes.number.isRequired,
+  classLessons: PropTypes.Array.isRequired,
+  AsyncGetLessons: PropTypes.func.isRequired,
+  AsyncPostAssignment: PropTypes.func.isRequired,
 };
 
 
