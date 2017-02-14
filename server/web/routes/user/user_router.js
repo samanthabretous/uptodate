@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const middleware = require('./user_middleware');
+const middleware = require('../../index').userSocket;
 
 router.route('/registration')
   .post(middleware.postNewUser);
