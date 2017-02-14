@@ -28,7 +28,7 @@ export const enterGetLessons = () => {
   return createStore.dispatch(AsyncGetLessons(state.titlebar.id));
 };
 
-export const droppedFolderAction = (folderPath) => ({
+export const droppedFolderAction = folderPath => ({
   type: DROPPED_FOLDER,
   folderPath,
 });

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -9,28 +9,29 @@ const mapDispatchToProps = dispatch => (
 );
 
 const mapStateToProps = state => ({
-  state,
+  firstName: state.classes.firstName,
 });
 
-class App extends Component {
-  render() {
-    const { children } = this.props;
-    return (
-      <div>Whats up!!!
-        HELLO!!
-        HELLO!!
-        HELLO!!
-        HELLO!!
-        HELLO!!
-        HELLO!!
-        {children}
-      </div>
-    );
-  }
-}
+const App = (props) => {
+  const { children, firstName } = props;
+  return (
+    <div>
+      <nav>
+        <h1>upToDate</h1>
+        {firstName && <h3>Hi, {firstName}</h3>}
+      </nav>
+      {children}
+    </div>
+  );
+};
 
 App.propTypes = {
-  children: React.PropTypes.element.isRequired,
+  children: PropTypes.element.isRequired,
+  firstName: PropTypes.string,
+};
+
+App.defaultProps = {
+  firstName: '',
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

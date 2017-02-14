@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { DropFolder } from '../../components';
+import { DisplayClasses } from '../../components';
 import fileWatcher from '../../utils/fileWatcher';
 
 const mapDispatchToProps = dispatch => (
@@ -10,11 +10,9 @@ const mapDispatchToProps = dispatch => (
   }, dispatch)
 );
 
-const mapStateToProps = state => {
-  console.log(state)
-  return {
+const mapStateToProps = state => ({
   folderPath: state.lesson.folderPath,
-}};
+});
 
 class AddLesson extends Component {
   constructor() {
@@ -22,35 +20,23 @@ class AddLesson extends Component {
     this.state = {
       inputValue: '',
     };
-    this.handleInput = this.handleInput.bind(this);
     this.submit = this.submit.bind(this);
-  }
-
-  handleInput(e) {
-    this.setState({ inputValue: e.target.value });
   }
 
   submit(e) {
     e.preventDefault();
-    fileWatcher();
+    fileWatcher(this.props.folderPath);
   }
 
   render() {
-    const { inputValue } = this.state;
     const { folderPath } = this.props;
-    
     return (
       <div>
-        <input
-          value={inputValue}
-          onChange={this.handleInput}
-          type="text"
-        />
+        <DisplayClasses />
         <input
           onClick={this.submit}
           type="submit"
         />
-        <DropFolder />
       </div>
     );
   }
@@ -58,10 +44,12 @@ class AddLesson extends Component {
 
 AddLesson.proptypes = {
   folderPath: PropTypes.string,
+  firstName: PropTypes.string,
 };
 
 AddLesson.defaultProps = {
   folderPath: null,
+  firstName: '',
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddLesson);

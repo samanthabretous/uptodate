@@ -1,3 +1,3 @@
-import DropFolder from './DropFolder/DropFolder';
+import DisplayClasses from './DisplayClasses/DisplayClasses';
 
-export { DropFolder };
+export { DisplayClasses };

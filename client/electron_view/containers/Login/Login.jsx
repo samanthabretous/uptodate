@@ -83,7 +83,7 @@ class LoginOrSignUp extends Component {
           // send logged in user information to the store
           this.props.userInfoAction(res.data);
           // take user to the dashboard
-          this.props.router.push('/drop-file');
+          this.props.router.push(`/add-lesson/${res.data.id}`);
         }
       })
       .catch(() => {
