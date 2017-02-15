@@ -46,6 +46,15 @@ const Titlebar = props =>
               <h3 style={style.amount}>{props.numberOfInstructorsInCurrentClass}</h3>
             </div>
             <div>
+              <button
+                onClick={
+                  () => {
+                    const curentLocation = props.router.getCurrentLocation().pathname;
+                    props.router.push(`${curentLocation}lesson/${props.id}`);
+                  }
+                }
+              > CREATE LESSON </button>
+
               <button onClick={()=>{
                 const curentLocation = props.router.getCurrentLocation().pathname
                 props.router.push(`${curentLocation}/assignment/${props.id}`);
