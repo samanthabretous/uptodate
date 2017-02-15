@@ -6,7 +6,7 @@ import { AsyncPostLesson } from '../../../redux/lesson';
 
 
 const mapDispatchToProps = dispatch => (
-	bindActionCreators({ AsyncPostLesson }, dispatch)
+  bindActionCreators({ AsyncPostLesson }, dispatch)
 );
 
 const mapStateToProps = state => ({
@@ -14,8 +14,8 @@ const mapStateToProps = state => ({
 });
 
 class AddLesson extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       name: '',
       lecture: '',
@@ -35,11 +35,10 @@ class AddLesson extends Component {
     evt.preventDefault();
     // saving this information for the redirect URL after a succesful submit
     const lessonName = this.state.name;
-    const userId = this.props.params.user;
-    const classCode = this.props.params.currentClassCode;
+    const { user, currentClassCode, classId } = this.props.params
 
     // adding classId along with the information gathered in our form state
-    const classId = this.props.params.classId;
+    //const classId = this.props.params.classId;
     const data = { ...this.state, classId };
 
     // passing down the current form state to our redux action
@@ -47,7 +46,7 @@ class AddLesson extends Component {
     this.props.AsyncPostLesson(data);
 
     // redirects to the newly created lesson
-    this.props.router.push(`/dashboard/${userId}/${classCode}/${lessonName}`);
+    this.props.router.push(`/dashboard/${user}/${currentClassCode}/${lessonName}`);
   }
 
   renderForm(inputEle) {
@@ -78,8 +77,7 @@ class AddLesson extends Component {
   }
 
   render() {
-    console.log(this.props)
-    console.log(this.props.router.getCurrentLocation())
+    console.log(this.state)
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
