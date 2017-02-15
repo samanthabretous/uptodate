@@ -4,6 +4,8 @@
 export const SIGN_UP_INFO = 'sign_up_info';
 export const ADD_SIGN_UP_INFO = 'add_sign_up_info';
 export const ADD_USER = 'add_user';
+export const HANDLE_LOGIN_MODAL = 'handle_login_modal';
+export const HANDLE_STUDENT_TEACHER_MODAL = 'handle_student_teacher_modal';
 
 // -------------------
 // actions
@@ -31,6 +33,16 @@ export const userInfoAction = user => ({
   position: user.position,
 });
 
+export const loginModalAction = bool => ({
+  type: HANDLE_LOGIN_MODAL,
+  openLoginModal: bool,
+});
+
+export const studentTeacherModalAction = bool => ({
+  type: HANDLE_STUDENT_TEACHER_MODAL,
+  openStudentTeacherModal: bool,
+});
+
 // -------------------
 // reducer
 // -------------------
@@ -41,6 +53,8 @@ const initialState = {
   firstName: '',
   lastName: '',
   position: '',
+  openLoginModal: false,
+  openStudentTeacherModal: false,
 };
 
 export default (state = initialState, action) => {
@@ -64,6 +78,14 @@ export default (state = initialState, action) => {
         firstName: action.firstName,
         lastName: action.lastName,
         position: action.position,
+      });
+    case HANDLE_LOGIN_MODAL:
+      return Object.assign({}, state, {
+        openLoginModal: action.openLoginModal,
+      });
+    case HANDLE_STUDENT_TEACHER_MODAL:
+      return Object.assign({}, state, {
+        openStudentTeacherModal: action.openStudentTeacherModal,
       });
     default:
       return state;
