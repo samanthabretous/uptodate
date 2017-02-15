@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     enrollmentCode: {
       type: DataTypes.STRING,
+      unique: true,
     },
   }, {
     classMethods: {

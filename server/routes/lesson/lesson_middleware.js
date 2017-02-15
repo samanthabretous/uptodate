@@ -42,6 +42,10 @@ const lessonByClassId = (req, res) => {
     where: {
       classId: req.params.classId,
     },
+    include: [{
+      model: models.class,
+      attributes: ['name'],
+    }],
   })
   .then((data) => {
     res.send(data);

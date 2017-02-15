@@ -39,9 +39,10 @@ export const AsyncPostLesson = data => () => {
     .catch(err => console.log(err));
 };
 
-export const enterGetLessons = () => {
-  const state = createStore.getState();
-  return createStore.dispatch(AsyncGetLessons(state.titlebar.id));
+
+export const enterGetLessons = (nextState) => {
+  const classId = nextState.params.classId;
+  return createStore.dispatch(AsyncGetLessons(classId, 'web'));
 };
 
 
@@ -59,8 +60,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_LESSONS:
-      const classname = action.data[0].class.name || '';
-      return Object.assign({}, state, { classLessons: action.data, classname });
+      return Object.assign({}, state, { classLessons: action.data, classname: action.classname });
     case SELECTED_LESSON:
       return Object.assign({}, state, { lessonId: action.lessonId });
     case DROPPED_FOLDER:

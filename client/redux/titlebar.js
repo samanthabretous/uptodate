@@ -13,12 +13,13 @@ export const TITLEBAR_INFO = 'titlebar_info';
 
 export const getTitlebar = (titlebar) => {
   const { id, email, firstName, lastName, position, username, classes, currentClass } = titlebar;
-  const { name, enrollmentCode, users } = currentClass;
-
-  // count the amount of each type of user
-  const userTypes = _.countBy(_.map(users, 'position'));
-  const numberOfInstructorsInCurrentClass = userTypes.Instructor || 0;
-  const numberOfStudentsInCurrentClass = userTypes.Student || 0;
+  const { users } = currentClass;
+  // sort users if they are a teacher or a student
+  // add them to the current class
+  const instructors = _.filter(users, ['position', 'Instructor']);
+  const students = _.filter(users, ['position', 'Student']);
+  currentClass.instructors = instructors;
+  currentClass.students = students;
 
   return {
     type: TITLEBAR_INFO,
@@ -29,13 +30,9 @@ export const getTitlebar = (titlebar) => {
       lastName,
       position,
       username,
-      totalClasses: classes.length,
     },
-    id: titlebar.currentClass.id,
-    name,
-    enrollmentCode,
-    numberOfInstructorsInCurrentClass,
-    numberOfStudentsInCurrentClass,
+    classes,
+    currentClass,
   };
 };
 
@@ -58,20 +55,8 @@ export const getTitlebarInfo = (nextState) => {
 // reducer
 // -------------------
 export const initialState = {
-  userInfo: {
-    id: null,
-    email: '',
-    firstName: '',
-    lastName: '',
-    position: '',
-    username: '',
-    totalClasses: null,
-  },
-  id: null,
-  name: '',
-  enrollmentCode: '',
-  numberOfInstructorsInCurrentClass: 0,
-  numberOfStudentsInCurrentClass: 0,
+  userInfo: {},
+  currentClass: null,
 };
 
 export default (state = initialState, action) => {
@@ -79,14 +64,8 @@ export default (state = initialState, action) => {
     case TITLEBAR_INFO:
       return _.assign({}, state, {
         userInfo: action.userInfo,
-        id: action.id,
-        name: action.name,
-        enrollmentCode: action.enrollmentCode,
-        description: action.description,
-        location: action.location,
-        schedule: action.schedule,
-        numberOfInstructorsInCurrentClass: action.numberOfInstructorsInCurrentClass,
-        numberOfStudentsInCurrentClass: action.numberOfStudentsInCurrentClass,
+        classes: action.classes,
+        currentClass: action.currentClass,
       });
     default:
       return state;
