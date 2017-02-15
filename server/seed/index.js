@@ -13,14 +13,18 @@ const voteData = require('./vote_seed');
 
 // add user and work associations
 const seedFunction = () => {
+  let enrollmentCode;
   models.sequelize.sync({ force: true })
   .then(() => {
     models.class.create(classData[0]);
     models.class.create(classData[1]);
     models.class.create(classData[2]);
-    models.class.create(classData[3]);
+    return models.class.create(classData[3]);
   })
-  .then(() => models.user.create(userData[0]))
+  .then((classOne) => {
+    enrollmentCode = classOne.get('enrollmentCode');
+  })
+  .then(() => models.user.create(Object.assign(userData[0], { lastClassViewed: enrollmentCode })))
   .then((user) => {
     user.addClasses([1, 2, 3, 4]);
   })
