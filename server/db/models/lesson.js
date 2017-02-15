@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       lecture: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: true,
       },
       link: { // name not final, REMEMBER TO CHANGE!!!
         type: DataTypes.STRING,
