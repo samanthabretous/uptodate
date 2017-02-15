@@ -13,7 +13,7 @@ const Lesson = models.lesson;
  * subPath = path after 'repo/' directory
  * fileDirectory = { arr } full file directory
  */
-const pathMaker = (directoryBeingWatched, usersLocalPath) => {
+const pathMaker = (directoryBeingWatched, usersLocalPath, className, lessonName) => {
   let subPath = usersLocalPath.split('/');
   // remove everything prior to the ${repoPath} in localPath
   const repoPathLocationStart = subPath.indexOf(directoryBeingWatched);
@@ -21,7 +21,7 @@ const pathMaker = (directoryBeingWatched, usersLocalPath) => {
   subPath = subPath.slice(repoPathLocationStart + 1).join('/');
 
   // join path based on servers location pointing to repo fodler
-  const pathToRepoStorage = path.join(__dirname, '../../../repo/', subPath);
+  const pathToRepoStorage = path.join(__dirname, `../../../repo/${className}/${lessonName}`, subPath);
   return { pathToRepoStorage, subPath, fileDirectory };
 };
 
@@ -56,9 +56,9 @@ const rawData = (req, res) => {
   // repoPath = directory being watched
   // localPath = full local path change was made on
   // data = inner file text
-  const { repoPath, localPath, data } = req.body;
-  const { pathToRepoStorage } = pathMaker(repoPath, localPath);
-  fs.writeFile(pathToRepoStorage, data, (err) => {
+  const { repoPath, localPath, data, className, lessonName } = req.body;
+  const { pathToRepoStorage } = pathMaker(repoPath, localPath, className, lessonName);
+  fs.outputFile(pathToRepoStorage, data, (err) => {
     if (err) {
       res.sendStatus(500);
     } else {
@@ -72,8 +72,8 @@ const rawData = (req, res) => {
 const addDir = (req, res) => {
   // repoPath = directory being watched
   // localPath = full local path change was made on
-  const { repoPath, localPath } = req.body;
-  const { pathToRepoStorage } = pathMaker(repoPath, localPath);
+  const { repoPath, localPath, className, lessonName } = req.body;
+  const { pathToRepoStorage } = pathMaker(repoPath, localPath, className, lessonName);
   mkdirp(pathToRepoStorage, (err) => {
     if (err) {
       res.sendStatus(500);
@@ -88,8 +88,8 @@ const addDir = (req, res) => {
 const addFile = (req, res) => {
   // repoPath = directory being watched
   // localPath = full local path change was made on
-  const { repoPath, localPath, data } = req.body;
-  const { pathToRepoStorage, subPath, fileDirectory } = pathMaker(repoPath, localPath);
+  const { repoPath, localPath, data, className, lessonName } = req.body;
+  const { pathToRepoStorage, subPath, fileDirectory } = pathMaker(repoPath, localPath, className, lessonName);
   Lesson.findById(1)
   .then((lesson) => {
     const repo = lesson.get('repo');
@@ -103,7 +103,7 @@ const addFile = (req, res) => {
   })
   .then((updated) => {
     if (updated) {
-      fs.writeFile(pathToRepoStorage, data, (err) => {
+      fs.outputFile(pathToRepoStorage, data, (err) => {
         if (err) {
           res.sendStatus(500);
         } else {
@@ -124,8 +124,8 @@ const addFile = (req, res) => {
 const deleteFile = (req, res) => {
   // repoPath = directory being watched
   // localPath = full local path change was made on
-  const { repoPath, localPath } = req.body;
-  const { pathToRepoStorage, fileName } = pathMaker(repoPath, localPath);
+  const { repoPath, localPath, className, lessonName } = req.body;
+  const { pathToRepoStorage, fileName } = pathMaker(repoPath, localPath, className, lessonName);
   Lesson.findById(1)
   .then((lesson) => {
     const repo = lesson.get('repo');
@@ -156,11 +156,13 @@ const deleteFile = (req, res) => {
   });
 };
 
+// api/repo_file/addDir
+// ~ this is to delete a directory in webs repo file directory (remove of chokidari)
 const deleteDir = (req, res) => {
   // repoPath = directory being watched
   // localPath = full local path change was made on
-  const { repoPath, localPath } = req.body;
-  const { pathToRepoStorage } = pathMaker(repoPath, localPath);
+  const { repoPath, localPath, className, lessonName } = req.body;
+  const { pathToRepoStorage } = pathMaker(repoPath, localPath, className, lessonName);
   // this if ensures you never erase the root direcroty
   if (pathToRepoStorage.length > 28) {
     fs.remove(pathToRepoStorage, (err) => {
@@ -173,6 +175,20 @@ const deleteDir = (req, res) => {
   }
 };
 
+// api/repo_file/getFile
+// ~ this is to get a file in webs repo file directory
+const getFile = (req, res) => {
+  const { subPath, className, lessonName } = req.query;
+  const pathToRepoStorage = path.join(__dirname, `../../../repo/${className}/${lessonName}`, subPath);
+  fs.readFile(pathToRepoStorage, 'utf8', (err, data) => {
+    if (err) {
+      res.sendStatus(500).send(err);
+    } else {
+      res.send(data);
+    }
+  });
+};
+
 
 module.exports = {
   rawData,
@@ -180,4 +196,5 @@ module.exports = {
   deleteDir,
   addFile,
   deleteFile,
+  getFile,
 };

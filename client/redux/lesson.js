@@ -36,7 +36,7 @@ export const AsyncGetLessons = (classId, platform) => (dispatch) => {
 
 export const enterGetLessons = () => {
   const state = createStore.getState();
-  return createStore.dispatch(AsyncGetLessons(state.titlebar.id));
+  return createStore.dispatch(AsyncGetLessons(state.titlebar.id), 'web');
 };
 
 
