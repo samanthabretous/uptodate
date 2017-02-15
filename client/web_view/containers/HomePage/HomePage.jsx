@@ -16,7 +16,6 @@ const mapStateToProps = state => ({
   state,
 });
 
-@Radium
 class HomePage extends Component {
   constructor(props) {
     super(props);
@@ -39,7 +38,7 @@ class HomePage extends Component {
             <h1 style={style.headline}>Made by Students</h1>
             <h2 style={style.tagline}>BLAH BLAH BLAH BLAH BLAH BLAH BLAH BLAH</h2>
           </div>
-          <LoginOrSignUp pathname={this.props.location.pathname}/>
+          <LoginOrSignUp pathname={this.props.location.pathname} />
         </section>
         {this.props.children}
       </div>
@@ -48,8 +47,9 @@ class HomePage extends Component {
 }
 
 HomePage.propTypes = {
+  location: PropTypes.object.isRequired,
   router: PropTypes.object.isRequired,
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default Radium(connect(mapStateToProps, mapDispatchToProps)(HomePage));

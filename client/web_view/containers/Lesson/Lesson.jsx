@@ -2,9 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import ViewInstructorCode from '../ViewInstructorCode';
-import Discussion from '../Discussion';
-import Votes from '../Votes';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -23,10 +20,8 @@ class Lesson extends Component {
   }
 
   render() {
-    console.log(props)
     return (
       <div>
-        <Link></Link>
         Lesson
       </div>
     );

@@ -36,7 +36,7 @@ class AddLesson extends Component {
         <DisplayClasses />
         <Lesson />
         <button
-          onSubmit={this.submit}
+          onClick={this.submit}
           disabled={this.readyToStartLesson()}
         >
           Start Lesson
