@@ -34,6 +34,10 @@ export const AsyncGetLessons = (classId, platform) => (dispatch) => {
   });
 };
 
+export const AsyncPostLesson = data => () => {
+  axios.post('/api/lessons/new_lesson', data)
+};
+
 
 export const enterGetLessons = (nextState) => {
   const classId = nextState.params.classId;
