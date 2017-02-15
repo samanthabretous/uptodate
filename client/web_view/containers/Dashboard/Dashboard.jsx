@@ -15,7 +15,6 @@ const mapStateToProps = state => ({
   state,
 });
 
-@Radium
 class Dashboard extends Component {
   render() {
     const { children } = this.props;
@@ -35,8 +34,8 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
   router: PropTypes.object.isRequired,
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default Radium(connect(mapStateToProps, mapDispatchToProps)(Dashboard));
