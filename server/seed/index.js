@@ -1,6 +1,6 @@
 // run this line to seed the test database.
 // comment it out to seed the development database
-process.env.NODE_ENV = 'test';
+// process.env.NODE_ENV = 'test';
 
 const models = require('../db/models/index');
 const userData = require('./user_seed');

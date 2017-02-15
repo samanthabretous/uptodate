@@ -2,6 +2,7 @@ const SocketListeners = require('./socket_listeners.js');
 
 module.exports = ((app, io) => {
   io.on('connection', (socket) => {
+    console.log('============socket')
     socket.on('connection-name', (user) => {
       io.sockets.emit('new user', `${user.username} has joined.`);
     });
