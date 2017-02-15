@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 export default (pathWatch, className, lessonId) => {
-  console.log("HELLO")
   const watcher = chokidar.watch(pathWatch, {
     ignored: /[/\\]\./,
     persistent: true,
