@@ -12,4 +12,7 @@ router.route('/addFile')
   .post(middleware.addFile)
   .delete(middleware.deleteFile);
 
+router.route('/getFile')
+  .get(middleware.getFile);
+
 module.exports = router;
