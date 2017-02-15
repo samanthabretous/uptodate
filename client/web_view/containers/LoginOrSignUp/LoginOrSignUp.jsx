@@ -107,12 +107,11 @@ class LoginOrSignUp extends Component {
             // send logged in user information to the store
             this.props.userInfoAction(res.data);
             // take user to the dashboard
-            console.log(res.data)
             this.props.router.push(`/dashboard/${res.data.id}/${res.data.currentClass.enrollmentCode}`);
           }
         })
         .catch(() => {
-
+          this.setState({ authenticationError: true });
         });
       }
     }
@@ -149,13 +148,10 @@ class LoginOrSignUp extends Component {
         {this.props.pathname === '/' && this.renderInput('email')}
         {this.renderInput('username')}
         {this.renderInput('password')}
-          <Link to={{
-            pathname: '/student-or-teacher',
-            state: { modal: true, returnTo: this.props.location.pathname }
-          }}><button style={style.signupButton} onClick={this.handleSubmit}>
+          <button style={style.signupButton} onClick={this.handleSubmit}>
           sign up for free
-        </button></Link>
-        {authenticationError && <span>There was an error logging in</span>}
+        </button>
+        {authenticationError && <span>There was an error logging in.</span>}
       </div>
     );
   }

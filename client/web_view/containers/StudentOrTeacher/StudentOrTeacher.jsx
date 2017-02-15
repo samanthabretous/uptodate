@@ -29,7 +29,7 @@ class StudentOrTeacher extends Component {
       enrollmentCode: '',
       createClass: null,
       position: '',
-      nameErrors: {},
+      registrationError: null,
     };
     this.setPosition = this.setPosition.bind(this);
     this.enterOrCreateClass = this.enterOrCreateClass.bind(this);
@@ -73,6 +73,9 @@ class StudentOrTeacher extends Component {
     })
     .then((res) => {
       this.props.router.push(`/dashboard/${res.data.id}/${data.enrollmentCode}`);
+    })
+    .catch(() => {
+      this.setState({ registrationError: true });
     });
   }
 
@@ -82,6 +85,9 @@ class StudentOrTeacher extends Component {
     .then(res => (
       res.data
     ))
+    .catch(() => {
+      this.setState({ registrationError: true });
+    })
     .then((data) => {
       this.handleRegistration(position, firstName, lastName, data);
     });
@@ -94,6 +100,9 @@ class StudentOrTeacher extends Component {
       description,
       schedule,
       location,
+    })
+    .catch(() => {
+      this.setState({ registrationError: true });
     })
     .then(res => (
       res.data
@@ -137,7 +146,8 @@ class StudentOrTeacher extends Component {
   }
 
   render() {
-    const { position, createClass } = this.state;
+    const { position, createClass, registrationError } = this.state;
+    console.log('REGISTRATION ERR:', registrationError)
     // array of buttons we want to create
     const buttons = [
       { name: 'Student',
@@ -194,6 +204,7 @@ class StudentOrTeacher extends Component {
         {renderButtons}
         {renderInputs}
         <button onClick={this.handleWhichSubmit}>Complete Sign-up</button>
+        { registrationError && <span>There was an error registering this account.</span> }
       </div>
     );
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {Link, withRouter} from 'react-router';
 
 const Modal = React.createClass({
   styles: {
@@ -16,12 +16,14 @@ const Modal = React.createClass({
 
   render() {
     return (
-      <div style={this.styles}>
-        <p><Link to={this.props.returnTo}>Back</Link></p>
-        {this.props.children}
+      <div>
+        <div style={this.styles}>
+          <p><button onClick={this.props.router.goBack}>Back</button></p>
+            {this.props.children}
+        </div>
       </div>
     )
   }
 })
 
-export default Modal;
+export default withRouter(Modal);

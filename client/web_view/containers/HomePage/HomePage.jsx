@@ -41,6 +41,7 @@ class HomePage extends Component {
           </div>
           <LoginOrSignUp pathname={this.props.location.pathname}/>
         </section>
+        {this.props.children}
       </div>
     );
   }

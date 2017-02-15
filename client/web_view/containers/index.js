@@ -8,8 +8,7 @@ import Dashboard from './Dashboard/Dashboard';
 import Lesson from './Lesson/Lesson';
 import Overview from './Overview/Overview';
 import ViewInstructorCode from './ViewInstructorCode/ViewInstructorCode';
-import LoginModal from './LoginModal/LoginModal';
-import StudentTeacherModal from './StudentTeacherModal/StudentTeacherModal';
+import Modal from './App/Modal';
 
 export { colors,
          AddAssignment,
@@ -21,7 +20,6 @@ export { colors,
          Dashboard,
          Overview,
          ViewInstructorCode,
-         LoginModal,
-         StudentTeacherModal,
+         Modal,
        };
 
