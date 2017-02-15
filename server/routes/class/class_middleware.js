@@ -76,7 +76,6 @@ const getAllUserClasses = (req, res) => {
 
 // /api/classes/titlebar/:currentClassEnrollmentCode/:userId
 const getTitlebarInfo = (req, res) => {
-  console.log("OUR REQUEST =====>", req.body);
   models.user.findById(req.params.userId, {
     attributes: {
       exclude: ['createdAt', 'updatedAt', 'lastClassViewed', 'password', 'description', 'location', 'schedule'],
