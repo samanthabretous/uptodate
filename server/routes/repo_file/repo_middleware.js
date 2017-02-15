@@ -16,6 +16,7 @@ class SocketConnection {
     this.deleteFile = this.deleteFile.bind(this);
     this.deleteDir = this.deleteDir.bind(this);
   }
+
   /**
    * creates a path to repo on server based on useresLocalPath
    * @param { String } directoryBeingWatched
@@ -24,7 +25,7 @@ class SocketConnection {
    * subPath = path after 'repo/' directory
    * fileDirectory = { arr } full file directory
    */
-  pathMaker(directoryBeingWatched, usersLocalPath) {
+  pathMaker(directoryBeingWatched, usersLocalPath, className, lessonName) {
     let subPath = usersLocalPath.split('/');
     // remove everything prior to the ${repoPath} in localPath
     const repoPathLocationStart = subPath.indexOf(directoryBeingWatched);
@@ -32,7 +33,7 @@ class SocketConnection {
     subPath = subPath.slice(repoPathLocationStart + 1).join('/');
 
     // join path based on servers location pointing to repo fodler
-    const pathToRepoStorage = path.join(__dirname, '../../../repo/', subPath);
+    const pathToRepoStorage = path.join(__dirname, `../../../repo/${className}/${lessonName}`, subPath);
     return { pathToRepoStorage, subPath, fileDirectory };
   }
 
@@ -67,9 +68,9 @@ class SocketConnection {
     // repoPath = directory being watched
     // localPath = full local path change was made on
     // data = inner file text
-    const { repoPath, localPath, data } = req.body;
-    const { pathToRepoStorage } = this.pathMaker(repoPath, localPath);
-    fs.writeFile(pathToRepoStorage, data, (err) => {
+    const { repoPath, localPath, data, className, lessonName } = req.body;
+    const { pathToRepoStorage } = this.pathMaker(repoPath, localPath, className, lessonName);
+    fs.outputFile(pathToRepoStorage, data, (err) => {
       if (err) {
         res.sendStatus(500);
       } else {
@@ -83,8 +84,8 @@ class SocketConnection {
   addDir(req, res) {
     // repoPath = directory being watched
     // localPath = full local path change was made on
-    const { repoPath, localPath } = req.body;
-    const { pathToRepoStorage } = this.pathMaker(repoPath, localPath);
+    const { repoPath, localPath, className, lessonName } = req.body;
+    const { pathToRepoStorage } = this.pathMaker(repoPath, localPath, className, lessonName);
     mkdirp(pathToRepoStorage, (err) => {
       if (err) {
         res.sendStatus(500);
@@ -99,8 +100,8 @@ class SocketConnection {
   addFile(req, res) {
     // repoPath = directory being watched
     // localPath = full local path change was made on
-    const { repoPath, localPath, data } = req.body;
-    const { pathToRepoStorage, subPath, fileDirectory } = this.pathMaker(repoPath, localPath);
+    const { repoPath, localPath, data, className, lessonName } = req.body;
+    const { pathToRepoStorage, subPath, fileDirectory } = this.pathMaker(repoPath, localPath, className, lessonName);
     Lesson.findById(1)
     .then((lesson) => {
       const repo = lesson.get('repo');
@@ -114,7 +115,7 @@ class SocketConnection {
     })
     .then((updated) => {
       if (updated) {
-        fs.writeFile(pathToRepoStorage, data, (err) => {
+        fs.outputFile(pathToRepoStorage, data, (err) => {
           if (err) {
             res.sendStatus(500);
           } else {
@@ -135,8 +136,8 @@ class SocketConnection {
   deleteFile(req, res) {
     // repoPath = directory being watched
     // localPath = full local path change was made on
-    const { repoPath, localPath } = req.body;
-    const { pathToRepoStorage, fileName } = this.pathMaker(repoPath, localPath);
+    const { repoPath, localPath, className, lessonName } = req.body;
+    const { pathToRepoStorage, fileName } = this.pathMaker(repoPath, localPath, className, lessonName);
     Lesson.findById(1)
     .then((lesson) => {
       const repo = lesson.get('repo');
@@ -167,11 +168,13 @@ class SocketConnection {
     });
   }
 
+  // api/repo_file/addDir
+  // ~ this is to delete a directory in webs repo file directory (remove of chokidari)
   deleteDir(req, res) {
     // repoPath = directory being watched
     // localPath = full local path change was made on
-    const { repoPath, localPath } = req.body;
-    const { pathToRepoStorage } = this.pathMaker(repoPath, localPath);
+    const { repoPath, localPath, className, lessonName } = req.body;
+    const { pathToRepoStorage } = this.pathMaker(repoPath, localPath, className, lessonName);
     // this if ensures you never erase the root direcroty
     if (pathToRepoStorage.length > 28) {
       fs.remove(pathToRepoStorage, (err) => {
@@ -183,6 +186,21 @@ class SocketConnection {
       });
     }
   }
+
+  // api/repo_file/getFile
+  // ~ this is to get a file in webs repo file directory
+  getFile(req, res) {
+    const { subPath, className, lessonName } = req.query;
+    const pathToRepoStorage = path.join(__dirname, `../../../repo/${className}/${lessonName}`, subPath);
+    fs.readFile(pathToRepoStorage, 'utf8', (err, data) => {
+      if (err) {
+        res.sendStatus(500).send(err);
+      } else {
+        res.send(data);
+      }
+    });
+  }
 }
 
 module.exports = SocketConnection;
+
