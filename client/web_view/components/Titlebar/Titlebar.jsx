@@ -3,7 +3,7 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import style from './TitlebarStyles';
-import { AssignmentButton } from '../';
+import { AssignmentButton, LessonButton } from '../';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -44,6 +44,10 @@ const Titlebar = ({ userInfo, currentClass, router }) =>
               <h3 style={style.amount}>{currentClass.instructors.length}</h3>
             </div>
             <AssignmentButton
+              currentLocation={router.getCurrentLocation().pathname}
+              currentClassId={currentClass.id}
+            />
+            <LessonButton
               currentLocation={router.getCurrentLocation().pathname}
               currentClassId={currentClass.id}
             />

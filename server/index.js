@@ -8,8 +8,10 @@ const applyExpressMiddleware = require('./middleware');
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 require('./routes/socket/socket')(app, io);
+const RepoSocketRoutes = require('./routes/repo_file/repo_middleware');
 const UserSocketRoutes = require('./routes/user/user_middleware');
 
+const repoSocket = new RepoSocketRoutes(io);
 const userSocket = new UserSocketRoutes(io);
 Promise.resolve(userSocket)
 .then(() => {
@@ -27,4 +29,5 @@ Promise.resolve(userSocket)
 module.exports = {
   server,
   userSocket,
+  repoSocket,
 };
