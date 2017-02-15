@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-export default (pathWatch) => {
+export default (pathWatch, className, lessonId) => {
+  console.log("HELLO")
   const watcher = chokidar.watch(pathWatch, {
     ignored: /[/\\]\./,
     persistent: true,
@@ -12,6 +13,9 @@ export default (pathWatch) => {
       repoPath,
       localPath,
       data,
+      className,
+      lessonId,
+      lessonName: 'Making things explode is science and is rad',
     });
   };
   watcher
@@ -30,6 +34,9 @@ export default (pathWatch) => {
       data: {
         repoPath,
         localPath: path,
+        className,
+        lessonId,
+        lessonName: 'Making things explode is science and is rad',
       },
       params: {
         force: true,
@@ -50,6 +57,9 @@ export default (pathWatch) => {
       data: {
         repoPath,
         localPath: path,
+        className,
+        lessonId,
+        lessonName: 'Making things explode is science and is rad',
       },
       params: {
         force: true,
