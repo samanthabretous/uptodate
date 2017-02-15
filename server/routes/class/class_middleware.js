@@ -88,7 +88,7 @@ const getTitlebarInfo = (req, res) => {
         include: [
           {
             model: models.user,
-            attributes: ['position'],
+            attributes: ['position', 'username', 'id'],
             // remove all joins table attributes
             through: {
               attributes: [],

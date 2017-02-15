@@ -20,7 +20,6 @@ class Lesson extends Component {
   }
 
   render() {
-    console.log(props)
     return (
       <div>
         Lesson
