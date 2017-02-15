@@ -30,6 +30,7 @@ class LoginOrSignUp extends Component {
     this.checkFormValidation = this.checkFormValidation.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSignUp = this.handleSignUp.bind(this);
     this.renderInput = this.renderInput.bind(this);
   }
 
@@ -91,6 +92,9 @@ class LoginOrSignUp extends Component {
       });
     }
   }
+  handleSignUp() {
+    shell.openExternal('http://localhost:2020');
+  }
 
   renderInput(type) {
     const { loginFormErrors } = this.state;
@@ -120,7 +124,7 @@ class LoginOrSignUp extends Component {
         <button style={style.signupButton} onClick={this.handleSubmit}>
           Login
         </button>
-        {/*<button>{shell.openExternal('localhost:2020')}</button>*/}
+        <button onClick={this.handleSignUp}>Sign Up</button>
         {authenticationError && <span>There was an error logging in</span>}
       </div>
     );

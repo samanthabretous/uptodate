@@ -56,8 +56,8 @@ class DropFolder extends Component {
         id="holder"
         style={{
           border: '3px solid blue',
-          width: '50vw',
-          height: '50vh',
+          width: '100vw',
+          height: '100vh',
           fontSize: 50,
           background: 'blue',
         }}
