@@ -54,7 +54,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_LESSONS:
-      return Object.assign({}, state, { classLessons: action.data, classname: action.classname });
+      return Object.assign({}, state, { classLessons: action.data, classname: action.data[0].class.name });
     case SELECTED_LESSON:
       return Object.assign({}, state, { lessonId: action.lessonId });
     case DROPPED_FOLDER:
