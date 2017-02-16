@@ -1,13 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { DisplayClasses, Lesson, MakeLesson } from '../../components';
+import { DisplayClasses, LessonDropDown, MakeLesson } from '../../components';
 import fileWatcher from '../../utils/fileWatcher';
-import style from './AddLessonStyles';
+import style from './WatchLessonStyles';
 
 const mapStateToProps = state => ({
   folderPath: state.lesson.folderPath,
   classname: state.lesson.classname,
   lessonId: state.lesson.lessonId,
+  lessonname: state.lesson.lessonname,
+  classCode: state.lesson.classCode,
 });
 
 class AddLesson extends Component {
@@ -25,8 +27,8 @@ class AddLesson extends Component {
 
   startWatchingFiles(e) {
     e.preventDefault();
-    const { folderPath, classname, lessonId } = this.props;
-    fileWatcher(folderPath, classname, lessonId);
+    const { folderPath, classname, lessonId, lessonname, classCode } = this.props;
+    fileWatcher(folderPath, classname, lessonId, classCode);
     this.setState({ isWatchingFiles: true });
   }
   stopWatchingFiles(e) {
@@ -54,7 +56,7 @@ class AddLesson extends Component {
         <DisplayClasses />
         <div>
           <div>
-            <Lesson />
+            <LessonDropDown />
             <button onClick={this.showMakeLessonForm}>
               {isMakeLessonVisible ? 'x' : '+'}
             </button>
@@ -86,12 +88,16 @@ AddLesson.propTypes = {
   folderPath: PropTypes.string,
   classname: PropTypes.string,
   lessonId: PropTypes.string,
+  lessonname: PropTypes.string,
+  classCode: PropTypes.string,
 };
 
 AddLesson.defaultProps = {
   folderPath: '',
   classname: '',
   lessonId: '',
+  lessonname: '',
+  classCode: '',
 };
 
 export default connect(mapStateToProps)(AddLesson);

@@ -1,5 +1,5 @@
 import DisplayClasses from './DisplayClasses/DisplayClasses';
-import Lesson from './Lesson/Lesson';
+import LessonDropDown from './LessonDropDown/LessonDropDown';
 import MakeLesson from './MakeLesson/MakeLesson';
 
-export { DisplayClasses, Lesson, MakeLesson };
+export { DisplayClasses, LessonDropDown, MakeLesson };

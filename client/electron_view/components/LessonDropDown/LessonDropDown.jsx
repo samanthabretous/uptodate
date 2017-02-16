@@ -13,21 +13,27 @@ const mapStateToProps = state => ({
   classLessons: state.lesson.classLessons,
 });
 
-const LessonDropDown = ({ selectedLessonAction, classLessons }) => (
-  <div>
-    <select onChange={(e) => selectedLessonAction(e.target.value)}>
-      <option> Select a Previous Lesson</option>
-      {classLessons && classLessons.map(lesson => (
-        <option
-          key={lesson.id}
-          value={lesson.id}
-        >
-          {lesson.name}
-        </option>
-      ))}
-    </select>
-  </div>
-);
+const LessonDropDown = ({ selectedLessonAction, classLessons }) => {
+  const handleDropDownSelecton = (e) => {
+    selectedLessonAction(e.target.value, e.target.name);
+  };
+  return (
+    <div>
+      <select onChange={handleDropDownSelecton}>
+        <option> Select a Previous Lesson</option>
+        {classLessons && classLessons.map(lesson => (
+          <option
+            key={lesson.id}
+            name={lesson.name}
+            value={lesson.id}
+          >
+            {lesson.name}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+};
 
 LessonDropDown.propTypes = {
   classLessons: PropTypes.array,
