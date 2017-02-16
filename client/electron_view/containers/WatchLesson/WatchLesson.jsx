@@ -12,7 +12,7 @@ const mapStateToProps = state => ({
   classCode: state.lesson.classCode,
 });
 
-class AddLesson extends Component {
+class WatchLesson extends Component {
   constructor() {
     super();
     this.state = {
@@ -28,6 +28,7 @@ class AddLesson extends Component {
   startWatchingFiles(e) {
     e.preventDefault();
     const { folderPath, classname, lessonId, lessonname, classCode } = this.props;
+    console.log(this.props);
     fileWatcher(folderPath, classname, lessonId, classCode);
     this.setState({ isWatchingFiles: true });
   }
@@ -67,7 +68,7 @@ class AddLesson extends Component {
             : <p>You are not watching any files</p>
           }
           <button
-            onClick={this.submit}
+            onClick={this.startWatchingFiles}
             disabled={isWatchingFiles || this.readyToStartLesson()}
           >
             Start Lesson
@@ -84,7 +85,7 @@ class AddLesson extends Component {
   }
 }
 
-AddLesson.propTypes = {
+WatchLesson.propTypes = {
   folderPath: PropTypes.string,
   classname: PropTypes.string,
   lessonId: PropTypes.string,
@@ -92,7 +93,7 @@ AddLesson.propTypes = {
   classCode: PropTypes.string,
 };
 
-AddLesson.defaultProps = {
+WatchLesson.defaultProps = {
   folderPath: '',
   classname: '',
   lessonId: '',
@@ -100,4 +101,4 @@ AddLesson.defaultProps = {
   classCode: '',
 };
 
-export default connect(mapStateToProps)(AddLesson);
+export default connect(mapStateToProps)(WatchLesson);
