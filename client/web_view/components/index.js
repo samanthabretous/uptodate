@@ -1,7 +1,7 @@
-import Sidebar from './Sidebar/Sidebar';
+import AssignmentButton from './AssignmentButton';
+import LessonButton from './LessonButton';
 import Titlebar from './Titlebar/Titlebar';
 import TreeNode from './TreeNode/TreeNode';
 import TextEditor from './TextEditor/TextEditor';
 
-export { Sidebar, Titlebar, TreeNode, TextEditor };
-
+export { AssignmentButton, LessonButton, Titlebar, TreeNode, TextEditor };

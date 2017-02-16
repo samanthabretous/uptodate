@@ -3,6 +3,7 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import style from './TitlebarStyles';
+import { AssignmentButton, LessonButton } from '../';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -11,15 +12,11 @@ const mapDispatchToProps = dispatch => (
 );
 
 const mapStateToProps = state => ({
-  firstName: state.titlebar.userInfo.firstName,
-  id: state.titlebar.id,
-  name: state.titlebar.name,
-  enrollmentCode: state.titlebar.enrollmentCode,
-  numberOfInstructorsInCurrentClass: state.titlebar.numberOfInstructorsInCurrentClass,
-  numberOfStudentsInCurrentClass: state.titlebar.numberOfStudentsInCurrentClass,
+  userInfo: state.titlebar.userInfo,
+  currentClass: state.titlebar.currentClass,
 });
 
-const Titlebar = props =>
+const Titlebar = ({ userInfo, currentClass, router }) =>
   (
     <div style={style.dashbar}>
       { /* first title bar */ }
@@ -27,63 +24,49 @@ const Titlebar = props =>
         <div>
           <h1 style={style.logo}>Up To Date</h1>
         </div>
-        <h2 style={style.firstName}>Hi, {props.firstName}</h2>
+        <h2 style={style.firstName}>Hi, {userInfo.firstName}</h2>
       </div>
       { /* second title bar */ }
+      { currentClass &&
       <div style={style.secondDashbar}>
         <div style={style.classInfo}>
           <div>
-            <h2 style={style.className}>{props.name}</h2>
-            <p style={style.enrollmentCode}>enrollment code: {props.enrollmentCode}</p>
+            <h2 style={style.className}>{currentClass.name}</h2>
+            <p style={style.enrollmentCode}>enrollment code: {currentClass.enrollmentCode}</p>
           </div>
           <div style={style.classUserInfo}>
             <div style={style.userTotal}>
               <h6 style={style.type}>Students</h6>
-              <h3 style={style.amount}>{props.numberOfStudentsInCurrentClass}</h3>
+              <h3 style={style.amount}>{currentClass.students.length}</h3>
             </div>
             <div style={style.userTotal}>
               <h6 style={style.type}>Instructors</h6>
-              <h3 style={style.amount}>{props.numberOfInstructorsInCurrentClass}</h3>
+              <h3 style={style.amount}>{currentClass.instructors.length}</h3>
             </div>
-            <div>
-              <button
-                onClick={
-                  () => {
-                    const curentLocation = props.router.getCurrentLocation().pathname;
-                    props.router.push(`${curentLocation}lesson/${props.id}`);
-                  }
-                }
-              > CREATE LESSON </button>
-
-              <button onClick={()=>{
-                const curentLocation = props.router.getCurrentLocation().pathname
-                props.router.push(`${curentLocation}/assignment/${props.id}`);
-              }}>ADD ASSIGNMENT</button>
-            </div>
+            <AssignmentButton
+              currentLocation={router.getCurrentLocation().pathname}
+              currentClassId={currentClass.id}
+            />
+            <LessonButton
+              currentLocation={router.getCurrentLocation().pathname}
+              currentClassId={currentClass.id}
+            />
           </div>
         </div>
-      </div>
+      </div> }
     </div>
   );
 
 
 Titlebar.propTypes = {
-  firstName: PropTypes.string,
-  id: PropTypes.number,
-  name: PropTypes.string,
-  enrollmentCode: PropTypes.string,
-  numberOfInstructorsInCurrentClass: PropTypes.number,
-  numberOfStudentsInCurrentClass: PropTypes.number,
+  userInfo: PropTypes.object,
+  currentClass: PropTypes.object,
   router: PropTypes.object.isRequired,
 };
 
 Titlebar.defaultProps = {
-  firstName: null,
-  id: null,
-  name: '',
-  enrollmentCode: '',
-  numberOfInstructorsInCurrentClass: 0,
-  numberOfStudentsInCurrentClass: 0,
+  userInfo: null,
+  currentClass: null,
 };
 
 

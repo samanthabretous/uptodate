@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const middleware = require('./repo_middleware');
+const middleware = require('../../index').repoSocket;
 
 router.route('/updateFile')
   .post(middleware.rawData);
@@ -11,5 +11,8 @@ router.route('/addDir')
 router.route('/addFile')
   .post(middleware.addFile)
   .delete(middleware.deleteFile);
+
+router.route('/getFile')
+  .get(middleware.getFile);
 
 module.exports = router;

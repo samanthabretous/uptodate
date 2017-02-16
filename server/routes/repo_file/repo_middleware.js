@@ -5,165 +5,72 @@ const models = require('../../db/models');
 
 const Lesson = models.lesson;
 
-/**
- * creates a path to repo on server based on useresLocalPath
- * @param { String } directoryBeingWatched
- * @param { String } usersLocalPath
- * @return { object } pathToRepoStorage, subPath, fileDirectory
- * subPath = path after 'repo/' directory
- * fileDirectory = { arr } full file directory
- */
-const pathMaker = (directoryBeingWatched, usersLocalPath) => {
-  let subPath = usersLocalPath.split('/');
-  // remove everything prior to the ${repoPath} in localPath
-  const repoPathLocationStart = subPath.indexOf(directoryBeingWatched);
-  const fileDirectory = subPath.slice(repoPathLocationStart + 1);
-  subPath = subPath.slice(repoPathLocationStart + 1).join('/');
-
-  // join path based on servers location pointing to repo fodler
-  const pathToRepoStorage = path.join(__dirname, '../../../repo/', subPath);
-  return { pathToRepoStorage, subPath, fileDirectory };
-};
-
-/**
-* add to the nested tree structure using firstChildNode since its pass by
-* refrence there is no need to save this functions return into a variable
-* @param {Array} firstChildNode
-* @param {Array} splitFileDirectory
-* @param {String} subPath
-* @returns {firstNestedNode}
-*/
-const addNodeToTree = (firstChildNode, splitFileDirectory, subPath) => {
-  if (splitFileDirectory.length === 1) {
-    firstChildNode.push({ title: splitFileDirectory[0], path: subPath });
-    return firstChildNode;
-  } else {
-    for (let i = 0; i < firstChildNode.length; i += 1) {
-      if (firstChildNode[i].title === splitFileDirectory[0]) {
-        return addNodeToTree(firstChildNode[i].childNodes, splitFileDirectory.slice(1), subPath);
-      }
-    }
-    const splitFileDirectorycopy = splitFileDirectory.slice(1);
-    const node = addNodeToTree([], splitFileDirectorycopy, subPath);
-    firstChildNode.push({ title: splitFileDirectory[0], childNodes: node });
-    return firstChildNode;
+class SocketConnection {
+  constructor(io) {
+    this.io = io;
+    this.pathMaker = this.pathMaker.bind(this);
+    this.addNodeToTree = this.addNodeToTree.bind(this);
+    this.rawData = this.rawData.bind(this);
+    this.addDir = this.addDir.bind(this);
+    this.addFile = this.addFile.bind(this);
+    this.deleteFile = this.deleteFile.bind(this);
+    this.deleteDir = this.deleteDir.bind(this);
   }
-};
 
-// api/repoFile/updateFile
-// ~ this is to add file into web repo file directory that already exist (rawData of chokidari)
-const rawData = (req, res) => {
-  // repoPath = directory being watched
-  // localPath = full local path change was made on
-  // data = inner file text
-  const { repoPath, localPath, data } = req.body;
-  const { pathToRepoStorage } = pathMaker(repoPath, localPath);
-  fs.writeFile(pathToRepoStorage, data, (err) => {
-    if (err) {
-      res.sendStatus(500);
+  /**
+   * creates a path to repo on server based on useresLocalPath
+   * @param { String } directoryBeingWatched
+   * @param { String } usersLocalPath
+   * @return { object } pathToRepoStorage, subPath, fileDirectory
+   * subPath = path after 'repo/' directory
+   * fileDirectory = { arr } full file directory
+   */
+  pathMaker(directoryBeingWatched, usersLocalPath, className, lessonName) {
+    let subPath = usersLocalPath.split('/');
+    // remove everything prior to the ${repoPath} in localPath
+    const repoPathLocationStart = subPath.indexOf(directoryBeingWatched);
+    const fileDirectory = subPath.slice(repoPathLocationStart + 1);
+    subPath = subPath.slice(repoPathLocationStart + 1).join('/');
+
+    // join path based on servers location pointing to repo fodler
+    const pathToRepoStorage = path.join(__dirname, `../../../repo/${className}/${lessonName}`, subPath);
+    return { pathToRepoStorage, subPath, fileDirectory };
+  }
+
+  /**
+  * add to the nested tree structure using firstChildNode since its pass by
+  * refrence there is no need to save this functions return into a variable
+  * @param {Array} firstChildNode
+  * @param {Array} splitFileDirectory
+  * @param {String} subPath
+  * @returns {firstNestedNode}
+  */
+  addNodeToTree(firstChildNode, splitFileDirectory, subPath) {
+    if (splitFileDirectory.length === 1) {
+      firstChildNode.push({ title: splitFileDirectory[0], path: subPath });
+      return firstChildNode;
     } else {
-      res.sendStatus(200);
-    }
-  });
-};
-
-// api/repo_file/addDir
-// ~ this is to create directory in webs repo file directory (addDir of chokidari)
-const addDir = (req, res) => {
-  // repoPath = directory being watched
-  // localPath = full local path change was made on
-  const { repoPath, localPath } = req.body;
-  const { pathToRepoStorage } = pathMaker(repoPath, localPath);
-  mkdirp(pathToRepoStorage, (err) => {
-    if (err) {
-      res.sendStatus(500);
-    } else {
-      res.sendStatus(200);
-    }
-  });
-};
-
-// api/repo_file/addFile
-// ~ this is to create a file in webs repo file directory (addDir of chokidari)
-const addFile = (req, res) => {
-  // repoPath = directory being watched
-  // localPath = full local path change was made on
-  const { repoPath, localPath, data } = req.body;
-  const { pathToRepoStorage, subPath, fileDirectory } = pathMaker(repoPath, localPath);
-  Lesson.findById(1)
-  .then((lesson) => {
-    const repo = lesson.get('repo');
-    addNodeToTree(repo, fileDirectory, subPath);
-    return Lesson.update({ repo },
-      {
-        where: {
-          id: 1,
-        },
-      });
-  })
-  .then((updated) => {
-    if (updated) {
-      fs.writeFile(pathToRepoStorage, data, (err) => {
-        if (err) {
-          res.sendStatus(500);
-        } else {
-          res.sendStatus(200);
+      for (let i = 0; i < firstChildNode.length; i += 1) {
+        if (firstChildNode[i].title === splitFileDirectory[0]) {
+          return this.addNodeToTree(firstChildNode[i].childNodes, splitFileDirectory.slice(1), subPath);
         }
-      });
-    } else {
-      throw new Error();
+      }
+      const splitFileDirectorycopy = splitFileDirectory.slice(1);
+      const node = this.addNodeToTree([], splitFileDirectorycopy, subPath);
+      firstChildNode.push({ title: splitFileDirectory[0], childNodes: node });
+      return firstChildNode;
     }
-  })
-  .catch(() => {
-    res.sendStatus(500);
-  });
-};
+  }
 
-// api/repo_file/addFile
-// ~ this is to delete a file in webs repo file directory (addDir of chokidari)
-const deleteFile = (req, res) => {
-  // repoPath = directory being watched
-  // localPath = full local path change was made on
-  const { repoPath, localPath } = req.body;
-  const { pathToRepoStorage, fileName } = pathMaker(repoPath, localPath);
-  Lesson.findById(1)
-  .then((lesson) => {
-    const repo = lesson.get('repo');
-    delete repo[fileName];
-    return Lesson.update({ repo },
-      {
-        where: {
-          id: 1,
-        },
-      });
-  })
-  .then((updated) => {
-    // this if ensures you never erase the root direcroty
-    if (updated && pathToRepoStorage.length > 28) {
-      fs.remove(pathToRepoStorage, (err) => {
-        if (err) {
-          res.sendStatus(500);
-        } else {
-          res.sendStatus(200);
-        }
-      });
-    } else {
-      throw new Error();
-    }
-  })
-  .catch(() => {
-    res.sendStatus(500);
-  });
-};
-
-const deleteDir = (req, res) => {
-  // repoPath = directory being watched
-  // localPath = full local path change was made on
-  const { repoPath, localPath } = req.body;
-  const { pathToRepoStorage } = pathMaker(repoPath, localPath);
-  // this if ensures you never erase the root direcroty
-  if (pathToRepoStorage.length > 28) {
-    fs.remove(pathToRepoStorage, (err) => {
+  // api/repoFile/updateFile
+  // ~ this is to add file into web repo file directory that already exist (rawData of chokidari)
+  rawData(req, res) {
+    // repoPath = directory being watched
+    // localPath = full local path change was made on
+    // data = inner file text
+    const { repoPath, localPath, data, className, lessonName } = req.body;
+    const { pathToRepoStorage } = this.pathMaker(repoPath, localPath, className, lessonName);
+    fs.outputFile(pathToRepoStorage, data, (err) => {
       if (err) {
         res.sendStatus(500);
       } else {
@@ -171,13 +78,129 @@ const deleteDir = (req, res) => {
       }
     });
   }
-};
 
+  // api/repo_file/addDir
+  // ~ this is to create directory in webs repo file directory (addDir of chokidari)
+  addDir(req, res) {
+    // repoPath = directory being watched
+    // localPath = full local path change was made on
+    const { repoPath, localPath, className, lessonName } = req.body;
+    const { pathToRepoStorage } = this.pathMaker(repoPath, localPath, className, lessonName);
+    mkdirp(pathToRepoStorage, (err) => {
+      if (err) {
+        res.sendStatus(500);
+      } else {
+        res.sendStatus(200);
+      }
+    });
+  }
 
-module.exports = {
-  rawData,
-  addDir,
-  deleteDir,
-  addFile,
-  deleteFile,
-};
+  // api/repo_file/addFile
+  // ~ this is to create a file in webs repo file directory (addDir of chokidari)
+  addFile(req, res) {
+    // repoPath = directory being watched
+    // localPath = full local path change was made on
+    const { repoPath, localPath, data, className, lessonName } = req.body;
+    const { pathToRepoStorage, subPath, fileDirectory } = this.pathMaker(repoPath, localPath, className, lessonName);
+    Lesson.findById(1)
+    .then((lesson) => {
+      const repo = lesson.get('repo');
+      this.addNodeToTree(repo, fileDirectory, subPath);
+      return Lesson.update({ repo },
+        {
+          where: {
+            id: 1,
+          },
+        });
+    })
+    .then((updated) => {
+      if (updated) {
+        fs.outputFile(pathToRepoStorage, data, (err) => {
+          if (err) {
+            res.sendStatus(500);
+          } else {
+            res.sendStatus(200);
+          }
+        });
+      } else {
+        throw new Error();
+      }
+    })
+    .catch(() => {
+      res.sendStatus(500);
+    });
+  }
+
+  // api/repo_file/addFile
+  // ~ this is to delete a file in webs repo file directory (addDir of chokidari)
+  deleteFile(req, res) {
+    // repoPath = directory being watched
+    // localPath = full local path change was made on
+    const { repoPath, localPath, className, lessonName } = req.body;
+    const { pathToRepoStorage, fileName } = this.pathMaker(repoPath, localPath, className, lessonName);
+    Lesson.findById(1)
+    .then((lesson) => {
+      const repo = lesson.get('repo');
+      delete repo[fileName];
+      return Lesson.update({ repo },
+        {
+          where: {
+            id: 1,
+          },
+        });
+    })
+    .then((updated) => {
+      // this if ensures you never erase the root direcroty
+      if (updated && pathToRepoStorage.length > 28) {
+        fs.remove(pathToRepoStorage, (err) => {
+          if (err) {
+            res.sendStatus(500);
+          } else {
+            res.sendStatus(200);
+          }
+        });
+      } else {
+        throw new Error();
+      }
+    })
+    .catch(() => {
+      res.sendStatus(500);
+    });
+  }
+
+  // api/repo_file/addDir
+  // ~ this is to delete a directory in webs repo file directory (remove of chokidari)
+  deleteDir(req, res) {
+    // repoPath = directory being watched
+    // localPath = full local path change was made on
+    const { repoPath, localPath, className, lessonName } = req.body;
+    const { pathToRepoStorage } = this.pathMaker(repoPath, localPath, className, lessonName);
+    // this if ensures you never erase the root direcroty
+    if (pathToRepoStorage.length > 28) {
+      fs.remove(pathToRepoStorage, (err) => {
+        if (err) {
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(200);
+        }
+      });
+    }
+  }
+
+  // api/repo_file/getFile
+  // ~ this is to get a file in webs repo file directory
+  getFile(req, res) {
+    const { subPath, className, lessonName } = req.query;
+    const pathToRepoStorage = path.join(__dirname, `../../../repo/${className}/${lessonName}`, subPath);
+    fs.readFile(pathToRepoStorage, 'utf8', (err, data) => {
+      if (err) {
+        res.sendStatus(500).send(err);
+      } else {
+        res.send(data);
+      }
+    });
+  }
+}
+
+module.exports = SocketConnection;
+

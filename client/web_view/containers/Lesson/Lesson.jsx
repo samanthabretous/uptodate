@@ -14,8 +14,8 @@ const mapStateToProps = state => ({
 
 
 class Lesson extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
 
   render() {

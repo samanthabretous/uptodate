@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { DisplayClasses, Lesson } from '../../components';
+import { DisplayClasses, Lesson, MakeLesson } from '../../components';
 import fileWatcher from '../../utils/fileWatcher';
 
 const mapStateToProps = state => ({
@@ -13,8 +12,12 @@ const mapStateToProps = state => ({
 class AddLesson extends Component {
   constructor() {
     super();
+    this.state = {
+      isMakeLessonVisible: false,
+    };
     this.submit = this.submit.bind(this);
     this.readyToStartLesson = this.readyToStartLesson.bind(this);
+    this.showMakeLessonForm = this.showMakeLessonForm.bind(this);
   }
 
   submit(e) {
@@ -23,20 +26,38 @@ class AddLesson extends Component {
     fileWatcher(folderPath, classname, lessonId);
   }
 
-  readyToStartLesson(){
+  readyToStartLesson() {
     // make sure all required info is available before starting lesson
     const { folderPath, classname, lessonId } = this.props;
     return !(folderPath && classname && lessonId);
   }
 
+  showMakeLessonForm() {
+    this.setState(prevState => ({
+      isMakeLessonVisible: !prevState.isMakeLessonVisible,
+    }));
+  }
+
   render() {
     const { folderPath } = this.props;
+    const { isMakeLessonVisible } = this.state;
     return (
       <div>
         <DisplayClasses />
-        <Lesson />
+        <div>
+          <Lesson />
+          <button onClick={this.showMakeLessonForm}>
+            {isMakeLessonVisible ? 'x' : '+'}
+          </button>
+        </div>
+
+        {isMakeLessonVisible && <MakeLesson />}
+        {folderPath
+          ? <p>You are watching folder: {folderPath}</p>
+          : <p>You are not watching any files</p>
+        }
         <button
-          onSubmit={this.submit}
+          onClick={this.submit}
           disabled={this.readyToStartLesson()}
         >
           Start Lesson
@@ -46,7 +67,7 @@ class AddLesson extends Component {
   }
 }
 
-AddLesson.proptypes = {
+AddLesson.propTypes = {
   folderPath: PropTypes.string,
   classname: PropTypes.string,
   lessonId: PropTypes.number,
