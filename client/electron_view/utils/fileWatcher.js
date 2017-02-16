@@ -5,6 +5,7 @@ export default (pathWatch, className, lessonId, lessonName) => {
     ignored: /[/\\]\./,
     persistent: true,
   });
+  console.log(pathWatch)
   const axiosCall = (type, urlEndPoint, localPath, data) => {
     let repoPath = pathWatch.split('/');
     repoPath = repoPath[repoPath.length - 1];
