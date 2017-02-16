@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { DisplayClasses, Lesson } from '../../components';
 import fileWatcher from '../../utils/fileWatcher';
+import style from './AddLessonStyles';
 
 const mapStateToProps = state => ({
   folderPath: state.lesson.folderPath,
@@ -13,34 +13,51 @@ const mapStateToProps = state => ({
 class AddLesson extends Component {
   constructor() {
     super();
-    this.submit = this.submit.bind(this);
+    this.state = {
+      isWatchingFiles: false,
+    };
+    this.startWatchingFiles = this.startWatchingFiles.bind(this);
+    this.stopWatchingFiles = this.stopWatchingFiles.bind(this);
     this.readyToStartLesson = this.readyToStartLesson.bind(this);
   }
 
-  submit(e) {
+  startWatchingFiles(e) {
     e.preventDefault();
     const { folderPath, classname, lessonId } = this.props;
-    fileWatcher(folderPath, classname, lessonId);
+    // fileWatcher(folderPath, classname, lessonId);
+    this.setState({ isWatchingFiles: true });
+  }
+  stopWatchingFiles(e) {
+    e.preventDefault();
+    this.setState({ isWatchingFiles: false });
   }
 
-  readyToStartLesson(){
+  readyToStartLesson() {
     // make sure all required info is available before starting lesson
     const { folderPath, classname, lessonId } = this.props;
     return !(folderPath && classname && lessonId);
   }
 
   render() {
-    const { folderPath } = this.props;
+    const { isWatchingFiles } = this.state;
     return (
-      <div>
+      <div style={style.lesson}>
         <DisplayClasses />
-        <Lesson />
-        <button
-          onClick={this.submit}
-          disabled={this.readyToStartLesson()}
-        >
-          Start Lesson
-        </button>
+        <div>
+          <Lesson />
+          <button
+            onClick={this.startWatchingFiles}
+            disabled={isWatchingFiles || this.readyToStartLesson()}
+          >
+            Start Lesson
+          </button>
+          <button
+            onClick={this.stopWatchingFiles}
+            disabled={!isWatchingFiles}
+          >
+            Stop Lesson
+          </button>
+        </div>
       </div>
     );
   }
