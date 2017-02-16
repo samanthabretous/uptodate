@@ -13,11 +13,11 @@ const mapStateToProps = state => ({
   classLessons: state.lesson.classLessons,
 });
 
-const LessonDropDown = props => (
+const LessonDropDown = ({ selectedLessonAction, classLessons }) => (
   <div>
-    <select onChange={(e) => props.selectedLessonAction(e.target.value)}>
+    <select onChange={(e) => selectedLessonAction(e.target.value)}>
       <option> Select a Previous Lesson</option>
-      {props.classLessons && props.classLessons.map(lesson => (
+      {classLessons && classLessons.map(lesson => (
         <option
           key={lesson.id}
           value={lesson.id}

@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { DisplayClasses, Lesson, MakeLesson } from '../../components';
 import fileWatcher from '../../utils/fileWatcher';
+import style from './AddLessonStyles';
 
 const mapStateToProps = state => ({
   folderPath: state.lesson.folderPath,
@@ -14,16 +15,23 @@ class AddLesson extends Component {
     super();
     this.state = {
       isMakeLessonVisible: false,
+      isWatchingFiles: false,
     };
-    this.submit = this.submit.bind(this);
+    this.startWatchingFiles = this.startWatchingFiles.bind(this);
+    this.stopWatchingFiles = this.stopWatchingFiles.bind(this);
     this.readyToStartLesson = this.readyToStartLesson.bind(this);
     this.showMakeLessonForm = this.showMakeLessonForm.bind(this);
   }
 
-  submit(e) {
+  startWatchingFiles(e) {
     e.preventDefault();
     const { folderPath, classname, lessonId } = this.props;
     fileWatcher(folderPath, classname, lessonId);
+    this.setState({ isWatchingFiles: true });
+  }
+  stopWatchingFiles(e) {
+    e.preventDefault();
+    this.setState({ isWatchingFiles: false });
   }
 
   readyToStartLesson() {
@@ -40,28 +48,35 @@ class AddLesson extends Component {
 
   render() {
     const { folderPath } = this.props;
-    const { isMakeLessonVisible } = this.state;
+    const { isMakeLessonVisible, isWatchingFiles } = this.state;
     return (
-      <div>
+      <div style={style.lesson}>
         <DisplayClasses />
         <div>
-          <Lesson />
-          <button onClick={this.showMakeLessonForm}>
-            {isMakeLessonVisible ? 'x' : '+'}
+          <div>
+            <Lesson />
+            <button onClick={this.showMakeLessonForm}>
+              {isMakeLessonVisible ? 'x' : '+'}
+            </button>
+          </div>
+          {isMakeLessonVisible && <MakeLesson />}
+          {folderPath
+            ? <p>You are watching folder: {folderPath}</p>
+            : <p>You are not watching any files</p>
+          }
+          <button
+            onClick={this.submit}
+            disabled={isWatchingFiles || this.readyToStartLesson()}
+          >
+            Start Lesson
+          </button>
+          <button
+            onClick={this.stopWatchingFiles}
+            disabled={!isWatchingFiles}
+          >
+            Stop Lesson
           </button>
         </div>
-
-        {isMakeLessonVisible && <MakeLesson />}
-        {folderPath
-          ? <p>You are watching folder: {folderPath}</p>
-          : <p>You are not watching any files</p>
-        }
-        <button
-          onClick={this.submit}
-          disabled={this.readyToStartLesson()}
-        >
-          Start Lesson
-        </button>
       </div>
     );
   }
@@ -70,13 +85,13 @@ class AddLesson extends Component {
 AddLesson.propTypes = {
   folderPath: PropTypes.string,
   classname: PropTypes.string,
-  lessonId: PropTypes.number,
+  lessonId: PropTypes.string,
 };
 
 AddLesson.defaultProps = {
-  folderPath: null,
+  folderPath: '',
   classname: '',
-  lessonId: null,
+  lessonId: '',
 };
 
 export default connect(mapStateToProps)(AddLesson);
