@@ -22,9 +22,10 @@ export const droppedFolderAction = folderPath => ({
   folderPath,
 });
 
-export const selectedLessonAction = lessonId => ({
+export const selectedLessonAction = (lessonId, lessonname) => ({
   type: SELECTED_LESSON,
   lessonId,
+  lessonname,
 });
 
 export const AsyncGetLessons = (classId, platform) => (dispatch) => {
@@ -54,6 +55,8 @@ const initialState = {
   folderPath: null,
   classLessons: null,
   classname: '',
+  classCode: '',
+  lessonname: '',
   lessonId: null,
 };
 
@@ -63,9 +66,13 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         classLessons: action.data,
         classname: action.data[0].class.name,
+        classEnrollmentCode: action.data[0].class.enrollmentCode,
       });
     case SELECTED_LESSON:
-      return Object.assign({}, state, { lessonId: action.lessonId });
+      return Object.assign({}, state, {
+        lessonId: action.lessonId,
+        lessonname: action.lessonname,
+      });
     case DROPPED_FOLDER:
       return Object.assign({}, state, { folderPath: action.folderPath });
     default:
