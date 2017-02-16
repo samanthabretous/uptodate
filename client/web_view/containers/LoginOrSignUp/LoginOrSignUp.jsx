@@ -108,6 +108,8 @@ class LoginOrSignUp extends Component {
             this.props.userInfoAction(res.data);
             // take user to the dashboard
             this.props.router.push(`/dashboard/${res.data.id}/${res.data.currentClass.enrollmentCode}`);
+            const currentClassCode = res.data.currentClass.enrollmentCode;
+            localStorage.classCode = JSON.stringify(currentClassCode);
           }
         })
         .catch(() => {

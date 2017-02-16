@@ -70,7 +70,7 @@ class AddLesson extends Component {
 AddLesson.propTypes = {
   folderPath: PropTypes.string,
   classname: PropTypes.string,
-  lessonId: PropTypes.number,
+  lessonId: PropTypes.string,
 };
 
 AddLesson.defaultProps = {
