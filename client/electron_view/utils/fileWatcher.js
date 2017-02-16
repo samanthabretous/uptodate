@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export default (pathWatch, className, lessonId) => {
+export default (pathWatch, className, lessonId, lessonName) => {
   const watcher = chokidar.watch(pathWatch, {
     ignored: /[/\\]\./,
     persistent: true,
@@ -69,5 +69,8 @@ export default (pathWatch, className, lessonId) => {
     fs.readFile(path, 'utf8', (err, data) => {
       axiosCall('post', '/api/repoFile/updateFile', path, data);
     });
+  })
+  .on('ready', () => {
+    axiosCall('post', '/api/repoFile/updateFileWatched', pathWatch);
   });
 };
