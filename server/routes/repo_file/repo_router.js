@@ -15,4 +15,7 @@ router.route('/addFile')
 router.route('/getFile')
   .get(middleware.getFile);
 
+router.route('/updateFileWatched')
+  .post(middleware.updatFile);
+
 module.exports = router;
