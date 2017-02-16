@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { TreeNode, TextEditor } from '../../components/index';
@@ -14,11 +14,26 @@ const mapStateToProps = state => ({
   state,
 });
 
-const ViewInstructorCode = () => (
-  <div style={{ display: 'flex' }}>
-    <TreeNode node={dummyDirectory} />
-    <TextEditor />
-  </div>
-);
+class ViewInstructorCode extends Component {
+  constructor() {
+    super();
+    this.state = {
+      directory: dummyDirectory,
+    };
+  }
+
+  componentDidMount() {
+  // Socket connection here...
+  }
+
+  render() {
+    return (
+      <div style={{ display: 'flex' }}>
+        <TreeNode node={this.state.directory} />
+        <TextEditor />
+      </div>
+    );
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewInstructorCode);
