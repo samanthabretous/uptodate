@@ -10,7 +10,6 @@ export default {
     marginTop: '15vh',
   },
   content: {
-    width: '95vw',
-    paddingLeft: '5vw',
+    width: '100vw',
   },
 };
