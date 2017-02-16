@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router';
 import { TreeNode, TextEditor } from '../../components/index';
 import dummyDirectory from './dummy_directory';
 
@@ -15,8 +16,8 @@ const mapStateToProps = state => ({
 });
 
 class ViewInstructorCode extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       directory: dummyDirectory,
     };
@@ -27,13 +28,14 @@ class ViewInstructorCode extends Component {
   }
 
   render() {
+    console.log('VIEW INSTRUCTOR CODE:', this.props.params)
     return (
       <div style={{ display: 'flex' }}>
-        <TreeNode node={this.state.directory} />
+        <TreeNode node={dummyDirectory}/>
         <TextEditor />
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ViewInstructorCode);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ViewInstructorCode));

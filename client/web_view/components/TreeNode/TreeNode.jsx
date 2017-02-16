@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { withRouter } from 'react-router';
 import shortid from 'shortid';
 
 class TreeNode extends Component {
@@ -14,24 +15,27 @@ class TreeNode extends Component {
   handleClick() {
     this.setState(prevState => ({
       visible: !prevState.visible,
-      currentPath: this.props.node.path ? this.props.node.path : prevState.currentPath,
     }));
+    this.props.node.path ? this.props.router.push(`/instructorcode/${this.props.node.path}`) : null;
   }
 
   render() {
     let childNodes;
 
     if (this.props.node.childNodes != null) {
-      childNodes = this.props.node.childNodes.map(node => (
-        <li key={shortid.generate()}><TreeNode node={node} /></li>
-      ));
+      childNodes = this.props.node.childNodes.map((node) => {
+        if (node.path) {
+          return <li key={shortid.generate()} onClick={this.handleClick}><TreeNode router={this.props.router} node={node} /></li>;
+        } else {
+          return <li key={shortid.generate()}><TreeNode router={this.props.router} node={node} /></li>; 
+        }
+      });
     }
 
     let style;
     if (!this.state.visible) {
       style = { display: 'none' };
     }
-
     return (
       <div>
         <h5 onClick={this.handleClick}>
@@ -49,4 +53,4 @@ TreeNode.propTypes = {
   node: PropTypes.object.isRequired,
 };
 
-export default TreeNode;
+export default withRouter(TreeNode);
