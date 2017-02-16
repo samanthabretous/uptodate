@@ -1,14 +1,17 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import { App, LoginOrSignUp, HomePage, StudentOrTeacher, Dashboard, Lesson, Overview, ViewInstructorCode, AddAssignment, AddLesson } from './containers';
+import { App, Modal, LoginOrSignUp, HomePage, StudentOrTeacher, Dashboard, Lesson, Overview, ViewInstructorCode, AddAssignment, AddLesson } from './containers';
 import { getTitlebarInfo } from '../redux/titlebar';
 import { enterGetLessons } from '../redux/lesson';
 
 export default (
-  <Route path="/" component={App} >
-    <IndexRoute component={HomePage} />
-    <Route path="login" component={LoginOrSignUp} />
-    <Route path="student-or-teacher" component={StudentOrTeacher} />
+  <Route component={App} >
+    <Route path="/" component={HomePage}>
+      <Route component={Modal}>
+        <Route path="login" component={LoginOrSignUp} />
+        <Route path="student-or-teacher" component={StudentOrTeacher} />
+      </Route>
+    </Route>
     <Route path="/instructorcode" component={ViewInstructorCode} />
     <Route path="dashboard/:user/:currentClassCode" onEnter={getTitlebarInfo} component={Dashboard}>
       <IndexRoute component={Overview} />
@@ -18,3 +21,4 @@ export default (
     </Route>
   </Route>
 );
+

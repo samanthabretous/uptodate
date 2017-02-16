@@ -2,12 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { LoginOrSignUp } from '../index';
 import style from './HomePageStyles';
+import { loginModalAction } from '../../../redux/login';
+import { LoginOrSignUp, LoginModal, StudentTeacherModal } from '../index';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
-
+    loginModalAction,
   }, dispatch)
 );
 
@@ -21,7 +22,7 @@ class HomePage extends Component {
     this.goToLogin = this.goToLogin.bind(this);
   }
   goToLogin() {
-    this.props.router.push('/login');
+    this.props.router.push('/login')
   }
 
   render() {
@@ -39,6 +40,7 @@ class HomePage extends Component {
           </div>
           <LoginOrSignUp pathname={this.props.location.pathname} />
         </section>
+        {this.props.children}
       </div>
     );
   }

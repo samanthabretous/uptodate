@@ -22,7 +22,6 @@ class Dashboard extends Component {
       <div style={style.dashboard}>
         <Titlebar />
         <section style={style.mainView}>
-          <Sidebar />
           <div style={style.content}>
             {children}
           </div>

@@ -39,14 +39,11 @@ export const AsyncPostLesson = data => (dispatch) => {
     .then((lesson) => {
       dispatch(getLessons(lesson.data));
     });
-};
-
 
 export const enterGetLessons = (nextState) => {
   const classId = nextState.params.classId;
   return createStore.dispatch(AsyncGetLessons(classId, 'web'));
 };
-
 
 // -------------------
 // reducer
@@ -62,7 +59,10 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_LESSONS:
-      return Object.assign({}, state, { classLessons: action.data, classname: action.classname });
+      return Object.assign({}, state, {
+        classLessons: action.data,
+        classname: action.data[0].class.name,
+      });
     case SELECTED_LESSON:
       return Object.assign({}, state, { lessonId: action.lessonId });
     case DROPPED_FOLDER:

@@ -1,15 +1,16 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { withRouter, Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
-import { signUpInfoAction, userInfoAction } from '../../../redux/login';
+import { signUpInfoAction, userInfoAction, studentTeacherModalAction } from '../../../redux/login';
 import style from './LoginOrSignUpStyles';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
     signUpInfoAction,
     userInfoAction,
+    studentTeacherModalAction,
   }, dispatch)
 );
 
@@ -36,7 +37,7 @@ class LoginOrSignUp extends Component {
     this.renderInput = this.renderInput.bind(this);
   }
 
-  // check to see if we need to render the signup info 
+  // check to see if we need to render the signup info
   isSignupPage() {
     return this.props.pathname === '/';
   }
@@ -110,7 +111,7 @@ class LoginOrSignUp extends Component {
           }
         })
         .catch(() => {
-
+          this.setState({ authenticationError: true });
         });
       }
     }
@@ -147,10 +148,10 @@ class LoginOrSignUp extends Component {
         {this.props.pathname === '/' && this.renderInput('email')}
         {this.renderInput('username')}
         {this.renderInput('password')}
-        <button style={style.signupButton} onClick={this.handleSubmit}>
+          <button style={style.signupButton} onClick={this.handleSubmit}>
           sign up for free
         </button>
-        {authenticationError && <span>There was an error logging in</span>}
+        {authenticationError && <span>There was an error logging in.</span>}
       </div>
     );
   }

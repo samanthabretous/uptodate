@@ -19,6 +19,11 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: [],
         allowNull: true,
       },
+      fileWatched: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+        defaultValue: null,
+      },
     },
     {
       classMethods: {
