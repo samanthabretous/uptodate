@@ -25,11 +25,11 @@ class ViewInstructorCode extends Component {
 
   componentDidMount() {
     socket.on('updated-file', ({ subPath, data }) => {
-
+      console.log("updated-file", subPath, data);
     });
 
     socket.on('updated-directory', (repo) => {
-
+      console.log("updated-directory", repo);
     });
   }
 
