@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 import style from './VotesStyles';
 import { socket } from '../../socket/socket';
-import { getVotesAsync } from '../../../redux/votes';
+import { getVotesAsync, updateVotes } from '../../../redux/votes';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -19,38 +19,65 @@ const mapStateToProps = state => ({
 class Votes extends Component {
   constructor() {
     super();
+    this.state = {
+      topicInput: '',
+    };
+    this.handleTopicInput = this.handleTopicInput.bind(this);
+    this.addTopic = this.addTopic.bind(this);
     this.increaseVote = this.increaseVote.bind(this);
     this.decreaseVote = this.decreaseVote.bind(this);
   }
 
   componentDidMount() {
-    const { getVotesAsync, lessonParams } = this.props;
-    getVotesAsync(lessonParams);
+    const { getVotesAsync, lessonId } = this.props;
+    getVotesAsync(lessonId);
+    socket.on('update-votes', ({ votes, lesson }) => {
+      // url location must match the lesson votes inorder to update votes
+      console.log("lessonId", lessonId, "lesson", lesson)
+      if (lessonId === lesson) updateVotes(votes);
+    });
   }
 
+  handleTopicInput(e) {
+    this.setState({ topicInput: e.target.value });
+  }
+
+  addTopic() {
+    const { topicInput } = this.state;
+    const { lessonId } = this.props;
+    socket.emit('create-vote', { topic: topicInput, lessonId });
+  }
   increaseVote(voteId) {
-    socket.emit('increaseVote', voteId)
+    const { lessonId } = this.props;
+    socket.emit('increase-vote', { voteId, lessonId });
   }
 
-  decreaseVote() {
-    socket.emit('increaseVote', voteId)
+  decreaseVote(voteId) {
+    const { lessonId } = this.props;
+    socket.emit('decrease-vote', { voteId, lessonId });
   }
 
   render() {
-    const { lessonVotes, lessonParams } = this.props;
-  
+    const { lessonVotes } = this.props;
     return (
       <div style={style.voteContainer}>
-        {lessonVotes && _.map(lessonVotes, vote => (
-          <div key={vote.id}>
-            <p>{vote.topic}</p>
-            <p>{vote.numberOfVotes}</p>
-            <div>
-              <button onClick={() => this.increaseVote(vote.id)}>UP</button>
-              <button onClick={() => this.decreaseVote(vote.id)}>DOWN</button>
+        <div>
+          {lessonVotes && _.map(lessonVotes, vote => (
+            <div key={vote.id}>
+              <p>{vote.topic}</p>
+              <p>{vote.numberOfVotes}</p>
+              <div>
+                <button onClick={() => this.increaseVote(vote.id)}>UP</button>
+                <button onClick={() => this.decreaseVote(vote.id)}>DOWN</button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        <input
+          type="text"
+          onChange={this.handleTopicInput}
+        />
+        <button onClick={this.addTopic}>Add Topic</button>
       </div>
     );
   }
@@ -58,7 +85,7 @@ class Votes extends Component {
 
 Votes.propTypes = {
   getVotesAsync: PropTypes.func.isRequired,
-  lessonParams: PropTypes.string.isRequired,
+  lessonId: PropTypes.string.isRequired,
   lessonVotes: PropTypes.array,
 };
 

@@ -147,11 +147,14 @@ class LoginOrSignUp extends Component {
         : style.loginForm}
       >
         {/* render input box if user is trying to sign up */}
-        {this.props.pathname === '/' && this.renderInput('email')}
+        {this.isSignupPage() && this.renderInput('email')}
         {this.renderInput('username')}
         {this.renderInput('password')}
-          <button style={style.signupButton} onClick={this.handleSubmit}>
-          sign up for free
+        <button style={style.signupButton} onClick={this.handleSubmit}>
+          {this.isSignupPage()
+            ? 'sign up for free'
+            : 'Enter Classroom'
+          }
         </button>
         {authenticationError && <span>There was an error logging in.</span>}
       </div>

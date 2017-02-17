@@ -38,7 +38,7 @@ class ViewInstructorCode extends Component {
       <div style={{ display: 'flex' }}>
         <TreeNode node={this.state.directory} />
         <TextEditor />
-        <Votes lessonParams={this.props.params.lessonId}/>
+        <Votes lessonId={this.props.params.lessonId}/>
       </div>
     );
   }

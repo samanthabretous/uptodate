@@ -3,15 +3,13 @@ module.exports = (sequelize, DataTypes) => {
     {
       topic: {
         type: DataTypes.STRING,
-        validate: {
-          allowNull: false,
-        },
+        allowNull: false,
       },
       numberOfVotes: {
         type: DataTypes.INTEGER,
         defaultValue: 1,
+        allowNull: true,
         validate: {
-          allowNull: false,
           isInt: true,
         },
       },
