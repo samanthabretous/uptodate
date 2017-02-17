@@ -54,7 +54,7 @@ export const enterGetLessons = (nextState) => {
 };
 
 export const AsyncGetInstructorCode = (subPath, className, lessonName) => (dispatch) => {
-  axios.get('api/repoFile/getFile', {
+  axios.get('/api/repoFile/getFile', {
     params: {
       subPath,
       className,
