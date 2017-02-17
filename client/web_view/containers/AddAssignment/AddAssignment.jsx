@@ -12,7 +12,7 @@ const mapDispatchToProps = dispatch => (
 );
 
 const mapStateToProps = state => ({
-  classId: state.titlebar.id,
+  classId: state.titlebar.currentClass.id,
   classLessons: state.lesson.classLessons,
 });
 
