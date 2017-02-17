@@ -20,7 +20,10 @@ class ViewInstructorCode extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      directory: dummyDirectory,
+      directory: {
+        title: 'lesson',
+        childNodes: [],
+      },
     };
   }
 
@@ -28,17 +31,18 @@ class ViewInstructorCode extends Component {
     socket.on('updated-file', ({ subPath, data }) => {
 
     });
-
+    
     socket.on('updated-directory', (repo) => {
-
+      console.log('UPDATE DIRECTORY:', Object.assign({}, this.state.directory, {childNodes: repo }));
+      this.setState({ directory: Object.assign({}, this.state.directory, { childNodes: repo }) });
     });
   }
 
   render() {
-    console.log('VIEW INSTRUCTOR CODE:', this.props.params)
+    console.log('DIRECTORY:', this.state.directory);
     return (
       <div style={{ display: 'flex' }}>
-        <TreeNode node={dummyDirectory}/>
+        <TreeNode node={this.state.directory} />
         <TextEditor />
       </div>
     );

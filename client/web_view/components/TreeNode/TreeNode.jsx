@@ -16,6 +16,7 @@ class TreeNode extends Component {
     this.setState(prevState => ({
       visible: !prevState.visible,
     }));
+    this.props.node.path ? console.log(this.props.node.path) : null;
     this.props.node.path ? this.props.router.push(`/instructorcode/${this.props.node.path}`) : null;
   }
 

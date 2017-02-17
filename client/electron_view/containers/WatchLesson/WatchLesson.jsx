@@ -67,7 +67,7 @@ class AddLesson extends Component {
             : <p>You are not watching any files</p>
           }
           <button
-            onClick={this.submit}
+            onClick={this.startWatchingFiles}
             disabled={isWatchingFiles || this.readyToStartLesson()}
           >
             Start Lesson
