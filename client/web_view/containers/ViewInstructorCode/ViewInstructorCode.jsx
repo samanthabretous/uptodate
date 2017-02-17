@@ -51,7 +51,6 @@ class ViewInstructorCode extends Component {
   }
 
   render() {
-    console.log('stuff happened')
     return (
       <div style={{ display: 'flex' }}>
         <TreeNode node={this.state.directory} />
