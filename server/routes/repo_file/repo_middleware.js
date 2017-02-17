@@ -76,9 +76,8 @@ class SocketConnection {
       if (err) {
         res.sendStatus(500);
       } else {
-        // ==========================>
-        // here you will need to send subPath and data because the file was updated
-        // ==========================>
+        // send subPath and data because the file was updated
+        this.io.sockets.emit('updated-file', { subPath, data });
         res.sendStatus(200);
       }
     });
@@ -125,9 +124,8 @@ class SocketConnection {
           if (err) {
             res.sendStatus(500);
           } else {
-            // ==========================>
-            // here you will have to send repo this represents the object
-            // ==========================>
+            // send repo object
+            this.io.sockets.emit('updated-directory', repo);
             res.sendStatus(200);
           }
         });
@@ -166,9 +164,8 @@ class SocketConnection {
           if (err) {
             res.sendStatus(500);
           } else {
-            // ==========================>
-            // here you will have to send repo this represents the object
-            // ==========================>
+            // send repo object
+            this.io.sockets.emit('updated-directory', repo);
             res.sendStatus(200);
           }
         });

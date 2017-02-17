@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { TreeNode, TextEditor } from '../../components/index';
 import dummyDirectory from './dummy_directory';
+import { socket } from '../../socket/socket';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -23,7 +24,13 @@ class ViewInstructorCode extends Component {
   }
 
   componentDidMount() {
-  // Socket connection here...
+    socket.on('updated-file', ({ subPath, data }) => {
+
+    });
+
+    socket.on('updated-directory', (repo) => {
+
+    });
   }
 
   render() {

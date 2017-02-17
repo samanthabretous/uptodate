@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 import { droppedFolderAction } from '../../../redux/lesson';
+import style from './DropFolderStyles';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -54,13 +55,7 @@ class DropFolder extends Component {
         onDragEnd={this.stopDropDefault}
         onDrop={this.handleDrop}
         id="holder"
-        style={{
-          border: '3px solid blue',
-          width: '100vw',
-          height: '100vh',
-          fontSize: 50,
-          background: 'blue',
-        }}
+        style={style.dropFolder}
       >
         {this.props.children}
       </div>
