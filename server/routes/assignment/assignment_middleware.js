@@ -44,6 +44,21 @@ const postNewAssignment = (req, res) => {
   });
 };
 
+const getAssignmentByClassId = (req, res) => {
+  Assignment.findAll({
+    where: {
+      classId: req.params.classId,
+    },
+  })
+  .then((data) => {
+    res.send(data);
+  })
+  .catch((err) => {
+    res.sendStatus(500).send(err);
+  });
+};
+
 module.exports = {
   postNewAssignment,
+  getAssignmentByClassId,
 };
