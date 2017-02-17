@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { TreeNode, TextEditor } from '../../components/index';
+import { TreeNode, TextEditor, Votes } from '../../components/index';
 import dummyDirectory from './dummy_directory';
 import { socket } from '../../socket/socket';
 
@@ -38,9 +38,13 @@ class ViewInstructorCode extends Component {
       <div style={{ display: 'flex' }}>
         <TreeNode node={this.state.directory} />
         <TextEditor />
+        <Votes lessonParams={this.props.params.lessonId}/>
       </div>
     );
   }
 }
+ViewInstructorCode.propTypes = {
+  params: PropTypes.object.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewInstructorCode);

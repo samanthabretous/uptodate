@@ -1,4 +1,5 @@
 const SocketListeners = require('./socket_listeners.js');
+const models = require('../../db/models');
 
 module.exports = ((app, io) => {
   io.on('connection', (socket) => {
@@ -10,6 +11,16 @@ module.exports = ((app, io) => {
       socket.join(classroom);
       const rooms = Object.keys(io.sockets.adapter.sids[socket.id]);
       socket.emit('rooms-joined', rooms);
+    });
+
+    socket.on('add-vote', ({ comment, lessonId }) => {
+      models.vote.create({
+        lessonId,
+        comment,
+      })
+      .then((vote) => {
+        console.log(vote);
+      });
     });
 
     const socketOn = new SocketListeners(socket);
