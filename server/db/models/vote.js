@@ -1,15 +1,17 @@
 module.exports = (sequelize, DataTypes) => {
   const Vote = sequelize.define('vote',
     {
-      comment: {
-        type: DataTypes.TEXT,
+      topic: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
-      vote: {
+      numberOfVotes: {
         type: DataTypes.INTEGER,
         defaultValue: 1,
-        allowNull: false,
-        isInt: true,
+        allowNull: true,
+        validate: {
+          isInt: true,
+        },
       },
     },
     {

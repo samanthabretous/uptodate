@@ -42,7 +42,7 @@ const lessonByClassCode = (req, res) => {
     where: { enrollmentCode: req.params.classCode },
     include: [{
       model: Lesson,
-      attributes: ['name', 'lecture'],
+      attributes: ['name', 'lecture', 'id'],
     }],
   })
   .then((currentClass) => {

@@ -10,18 +10,20 @@ const mapDispatchToProps = dispatch => (
   bindActionCreators({ AsyncGetLessons }, dispatch)
 );
 
-const mapStateToProps = state => ({
+const mapStateToProps = state => {
+  console.log(state.lesson.classLessons)
+  return {
   classLessons: state.lesson.classLessons,
 
-});
+}};
 
 const DisplayClassLessons = ({ classLessons, params: { user, currentClassCode } }) => (
   <div>
     {
       classLessons
-      ? classLessons.map(({ name, lecture }, idx) => (
-        <div key={idx}>
-          <Link to={`/dashboard/${user}/${currentClassCode}/${name}`}><h1> {name} </h1></Link>
+      ? classLessons.map(({ name, lecture, id }) => (
+        <div key={id}>
+          <Link to={`/dashboard/${user}/${currentClassCode}/${id}/${name}`}><h1> {name} </h1></Link>
           <TextTruncate
             line={2}
             truncateText="…"
