@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
@@ -65,5 +65,8 @@ class ViewInstructorCode extends Component {
     );
   }
 }
+ViewInstructorCode.propTypes = {
+  params: PropTypes.object.isRequired,
+};
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ViewInstructorCode));

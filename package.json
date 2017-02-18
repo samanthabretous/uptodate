@@ -7,7 +7,7 @@
     "electron-start": "./node_modules/.bin/electron server/electron/main.js",
     "electron": "cross-env NODE_ENV=electron concurrently -k 'yarn electron-build' 'yarn server' 'yarn electron-start'",
     "electron-build": "webpack --config webpack.config.electron_dev.js",
-    "web": "DEBUG=SOCKET concurrently -k  --prefix '[{name}]' --names 'Server' -c 'bgBlue,bgMagenta' 'yarn server' 'webpack --config webpack.config.js'",
+    "web": "DEBUG=SOCKET concurrently -k  --prefix '[{name}]' --names 'Server' -c 'bgBlue,bgMagenta' 'yarn server' 'webpack --config webpack.config.js'", 
     "server": "DEBUG=SOCKET nodemon start.js",
     "web:watch": "webpack --config webpack.config.js --watch",
     "seed": "node ./server/seed",

@@ -31,7 +31,7 @@ class TreeNode extends Component {
     }));
     if (this.props.node.path) {
       this.props.AsyncGetInstructorCode(this.props.node.path, 'Chemistry 123', 'Making things explode is science and is rad');
-      this.props.router.push(`/instructorcode/${this.props.node.path}`);
+      this.props.router.push(`/${this.props.node.path}`);
     }
   }
 
