@@ -23,13 +23,13 @@ export const AsyncPostAssignment = data => () => {
 export const AsyncGetAssignment = classId => (dispatch) => {
   axios.get(`/api/assignments/byClassId/${classId}`)
   .then((assignments) => {
-    dispatch(getAssignment(assignments));
+    dispatch(getAssignment(assignments.data));
   });
 };
 
 export const enterGetAssignments = (nextState) => {
   const classId = nextState.params.classId;
-  return createStore.dispatch(AsyncGetAssignment(classId, 'web'));
+  return createStore.dispatch(AsyncGetAssignment(classId));
 };
 
 // -------------------
@@ -41,6 +41,8 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case GET_ASSINGMENT:
+      return Object.assign({}, {assignments: action.data});
     default:
       return state;
   }

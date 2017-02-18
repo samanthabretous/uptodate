@@ -75,6 +75,9 @@ class AddAssignment extends Component {
     data.append('instructions', instructions);
     data.append('exercises', exercises);
     this.props.AsyncPostAssignment(data);
+
+    const { user, currentClassCode } = this.props.params;
+    this.props.router.push(`/dashboard/${user}/${currentClassCode}`);
   }
 
   render() {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import { App, Modal, LoginOrSignUp, HomePage, StudentOrTeacher, Dashboard, Lesson, DisplayClassLessons, ViewInstructorCode, AddAssignment, AddLesson } from './containers';
+import { App, Modal, LoginOrSignUp, HomePage, StudentOrTeacher, Dashboard, Lesson, DisplayClassLessons, ViewInstructorCode, AddAssignment, AddLesson, ShowAllAssignments } from './containers';
 import { getTitlebarInfo } from '../redux/titlebar';
 import { enterGetAssignments } from '../redux/assignment';
 import { enterGetLessons, enterFetchLessons } from '../redux/lesson';
@@ -19,7 +19,7 @@ export default (
       <Route path="lesson/:classId" component={AddLesson} />
       <Route path=":lesson" component={Lesson} />
       <Route path="assignment/:classId" component={AddAssignment} onEnter={enterGetLessons} />
-      <Route path="assignment/:classId/showAll" component={AddAssignment} onEnter={enterGetAssignments} />
+      <Route path="assignment/:classId/showAll" component={ShowAllAssignments} onEnter={enterGetAssignments}/>
     </Route>
   </Route>
 );

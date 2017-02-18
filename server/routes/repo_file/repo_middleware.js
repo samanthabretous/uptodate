@@ -114,7 +114,7 @@ class SocketConnection {
       return Lesson.update({ repo },
         {
           where: {
-            id: 1,
+            id: lessonId,
           },
         });
     })
@@ -153,7 +153,7 @@ class SocketConnection {
       return Lesson.update({ repo },
         {
           where: {
-            id: 1,
+            id: lessonId,
           },
         });
     })
