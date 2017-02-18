@@ -102,13 +102,13 @@ export default (state = initialState, action) => {
         classLessons: action.data.lessons,
         classname: action.data.name,
         lessonLecture: action.data.lecture,
-        classEnrollmentCode: action.data.enrollmentCode,
+        classCode: action.data.enrollmentCode,
       });
     case GET_LESSONS:
       return Object.assign({}, state, {
         classLessons: action.data,
         classname: action.data[0].class.name,
-        classEnrollmentCode: action.data[0].class.enrollmentCode,
+        classCode: action.data[0].class.enrollmentCode,
       });
     case SELECTED_LESSON:
       return Object.assign({}, state, {
