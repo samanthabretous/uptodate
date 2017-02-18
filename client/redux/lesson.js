@@ -17,7 +17,7 @@ const GET_CODE = 'get_code';
 const getInstructorCode = code => ({
   type: GET_CODE,
   code,
-})
+});
 
 const getLessons = data => ({
   type: GET_LESSONS,

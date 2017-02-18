@@ -48,6 +48,23 @@ module.exports = ((app, io) => {
       .then(votes => io.emit('update-votes', { votes, lesson: lessonId }));
     });
 
+    socket.on('add-message', ({ comment, userId, lessonId }) => {
+      // use find or create in order to include associations
+      models.discussion.create({
+        comment, userId, lessonId,
+      })
+      .then(newMessage =>
+        models.discussion.findById(newMessage.id, {
+          include: [{
+            model: models.user,
+            attributes: ['username', 'id'],
+          }],
+        })
+      )
+      .then((message) => {
+        socket.emit('message-added', message);
+      });
+    });
 
     const socketOn = new SocketListeners(socket);
     socketOn.disconnectSocket(socket);
