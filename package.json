@@ -9,6 +9,7 @@
     "electron-build": "webpack --config webpack.config.electron_dev.js",
     "web": "DEBUG=SOCKET concurrently -k  --prefix '[{name}]' --names 'Server' -c 'bgBlue,bgMagenta' 'yarn server' 'webpack --config webpack.config.js'",
     "server": "DEBUG=SOCKET nodemon start.js",
+    "web:watch": "webpack --config webpack.config.js --watch",
     "seed": "node ./server/seed",
     "test": "DEBUG=API_ROUTES,SOCKET concurrently -k 'yarn server' 'mocha --watch --colors --timeout 3500'",
     "eslint": "./node_modules/.bin/eslint ."
@@ -69,6 +70,7 @@
     "react-modal": "^1.6.5",
     "react-redux": "^5.0.2",
     "react-router": "^3.0.0",
+    "react-text-truncate": "^0.8.3",
     "redux": "^3.6.0",
     "redux-mock-store": "^1.2.2",
     "redux-thunk": "^2.2.0",
