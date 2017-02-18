@@ -77,7 +77,7 @@ const lessonByClassIdElectron = (req, res) => {
     attributes: ['id', 'name', 'repo'],
     include: [{
       model: models.class,
-      attributes: ['name'],
+      attributes: ['name', 'enrollmentCode'],
     }],
   })
   .then((lessonInfo) => {
