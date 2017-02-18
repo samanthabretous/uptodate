@@ -1,11 +1,10 @@
 import axios from 'axios';
 
-export default (pathWatch, className, lessonId, lessonName) => {
+export default (pathWatch, className, lessonId, lessonName, classCode) => {
   const watcher = chokidar.watch(pathWatch, {
     ignored: /[/\\]\./,
     persistent: true,
   });
-  console.log(pathWatch)
   const axiosCall = (type, urlEndPoint, localPath, data) => {
     let repoPath = pathWatch.split('/');
     repoPath = repoPath[repoPath.length - 1];
@@ -15,7 +14,8 @@ export default (pathWatch, className, lessonId, lessonName) => {
       data,
       className,
       lessonId,
-      lessonName: 'Making things explode is science and is rad',
+      lessonName,
+      classCode,
     });
   };
   watcher
@@ -36,7 +36,8 @@ export default (pathWatch, className, lessonId, lessonName) => {
         localPath: path,
         className,
         lessonId,
-        lessonName: 'Making things explode is science and is rad',
+        lessonName,
+        classCode,
       },
       params: {
         force: true,
@@ -59,7 +60,8 @@ export default (pathWatch, className, lessonId, lessonName) => {
         localPath: path,
         className,
         lessonId,
-        lessonName: 'Making things explode is science and is rad',
+        lessonName,
+        classCode,
       },
       params: {
         force: true,
@@ -74,4 +76,7 @@ export default (pathWatch, className, lessonId, lessonName) => {
   .on('ready', () => {
     axiosCall('post', '/api/repoFile/updateFileWatched', pathWatch);
   });
+
+  // this return is to stop watching the file.
+  return watcher;
 };

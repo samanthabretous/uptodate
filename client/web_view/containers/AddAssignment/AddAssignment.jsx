@@ -12,7 +12,7 @@ const mapDispatchToProps = dispatch => (
 );
 
 const mapStateToProps = state => ({
-  classId: state.titlebar.id,
+  classId: state.titlebar.currentClass.id,
   classLessons: state.lesson.classLessons,
 });
 
@@ -75,6 +75,9 @@ class AddAssignment extends Component {
     data.append('instructions', instructions);
     data.append('exercises', exercises);
     this.props.AsyncPostAssignment(data);
+
+    const { user, currentClassCode } = this.props.params;
+    this.props.router.push(`/dashboard/${user}/${currentClassCode}`);
   }
 
   render() {

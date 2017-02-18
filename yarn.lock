@@ -6218,6 +6218,10 @@ react-router@^3.0.0:
     loose-envify "^1.2.0"
     warning "^3.0.0"
 
+react-text-truncate@^0.8.3:
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/react-text-truncate/-/react-text-truncate-0.8.3.tgz#3110387531e9344ff5dda5c25c37ec7d9e017f7f"
+
 react@^15.4.1:
   version "15.4.2"
   resolved "https://registry.yarnpkg.com/react/-/react-15.4.2.tgz#41f7991b26185392ba9bae96c8889e7e018397ef"

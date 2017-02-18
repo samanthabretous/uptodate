@@ -10,12 +10,9 @@ const mapDispatchToProps = dispatch => (
   bindActionCreators({ AsyncGetLessons }, dispatch)
 );
 
-const mapStateToProps = state => {
-  console.log(state.lesson.classLessons)
-  return {
+const mapStateToProps = state => ({
   classLessons: state.lesson.classLessons,
-
-}};
+});
 
 const DisplayClassLessons = ({ classLessons, params: { user, currentClassCode } }) => (
   <div>
