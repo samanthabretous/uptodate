@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router';
+import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
 import { signUpInfoAction, userInfoAction, studentTeacherModalAction } from '../../../redux/login';

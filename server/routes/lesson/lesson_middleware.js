@@ -36,6 +36,21 @@ const updateLesson = (req, res) => {
   .catch(err => res.status(500).send(err.message));
 };
 
+// api/lessons/byClassCode/web/:classCode
+const lessonByClassCode = (req, res) => {
+  models.class.findOne({
+    where: { enrollmentCode: req.params.classCode },
+    include: [{
+      model: Lesson,
+      attributes: ['name', 'lecture', 'id'],
+    }],
+  })
+  .then((currentClass) => {
+    res.send(currentClass);
+  })
+  .catch(err => res.status(500).send(err.message));
+};
+
 // api/lessons/byClass/web/:classId
 const lessonByClassId = (req, res) => {
   Lesson.findAll({
@@ -74,6 +89,7 @@ const lessonByClassIdElectron = (req, res) => {
 module.exports = {
   createNewLesson,
   fetchLesson,
+  lessonByClassCode,
   lessonByClassId,
   lessonByClassIdElectron,
   updateLesson,

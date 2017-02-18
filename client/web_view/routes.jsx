@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import { App, Modal, LoginOrSignUp, HomePage, StudentOrTeacher, Dashboard, Lesson, Overview, ViewInstructorCode, AddAssignment, AddLesson } from './containers';
+import { App, Modal, LoginOrSignUp, HomePage, StudentOrTeacher, Dashboard, Lesson, DisplayClassLessons, AddAssignment, AddLesson } from './containers';
 import { getTitlebarInfo } from '../redux/titlebar';
-import { enterGetLessons } from '../redux/lesson';
+import { enterGetLessons, enterFetchLessons } from '../redux/lesson';
 
 export default (
   <Route component={App} >
@@ -12,12 +12,14 @@ export default (
         <Route path="student-or-teacher" component={StudentOrTeacher} />
       </Route>
     </Route>
-    <Route path="/instructorcode/:lessonId" component={ViewInstructorCode} />
+
     <Route path="dashboard/:user/:currentClassCode" onEnter={getTitlebarInfo} component={Dashboard}>
-      <IndexRoute component={Overview} />
-      <Route path="lesson/:classId" component={AddLesson} />
-      <Route path=":lesson" component={Lesson} />
-      <Route path="assignment/:classId" component={AddAssignment} onEnter={enterGetLessons} />
+      <IndexRoute component={DisplayClassLessons} onEnter={enterFetchLessons} />
+      <Route component={Modal}>
+        <Route path="lesson/:classId" component={AddLesson} />
+        <Route path="assignment/:classId" component={AddAssignment} onEnter={enterGetLessons} />
+      </Route>
+      <Route path=":lessonId/:lesson" component={Lesson} />
     </Route>
   </Route>
 );
