@@ -5,7 +5,7 @@ import createStore from './createStore';
 // types
 // -------------------
 const GET_LESSONS = 'get_lessons';
-const FETCH_LESSONS = 'fetch_lessons'
+const FETCH_LESSONS = 'fetch_lessons';
 const DROPPED_FOLDER = 'dropped_folder';
 const SELECTED_LESSON = 'selected_lesson';
 
@@ -21,7 +21,7 @@ const getLessons = data => ({
 const fetchLessons = data => ({
   type: FETCH_LESSONS,
   data,
-})
+});
 
 export const droppedFolderAction = folderPath => ({
   type: DROPPED_FOLDER,
@@ -54,7 +54,7 @@ export const AsyncPostLesson = data => (dispatch) => {
 };
 
 export const AsyncFetchLessons = (classCode, platform) => (dispatch) => {
-  axios.get(`http://localhost:2020/api/lessons/byClass/${platform}/${classCode}`)
+  axios.get(`http://localhost:2020/api/lessons/byClassCode/${platform}/${classCode}`)
     .then((lessons) => {
       dispatch(fetchLessons(lessons.data));
     });
@@ -82,6 +82,7 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         classLessons: action.data.lessons,
         classname: action.data.name,
+        lessonLecture: action.data.lecture,
         classEnrollmentCode: action.data.enrollmentCode,
       });
     case GET_LESSONS:
