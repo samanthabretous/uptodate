@@ -8,7 +8,6 @@ import StudentOrTeacher from './StudentOrTeacher/StudentOrTeacher';
 import Dashboard from './Dashboard/Dashboard';
 import DisplayClassLessons from './DisplayClassLessons/DisplayClassLessons';
 import Lesson from './Lesson/Lesson';
-import ViewInstructorCode from './ViewInstructorCode/ViewInstructorCode';
 import Modal from './App/Modal';
 
 export { colors,
@@ -21,7 +20,6 @@ export { colors,
          Lesson,
          Dashboard,
          DisplayClassLessons,
-         ViewInstructorCode,
          Modal,
        };
 
