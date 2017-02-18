@@ -28,8 +28,7 @@ class WatchLesson extends Component {
   startWatchingFiles(e) {
     e.preventDefault();
     const { folderPath, classname, lessonId, lessonname, classCode } = this.props;
-    console.log(this.props);
-    fileWatcher(folderPath, classname, lessonId, classCode);
+    fileWatcher(folderPath, classname, classCode, lessonId, lessonname);
     this.setState({ isWatchingFiles: true });
   }
   stopWatchingFiles(e) {
