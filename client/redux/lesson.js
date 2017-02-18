@@ -5,6 +5,7 @@ import createStore from './createStore';
 // types
 // -------------------
 const GET_LESSONS = 'get_lessons';
+const FETCH_LESSONS = 'fetch_lessons';
 const DROPPED_FOLDER = 'dropped_folder';
 const SELECTED_LESSON = 'selected_lesson';
 const GET_CODE = 'get_code';
@@ -20,6 +21,11 @@ const getInstructorCode = code => ({
 
 const getLessons = data => ({
   type: GET_LESSONS,
+  data,
+});
+
+const fetchLessons = data => ({
+  type: FETCH_LESSONS,
   data,
 });
 
@@ -41,6 +47,11 @@ export const AsyncGetLessons = (classId, platform) => (dispatch) => {
   });
 };
 
+export const enterGetLessons = (nextState) => {
+  const classId = nextState.params.classId;
+  return createStore.dispatch(AsyncGetLessons(classId, 'web'));
+};
+
 export const AsyncPostLesson = data => (dispatch) => {
   axios.post('/api/lessons/new_lesson', data)
   .then((lesson) => {
@@ -48,10 +59,14 @@ export const AsyncPostLesson = data => (dispatch) => {
   });
 };
 
-export const enterGetLessons = (nextState) => {
-  const classId = nextState.params.classId;
-  return createStore.dispatch(AsyncGetLessons(classId, 'web'));
+export const AsyncFetchLessons = (classCode, platform) => (dispatch) => {
+  axios.get(`http://localhost:2020/api/lessons/byClassCode/${platform}/${classCode}`)
+    .then((lessons) => {
+      dispatch(fetchLessons(lessons.data));
+    });
 };
+
+export const enterFetchLessons = ({ params }) => createStore.dispatch(AsyncFetchLessons(params.currentClassCode, 'web'));
 
 export const AsyncGetInstructorCode = (subPath, className, lessonName) => (dispatch) => {
   axios.get('/api/repoFile/getFile', {
@@ -82,6 +97,13 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case FETCH_LESSONS:
+      return Object.assign({}, state, {
+        classLessons: action.data.lessons,
+        classname: action.data.name,
+        lessonLecture: action.data.lecture,
+        classEnrollmentCode: action.data.enrollmentCode,
+      });
     case GET_LESSONS:
       return Object.assign({}, state, {
         classLessons: action.data,

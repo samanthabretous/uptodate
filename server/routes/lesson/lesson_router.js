@@ -8,6 +8,9 @@ router.route('/:lessonId')
   .get(middleware.fetchLesson)
   .put(middleware.updateLesson);
 
+router.route('/byClassCode/web/:classCode')
+  .get(middleware.lessonByClassCode);
+
 router.route('/byClass/web/:classId')
   .get(middleware.lessonByClassId);
 

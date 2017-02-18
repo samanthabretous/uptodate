@@ -6,8 +6,8 @@ import LoginOrSignUp from './LoginOrSignUp/LoginOrSignUp';
 import HomePage from './HomePage/HomePage';
 import StudentOrTeacher from './StudentOrTeacher/StudentOrTeacher';
 import Dashboard from './Dashboard/Dashboard';
+import DisplayClassLessons from './DisplayClassLessons/DisplayClassLessons';
 import Lesson from './Lesson/Lesson';
-import Overview from './Overview/Overview';
 import ViewInstructorCode from './ViewInstructorCode/ViewInstructorCode';
 import Modal from './App/Modal';
 
@@ -20,7 +20,7 @@ export { colors,
          StudentOrTeacher,
          Lesson,
          Dashboard,
-         Overview,
+         DisplayClassLessons,
          ViewInstructorCode,
          Modal,
        };
