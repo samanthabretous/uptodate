@@ -15,7 +15,10 @@ const mapStateToProps = state => ({
 
 const LessonDropDown = ({ selectedLessonAction, classLessons }) => {
   const handleDropDownSelecton = (e) => {
-    selectedLessonAction(e.target.value, e.target.name);
+    const lessonArray = e.target.value.split(',');
+    const lessonId = lessonArray[0];
+    const lessonname = lessonArray.splice(1).join(',');
+    selectedLessonAction(lessonId, lessonname);
   };
   return (
     <div>
@@ -24,8 +27,7 @@ const LessonDropDown = ({ selectedLessonAction, classLessons }) => {
         {classLessons && classLessons.map(lesson => (
           <option
             key={lesson.id}
-            name={lesson.name}
-            value={lesson.id}
+            value={[lesson.id, lesson.name]}
           >
             {lesson.name}
           </option>

@@ -18,6 +18,7 @@ class WatchLesson extends Component {
     this.state = {
       isMakeLessonVisible: false,
       isWatchingFiles: false,
+      stopWatchingFiles: null,
     };
     this.startWatchingFiles = this.startWatchingFiles.bind(this);
     this.stopWatchingFiles = this.stopWatchingFiles.bind(this);
@@ -28,14 +29,12 @@ class WatchLesson extends Component {
   startWatchingFiles(e) {
     e.preventDefault();
     const { folderPath, classname, lessonId, lessonname, classCode } = this.props;
-    console.log('lessonname', lessonname);
-    console.log('classCode', classCode);
-    console.log(folderPath, classname, lessonId, lessonname, classCode );
-    fileWatcher(folderPath, classname, lessonId, lessonname, classCode);
-    this.setState({ isWatchingFiles: true });
+    const watcher = fileWatcher(folderPath, classname, lessonId, lessonname, classCode);
+    this.setState({ isWatchingFiles: true, stopWatchingFiles: watcher });
   }
   stopWatchingFiles(e) {
     e.preventDefault();
+    this.state.stopWatchingFiles.close();
     this.setState({ isWatchingFiles: false });
   }
 

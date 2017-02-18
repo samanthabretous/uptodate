@@ -48,8 +48,8 @@ class ShowAllAssignments extends Component {
 
   clickedAssingmnet() {
     if (this.state.showAssignment) {
-    const { assignment } = this.state;
-    const { instructions, file, exercises, due } = this.props.assignments[assignment];
+      const { assignment } = this.state;
+      const { instructions, file, exercises, due } = this.props.assignments[assignment];
       return (<div>
         Instructions: {instructions}
         <br/>
