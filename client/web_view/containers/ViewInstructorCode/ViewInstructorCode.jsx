@@ -5,6 +5,7 @@ import { withRouter } from 'react-router';
 import { TreeNode, TextEditor } from '../../components/index';
 import { AsyncGetInstructorCode } from '../../../redux/lesson';
 import { socket } from '../../socket/socket';
+import DiscussionChat from '../../components/DiscussionChat/DiscussionChat';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -40,11 +41,11 @@ class ViewInstructorCode extends Component {
        * in this case send an AJAX GET request to get the current files content
        * send to the state and pull down in text editor, set value to response
        */
-       if (this.props.params.splat === subPath) {
-         this.props.AsyncGetInstructorCode(subPath, 'Chemistry 123', 'Making things explode is science and is rad');
-       }
+      if (this.props.params.splat === subPath) {
+        this.props.AsyncGetInstructorCode(subPath, 'Chemistry 123', 'Making things explode is science and is rad');
+      }
     });
-    
+
     socket.on('updated-directory', (repo) => {
       this.setState({ directory: Object.assign({}, this.state.directory, { childNodes: repo }) });
     });
@@ -53,8 +54,13 @@ class ViewInstructorCode extends Component {
   render() {
     return (
       <div style={{ display: 'flex' }}>
-        <TreeNode node={this.state.directory} />
-        <TextEditor />
+        <div style={{ display: 'flex' }}>
+          <TreeNode node={this.state.directory} />
+          <TextEditor />
+        </div>
+        <div>
+          <DiscussionChat lessonId={'1'} />
+        </div>
       </div>
     );
   }
