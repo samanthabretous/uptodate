@@ -41,7 +41,6 @@ export default (state = initialState, action) => {
     case GET_DISCUSSION:
       return Object.assign({}, state, { chatMessages: action.chatMessages });
     case ADD_MESSAGE:
-      console.log([...state.chatMessages, action.message])
       return Object.assign({}, state, { chatMessages: [...state.chatMessages, action.message] });
     default:
       return state;

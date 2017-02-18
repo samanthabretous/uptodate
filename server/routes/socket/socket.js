@@ -18,7 +18,7 @@ module.exports = ((app, io) => {
       models.discussion.create({
         comment, userId, lessonId,
       })
-      .then( newMessage =>
+      .then(newMessage =>
         models.discussion.findById(newMessage.id, {
           include: [{
             model: models.user,
