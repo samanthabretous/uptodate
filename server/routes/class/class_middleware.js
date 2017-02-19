@@ -75,8 +75,8 @@ const getAllUserClasses = (req, res) => {
 };
 
 // /api/classes/titlebar/:currentClassEnrollmentCode/:userId
-const getTitlebarInfo = (req, res) => {
-  models.user.findById(req.params.userId, {
+const titlebarInfo = (userId, res) => {
+  models.user.findById(userId, {
     attributes: {
       exclude: ['createdAt', 'updatedAt', 'lastClassViewed', 'password', 'description', 'location', 'schedule'],
     },
@@ -102,21 +102,41 @@ const getTitlebarInfo = (req, res) => {
       // infomation about all classes the user is in
       {
         model: models.class,
-        attributes: ['name'],
+        attributes: ['name', 'id', 'enrollmentCode'],
         through: {
           attributes: [],
         },
       },
     ],
   })
-  .then(titlebarInfo => res.send(titlebarInfo))
+  .then(titlebar => res.send(titlebar))
   .catch(() => res.sendStatus(500));
+};
+
+const getTitlebarInfo = (req, res) => {
+  titlebarInfo(req.params.userId, res);
+};
+
+// /api/classes/titlebar/:currentClassEnrollmentCode/:userId
+const updateUserCurrentClass = (req, res) => {
+  const { currentClassEnrollmentCode, userId } = req.params;
+  return models.user.update({
+    lastClassViewed: currentClassEnrollmentCode,
+  }, {
+    where: {
+      id: userId,
+    },
+  })
+  .then(() => {
+    titlebarInfo(userId, res);
+  });
 };
 
 module.exports = {
   postNewClass,
   getClassByEnrollmentCode,
-  getTitlebarInfo,
   fetchClassInfo,
   getAllUserClasses,
+  getTitlebarInfo,
+  updateUserCurrentClass,
 };

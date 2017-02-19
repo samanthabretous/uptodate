@@ -2,29 +2,40 @@ import React, { Component, PropTypes } from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import FontAwesome from 'react-fontawesome';
 import style from './TitlebarStyles';
-import { AssignmentButton, LessonButton } from '../';
+import { AssignmentButton, DisplayClasses, LessonButton } from '../';
+import { isShowAllClassesAction } from '../../../redux/titlebar';
 import { socket } from '../../socket/socket';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
-
+    isShowAllClassesAction,
   }, dispatch)
 );
 
 const mapStateToProps = state => ({
   userInfo: state.titlebar.userInfo,
   currentClass: state.titlebar.currentClass,
+  isShowAllClasses: state.titlebar.isShowAllClasses,
 });
 
 class Titlebar extends Component {
+  constructor() {
+    super();
+    this.showAllClasses = this.showAllClasses.bind(this);
+  }
+
   componentDidMount() {
     // add user to socket room to recieve all updates about class while in the class view
     socket.emit('join-classroom', localStorage.classCode);
   }
+  showAllClasses() {
+    this.props.isShowAllClassesAction(!this.props.isShowAllClasses);
+  }
 
   render() {
-    const { userInfo, currentClass, router } = this.props;
+    const { userInfo, currentClass, router, params, isShowAllClasses } = this.props;
     return (
       <div style={style.dashbar}>
         { /* first title bar */ }
@@ -39,7 +50,20 @@ class Titlebar extends Component {
         <div style={style.secondDashbar}>
           <div style={style.classInfo}>
             <div>
-              <h2 style={style.className}>{currentClass.name}</h2>
+              <div>
+                <h2 style={style.className}>{currentClass.name}</h2>
+                <button onClick={this.showAllClasses}>
+                  <FontAwesome
+                    name="chevron-down"
+                    size="2x"
+                  />
+                </button>
+                {isShowAllClasses &&
+                  <DisplayClasses
+                    userId={params.user}
+                  />
+                }
+              </div>
               <p style={style.enrollmentCode}>enrollment code: {currentClass.enrollmentCode}</p>
             </div>
             <div style={style.classUserInfo}>
@@ -70,12 +94,15 @@ class Titlebar extends Component {
 Titlebar.propTypes = {
   userInfo: PropTypes.object,
   currentClass: PropTypes.object,
+  classes: PropTypes.arrayOf(PropTypes.object),
+  isShowAllClasses: PropTypes.bool.isRequired,
   router: PropTypes.object.isRequired,
 };
 
 Titlebar.defaultProps = {
   userInfo: null,
   currentClass: null,
+  classes: null,
 };
 
 

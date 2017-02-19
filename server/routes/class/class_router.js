@@ -5,7 +5,8 @@ router.route('/:enrollmentCode')
   .get(middleware.getClassByEnrollmentCode);
 
 router.route('/titlebar/:currentClassEnrollmentCode/:userId')
-  .get(middleware.getTitlebarInfo);
+  .get(middleware.getTitlebarInfo)
+  .put(middleware.updateUserCurrentClass);
 
 router.route('/info/:classId')
   .get(middleware.fetchClassInfo);
