@@ -6,10 +6,15 @@ import createStore from './createStore';
 // types
 // -------------------
 export const TITLEBAR_INFO = 'titlebar_info';
-
+export const SHOW_TITLE_CLASSES = 'show_title_classes';
 // -------------------
 // actions
 // -------------------
+
+export const isShowAllClassesAction = (isShowAllClasses) => ({
+  type: SHOW_TITLE_CLASSES,
+  isShowAllClasses,
+});
 
 export const getTitlebar = (titlebar) => {
   const { id, email, firstName, lastName, position, username, classes, currentClass } = titlebar;
@@ -46,6 +51,16 @@ export const getTitlebarInfoAsync = (currentClassCode, userId) => dispatch => (
   .catch(err => err)
 );
 
+// thunk action
+// getState can also be pass thru as an argument after dispatch
+export const updateTitlebarInfoAsync = (currentClassCode, userId) => dispatch => (
+  axios.put(`/api/classes/titlebar/${currentClassCode}/${userId}`)
+  .then((titlebarInfo) => {
+    dispatch(getTitlebar(titlebarInfo.data));
+  })
+  .catch(err => err)
+);
+
 export const getTitlebarInfo = (nextState) => {
   const { currentClassCode, user } = nextState.params;
   return createStore.dispatch(getTitlebarInfoAsync(currentClassCode, user));
@@ -57,6 +72,8 @@ export const getTitlebarInfo = (nextState) => {
 export const initialState = {
   userInfo: {},
   currentClass: null,
+  classes: null,
+  isShowAllClasses: false,
 };
 
 export default (state = initialState, action) => {
@@ -66,6 +83,11 @@ export default (state = initialState, action) => {
         userInfo: action.userInfo,
         classes: action.classes,
         currentClass: action.currentClass,
+        isShowAllClasses: false,
+      });
+    case SHOW_TITLE_CLASSES:
+      return _.assign({}, state, {
+        isShowAllClasses: action.isShowAllClasses,
       });
     default:
       return state;

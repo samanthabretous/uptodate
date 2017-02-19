@@ -29,6 +29,10 @@ module.exports = {
         test: [/\.scss$/, /\.css$/],
         loader: 'style-loader!css-loader!sass-loader',
       },
+      {
+        test: /\.(eot|svg|ttf|woff(2)?)(\?v=\d+\.\d+\.\d+)?/,
+        loader: 'url',
+      },
     ],
   },
   devtool: 'source-map',

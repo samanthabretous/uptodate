@@ -1,15 +1,24 @@
 import React, { PropTypes } from 'react';
 import { withRouter } from 'react-router';
+import FontAwesome from 'react-fontawesome';
 
 const AssignmentButton = ({ currentLocation, currentClassId, router }) => {
   const buttonClick = () => {
     router.push(`${currentLocation}/assignment/${currentClassId}`);
   };
 
+  const goToAssignments = () => {
+    router.push('dashboard/:user/:currentClassCode/assignment/:classId/showAll');
+  };
+
   return (
     <div>
+      <button onClick={goToAssignments}><h4>ASSIGNMENT</h4></button>
       <button onClick={buttonClick}>
-        ADD ASSIGNMENT
+        <FontAwesome
+          name="plus"
+          size="2x"
+        />
       </button>
     </div>
   );
