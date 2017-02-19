@@ -1,37 +1,21 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { ViewInstructorCode, Votes } from '../../components';
+import React, { PropTypes } from 'react';
+import { DiscussionChat, ViewInstructorCode, Votes } from '../../components';
 
-const mapDispatchToProps = dispatch => (
-  bindActionCreators({
-
-  }, dispatch)
-);
-
-const mapStateToProps = state => ({
-  state,
-});
-
-
-class Lesson extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
+const Lesson = (props) => {
+  const { lessonId } = props.params;
+  return (
+    <div>
+      <ViewInstructorCode />
       <div>
-        <ViewInstructorCode />
-        <Votes lessonId={this.props.params.lessonId}/>
+        <Votes lessonId={lessonId} />
+        <DiscussionChat lessonId={lessonId} />
       </div>
-    );
-  }
-}
-
-Lesson.propTypes = {
-  router: PropTypes.object.isRequired,
+    </div>
+  );
 };
 
+Lesson.propTypes = {
+  params: PropTypes.object.isRequired,
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Lesson);
+export default Lesson;

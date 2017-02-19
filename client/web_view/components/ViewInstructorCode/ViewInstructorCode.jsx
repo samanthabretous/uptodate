@@ -5,7 +5,6 @@ import { withRouter } from 'react-router';
 import { TreeNode, TextEditor } from '../../components/index';
 import { AsyncGetInstructorCode } from '../../../redux/lesson';
 import { socket } from '../../socket/socket';
-import DiscussionChat from '../../components/DiscussionChat/DiscussionChat';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -54,13 +53,8 @@ class ViewInstructorCode extends Component {
   render() {
     return (
       <div style={{ display: 'flex' }}>
-        <div style={{ display: 'flex' }}>
-          <TreeNode node={this.state.directory} />
-          <TextEditor />
-        </div>
-        <div>
-          <DiscussionChat lessonId={'1'} />
-        </div>
+        <TreeNode node={this.state.directory} />
+        <TextEditor />
       </div>
     );
   }
