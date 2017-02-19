@@ -1,4 +1,5 @@
 const models = require('../../db/models/index');
+const bcrypt = require('bcrypt-nodejs');
 
 class SocketConnection {
   constructor(io) {
@@ -43,10 +44,9 @@ class SocketConnection {
     models.user.findOne({
       where: {
         username: req.body.username,
-        password: req.body.password,
       },
       attributes: {
-        exclude: ['createdAt', 'updatedAt', 'password', 'lastClassViewed'],
+        exclude: ['createdAt', 'updatedAt', 'lastClassViewed'],
       },
       include: [{
         model: models.class,
@@ -56,8 +56,13 @@ class SocketConnection {
     })
     .then((user) => {
       if (user) {
-        res.send(user);
-        this.io.sockets.emit('test');
+        // if password matches send over user info
+        const isPasswordMatch = bcrypt.compareSync(req.body.password, user.get('password'));
+        if (isPasswordMatch){
+          user.password = null;
+          res.send(user);
+          this.io.sockets.emit('test');
+        }
       } else {
         throw new Error('Invalid login info.');
       }
