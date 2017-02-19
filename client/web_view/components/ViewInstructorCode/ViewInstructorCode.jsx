@@ -13,7 +13,7 @@ const mapDispatchToProps = dispatch => (
 );
 
 const mapStateToProps = state => ({
-  state,
+  className: state.titlebar.currentClass.name,
 });
 
 class ViewInstructorCode extends Component {
@@ -41,7 +41,7 @@ class ViewInstructorCode extends Component {
        * send to the state and pull down in text editor, set value to response
        */
       if (this.props.params.splat === subPath) {
-        this.props.AsyncGetInstructorCode(subPath, 'Chemistry 123', 'Making things explode is science and is rad');
+        this.props.AsyncGetInstructorCode(subPath, this.props.className, this.props.params.lesson);
       }
     });
 

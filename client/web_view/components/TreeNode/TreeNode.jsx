@@ -11,8 +11,9 @@ const mapDispatchToProps = dispatch => (
   }, dispatch)
 );
 
-const mapStateToProps = state => ({
-  state,
+const mapStateToProps = (state, ownprops) => ({
+  className: state.titlebar.currentClass.name,
+  lessonName: ownprops.params.lesson
 });
 
 class TreeNode extends Component {
@@ -30,20 +31,19 @@ class TreeNode extends Component {
       visible: !prevState.visible,
     }));
     if (this.props.node.path) {
-      this.props.AsyncGetInstructorCode(this.props.node.path, 'Chemistry 123', 'Making things explode is science and is rad');
-      this.props.router.push(`/${this.props.node.path}`);
+      this.props.AsyncGetInstructorCode(this.props.node.path, this.props.className, this.props.lessonName);
+      this.props.router.push(`${this.props.node.path}`);
     }
   }
 
   render() {
     let childNodes;
-
     if (this.props.node.childNodes != null) {
       childNodes = this.props.node.childNodes.map((node) => {
         if (node.path) {
-          return <li key={shortid.generate()} onClick={this.handleClick}><TreeNode AsyncGetInstructorCode={this.props.AsyncGetInstructorCode} router={this.props.router} node={node} /></li>;
+          return <li key={shortid.generate()} onClick={this.handleClick}><TreeNode AsyncGetInstructorCode={this.props.AsyncGetInstructorCode} router={this.props.router} node={node} className={this.props.className} lessonName={this.props.lessonName} /></li>;
         } else {
-          return <li key={shortid.generate()}><TreeNode AsyncGetInstructorCode={this.props.AsyncGetInstructorCode} router={this.props.router} node={node} /></li>; 
+          return <li key={shortid.generate()}><TreeNode AsyncGetInstructorCode={this.props.AsyncGetInstructorCode} router={this.props.router} node={node} className={this.props.className} lessonName={this.props.lessonName} /></li>;
         }
       });
     }
