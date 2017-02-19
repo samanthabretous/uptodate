@@ -51,8 +51,8 @@ module.exports = (sequelize, DataTypes) => {
   });
   // change the password user has enter into an encrypted password before entering into database
   User.hook('beforeCreate', (user, fn) => {
-    const salt = bcrypt.genSalt(12, (err, salt) => salt);
-    user.password = bcrypt.hashSync(user.password, salt);
+    const newSalt = bcrypt.genSalt(12, (err, salt) => salt);
+    user.password = bcrypt.hashSync(user.password, newSalt);
     return fn;
   });
 

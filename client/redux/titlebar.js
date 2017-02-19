@@ -11,7 +11,7 @@ export const SHOW_TITLE_CLASSES = 'show_title_classes';
 // actions
 // -------------------
 
-export const isShowAllClassesAction = (isShowAllClasses) => ({
+export const isShowAllClassesAction = isShowAllClasses => ({
   type: SHOW_TITLE_CLASSES,
   isShowAllClasses,
 });

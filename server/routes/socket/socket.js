@@ -40,7 +40,7 @@ module.exports = ((app, io) => {
         .then(() => findAllVotes(lessonId))
         .then(votes => io.emit('update-votes', { votes, lesson: lessonId }));
     });
-    
+
     socket.on('decrease-vote', ({ voteId, lessonId }) => {
       models.vote.findById(voteId)
       .then(vote => vote.decrement('numberOfVotes'))
@@ -59,8 +59,7 @@ module.exports = ((app, io) => {
             model: models.user,
             attributes: ['username', 'id'],
           }],
-        })
-      )
+        }))
       .then((message) => {
         socket.emit('message-added', message);
       });

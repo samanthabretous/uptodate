@@ -70,14 +70,14 @@ class SocketConnection {
     // repoPath = directory being watched
     // localPath = full local path change was made on
     // data = inner file text
-    const { repoPath, localPath, data, className, lessonName } = req.body;
+    const { repoPath, localPath, data, className, lessonName, classCode } = req.body;
     const { pathToRepoStorage, subPath } = this.pathMaker(repoPath, localPath, className, lessonName);
     fs.outputFile(pathToRepoStorage, data, (err) => {
       if (err) {
         res.sendStatus(500);
       } else {
         // send subPath and data because the file was updated
-        this.io.sockets.emit('updated-file', { subPath, data });
+        this.io.to(classCode).emit('updated-file', { subPath, data });
         res.sendStatus(200);
       }
     });
@@ -104,7 +104,7 @@ class SocketConnection {
   addFile(req, res) {
     // repoPath = directory being watched
     // localPath = full local path change was made on
-    const { repoPath, localPath, data, className, lessonName, lessonId } = req.body;
+    const { repoPath, localPath, data, className, lessonName, lessonId, classCode } = req.body;
     const { pathToRepoStorage, subPath, fileDirectory } = this.pathMaker(repoPath, localPath, className, lessonName);
     let repo = null;
     Lesson.findById(lessonId)
@@ -125,7 +125,7 @@ class SocketConnection {
             res.sendStatus(500);
           } else {
             // send repo object
-            this.io.sockets.emit('updated-directory', repo);
+            this.io.to(classCode).emit('updated-directory', repo);
             res.sendStatus(200);
           }
         });
@@ -143,7 +143,7 @@ class SocketConnection {
   deleteFile(req, res) {
     // repoPath = directory being watched
     // localPath = full local path change was made on
-    const { repoPath, localPath, className, lessonName, lessonId } = req.body;
+    const { repoPath, localPath, className, lessonName, lessonId, classCode } = req.body;
     const { pathToRepoStorage, fileName } = this.pathMaker(repoPath, localPath, className, lessonName);
     let repo = null;
     Lesson.findById(lessonId)
@@ -165,7 +165,7 @@ class SocketConnection {
             res.sendStatus(500);
           } else {
             // send repo object
-            this.io.sockets.emit('updated-directory', repo);
+            this.io.to(classCode).emit('updated-directory', repo);
             res.sendStatus(200);
           }
         });

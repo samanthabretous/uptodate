@@ -4,11 +4,12 @@ import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 import style from './VotesStyles';
 import { socket } from '../../socket/socket';
-import { getVotesAsync, updateVotes } from '../../../redux/votes';
+import { getVotesAsync, allVotes } from '../../../redux/votes';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
     getVotesAsync,
+    allVotes,
   }, dispatch)
 );
 
@@ -29,12 +30,11 @@ class Votes extends Component {
   }
 
   componentDidMount() {
-    const { getVotesAsync, lessonId } = this.props;
+    const { getVotesAsync, lessonId, allVotes } = this.props;
     getVotesAsync(lessonId);
     socket.on('update-votes', ({ votes, lesson }) => {
       // url location must match the lesson votes inorder to update votes
-      console.log("lessonId", lessonId, "lesson", lesson)
-      if (lessonId === lesson) updateVotes(votes);
+      if (lessonId === lesson) allVotes(votes);
     });
   }
 
@@ -85,6 +85,7 @@ class Votes extends Component {
 
 Votes.propTypes = {
   getVotesAsync: PropTypes.func.isRequired,
+  allVotes: PropTypes.func.isRequired,
   lessonId: PropTypes.string.isRequired,
   lessonVotes: PropTypes.array,
 };
