@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt-nodejs');
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('user', {
@@ -48,5 +49,12 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
   });
+  // change the password user has enter into an encrypted password before entering into database
+  User.hook('beforeCreate', (user, fn) => {
+    const salt = bcrypt.genSalt(12, (err, salt) => salt);
+    user.password = bcrypt.hashSync(user.password, salt);
+    return fn;
+  });
+
   return User;
 };
