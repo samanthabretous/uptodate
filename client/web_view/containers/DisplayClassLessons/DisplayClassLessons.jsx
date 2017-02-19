@@ -20,7 +20,7 @@ const DisplayClassLessons = ({ classLessons, params: { user, currentClassCode } 
       classLessons
       ? classLessons.map(({ name, lecture, id }) => (
         <div key={id}>
-          <Link to={`/dashboard/${user}/${currentClassCode}/${id}/${name}`}><h1> {name} </h1></Link>
+          <Link to={`/dashboard/${user}/${currentClassCode}/${id}/${name}/none`}><h1> {name} </h1></Link>
           <TextTruncate
             line={2}
             truncateText="…"

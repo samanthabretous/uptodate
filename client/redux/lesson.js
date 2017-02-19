@@ -75,8 +75,6 @@ export const AsyncFetchLessons = (classCode, platform) => (dispatch) => {
 export const enterFetchLessons = ({ params }) => createStore.dispatch(AsyncFetchLessons(params.currentClassCode, 'web'));
 
 export const AsyncGetInstructorCode = (subPath, className, lessonName) => (dispatch) => {
-  console.log('className', className)
-  console.log('lessonName', lessonName)
   axios.get('/api/repoFile/getFile', {
     params: {
       subPath,
