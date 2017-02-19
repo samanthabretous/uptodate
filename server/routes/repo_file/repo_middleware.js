@@ -229,6 +229,17 @@ class SocketConnection {
       }
     });
   }
+
+  getObject(req, res) {
+    Lesson.findById(req.params.id)
+    .then((lesson) => {
+      const repo = lesson.get('repo');
+      res.send(repo);
+    })
+    .catch((err) => {
+      res.sendStatus(500).send(err);
+    });
+  }
 }
 
 module.exports = SocketConnection;

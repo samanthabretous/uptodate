@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
+import axios from 'axios';
 import { TreeNode, TextEditor } from '../../components/index';
 import { AsyncGetInstructorCode } from '../../../redux/lesson';
 import { socket } from '../../socket/socket';
@@ -12,8 +13,10 @@ const mapDispatchToProps = dispatch => (
   }, dispatch)
 );
 
-const mapStateToProps = state => ({
-  state,
+const mapStateToProps = (state, ownprops) => ({
+  className: state.titlebar.currentClass.name,
+  lessonName: ownprops.params.lesson,
+  lessonId: ownprops.params.lessonId,
 });
 
 class ViewInstructorCode extends Component {
@@ -28,6 +31,13 @@ class ViewInstructorCode extends Component {
   }
 
   componentDidMount() {
+    // console.log(this.props.lessonId);
+    const that = this;
+    axios.get(`/api/repoFile/${this.props.lessonId}`)
+    .then((data) => {
+      // console.log(data.data);
+      that.setState({ directory: Object.assign({}, that.state.directory, { childNodes: data.data }) });
+    });
     /*
      * every time you click a directory endpoint the route will change and this component will mount again
      * send an AJAX GET request using the url params to get the file content, send this to state and pull down in text editor
@@ -41,7 +51,7 @@ class ViewInstructorCode extends Component {
        * send to the state and pull down in text editor, set value to response
        */
       if (this.props.params.splat === subPath) {
-        this.props.AsyncGetInstructorCode(subPath, 'Chemistry 123', 'Making things explode is science and is rad');
+        this.props.AsyncGetInstructorCode(subPath, this.props.className, this.props.lessonName);
       }
     });
 
@@ -61,6 +71,9 @@ class ViewInstructorCode extends Component {
 }
 ViewInstructorCode.propTypes = {
   params: PropTypes.object.isRequired,
+  lessonId: PropTypes.string.isRequired,
+  className: PropTypes.string.isRequired,
+  lessonName: PropTypes.string.isRequired,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ViewInstructorCode));

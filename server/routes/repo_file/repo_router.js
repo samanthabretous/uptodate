@@ -18,4 +18,7 @@ router.route('/getFile')
 router.route('/updateFileWatched')
   .post(middleware.updatFile);
 
+router.route('/:id')
+  .get(middleware.getObject);
+
 module.exports = router;
