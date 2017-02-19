@@ -5,7 +5,7 @@ export default {
     display: 'flex',
     flexDirection: 'column',
     position: 'fixed',
-    zIndex: 1,
+    zIndex: 100,
     width: '100vw',
     height: '15vh',
   },

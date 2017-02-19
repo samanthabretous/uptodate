@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import moment from 'moment';
 import { socket } from '../../socket/socket';
 import { AsyncGetDiscussion, addMessageAction } from '../../../redux/discussion';
 
@@ -32,10 +33,9 @@ class DiscussionChat extends Component {
     AsyncGetDiscussion(lessonId);
     // if user is on the same lesson as the message sent over add to chatMessages in the store
     socket.on('message-added', (message) => {
-      //if (lessonId === message.lessonId) {
-        console.log(message)
+      if (lessonId == message.lessonId) {
         addMessageAction(message);
-      //}
+      }
     });
   }
 
@@ -60,7 +60,7 @@ class DiscussionChat extends Component {
         <ul>
           {chatMessages && _.map(chatMessages, message => (
             <li key={message.id}>
-              <p><span>{message.user.username}</span>{message.createdAt}</p>
+              <p><span>{message.user.username}</span>{moment(message.createdAt).format('MMMM Do, h:mm a')}</p>
               <p>{message.comment}</p>
             </li>
           ))}
