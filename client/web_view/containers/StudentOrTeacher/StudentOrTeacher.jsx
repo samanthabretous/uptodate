@@ -62,7 +62,6 @@ class StudentOrTeacher extends Component {
   }
 
   handleRegistration(position, firstName, lastName, data) {
-    let userData = null;
     axios.post('/api/users/registration', {
       firstName,
       lastName,
@@ -70,17 +69,13 @@ class StudentOrTeacher extends Component {
       username: this.props.state.login.username,
       password: this.props.state.login.password,
       position,
-      lastClassViewed: data.enrollmentCode,
+      lastClassViewed: data.id,
+    })
+    .then((res) => {
+      this.props.router.push(`/dashboard/${res.data.id}/${data.enrollmentCode}`);
     })
     .catch(() => {
       this.setState({ registrationError: true });
-    })
-    .then((res) => {
-      userData = res.data;
-      return localStorage.classCode = JSON.stringify(res.data.lastClassViewed);
-    })
-    .then(() => {
-      this.props.router.push(`/dashboard/${userData.id}/${userData.lastClassViewed}`);
     });
   }
 
