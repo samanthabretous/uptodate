@@ -50,6 +50,7 @@ class ViewInstructorCode extends Component {
        * in this case send an AJAX GET request to get the current files content
        * send to the state and pull down in text editor, set value to response
        */
+       console.log("ViewInstructorCode", data)
       if (this.props.params.splat === subPath) {
         this.props.AsyncGetInstructorCode(subPath, this.props.className, this.props.lessonName);
       }

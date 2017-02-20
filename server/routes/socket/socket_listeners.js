@@ -8,9 +8,6 @@ class SocketListeners {
       this.socket.leave();
     });
   }
-  log() {
-    console.log('socket class', this.socket);
-  }
 }
 
 module.exports = SocketListeners;

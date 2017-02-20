@@ -58,7 +58,7 @@ class SocketConnection {
       if (user) {
         // if password matches send over user info
         const isPasswordMatch = bcrypt.compareSync(req.body.password, user.get('password'));
-        if (isPasswordMatch){
+        if (isPasswordMatch) {
           user.password = null;
           res.send(user);
           this.io.sockets.emit('test');

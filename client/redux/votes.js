@@ -1,6 +1,5 @@
 import axios from 'axios';
 import _ from 'lodash';
-import store from './createStore';
 
 // -------------------
 // types
@@ -11,14 +10,10 @@ const GET_LESSON_VOTES = 'get_lesson_votes';
 // actions
 // -------------------
 
-const allVotes = lessonVotes => ({
+export const allVotes = lessonVotes => ({
   type: GET_LESSON_VOTES,
   lessonVotes,
 });
-
-export const updateVotes = votes => {
-  store.dispatch(allVotes(votes));
-};
 
 // thunk action
 // getState can also be pass thru as an argument after dispatch

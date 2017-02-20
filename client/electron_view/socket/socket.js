@@ -8,7 +8,4 @@ export default (store) => {
       type: 'CONNECT',
     });
   });
-  socket.on('test', () => {
-    console.log('test');
-  });
 };

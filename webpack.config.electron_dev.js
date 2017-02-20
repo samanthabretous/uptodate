@@ -14,7 +14,7 @@ module.exports = {
     publicPath: 'http://localhost:2020/client/electron_view/build/',
   },
   watch: true,
-  watchOptions: { ignored: /node_modules/ },
+  watchOptions: { ignored: [/node_modules/, /repo/] },
   module: {
     noParse: ['ws'],
     loaders: [

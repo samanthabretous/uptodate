@@ -28,7 +28,7 @@ class Titlebar extends Component {
 
   componentDidMount() {
     // add user to socket room to recieve all updates about class while in the class view
-    socket.emit('join-classroom', localStorage.classCode);
+    socket.emit('join-classroom', JSON.parse(localStorage.classCode));
   }
   showAllClasses() {
     this.props.isShowAllClassesAction(!this.props.isShowAllClasses);

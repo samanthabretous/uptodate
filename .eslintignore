@@ -12,3 +12,4 @@ z_electron_notes.js
 client/redux/createStore.js
 __tests__
 client/redux/test.js
+repo/
