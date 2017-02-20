@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Sidebar, Titlebar } from '../../components';
 import style from './DashboardStyles';
+import { socket } from '../../socket/socket';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -16,8 +17,27 @@ const mapStateToProps = state => ({
 });
 
 class Dashboard extends Component {
-  render() {
+  constructor() {
+    super();
+    this.state = {
+      isNewLessonStarted: false,
+      lessonname: '',
+      lessonId: null,
+    };
+  }
+  componentDidMount() {
+    // a new lesson has started make notification to let all users know
+    socket.on('lesson-started', ({ lessonname, lessonId }) => {
+      this.setState({ isNewLessonStarted: true, lessonname, lessonId });
+    });
+    setTimeout(() => {
+      this.setState({ isNewLessonStarted: false, lessonname: '', lessonId: null });
+    }, 2500);
+  }
+  render(state) {
+    console.log(state);
     const { children } = this.props;
+    const { isNewLessonStarted, lessonname, lessonId } = this.state;
     return (
       <div style={style.dashboard}>
         <Titlebar />
@@ -26,6 +46,12 @@ class Dashboard extends Component {
             {children}
           </div>
         </section>
+        {isNewLessonStarted &&
+          <LessonNotification
+            lessonId={lessonId}
+            lessonname={lessonname}
+          />
+        }
       </div>
     );
   }

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { DisplayClasses, LessonDropDown, MakeLesson } from '../../components';
 import fileWatcher from '../../utils/fileWatcher';
 import style from './WatchLessonStyles';
+import { socket } from '../../socket/socket';
 
 const mapStateToProps = state => ({
   folderPath: state.lesson.folderPath,
@@ -30,7 +31,11 @@ class WatchLesson extends Component {
     e.preventDefault();
     const { folderPath, classname, lessonId, lessonname, classCode } = this.props;
     const watcher = fileWatcher(folderPath, classname, lessonId, lessonname, classCode);
-    this.setState({ isWatchingFiles: true, stopWatchingFiles: watcher });
+    Promise.resolve(watcher)
+    .then(() => {
+      socket.emit('start-lesson', { classCode, lessonId, lessonname });
+      this.setState({ isWatchingFiles: true, stopWatchingFiles: watcher });
+    });
   }
   stopWatchingFiles(e) {
     e.preventDefault();
