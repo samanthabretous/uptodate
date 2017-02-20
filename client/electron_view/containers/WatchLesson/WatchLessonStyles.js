@@ -1,5 +1,6 @@
 export default {
   lesson: {
-    display: 'flex',
+    height: '100vh',
+    background: 'green',
   },
 };

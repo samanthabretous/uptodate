@@ -39,5 +39,3 @@ app.on('activate', () => {
     createWindow();
   }
 });
-
-

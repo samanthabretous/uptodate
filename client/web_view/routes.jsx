@@ -20,7 +20,11 @@ export default (
         <Route path="lesson/:classId" component={AddLesson} />
         <Route path="assignment/:classId" component={AddAssignment} onEnter={enterGetLessons} />
       </Route>
-      <Route path="assignment/:classId/showAll" component={ShowAllAssignments} onEnter={enterGetAssignments} />
+      <Route
+        path="assignment/:classId/showAll"
+        component={ShowAllAssignments}
+        onEnter={enterGetAssignments}
+      />
       <Route path=":lessonId/:lesson/*" component={Lesson} />
     </Route>
   </Route>

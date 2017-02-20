@@ -4,11 +4,7 @@ const bcrypt = require('bcrypt-nodejs');
 class SocketConnection {
   constructor(io) {
     this.io = io;
-    this.postNewUser = this.postNewUser.bind(this);
-    this.getUserAuthentication = this.getUserAuthentication.bind(this);
-    this.getLastClassViewed = this.getLastClassViewed.bind(this);
-    this.updateLastClassViewed = this.updateLastClassViewed.bind(this);
-    this.fetchStudentInfo = this.fetchStudentInfo.bind(this);
+
   }
   // /api/users/registration -- user registration
   postNewUser(req, res) {
@@ -62,7 +58,6 @@ class SocketConnection {
         if (isPasswordMatch) {
           user.password = null;
           res.send(user);
-          this.io.sockets.emit('test');
         }
       } else {
         throw new Error('Invalid login info.');
@@ -115,6 +110,22 @@ class SocketConnection {
     })
     .then(update => res.send(update))
     .catch(err => res.status(500).send(err.message));
+  }
+
+  // /api/users/:userId/usedDesktop
+  updateUsedDesktopBefore(req, res) {
+    const { userId } = req.params;
+    models.user.update({
+      usedDesktopBefore: true,
+    }, {
+      where: {
+        id: userId,
+      },
+    })
+    .then(() => models.user.findById(userId, {
+      attributes: ['lastClassViewed'],
+    })
+    .then(user => res.send(user)));
   }
 
   // /api/users/student/:userId/:classCode
