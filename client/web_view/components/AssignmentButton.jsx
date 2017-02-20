@@ -4,7 +4,7 @@ import FontAwesome from 'react-fontawesome';
 
 const AssignmentButton = ({ currentLocation, currentClassId, router }) => {
   const buttonClick = () => {
-    router.push(`${currentLocation}/assignment/${currentClassId}`);
+    router.push(`/${currentLocation}/assignment/${currentClassId}`);
   };
 
   const goToAssignments = () => {
