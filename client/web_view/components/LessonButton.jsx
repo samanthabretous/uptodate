@@ -4,11 +4,15 @@ import FontAwesome from 'react-fontawesome';
 
 const LessonButton = ({ currentLocation, currentClassId, router }) => {
   const buttonClick = () => {
-    router.push(`${currentLocation}/lesson/${currentClassId}`);
+    let goTo = currentLocation.split('/');
+    goTo = goTo.slice(1, 4).join('/');
+    router.push(`/${goTo}/lesson/${currentClassId}`);
   };
 
   const goToLessons = () => {
-    router.push('dashboard/:user/:currentClassCode');
+    let goTo = currentLocation.split('/');
+    goTo = goTo.slice(1, 4).join('/');
+    router.push(`/${goTo}`);
   };
 
   return (
