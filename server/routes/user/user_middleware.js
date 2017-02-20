@@ -27,7 +27,6 @@ class SocketConnection {
         username: req.body.username,
         password: req.body.password,
         position: req.body.position,
-        lastClassViewed: req.body.lastClassViewed,
       },
     })
     .spread((user, created) => {
