@@ -20,6 +20,19 @@ const getDiscussionsByLesson = (req, res) => {
   .catch(err => res.status(500).send(err.message));
 };
 
+// /api/discussion/student/:userId
+const fetchResponsesToUser = (req, res) => {
+  models.discussion.findAll({
+    where: {
+      responseToId: req.params.userId,
+      order: ['createdAt', 'DESC'],
+    },
+  })
+  .then(responses => res.send(responses))
+  .catch(err => res.status(500).send(err.message));
+};
+
 module.exports = {
   getDiscussionsByLesson,
+  fetchResponsesToUser,
 };
