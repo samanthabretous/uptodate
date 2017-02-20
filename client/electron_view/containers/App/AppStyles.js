@@ -21,11 +21,11 @@ export default {
     },
   },
   infoBar: {
-    width: '100vw',
-    height: '15vh',
+    width: 250,
+    height: '100vh',
     backgroundColor: colors.teal,
     display: 'flex',
-    justifyContent: 'space-between',
-    color: colors.white,
+    flexDirection: 'column',
+    color: colors.white, 
   },
 };

@@ -56,16 +56,13 @@ class DropFolder extends Component {
         onDrop={this.handleDrop}
         id="holder"
         style={style.dropFolder}
-      >
-        {this.props.children}
-      </div>
+      />
     );
   }
 }
 
 DropFolder.propTypes = {
   droppedFolderAction: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DropFolder);

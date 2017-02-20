@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { DisplayClasses, LessonDropDown, MakeLesson } from '../../components';
+import { DropFolder, LessonDropDown, MakeLesson } from '../../components';
 import fileWatcher from '../../utils/fileWatcher';
 import style from './WatchLessonStyles';
 import { socket } from '../../socket/socket';
@@ -59,11 +59,12 @@ class WatchLesson extends Component {
     const { folderPath } = this.props;
     const { isMakeLessonVisible, isWatchingFiles } = this.state;
     return (
-      <div style={style.lesson}>
-        <DisplayClasses />
+      <div className="lesson" style={style.lesson}>
         <div>
           <div>
+            <h5>Select a Previous Lesson</h5>
             <LessonDropDown />
+            <h5>or Create New Lesson</h5>
             <button onClick={this.showMakeLessonForm}>
               {isMakeLessonVisible ? 'x' : '+'}
             </button>
@@ -86,6 +87,7 @@ class WatchLesson extends Component {
             Stop Lesson
           </button>
         </div>
+        <DropFolder />
       </div>
     );
   }
