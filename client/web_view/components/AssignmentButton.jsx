@@ -8,8 +8,7 @@ const AssignmentButton = ({ currentLocation, currentClassId, router }) => {
   };
 
   const goToAssignments = () => {
-    console.log(router);
-    // router.push('dashboard/:user/:currentClassCode/assignment/:classId/showAll');
+    router.push('dashboard/:user/:currentClassCode/assignment/:classId/showAll');
   };
 
   return (
