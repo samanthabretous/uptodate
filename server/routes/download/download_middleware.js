@@ -1,6 +1,3 @@
-// const models = require('../../db/models/index');
-
-// const Assignments = models.assignment;
 const path = require('path');
 
 const getFile = (req, res) => {
