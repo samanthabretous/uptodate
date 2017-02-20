@@ -20,11 +20,11 @@ const getDiscussionsByLesson = (req, res) => {
   .catch(err => res.status(500).send(err.message));
 };
 
-// /api/discussion/student/:userId
-const fetchResponsesToUser = (req, res) => {
+// /api/discussion/student/:commentId
+const fetchResponsesToComment = (req, res) => {
   models.discussion.findAll({
     where: {
-      responseToId: req.params.userId,
+      responseToId: req.params.commentId,
       order: ['createdAt', 'DESC'],
     },
   })
@@ -34,5 +34,5 @@ const fetchResponsesToUser = (req, res) => {
 
 module.exports = {
   getDiscussionsByLesson,
-  fetchResponsesToUser,
+  fetchResponsesToComment,
 };
