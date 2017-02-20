@@ -69,13 +69,13 @@ class StudentOrTeacher extends Component {
       username: this.props.state.login.username,
       password: this.props.state.login.password,
       position,
-      lastClassViewed: data.id,
-    })
-    .then((res) => {
-      this.props.router.push(`/dashboard/${res.data.id}/${data.enrollmentCode}`);
+      lastClassViewed: data.enrollmentCode,
     })
     .catch(() => {
       this.setState({ registrationError: true });
+    })
+    .then((res) => {
+      this.props.router.push(`/dashboard/${res.data.id}/${data.enrollmentCode}`);
     });
   }
 
