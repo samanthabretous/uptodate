@@ -1,9 +1,10 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import { App, Modal, LoginOrSignUp, HomePage, StudentOrTeacher, Dashboard, Lesson, DisplayClassLessons, AddAssignment, AddLesson, ShowAllAssignments, SubmitWork } from './containers';
+import { App, Modal, LoginOrSignUp, HomePage, StudentOrTeacher, Dashboard, Lesson, DisplayClassLessons, AddAssignment, AddLesson, ShowAllAssignments, SubmitWork, ShowAllWork } from './containers';
 import { getTitlebarInfo } from '../redux/titlebar';
 import { enterGetAssignments } from '../redux/assignment';
 import { enterGetLessons, enterFetchLessons } from '../redux/lesson';
+import { enterGetWork } from '../redux/work';
 
 export default (
   <Route component={App} >
@@ -22,6 +23,7 @@ export default (
         <Route path="assignment/:classId/submitWork/:assignmentId" component={SubmitWork} />
       </Route>
       <Route path="assignment/:classId/showAll" component={ShowAllAssignments} onEnter={enterGetAssignments} />
+      <Route path="assignment/:classId/viewWork/:assignmentId" component={ShowAllWork} onEnter={enterGetWork} />
       <Route path=":lessonId/:lesson/*" component={Lesson} />
     </Route>
   </Route>

@@ -5,6 +5,7 @@ import AddLesson from './AddLesson/AddLesson';
 import LoginOrSignUp from './LoginOrSignUp/LoginOrSignUp';
 import HomePage from './HomePage/HomePage';
 import ShowAllAssignments from './ShowAllAssignments/ShowAllAssignments';
+import ShowAllWork from './ShowAllWork/ShowAllWork';
 import StudentOrTeacher from './StudentOrTeacher/StudentOrTeacher';
 import SubmitWork from './SubmitWork/SubmitWork';
 import Dashboard from './Dashboard/Dashboard';
@@ -19,6 +20,7 @@ export { colors,
          LoginOrSignUp,
          HomePage,
          ShowAllAssignments,
+         ShowAllWork,
          StudentOrTeacher,
          SubmitWork,
          Lesson,

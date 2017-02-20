@@ -15,4 +15,7 @@ const middleware = require('./work_middleware');
 router.use(upload.any()).route('/')
   .post(middleware.postWork);
 
+router.route('/byAssignmentId/:assignmentId')
+  .get(middleware.getWorkByAssignmentId);
+
 module.exports = router;
