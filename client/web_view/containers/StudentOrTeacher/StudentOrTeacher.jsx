@@ -76,6 +76,7 @@ class StudentOrTeacher extends Component {
     })
     .then((res) => {
       this.props.router.push(`/dashboard/${res.data.id}/${data.enrollmentCode}`);
+      localStorage.classCode = JSON.stringify(data.enrollmentCode);
     });
   }
 
