@@ -8,6 +8,7 @@ class SocketConnection {
     this.getUserAuthentication = this.getUserAuthentication.bind(this);
     this.getLastClassViewed = this.getLastClassViewed.bind(this);
     this.updateLastClassViewed = this.updateLastClassViewed.bind(this);
+    this.fetchStudentInfo = this.fetchStudentInfo.bind(this);
   }
   // /api/users/registration -- user registration
   postNewUser(req, res) {
@@ -113,6 +114,26 @@ class SocketConnection {
       throw new Error('Class not found.');
     })
     .then(update => res.send(update))
+    .catch(err => res.status(500).send(err.message));
+  }
+
+  // /api/users/student/:userId/:classCode
+  fetchStudentInfo(req, res) {
+    models.user.findById(req.params.userId, {
+      include: [{
+        model: models.class,
+        where: { enrollmentCode: req.params.classCode },
+        attributes: ['schedule'],
+        include: [models.assignment],
+      }, {
+        model: models.discussion,
+        include: [{
+          model: models.discussion,
+          order: ['createdAt', 'DESC'],
+        }],
+      }],
+    })
+    .then(user => res.send(user))
     .catch(err => res.status(500).send(err.message));
   }
 }

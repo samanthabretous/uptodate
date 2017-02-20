@@ -13,4 +13,7 @@ router.route('/:userId/lastclass')
 router.route('/:userId/lastclass/:classId')
   .put(middleware.updateLastClassViewed);
 
+router.route('/student/:userId/:classCode')
+  .get(middleware.fetchStudentInfo);
+
 module.exports = router;
