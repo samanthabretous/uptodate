@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const middleware = require('./download_middleware');
+const middleware = require('./work_middleware');
 
 router.route('/getAssignment')
-  .get(middleware.getFile);
+  .post(middleware.getFile);
 
 module.exports = router;
