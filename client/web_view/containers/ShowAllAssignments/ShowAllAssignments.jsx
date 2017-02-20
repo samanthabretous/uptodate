@@ -23,6 +23,7 @@ class ShowAllAssignments extends Component {
     this.showAssignment = this.showAssignment.bind(this);
     this.assignmentsList = this.assignmentsList.bind(this);
     this.clickedAssingmnet = this.clickedAssingmnet.bind(this);
+    this.download = this.download.bind(this);
   }
 
   assignmentsExist() {
@@ -52,20 +53,23 @@ class ShowAllAssignments extends Component {
       const { instructions, file, exercises, due } = this.props.assignments[assignment];
       return (<div>
         Instructions: {instructions}
-        <br/>
-       {/* this will display a clickable link to download file that instructor uploaded
-       File: {file}
-               <br/>*/}
+        <br />
+        {file ? <button onClick={this.download.bind(this, file)}>Download file </button> : 'no file for this assignment'}
+        <br />
         Exercises: {exercises}
-        <br/>
+        <br />
         Due: {due}
-        <br/>
+        <br />
       </div>);
     } else {
       return (<div>
         SELECT ASSIGNMENT
       </div>);
     }
+  }
+
+  download(file) {
+    window.open(`/api/download/getFile?file=${file}`);
   }
 
   render() {
