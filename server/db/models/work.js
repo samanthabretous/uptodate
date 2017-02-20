@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     submitted: {
       type: DataTypes.DATEONLY,
       allowNull: false,
-      isDate: true,
+      defaultValue: DataTypes.NOW,
     },
     grade: {
       type: DataTypes.INTEGER,

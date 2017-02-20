@@ -6,6 +6,7 @@ import lesson from './lesson';
 import login from './login';
 import titlebar from './titlebar';
 import votes from './votes';
+import work from './work';
 
 export default combineReducers({
   assignment,
@@ -15,4 +16,5 @@ export default combineReducers({
   login,
   titlebar,
   votes,
+  work,
 });
