@@ -2,10 +2,7 @@ import io from 'socket.io-client';
 
 export const socket = io.connect();
 
-export default (store) => {
+export default () => {
   socket.on('connect', () => {
-    store.dispatch({
-      type: 'CONNECT',
-    });
   });
 };

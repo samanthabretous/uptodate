@@ -4,7 +4,6 @@ const bcrypt = require('bcrypt-nodejs');
 class SocketConnection {
   constructor(io) {
     this.io = io;
-
   }
   // /api/users/registration -- user registration
   postNewUser(req, res) {

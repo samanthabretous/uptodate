@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { DropFolder, LessonDropDown, MakeLesson } from '../../components';
+import { LessonDropDown, MakeLesson } from '../../components';
 import fileWatcher from '../../utils/fileWatcher';
 import style from './WatchLessonStyles';
 import { socket } from '../../socket/socket';
@@ -33,7 +33,8 @@ class WatchLesson extends Component {
     const watcher = fileWatcher(folderPath, classname, lessonId, lessonname, classCode);
     Promise.resolve(watcher)
     .then(() => {
-      socket.emit('start-lesson', { classCode, lessonId, lessonname });
+      const instructor = JSON.parse(localStorage.userInfo).username;
+      socket.emit('start-lesson', { classCode, lessonId, lessonname, instructor });
       this.setState({ isWatchingFiles: true, stopWatchingFiles: watcher });
     });
   }
@@ -76,8 +77,8 @@ class WatchLesson extends Component {
           }
           <button
             onClick={this.startWatchingFiles}
-            disabled={isWatchingFiles || this.readyToStartLesson()}
           >
+            {/*disabled={isWatchingFiles || this.readyToStartLesson()}*/}
             Start Lesson
           </button>
           <button
@@ -87,7 +88,6 @@ class WatchLesson extends Component {
             Stop Lesson
           </button>
         </div>
-        <DropFolder />
       </div>
     );
   }
