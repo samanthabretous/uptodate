@@ -16,11 +16,12 @@ export default (
       </Route>
     </Route>
 
-    <Route path="dashboard/student/:user/:currentClassCode" onEnter={getTitlebarInfo} component={Dashboard}>
+    <Route
+      path="dashboard/:user/:currentClassCode/student"
+      onEnter={getTitlebarInfo}
+      component={Dashboard}
+    >
       <IndexRoute component={StudentProfile} onEnter={enterGetStudentInfo} />
-
-      <Route path="assignment/:classId/showAll" component={ShowAllAssignments} onEnter={enterGetAssignments} />
-      <Route path=":lessonId/:lesson/*" component={Lesson} />
     </Route>
 
     <Route path="dashboard/:user/:currentClassCode" onEnter={getTitlebarInfo} component={Dashboard}>
@@ -35,7 +36,11 @@ export default (
         component={ShowAllAssignments}
         onEnter={enterGetAssignments}
       />
-      <Route path="assignment/:classId/viewWork/:assignmentId" component={ShowAllWork} onEnter={enterGetWork} />
+      <Route
+        path="assignment/:classId/viewWork/:assignmentId"
+        component={ShowAllWork}
+        onEnter={enterGetWork}
+      />
       <Route path=":lessonId/:lesson/*" component={Lesson} />
     </Route>
   </Route>

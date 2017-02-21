@@ -65,14 +65,14 @@ class StudentProfile extends Component {
   renderDiscussionThreads() {
     const recentDiscussions = this.props.student.recentDiscussions;
     // saving current path into variable for later redirect
-    const currentPath = this.props.location.pathname;
+    const currentPath = this.props.location.pathname.split('/student').join('');
     return (
       <div id="discussions">
         <h1>Recent comments: </h1>
         {
           recentDiscussions.map(({ comment, lessonId, lesson: { name } }, idx) => (
             <div
-              onClick={this.handleCommentClick.bind(null, `${currentPath}${lessonId}/${name}`)}
+              onClick={this.handleCommentClick.bind(null, `${currentPath}/${lessonId}/${name}/none`)}
               title="Go to comment thread"
               key={idx}
             >
@@ -82,7 +82,7 @@ class StudentProfile extends Component {
                 line={1}
                 truncateText="…"
                 text={comment}
-                textTruncateChild={<Link to={`${currentPath}/${lessonId}/${name}`}>Go to thread</Link>}
+                textTruncateChild={<a href="#">Go to thread</a>}
               />
             </div>
           ))

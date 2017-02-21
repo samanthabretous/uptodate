@@ -80,7 +80,7 @@ class StudentOrTeacher extends Component {
     })
     .then(() => {
       userData.position === 'Student'
-      ? this.props.router.push(`/dashboard/student/${userData.id}/${userData.lastClassViewed}`)
+      ? this.props.router.push(`/dashboard/${userData.id}/${userData.lastClassViewed}/student`)
       : this.props.router.push(`/dashboard/${userData.id}/${userData.lastClassViewed}`);
     })
     .catch((err) => {
