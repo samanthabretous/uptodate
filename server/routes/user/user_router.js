@@ -13,7 +13,11 @@ router.route('/:userId/lastclass')
 router.route('/:userId/lastclass/:classId')
   .put(middleware.updateLastClassViewed);
 
+router.route('/:userId/usedDesktop')
+  .put(middleware.updateUsedDesktopBefore);
+
 router.route('/student/:userId/:classCode')
   .get(middleware.fetchStudentInfo);
+
 
 module.exports = router;

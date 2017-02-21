@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { DisplayClasses, LessonDropDown, MakeLesson } from '../../components';
+import { LessonDropDown, MakeLesson } from '../../components';
 import fileWatcher from '../../utils/fileWatcher';
 import style from './WatchLessonStyles';
+import { socket } from '../../socket/socket';
 
 const mapStateToProps = state => ({
   folderPath: state.lesson.folderPath,
@@ -30,7 +31,12 @@ class WatchLesson extends Component {
     e.preventDefault();
     const { folderPath, classname, lessonId, lessonname, classCode } = this.props;
     const watcher = fileWatcher(folderPath, classname, lessonId, lessonname, classCode);
-    this.setState({ isWatchingFiles: true, stopWatchingFiles: watcher });
+    Promise.resolve(watcher)
+    .then(() => {
+      const instructor = JSON.parse(localStorage.userInfo).username;
+      socket.emit('start-lesson', { classCode, lessonId, lessonname, instructor });
+      this.setState({ isWatchingFiles: true, stopWatchingFiles: watcher });
+    });
   }
   stopWatchingFiles(e) {
     e.preventDefault();
@@ -54,11 +60,12 @@ class WatchLesson extends Component {
     const { folderPath } = this.props;
     const { isMakeLessonVisible, isWatchingFiles } = this.state;
     return (
-      <div style={style.lesson}>
-        <DisplayClasses />
+      <div className="lesson" style={style.lesson}>
         <div>
           <div>
+            <h5>Select a Previous Lesson</h5>
             <LessonDropDown />
+            <h5>or Create New Lesson</h5>
             <button onClick={this.showMakeLessonForm}>
               {isMakeLessonVisible ? 'x' : '+'}
             </button>
@@ -70,8 +77,8 @@ class WatchLesson extends Component {
           }
           <button
             onClick={this.startWatchingFiles}
-            disabled={isWatchingFiles || this.readyToStartLesson()}
           >
+            {/*disabled={isWatchingFiles || this.readyToStartLesson()}*/}
             Start Lesson
           </button>
           <button

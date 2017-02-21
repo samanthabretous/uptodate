@@ -2,7 +2,9 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Style } from 'radium';
+import _ from 'lodash';
 import style from './AppStyles';
+import { DisplayClasses } from '../../components';
 
 
 const mapDispatchToProps = dispatch => (
@@ -16,14 +18,19 @@ const mapStateToProps = state => ({
 });
 
 const App = (props) => {
-  const { children, firstName } = props;
+  const { children, firstName, location: { pathname } } = props;
+  const isMainView = () => _.includes(pathname, 'add-lesson');
+
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'row' }}>
       <Style rules={style.overallRules} />
-      <nav style={style.infoBar}>
-        <h1>upToDate</h1>
-        {firstName && <h4>Hi, {firstName}</h4>}
-      </nav>
+      <div style={style.infoBar}>
+        <div>
+          <h1>upToDate</h1>
+          {firstName && <h4>Hi, {firstName}</h4>}
+        </div>
+        {isMainView() && <DisplayClasses />}
+      </div>
       {children}
     </div>
   );
@@ -32,6 +39,7 @@ const App = (props) => {
 App.propTypes = {
   children: PropTypes.element.isRequired,
   firstName: PropTypes.string,
+  location: PropTypes.object.isRequired,
 };
 
 App.defaultProps = {

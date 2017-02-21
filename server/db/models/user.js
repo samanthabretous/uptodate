@@ -5,32 +5,42 @@ module.exports = (sequelize, DataTypes) => {
     firstName: {
       type: DataTypes.STRING,
       allowNull: false,
-      notEmpty: true,
-      len: [1, 25],
+      validate: {
+        notEmpty: true,
+        len: [1, 25],
+      },
     },
     lastName: {
       type: DataTypes.STRING,
       allowNull: false,
-      notEmpty: true,
-      len: [1, 40],
+      validate: {
+        notEmpty: true,
+        len: [1, 40],
+      },
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-      isEmail: true,
+      validate: {
+        isEmail: true,
+      },
     },
     username: {
       type: DataTypes.STRING,
       allowNull: false,
-      notEmpty: true,
       unique: true,
-      len: [1, 35],
+      validate: {
+        notEmpty: true,
+        len: [1, 35],
+      },
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
-      len: [6, 100],
+      validate: {
+        len: [6, 150],
+      },
     },
     image: {
       type: DataTypes.BLOB,
@@ -41,6 +51,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       isIn: [['Instructor', 'Student', 'Mentor', 'T.A.']],
+    },
+    usedDesktopBefore: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
   }, {
     classMethods: {

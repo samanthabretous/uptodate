@@ -57,7 +57,7 @@ class DropFolder extends Component {
         id="holder"
         style={style.dropFolder}
       >
-        {this.props.children}
+        { this.props.children }
       </div>
     );
   }
@@ -65,7 +65,7 @@ class DropFolder extends Component {
 
 DropFolder.propTypes = {
   droppedFolderAction: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.element.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DropFolder);

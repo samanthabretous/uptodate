@@ -7,6 +7,7 @@ import login from './login';
 import student from './student';
 import titlebar from './titlebar';
 import votes from './votes';
+import work from './work';
 
 export default combineReducers({
   assignment,
@@ -17,4 +18,5 @@ export default combineReducers({
   student,
   titlebar,
   votes,
+  work,
 });

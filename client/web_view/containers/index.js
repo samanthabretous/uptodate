@@ -1,29 +1,34 @@
 import colors from './App/colors';
-import App from './App/App';
 import AddAssignment from './AddAssignment/AddAssignment';
 import AddLesson from './AddLesson/AddLesson';
-import LoginOrSignUp from './LoginOrSignUp/LoginOrSignUp';
-import HomePage from './HomePage/HomePage';
-import ShowAllAssignments from './ShowAllAssignments/ShowAllAssignments';
-import StudentOrTeacher from './StudentOrTeacher/StudentOrTeacher';
-import StudentProfile from './StudentProfile/StudentProfile';
+import App from './App/App';
 import Dashboard from './Dashboard/Dashboard';
 import DisplayClassLessons from './DisplayClassLessons/DisplayClassLessons';
+import HomePage from './HomePage/HomePage';
 import Lesson from './Lesson/Lesson';
+import LoginOrSignUp from './LoginOrSignUp/LoginOrSignUp';
 import Modal from './App/Modal';
+import ShowAllAssignments from './ShowAllAssignments/ShowAllAssignments';
+import ShowAllWork from './ShowAllWork/ShowAllWork';
+import StudentOrTeacher from './StudentOrTeacher/StudentOrTeacher';
+import StudentProfile from './StudentProfile/StudentProfile';
+import SubmitWork from './SubmitWork/SubmitWork';
 
-export { colors,
-         AddAssignment,
-         AddLesson,
-         App,
-         LoginOrSignUp,
-         HomePage,
-         ShowAllAssignments,
-         StudentOrTeacher,
-         StudentProfile,
-         Lesson,
-         Dashboard,
-         DisplayClassLessons,
-         Modal,
-       };
 
+export {
+  colors,
+  AddAssignment,
+  AddLesson,
+  App,
+  Dashboard,
+  DisplayClassLessons,
+  HomePage,
+  Lesson,
+  LoginOrSignUp,
+  Modal,
+  ShowAllAssignments,
+  ShowAllWork,
+  StudentOrTeacher,
+  StudentProfile,
+  SubmitWork,
+};

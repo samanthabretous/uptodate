@@ -2,8 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Sidebar, Titlebar } from '../../components';
+import { LessonNotification, Titlebar } from '../../components';
 import style from './DashboardStyles';
+import { socket } from '../../socket/socket';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -16,8 +17,27 @@ const mapStateToProps = state => ({
 });
 
 class Dashboard extends Component {
+  constructor() {
+    super();
+    this.state = {
+      isNewLessonStarted: false,
+      lessonname: '',
+      lessonId: null,
+      instructor: '',
+    };
+  }
+  componentDidMount() {
+    // a new lesson has started make notification to let all users know
+    socket.on('lesson-started', ({ lessonname, lessonId, instructor }) => {
+      this.setState({ isNewLessonStarted: true, lessonname, lessonId, instructor });
+      setTimeout(() => {
+        this.setState({ isNewLessonStarted: false, lessonname: '', lessonId: null, instructor: '' });
+      }, 5000);
+    });
+  }
   render() {
     const { children } = this.props;
+    const { isNewLessonStarted, lessonname, lessonId, instructor } = this.state;
     return (
       <div style={style.dashboard}>
         <Titlebar />
@@ -26,6 +46,13 @@ class Dashboard extends Component {
             {children}
           </div>
         </section>
+        {isNewLessonStarted &&
+          <LessonNotification
+            lessonId={lessonId}
+            lessonname={lessonname}
+            instructor={instructor}
+          />
+        }
       </div>
     );
   }

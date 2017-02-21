@@ -92,6 +92,9 @@ const seedFunction = () => {
     work.addUser(1);
     return models.work.create(workData[11]);
   })
+  .then(work => {
+    work.addUser(2);
+  })
   .then(() => models.discussion.bulkCreate(discussionData))
   .then(() => models.vote.bulkCreate(voteData));
 };
