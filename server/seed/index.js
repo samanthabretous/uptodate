@@ -28,15 +28,15 @@ const seedFunction = () => {
   .then((user) => {
     user.addClasses([1, 2, 3, 4]);
   })
-  .then(() => models.user.create(userData[1]))
+  .then(() => models.user.create(Object.assign(userData[1], { lastClassViewed: enrollmentCode })))
   .then((user) => {
     user.addClasses([1, 2, 3, 4]);
   })
-  .then(() => models.user.create(userData[2]))
+  .then(() => models.user.create(Object.assign(userData[2], { lastClassViewed: enrollmentCode })))
   .then((user) => {
     user.addClasses([1, 2, 3]);
   })
-  .then(() => models.user.create(userData[3]))
+  .then(() => models.user.create(Object.assign(userData[3], { lastClassViewed: enrollmentCode })))
   .then((user) => {
     user.addClasses([1, 2, 3]);
   })
