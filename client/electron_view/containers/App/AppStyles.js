@@ -26,6 +26,6 @@ export default {
     backgroundColor: colors.teal,
     display: 'flex',
     flexDirection: 'column',
-    color: colors.white, 
+    color: colors.white,
   },
 };

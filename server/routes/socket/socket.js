@@ -65,6 +65,10 @@ module.exports = ((app, io) => {
       });
     });
 
+    socket.on('start-lesson', ({ classCode, lessonId, lessonname, instructor }) => {
+      io.sockets.to(classCode).emit('lesson-started', { lessonId, lessonname, instructor });
+    });
+
     const socketOn = new SocketListeners(socket);
     socketOn.disconnectSocket(socket);
   });
