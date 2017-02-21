@@ -9,6 +9,7 @@ import Lesson from './Lesson/Lesson';
 import LoginOrSignUp from './LoginOrSignUp/LoginOrSignUp';
 import Modal from './App/Modal';
 import ShowAllAssignments from './ShowAllAssignments/ShowAllAssignments';
+import ShowAllWork from './ShowAllWork/ShowAllWork';
 import StudentOrTeacher from './StudentOrTeacher/StudentOrTeacher';
 import SubmitWork from './SubmitWork/SubmitWork';
 
@@ -24,7 +25,7 @@ export {
   LoginOrSignUp,
   Modal,
   ShowAllAssignments,
+  ShowAllWork,
   StudentOrTeacher,
   SubmitWork,
 };
-
