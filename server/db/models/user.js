@@ -32,6 +32,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       len: [6, 100],
     },
+    image: {
+      type: DataTypes.BLOB,
+      allowNull: true,
+    },
     position: {
     // this is to differentiate between which views to serve up depending on type of user.
       type: DataTypes.STRING,
