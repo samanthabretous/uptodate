@@ -72,7 +72,9 @@ class StudentOrTeacher extends Component {
       lastClassViewed: data.id,
     })
     .then((res) => {
-      this.props.router.push(`/dashboard/${res.data.id}/${data.enrollmentCode}`);
+      position === 'Student'
+      ? this.props.router.push(`/dashboard/student/${res.data.id}/${data.enrollmentCode}`)
+      : this.props.router.push(`/dashboard/${res.data.id}/${data.enrollmentCode}`);
     })
     .catch(() => {
       this.setState({ registrationError: true });
