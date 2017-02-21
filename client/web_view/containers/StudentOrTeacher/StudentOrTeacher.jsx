@@ -13,7 +13,9 @@ const mapDispatchToProps = dispatch => (
 );
 
 const mapStateToProps = state => ({
-  state,
+  email: state.login.email,
+  username: state.login.username,
+  password: state.login.password,
 });
 
 class StudentOrTeacher extends Component {
@@ -62,21 +64,26 @@ class StudentOrTeacher extends Component {
   }
 
   handleRegistration(position, firstName, lastName, data) {
+    let userData = null;
     axios.post('/api/users/registration', {
       firstName,
       lastName,
-      email: this.props.state.login.email,
-      username: this.props.state.login.username,
-      password: this.props.state.login.password,
+      email: this.props.email,
+      username: this.props.username,
+      password: this.props.password,
       position,
-      lastClassViewed: data.id,
+      lastClassViewed: data.enrollmentCode,
     })
     .then((res) => {
-      position === 'Student'
-      ? this.props.router.push(`/dashboard/student/${res.data.id}/${data.enrollmentCode}`)
-      : this.props.router.push(`/dashboard/${res.data.id}/${data.enrollmentCode}`);
+      userData = res.data;
+      return localStorage.classCode = JSON.stringify(res.data.lastClassViewed);
     })
-    .catch(() => {
+    .then(() => {
+      userData.position === 'Student'
+      ? this.props.router.push(`/dashboard/student/${userData.id}/${userData.lastClassViewed}`)
+      : this.props.router.push(`/dashboard/${userData.id}/${userData.lastClassViewed}`);
+    })
+    .catch((err) => {
       this.setState({ registrationError: true });
     });
   }
@@ -149,7 +156,6 @@ class StudentOrTeacher extends Component {
 
   render() {
     const { position, createClass, registrationError } = this.state;
-    console.log('REGISTRATION ERR:', registrationError)
     // array of buttons we want to create
     const buttons = [
       { name: 'Student',
