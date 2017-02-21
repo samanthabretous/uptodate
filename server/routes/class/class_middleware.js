@@ -63,6 +63,7 @@ const getAllUserClasses = (req, res) => {
     include: [{
       model: models.class,
       attributes: ['id', 'name'],
+      order: ['name', 'DESC'],
       through: {
         attributes: [],
       },
