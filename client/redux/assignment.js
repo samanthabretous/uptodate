@@ -16,14 +16,18 @@ const getAssignment = assignments => ({
   data: assignments,
 });
 
-export const AsyncPostAssignment = data => () => {
-  axios.post('/api/assignments', data);
-};
-
 export const AsyncGetAssignment = classId => (dispatch) => {
   axios.get(`/api/assignments/byClassId/${classId}`)
   .then((assignments) => {
     dispatch(getAssignment(assignments.data));
+  });
+};
+
+export const AsyncPostAssignment = data => (dispatch) => {
+  axios.post('/api/assignments', data)
+  .then(() => {
+    const classId = data.get('classId');
+    dispatch(AsyncGetAssignment(classId));
   });
 };
 

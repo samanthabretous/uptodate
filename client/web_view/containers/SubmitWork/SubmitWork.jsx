@@ -44,6 +44,7 @@ class SubmitWork extends Component {
   }
 
   render() {
+    console.log(this.props.assignmentId);
     return (
       <div>
         <form onSubmit={this.submit}>

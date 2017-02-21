@@ -8,7 +8,7 @@ const mapDispatchToProps = dispatch => (
   }, dispatch)
 );
 
-const mapStateToProps = (state, ownprops) => ({
+const mapStateToProps = state => ({
   assignments: state.assignment.assignments,
   position: state.titlebar.userInfo.position,
 });
@@ -27,6 +27,7 @@ class ShowAllAssignments extends Component {
     this.clickedAssingmnet = this.clickedAssingmnet.bind(this);
     this.download = this.download.bind(this);
     this.submitWork = this.submitWork.bind(this);
+    this.viewWork = this.viewWork.bind(this);
   }
 
   assignmentsExist() {
@@ -50,8 +51,8 @@ class ShowAllAssignments extends Component {
     }
   }
 
-  download(file) {
-    window.open(`/api/download/getAssignment?file=${file}`);
+  download(e, file) {
+    window.open(`/api/download/getfile?file=${file}`);
   }
 
   clickedAssingmnet() {
@@ -62,13 +63,13 @@ class ShowAllAssignments extends Component {
       return (<div>
         Instructions: {instructions}
         <br />
-        {file ? <button onClick={this.download.bind(this, file)}>Download file </button> : 'no file for this assignment'}
+        {file ? <button onClick={e => this.download(e, file)}>Download file </button> : 'no file for this assignment'}
         <br />
         Exercises: {exercises}
         <br />
         Due: {due}
         <br />
-        {position === 'Student' ? <button onClick={this.submitWork}>submit work</button> : <button>view submited work</button>}
+        {position === 'Student' ? <button onClick={this.submitWork}>submit work</button> : <button onClick={this.viewWork}>view submited work</button>}
       </div>);
     } else {
       return (<div>
@@ -79,14 +80,20 @@ class ShowAllAssignments extends Component {
 
   submitWork() {
     const { assignmentId } = this.state;
-    let currentPath = this.props.router.getCurrentLocation().pathname;
+    const { router } = this.props;
+    let currentPath = router.getCurrentLocation().pathname;
     currentPath = currentPath.split('/');
     currentPath = currentPath.slice(1, 6).join('/');
-    this.props.router.push(`/${currentPath}/submitWork/${assignmentId}`);
+    router.push(`/${currentPath}/submitWork/${assignmentId}`);
   }
 
   viewWork() {
-    
+    const { assignmentId } = this.state;
+    const { router } = this.props;
+    let currentPath = router.getCurrentLocation().pathname;
+    currentPath = currentPath.split('/');
+    currentPath = currentPath.slice(1, 6).join('/');
+    router.push(`/${currentPath}/viewWork/${assignmentId}`);
   }
 
   render() {
@@ -106,6 +113,7 @@ class ShowAllAssignments extends Component {
 ShowAllAssignments.propTypes = {
   assignments: PropTypes.array,
   position: PropTypes.string,
+  router: PropTypes.object,
 };
 
 ShowAllAssignments.defaultProps = {

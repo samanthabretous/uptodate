@@ -45,7 +45,7 @@ class AddLesson extends Component {
     this.props.AsyncPostLesson(data);
 
     // redirects to the newly created lesson
-    this.props.router.push(`/dashboard/${user}/${currentClassCode}/${lessonName}`);
+    this.props.router.push(`/dashboard/${user}/${currentClassCode}`);
   }
 
   renderForm(inputEle) {

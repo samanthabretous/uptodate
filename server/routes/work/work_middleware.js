@@ -2,6 +2,7 @@ const models = require('../../db/models/index');
 
 const Work = models.work;
 
+
 const workCreator = (req) => {
   const { assignmentId } = req.body;
   const zipFile = req.files[0].path;
@@ -11,6 +12,8 @@ const workCreator = (req) => {
   };
 };
 
+// api/work
+// ~post new work and join on joins table
 const postWork = (req, res) => {
   const { userId } = req.body;
   const newWork = workCreator(req);
@@ -24,6 +27,29 @@ const postWork = (req, res) => {
   });
 };
 
+// api/work/byAssignmentId/:assignmentId
+// ~post new work and join on joins table
+const getWorkByAssignmentId = (req, res) => {
+  const { assignmentId } = req.params;
+  Work.findAll({ 
+    where: {
+      assignmentId ,
+    },
+    include: [{
+      model: models.user,
+      attributes: ['firstName', 'lastName'],
+      through: {
+        attributes: []
+      }
+    }]
+  })
+  .then((works) => {
+    res.send(works);
+  })
+  .catch(err => res.sendStatus(500).send(err));
+};
+
 module.exports = {
   postWork,
+  getWorkByAssignmentId,
 };
