@@ -61,6 +61,7 @@ export const enterGetLessons = (nextState) => {
 export const AsyncPostLesson = data => (dispatch) => {
   axios.post('/api/lessons/new_lesson', data)
   .then((lesson) => {
+    console.log(lesson)
     dispatch(postLesson(lesson.data));
   });
 };
@@ -118,7 +119,7 @@ export default (state = initialState, action) => {
       });
     case CREATE_LESSON:
       return Object.assign({}, state, {
-        classLessons: action.data,
+        classLessons: state.classLessons.concat(action.data),
       });
     case SELECTED_LESSON:
       return Object.assign({}, state, {
