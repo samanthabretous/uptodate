@@ -27,7 +27,7 @@ const LessonDropDown = ({ selectedLessonAction, classLessons, lessonId }) => {
     const isfileWatchedBefore = selectedLesson.fileWatched !== null;
     selectedLessonAction({
       lessonId: target,
-      name: selectedLesson.name,
+      lessonname: selectedLesson.name,
       folderPath: selectedLesson.fileWatched,
       isfileWatchedBefore,
     });

@@ -17,7 +17,7 @@ const getWork = data => ({
 });
 
 export const AsyncGetwork = assignmentId => (dispatch) => {
-  axios.get(`/api/work/byAssignmentId/${assignmentId}`)
+  axios.get(`http://localhost:2020/api/work/byAssignmentId/${assignmentId}`)
   .then((work) => {
     dispatch(getWork(work.data));
   });

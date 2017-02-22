@@ -41,6 +41,7 @@ class WatchLesson extends Component {
   startWatchingFiles(e) {
     e.preventDefault();
     const { folderPath, classname, lessonId, lessonname, classCode } = this.props;
+    console.log(lessonname)
     const watcher = fileWatcher(folderPath, classname, lessonId, lessonname, classCode);
     Promise.resolve(watcher)
     .then(() => {
@@ -67,11 +68,12 @@ class WatchLesson extends Component {
   }
 
   render() {
-    const { folderPath, isMakeLessonVisible } = this.props;
+    const { folderPath, isMakeLessonVisible, classname } = this.props;
     const { isWatchingFiles } = this.state;
     return (
       <div className="lesson" style={style.lesson}>
         <div>
+          <h2>{classname}</h2>
           <div>
             <h5>Select a Previous Lesson</h5>
             <LessonDropDown />

@@ -69,7 +69,7 @@ export const enterGetLessons = (nextState) => {
 };
 
 export const AsyncPostLesson = data => (dispatch) => {
-  axios.post('http://localhost:2020/api/lessons/new_lesson', data)
+  axios.post('/api/lessons/new_lesson', data)
   .then((lesson) => {
     dispatch(postLesson(lesson.data));
   });
@@ -86,7 +86,7 @@ export const enterFetchLessons = ({ params }) => createStore.dispatch(AsyncFetch
 
 
 export const AsyncGetInstructorCode = (subPath, className, lessonName) => (dispatch) => {
-  axios.get('http://localhost:2020/api/repoFile/getFile', {
+  axios.get('/api/repoFile/getFile', {
     params: {
       subPath,
       className,
@@ -133,6 +133,7 @@ export default (state = initialState, action) => {
       });
     case CREATE_LESSON:
       const appState = createStore.getState();
+      console.log(appState)
       const classLessons = state.classLessons
         ? state.classLessons.concat(action.data)
         : appState.classes.currentClass.lessons.concat(action.data);

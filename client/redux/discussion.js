@@ -16,7 +16,7 @@ export const getDiscussionAction = chatMessages => ({
 });
 
 export const AsyncGetDiscussion = lessonId => (dispatch) => {
-  axios.get(`http://localhost:2020/api/discussion/lesson/${lessonId}`)
+  axios.get(`/api/discussion/lesson/${lessonId}`)
   .then((discussion) => {
     dispatch(getDiscussionAction(discussion.data));
   });
