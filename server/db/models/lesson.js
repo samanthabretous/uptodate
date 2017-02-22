@@ -12,7 +12,9 @@ module.exports = (sequelize, DataTypes) => {
       link: { // name not final, REMEMBER TO CHANGE!!!
         type: DataTypes.STRING,
         allowNull: true,
-        isUrl: true,
+        validate: {
+          isUrl: true,
+        },
       },
       repo: {
         type: DataTypes.JSON,
