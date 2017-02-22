@@ -8,7 +8,9 @@ const createNewLesson = (req, res) => {
     .then((newLesson) => {
       res.send(newLesson);
     })
-    .catch(err => res.status(500).send(err.message));
+    .catch(err => {
+      console.log(err)
+      res.status(500).send(err.message)});
 };
 
 // /api/lessons/:lessonId
