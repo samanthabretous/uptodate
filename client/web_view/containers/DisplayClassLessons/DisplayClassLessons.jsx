@@ -28,10 +28,11 @@ const DisplayClassLessons = ({ classLessons, params: { user, currentClassCode } 
           />
         </div>
         ))
-      : <div>
-          <h1> Nothing to see here </h1>
-          <p> no lessons have been created for this class yet. Be the first and get teaching! </p>
-        </div>
+      :
+      <div>
+        <h1> Nothing to see here </h1>
+        <p> no lessons have been created for this class yet. Be the first and get teaching! </p>
+      </div>
     }
   </div>
 );

@@ -126,7 +126,7 @@ export default (state = initialState, action) => {
       });
     case CREATE_LESSON:
       return Object.assign({}, state, {
-        classLessons: action.data,
+        classLessons: state.classLessons.concat(action.data),
       });
     case SELECTED_LESSON:
       return Object.assign({}, state, {
