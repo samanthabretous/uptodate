@@ -92,11 +92,13 @@ const seedFunction = () => {
     work.addUser(1);
     return models.work.create(workData[11]);
   })
-  .then(work => {
+  .then((work) => {
     work.addUser(2);
   })
+  .then(() => models.vote.bulkCreate(voteData))
   .then(() => models.discussion.bulkCreate(discussionData))
-  .then(() => models.vote.bulkCreate(voteData));
+  .then(() => models.vote.findById(2))
+  .then(vote => vote.addUser(1));
 };
 
 seedFunction();

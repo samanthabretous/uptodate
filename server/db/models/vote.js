@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       classMethods: {
         associate(models) {
-          Vote.belongsTo(models.lesson);
+          Vote.belongsToMany(models.user, { through: 'user_votes' });
         },
       },
     });
