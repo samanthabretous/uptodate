@@ -33,7 +33,6 @@ class TreeNode extends Component {
   handleClick() {
     if (this.props.node.path) {
       this.props.AsyncGetInstructorCode(this.props.node.path, this.props.className, this.props.lessonName);
-      // this.props.router.push(`/dashboard/${this.props.user}/${this.props.currentClassCode}/${this.props.lessonId}/${this.props.lessonName}/${this.props.node.path}`);
       this.props.setCurrentPath(this.props.node.path);
     } else {
       this.setState(prevState => ({
