@@ -4,6 +4,7 @@ import classes from './classes';
 import discussion from './discussion';
 import lesson from './lesson';
 import login from './login';
+import student from './student';
 import titlebar from './titlebar';
 import votes from './votes';
 import work from './work';
@@ -14,6 +15,7 @@ export default combineReducers({
   discussion,
   lesson,
   login,
+  student,
   titlebar,
   votes,
   work,

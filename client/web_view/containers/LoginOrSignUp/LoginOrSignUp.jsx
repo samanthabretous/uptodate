@@ -109,7 +109,10 @@ class LoginOrSignUp extends Component {
             // take user to the dashboard
             const currentClassCode = res.data.currentClass.enrollmentCode;
             localStorage.classCode = JSON.stringify(currentClassCode);
-            this.props.router.push(`/dashboard/${res.data.id}/${currentClassCode}`);
+            // displays different dashboard depending on whether user is a student or educator
+            res.data.position === 'Student'
+            ? this.props.router.push(`/dashboard/${res.data.id}/${res.data.currentClass.enrollmentCode}/student`)
+            : this.props.router.push(`/dashboard/${res.data.id}/${res.data.currentClass.enrollmentCode}`);
           }
         })
         .catch(() => {

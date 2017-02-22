@@ -11,7 +11,9 @@ import Modal from './App/Modal';
 import ShowAllAssignments from './ShowAllAssignments/ShowAllAssignments';
 import ShowAllWork from './ShowAllWork/ShowAllWork';
 import StudentOrTeacher from './StudentOrTeacher/StudentOrTeacher';
+import StudentProfile from './StudentProfile/StudentProfile';
 import SubmitWork from './SubmitWork/SubmitWork';
+
 
 export {
   colors,
@@ -27,5 +29,6 @@ export {
   ShowAllAssignments,
   ShowAllWork,
   StudentOrTeacher,
+  StudentProfile,
   SubmitWork,
 };

@@ -3,11 +3,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import TextTruncate from 'react-text-truncate';
-import { AsyncGetLessons } from '../../../redux/lesson';
 
 
 const mapDispatchToProps = dispatch => (
-  bindActionCreators({ AsyncGetLessons }, dispatch)
+  bindActionCreators({}, dispatch)
 );
 
 const mapStateToProps = state => ({
