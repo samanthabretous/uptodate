@@ -10,6 +10,7 @@ const FETCH_LESSONS = 'fetch_lessons';
 const DROPPED_FOLDER = 'dropped_folder';
 const SELECTED_LESSON = 'selected_lesson';
 const GET_CODE = 'get_code';
+const SHOW_MAKE_LESSON = 'show_make_lesson';
 
 
 // -------------------
@@ -46,6 +47,11 @@ export const selectedLessonAction = (lessonId, lessonname) => ({
   lessonname,
 });
 
+export const isMakeLessonVisibleAction = isMakeLessonVisible => ({
+  type: SHOW_MAKE_LESSON,
+  isMakeLessonVisible,
+});
+
 export const AsyncGetLessons = (classId, platform) => (dispatch) => {
   axios.get(`http://localhost:2020/api/lessons/byClass/${platform}/${classId}`)
   .then((lessons) => {
@@ -59,7 +65,7 @@ export const enterGetLessons = (nextState) => {
 };
 
 export const AsyncPostLesson = data => (dispatch) => {
-  axios.post('/api/lessons/new_lesson', data)
+  axios.post('http://localhost:2020/api/lessons/new_lesson', data)
   .then((lesson) => {
     dispatch(postLesson(lesson.data));
   });
@@ -99,6 +105,7 @@ const initialState = {
   lessonname: '',
   lessonId: null,
   instructorCode: '// Code',
+  isMakeLessonVisible: false,
 };
 
 export default (state = initialState, action) => {
@@ -117,8 +124,15 @@ export default (state = initialState, action) => {
         classCode: action.data[0].class.enrollmentCode,
       });
     case CREATE_LESSON:
+      const appState = createStore.getState();
+      const classLessons = state.classLessons
+        ? state.classLessons.concat(action.data)
+        : appState.classes.currentClass.lessons.concat(action.data);
       return Object.assign({}, state, {
-        classLessons: action.data,
+        classLessons,
+        lessonname: action.data.name,
+        lessonId: action.data.id,
+        isMakeLessonVisible: false,
       });
     case SELECTED_LESSON:
       return Object.assign({}, state, {
@@ -129,6 +143,8 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, { folderPath: action.folderPath });
     case GET_CODE:
       return Object.assign({}, state, { instructorCode: action.code });
+    case SHOW_MAKE_LESSON:
+      return Object.assign({}, state, { isMakeLessonVisible: action.isMakeLessonVisible });
     default:
       return state;
   }
