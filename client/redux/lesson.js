@@ -10,12 +10,8 @@ const FETCH_LESSONS = 'fetch_lessons';
 const DROPPED_FOLDER = 'dropped_folder';
 const SELECTED_LESSON = 'selected_lesson';
 const GET_CODE = 'get_code';
-<<<<<<< HEAD
 const SHOW_MAKE_LESSON = 'show_make_lesson';
-
-=======
 const SET_CURRENT_PATH = 'set_current_path';
->>>>>>> e9dcf0a1a750ccf3b56925a422ba16dc61e19336
 
 // -------------------
 // actions
