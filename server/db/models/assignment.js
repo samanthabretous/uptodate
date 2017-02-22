@@ -16,7 +16,9 @@ module.exports = (sequelize, DataTypes) => {
     due: {
       type: DataTypes.DATEONLY,
       allowNull: false,
-      isDate: true,
+      validate: {
+        isDate: true,
+      },
     },
   }, {
     classMethods: {
