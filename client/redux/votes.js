@@ -18,7 +18,7 @@ export const allVotes = lessonVotes => ({
 // thunk action
 // getState can also be pass thru as an argument after dispatch
 export const getVotesAsync = lessonId => (dispatch) => {
-  axios.get(`/api/votes/lesson/${lessonId}`)
+  axios.get(`http://localhost:2020/api/votes/lesson/${lessonId}`)
   .then((votes) => {
     dispatch(allVotes(votes.data));
   })

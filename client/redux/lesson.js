@@ -52,7 +52,7 @@ export const isMakeLessonVisibleAction = isMakeLessonVisible => ({
 });
 
 export const AsyncGetLessons = (classId, platform) => (dispatch) => {
-  axios.get(`/api/lessons/byClass/${platform}/${classId}`)
+  axios.get(`http://localhost:2020/api/lessons/byClass/${platform}/${classId}`)
   .then((lessons) => {
     dispatch(getLessons(lessons.data));
   });
@@ -64,14 +64,14 @@ export const enterGetLessons = (nextState) => {
 };
 
 export const AsyncPostLesson = data => (dispatch) => {
-  axios.post('/api/lessons/new_lesson', data)
+  axios.post('http://localhost:2020/api/lessons/new_lesson', data)
   .then((lesson) => {
     dispatch(postLesson(lesson.data));
   });
 };
 
 export const AsyncFetchLessons = (classCode, platform) => (dispatch) => {
-  axios.get(`/api/lessons/byClassCode/${platform}/${classCode}`)
+  axios.get(`http://localhost:2020/api/lessons/byClassCode/${platform}/${classCode}`)
     .then((lessons) => {
       dispatch(fetchLessons(lessons.data));
     });
@@ -80,7 +80,7 @@ export const AsyncFetchLessons = (classCode, platform) => (dispatch) => {
 export const enterFetchLessons = ({ params }) => createStore.dispatch(AsyncFetchLessons(params.currentClassCode, 'web'));
 
 export const AsyncGetInstructorCode = (subPath, className, lessonName) => (dispatch) => {
-  axios.get('/api/repoFile/getFile', {
+  axios.get('http://localhost:2020/api/repoFile/getFile', {
     params: {
       subPath,
       className,

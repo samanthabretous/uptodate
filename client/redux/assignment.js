@@ -17,7 +17,7 @@ const getAssignment = assignments => ({
 });
 
 export const AsyncGetAssignment = classId => (dispatch) => {
-  axios.get(`/api/assignments/byClassId/${classId}`)
+  axios.get(`http://localhost:2020/api/assignments/byClassId/${classId}`)
   .then((assignments) => {
     dispatch(getAssignment(assignments.data));
   });

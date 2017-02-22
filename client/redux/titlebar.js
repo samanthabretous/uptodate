@@ -44,7 +44,7 @@ export const getTitlebar = (titlebar) => {
 // thunk action
 // getState can also be pass thru as an argument after dispatch
 export const getTitlebarInfoAsync = (currentClassCode, userId) => dispatch => (
-  axios.get(`/api/classes/titlebar/${currentClassCode}/${userId}`)
+  axios.get(`http://localhost:2020/api/classes/titlebar/${currentClassCode}/${userId}`)
   .then((titlebarInfo) => {
     dispatch(getTitlebar(titlebarInfo.data));
   })
@@ -54,7 +54,7 @@ export const getTitlebarInfoAsync = (currentClassCode, userId) => dispatch => (
 // thunk action
 // getState can also be pass thru as an argument after dispatch
 export const updateTitlebarInfoAsync = (currentClassCode, userId) => dispatch => (
-  axios.put(`/api/classes/titlebar/${currentClassCode}/${userId}`)
+  axios.put(`http://localhost:2020/api/classes/titlebar/${currentClassCode}/${userId}`)
   .then((titlebarInfo) => {
     dispatch(getTitlebar(titlebarInfo.data));
   })

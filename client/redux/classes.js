@@ -14,7 +14,7 @@ const getClasses = classes => ({
 });
 
 export const AsyncGetClasses = userId => (dispatch) => {
-  axios.get(`/api/classes/allClasses/${userId}`)
+  axios.get(`http://localhost:2020/api/classes/allClasses/${userId}`)
   .then((classes) => {
     dispatch(getClasses(classes.data));
   });
