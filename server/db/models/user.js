@@ -61,6 +61,7 @@ module.exports = (sequelize, DataTypes) => {
       associate(models) {
         // this column is for which class info should be displayed on the User's profile page.
         User.belongsTo(models.class, { as: 'currentClass', foreignKey: 'lastClassViewed', targetKey: 'enrollmentCode' });
+        User.belongsToMany(models.vote, { through: 'user_votes' });
         User.belongsToMany(models.class, { through: 'user_class' });
         User.belongsToMany(models.work, { through: 'student_work' });
         User.hasMany(models.discussion);

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import FontAwesome from 'react-fontawesome';
 import _ from 'lodash';
 import style from './VotesStyles';
 import { socket } from '../../socket/socket';
@@ -30,8 +31,8 @@ class Votes extends Component {
   }
 
   componentDidMount() {
-    const { getVotesAsync, lessonId, allVotes } = this.props;
-    getVotesAsync(lessonId);
+    const { getVotesAsync, lessonId, allVotes, userId } = this.props;
+    getVotesAsync(lessonId, userId);
     socket.on('update-votes', ({ votes, lesson }) => {
       // url location must match the lesson votes inorder to update votes
       if (lessonId === lesson) allVotes(votes);
@@ -44,8 +45,8 @@ class Votes extends Component {
 
   addTopic() {
     const { topicInput } = this.state;
-    const { lessonId } = this.props;
-    socket.emit('create-vote', { topic: topicInput, lessonId });
+    const { lessonId, userId } = this.props;
+    socket.emit('create-vote', { topic: topicInput, lessonId, userId });
   }
   increaseVote(voteId) {
     const { lessonId } = this.props;
@@ -67,8 +68,22 @@ class Votes extends Component {
               <p>{vote.topic}</p>
               <p>{vote.numberOfVotes}</p>
               <div>
-                <button onClick={() => this.increaseVote(vote.id)}>UP</button>
-                <button onClick={() => this.decreaseVote(vote.id)}>DOWN</button>
+                <button
+                  onClick={() => this.increaseVote(vote.id)}
+                >
+                  <FontAwesome
+                    name="arrow-up"
+                    size="2x"
+                  />
+                </button>
+                <button
+                  onClick={() => this.decreaseVote(vote.id)}
+                >
+                  <FontAwesome
+                    name="arrow-down"
+                    size="2x"
+                  />
+                </button>
               </div>
             </div>
           ))}
@@ -88,6 +103,7 @@ Votes.propTypes = {
   allVotes: PropTypes.func.isRequired,
   lessonId: PropTypes.string.isRequired,
   lessonVotes: PropTypes.array,
+  userId: PropTypes.string.isRequired,
 };
 
 Votes.defaultProps = {
