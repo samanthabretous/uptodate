@@ -17,6 +17,7 @@ const mapStateToProps = (state, ownprops) => ({
   className: state.titlebar.currentClass.name,
   lessonName: ownprops.params.lesson,
   lessonId: ownprops.params.lessonId,
+  currentPath: state.lesson.currentPath,
 });
 
 class ViewInstructorCode extends Component {
@@ -31,27 +32,16 @@ class ViewInstructorCode extends Component {
   }
 
   componentDidMount() {
-    // console.log(this.props.lessonId);
     const that = this;
     axios.get(`/api/repoFile/${this.props.lessonId}`)
     .then((data) => {
-      // console.log(data.data);
       that.setState({ directory: Object.assign({}, that.state.directory, { childNodes: data.data }) });
     });
-    /*
-     * every time you click a directory endpoint the route will change and this component will mount again
-     * send an AJAX GET request using the url params to get the file content, send this to state and pull down in text editor
-     * set text editor value to code
-     */
     socket.on('updated-file', ({ subPath, data }) => {
       /*
        * every time a file updates first check if the subpath matches the url params
-       * if it does that means the current file we are looking at is being updated
-       * in this case send an AJAX GET request to get the current files content
-       * send to the state and pull down in text editor, set value to response
        */
-       console.log("ViewInstructorCode", data)
-      if (this.props.params.splat === subPath) {
+      if (this.props.currentPath === subPath) {
         this.props.AsyncGetInstructorCode(subPath, this.props.className, this.props.lessonName);
       }
     });

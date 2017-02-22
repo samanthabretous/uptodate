@@ -131,17 +131,24 @@ class SocketConnection {
   // /api/users/student/:userId/:classCode
   fetchStudentInfo(req, res) {
     models.user.findById(req.params.userId, {
+      attributes: { exclude: ['password'] },
       include: [{
         model: models.class,
         where: { enrollmentCode: req.params.classCode },
-        attributes: ['schedule'],
+        attributes: ['schedule', 'name'],
         include: [models.assignment],
       }, {
         model: models.discussion,
+        limit: 10,
+        order: [['createdAt', 'DESC']],
         include: [{
-          model: models.discussion,
-          order: ['createdAt', 'DESC'],
+          model: models.lesson,
+          attributes: ['name'],
         }],
+      }, {
+        model: models.work,
+        attributes: ['grade', 'submitted'],
+        order: [['updatedAt', 'DESC']],
       }],
     })
     .then(user => res.send(user))

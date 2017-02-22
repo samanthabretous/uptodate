@@ -6,6 +6,7 @@ module.exports = [
     username: 'vfrizzle',
     password: 'password1',
     position: 'Instructor',
+    image: null,
   }, {
     firstName: 'Keesha',
     lastName: 'Franklin',
@@ -13,6 +14,7 @@ module.exports = [
     username: 'joshua',
     password: 'password2',
     position: 'Student',
+    image: null,
   }, {
     firstName: 'Phoebe',
     lastName: 'Terese',
@@ -20,6 +22,7 @@ module.exports = [
     username: 'pterese',
     password: 'password3',
     position: 'Student',
+    image: null,
   }, {
     firstName: 'Ralphi',
     lastName: 'Tennelli',
@@ -27,5 +30,6 @@ module.exports = [
     username: 'rtennelli',
     password: 'password4',
     position: 'Student',
+    image: null,
   },
 ];

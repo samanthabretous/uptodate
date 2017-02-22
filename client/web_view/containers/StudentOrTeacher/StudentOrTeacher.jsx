@@ -79,7 +79,9 @@ class StudentOrTeacher extends Component {
       return localStorage.classCode = JSON.stringify(res.data.lastClassViewed);
     })
     .then(() => {
-      this.props.router.push(`/dashboard/${userData.id}/${userData.lastClassViewed}`);
+      userData.position === 'Student'
+      ? this.props.router.push(`/dashboard/${userData.id}/${userData.lastClassViewed}/student`)
+      : this.props.router.push(`/dashboard/${userData.id}/${userData.lastClassViewed}`);
     })
     .catch((err) => {
       this.setState({ registrationError: true });
