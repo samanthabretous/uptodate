@@ -3,11 +3,12 @@ import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import shortid from 'shortid';
-import { AsyncGetInstructorCode } from '../../../redux/lesson';
+import { AsyncGetInstructorCode, setCurrentPath } from '../../../redux/lesson';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
     AsyncGetInstructorCode,
+    setCurrentPath,
   }, dispatch)
 );
 
@@ -30,12 +31,14 @@ class TreeNode extends Component {
   }
 
   handleClick() {
-    this.setState(prevState => ({
-      visible: !prevState.visible,
-    }));
     if (this.props.node.path) {
       this.props.AsyncGetInstructorCode(this.props.node.path, this.props.className, this.props.lessonName);
-      this.props.router.push(`/dashboard/${this.props.user}/${this.props.currentClassCode}/${this.props.lessonId}/${this.props.lessonName}/${this.props.node.path}`);
+      // this.props.router.push(`/dashboard/${this.props.user}/${this.props.currentClassCode}/${this.props.lessonId}/${this.props.lessonName}/${this.props.node.path}`);
+      this.props.setCurrentPath(this.props.node.path);
+    } else {
+      this.setState(prevState => ({
+        visible: !prevState.visible,
+      }));
     }
   }
 
@@ -43,11 +46,7 @@ class TreeNode extends Component {
     let childNodes;
     if (this.props.node.childNodes != null) {
       childNodes = this.props.node.childNodes.map((node) => {
-        if (node.path) {
-          return <li key={shortid.generate()} onClick={this.handleClick}><TreeNode AsyncGetInstructorCode={this.props.AsyncGetInstructorCode} router={this.props.router} node={node} className={this.props.className} lessonName={this.props.lessonName} user={this.props.user} currentClassCode={this.props.currentClassCode} lessonId={this.props.lessonId} /></li>;
-        } else {
-          return <li key={shortid.generate()}><TreeNode AsyncGetInstructorCode={this.props.AsyncGetInstructorCode} router={this.props.router} node={node} className={this.props.className} lessonName={this.props.lessonName} user={this.props.user} currentClassCode={this.props.currentClassCode} lessonId={this.props.lessonId} /></li>;
-        }
+        return <li key={shortid.generate()}><TreeNode AsyncGetInstructorCode={this.props.AsyncGetInstructorCode} setCurrentPath={this.props.setCurrentPath} router={this.props.router} node={node} className={this.props.className} lessonName={this.props.lessonName} user={this.props.user} currentClassCode={this.props.currentClassCode} lessonId={this.props.lessonId} /></li>;
       });
     }
 

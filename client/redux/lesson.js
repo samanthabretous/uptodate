@@ -10,7 +10,7 @@ const FETCH_LESSONS = 'fetch_lessons';
 const DROPPED_FOLDER = 'dropped_folder';
 const SELECTED_LESSON = 'selected_lesson';
 const GET_CODE = 'get_code';
-
+const SET_CURRENT_PATH = 'set_current_path';
 
 // -------------------
 // actions
@@ -46,6 +46,11 @@ export const selectedLessonAction = (lessonId, lessonname) => ({
   lessonname,
 });
 
+export const setCurrentPath = (currentPath) => ({
+  type: SET_CURRENT_PATH,
+  currentPath,
+});
+
 export const AsyncGetLessons = (classId, platform) => (dispatch) => {
   axios.get(`http://localhost:2020/api/lessons/byClass/${platform}/${classId}`)
   .then((lessons) => {
@@ -74,6 +79,7 @@ export const AsyncFetchLessons = (classCode, platform) => (dispatch) => {
 
 export const enterFetchLessons = ({ params }) => createStore.dispatch(AsyncFetchLessons(params.currentClassCode, 'web'));
 
+
 export const AsyncGetInstructorCode = (subPath, className, lessonName) => (dispatch) => {
   axios.get('/api/repoFile/getFile', {
     params: {
@@ -87,6 +93,7 @@ export const AsyncGetInstructorCode = (subPath, className, lessonName) => (dispa
  });
 };
 
+
 // -------------------
 // reducer
 // -------------------
@@ -99,6 +106,7 @@ const initialState = {
   lessonname: '',
   lessonId: null,
   instructorCode: '// Code',
+  currentPath: '/',
 };
 
 export default (state = initialState, action) => {
@@ -129,6 +137,8 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, { folderPath: action.folderPath });
     case GET_CODE:
       return Object.assign({}, state, { instructorCode: action.code });
+    case SET_CURRENT_PATH:
+      return Object.assign({}, state, { currentPath: action.currentPath });
     default:
       return state;
   }
