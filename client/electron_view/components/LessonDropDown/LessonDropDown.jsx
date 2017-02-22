@@ -22,8 +22,15 @@ const mapStateToProps = state => ({
 const LessonDropDown = ({ selectedLessonAction, classLessons, lessonId }) => {
   const handleDropDownSelecton = (e) => {
     const target = parseInt(e.target.value);
-    const selectedLesson = _.find(classLessons, ['id', target]).name;
-    selectedLessonAction(target, selectedLesson);
+    // find the lesson associated with the lesson id
+    const selectedLesson = _.find(classLessons, ['id', target]);
+    const isfileWatchedBefore = selectedLesson.fileWatched !== null;
+    selectedLessonAction({
+      lessonId: target,
+      name: selectedLesson.name,
+      folderPath: selectedLesson.fileWatched,
+      isfileWatchedBefore,
+    });
   };
   return (
     <div>

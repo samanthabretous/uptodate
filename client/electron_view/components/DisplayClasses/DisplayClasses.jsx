@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { AsyncGetLessons } from '../../../redux/lesson';
+import style from './DisplayClassStyles';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -19,14 +20,15 @@ const DisplayClasses = (props) => {
   );
 
   return (
-    <div>
-      <ul>
+    <div style={style.displayClasses}>
+      <h3 style={style.h3}>Classes</h3>
+      <ul style={style.ul}>
         {props.classes && props.classes.map(oneClass => (
           <li
             key={oneClass.id}
             onClick={() => getLessonsRelatedToClass(oneClass.id)}
           >
-            <h3>{oneClass.name}</h3>
+            <h3># {oneClass.name.toLowerCase()}</h3>
           </li>
         ))}
       </ul>

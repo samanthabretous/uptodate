@@ -1,31 +1,36 @@
-import colors from './colors';
+import s from './styles';
 
 export default {
   overallRules: {
     '*': {
       margin: 0,
+      fontFamily: 'Muli, sans-serif',
     },
     body: {
       margin: 0,
-      fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif',
       boxSizing: 'border-box',
-    },
-    h3: {
-      fontSize: '.7em',
     },
     ul: {
       margin: 0,
+      padding: 0,
     },
     li: {
       listStyle: 'none',
     },
   },
+  app: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
   infoBar: {
     width: 250,
     height: '100vh',
-    backgroundColor: colors.teal,
+    backgroundColor: s.colors.teal,
     display: 'flex',
     flexDirection: 'column',
-    color: colors.white,
+    color: s.colors.white,
+  },
+  infoContainer: {
+    margin: '10px 20px',
   },
 };

@@ -41,10 +41,9 @@ export const droppedFolderAction = folderPath => ({
   folderPath,
 });
 
-export const selectedLessonAction = (lessonId, lessonname) => ({
+export const selectedLessonAction = lessonInfo => ({
   type: SELECTED_LESSON,
-  lessonId,
-  lessonname,
+  lessonInfo,
 });
 
 export const isMakeLessonVisibleAction = isMakeLessonVisible => ({
@@ -53,7 +52,7 @@ export const isMakeLessonVisibleAction = isMakeLessonVisible => ({
 });
 
 export const AsyncGetLessons = (classId, platform) => (dispatch) => {
-  axios.get(`http://localhost:2020/api/lessons/byClass/${platform}/${classId}`)
+  axios.get(`/api/lessons/byClass/${platform}/${classId}`)
   .then((lessons) => {
     dispatch(getLessons(lessons.data));
   });
@@ -65,14 +64,14 @@ export const enterGetLessons = (nextState) => {
 };
 
 export const AsyncPostLesson = data => (dispatch) => {
-  axios.post('http://localhost:2020/api/lessons/new_lesson', data)
+  axios.post('/api/lessons/new_lesson', data)
   .then((lesson) => {
     dispatch(postLesson(lesson.data));
   });
 };
 
 export const AsyncFetchLessons = (classCode, platform) => (dispatch) => {
-  axios.get(`http://localhost:2020/api/lessons/byClassCode/${platform}/${classCode}`)
+  axios.get(`/api/lessons/byClassCode/${platform}/${classCode}`)
     .then((lessons) => {
       dispatch(fetchLessons(lessons.data));
     });
@@ -106,6 +105,7 @@ const initialState = {
   lessonId: null,
   instructorCode: '// Code',
   isMakeLessonVisible: false,
+  isfileWatchedBefore: false,
 };
 
 export default (state = initialState, action) => {
@@ -136,8 +136,10 @@ export default (state = initialState, action) => {
       });
     case SELECTED_LESSON:
       return Object.assign({}, state, {
-        lessonId: action.lessonId,
-        lessonname: action.lessonname,
+        lessonId: action.lessonInfo.lessonId,
+        lessonname: action.lessonInfo.lessonname,
+        folderPath: action.lessonInfo.folderPath,
+        isfileWatchedBefore: action.lessonInfo.isfileWatchedBefore,
       });
     case DROPPED_FOLDER:
       return Object.assign({}, state, { folderPath: action.folderPath });

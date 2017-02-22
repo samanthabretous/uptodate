@@ -22,14 +22,16 @@ const App = (props) => {
   const isMainView = () => _.includes(pathname, 'add-lesson');
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'row' }}>
+    <div style={style.app}>
       <Style rules={style.overallRules} />
       <div style={style.infoBar}>
-        <div>
-          <h1>upToDate</h1>
-          {firstName && <h4>Hi, {firstName}</h4>}
+        <div style={style.infoContainer}>
+          <div>
+            <h1>upToDate</h1>
+            {firstName && <h4>Hi, {firstName}</h4>}
+          </div>
+          {isMainView() && <DisplayClasses />}
         </div>
-        {isMainView() && <DisplayClasses />}
       </div>
       {children}
     </div>

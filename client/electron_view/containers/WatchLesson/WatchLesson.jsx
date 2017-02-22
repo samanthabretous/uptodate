@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { LessonDropDown, MakeLesson } from '../../components';
 import fileWatcher from '../../utils/fileWatcher';
 import style from './WatchLessonStyles';
 import { socket } from '../../socket/socket';
-import { bindActionCreators } from 'redux';
 import { isMakeLessonVisibleAction } from '../../../redux/lesson';
 
 const mapDispatchToProps = dispatch => (
@@ -16,11 +16,13 @@ const mapDispatchToProps = dispatch => (
 
 const mapStateToProps = state => ({
   folderPath: state.lesson.folderPath,
-  classname: state.lesson.classname,
+  classname: state.lesson.classname || state.classes.currentClass.name,
   lessonId: state.lesson.lessonId,
   lessonname: state.lesson.lessonname,
   classCode: state.lesson.classCode || state.classes.currentClass.enrollmentCode,
   isMakeLessonVisible: state.lesson.isMakeLessonVisible,
+  // indicates previous directory has been watched before
+  isfileWatchedBefore: state.lesson.isfileWatchedBefore,
 });
 
 class WatchLesson extends Component {
@@ -110,6 +112,7 @@ WatchLesson.propTypes = {
   router: PropTypes.object.isRequired,
   isMakeLessonVisible: PropTypes.bool.isRequired,
   isMakeLessonVisibleAction: PropTypes.func.isRequired,
+  isfileWatchedBefore: PropTypes.bool,
 };
 
 WatchLesson.defaultProps = {
@@ -119,6 +122,7 @@ WatchLesson.defaultProps = {
   lessonname: '',
   classCode: '',
   children: null,
+  isfileWatchedBefore: false,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WatchLesson);
