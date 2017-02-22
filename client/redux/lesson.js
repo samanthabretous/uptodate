@@ -61,7 +61,6 @@ export const enterGetLessons = (nextState) => {
 export const AsyncPostLesson = data => (dispatch) => {
   axios.post('/api/lessons/new_lesson', data)
   .then((lesson) => {
-    console.log(lesson)
     dispatch(postLesson(lesson.data));
   });
 };
