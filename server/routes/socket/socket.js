@@ -1,13 +1,23 @@
+const _ = require('lodash');
 const SocketListeners = require('./socket_listeners.js');
 const models = require('../../db/models');
 
-const findAllVotes = lessonId => (
+const findAllVotes = (lessonId, userId) => (
   models.vote.findAll({
     where: {
       lessonId,
     },
     attributes: ['topic', 'id', 'numberOfVotes'],
     order: [['numberOfVotes', 'DESC']],
+    include: [{
+      model: models.user,
+      attributes: ['username'],
+      through: {
+        where: {
+          userId,
+        },
+      },
+    }],
   })
 );
 
@@ -17,20 +27,23 @@ module.exports = ((app, io) => {
       io.sockets.emit('new user', `${user.username} has joined.`);
     });
 
-    socket.on('join-classroom', (classroom) => {
-      socket.join(classroom);
+    socket.on('join-classroom', (classrooms) => {
+      _.map(classrooms, (classroom) => {
+        socket.join(classroom);
+      });
       const rooms = Object.keys(io.sockets.adapter.sids[socket.id]);
       socket.emit('rooms-joined', rooms);
     });
 
-    socket.on('create-vote', ({ topic, lessonId }) => {
+    socket.on('create-vote', ({ topic, lessonId, userId }) => {
       models.vote.create({
         topic,
         lessonId,
       })
-      .then(() => findAllVotes(lessonId))
+      .then(vote => vote.addUser(userId))
+      .then(() => findAllVotes(lessonId, userId))
       .then((votes) => {
-        io.emit('update-votes', votes);
+        io.emit('update-votes', { votes, lesson: lessonId });
       });
     });
 
