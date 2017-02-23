@@ -5,6 +5,7 @@ import { withRouter } from 'react-router';
 import CodeMirror from 'react-codemirror';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/mode/javascript/javascript';
+import styles from './TextEditorStyles';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -34,7 +35,7 @@ class TextEditor extends Component {
     };
     return (
       <div>
-        <CodeMirror value={this.props.instructorCode} options={options} />
+        <CodeMirror style={styles.textEditor} value={this.props.instructorCode} options={options} />
       </div>
     );
   }

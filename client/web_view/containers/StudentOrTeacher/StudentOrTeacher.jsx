@@ -176,7 +176,7 @@ class StudentOrTeacher extends Component {
       { name: 'firstName' },
       { name: 'lastName' },
       { name: 'enrollmentCode',
-        style: style.enterClassroomStyle(position, createClass),
+        style: style.enterClassroomStyle(position, createClass).signupForm,
       },
       { name: 'name',
         style: style.createClassStyle(position, createClass),
