@@ -29,7 +29,7 @@ module.exports = ((app, io) => {
 
     socket.on('join-classroom', (classrooms) => {
       _.map(classrooms, (classroom) => {
-        socket.join(classroom);
+        socket.join(classroom.enrollmentCode);
       });
       const rooms = Object.keys(io.sockets.adapter.sids[socket.id]);
       socket.emit('rooms-joined', rooms);
