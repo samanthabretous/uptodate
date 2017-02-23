@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import shortid from 'shortid';
 import { AsyncGetInstructorCode, setCurrentPath } from '../../../redux/lesson';
+import styles from './TreeNodeStyles';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -45,7 +46,7 @@ class TreeNode extends Component {
     let childNodes;
     if (this.props.node.childNodes != null) {
       childNodes = this.props.node.childNodes.map((node) => {
-        return <li key={shortid.generate()}><TreeNode AsyncGetInstructorCode={this.props.AsyncGetInstructorCode} setCurrentPath={this.props.setCurrentPath} router={this.props.router} node={node} className={this.props.className} lessonName={this.props.lessonName} user={this.props.user} currentClassCode={this.props.currentClassCode} lessonId={this.props.lessonId} /></li>;
+        return <li style={styles.node} key={shortid.generate()}><TreeNode AsyncGetInstructorCode={this.props.AsyncGetInstructorCode} setCurrentPath={this.props.setCurrentPath} router={this.props.router} node={node} className={this.props.className} lessonName={this.props.lessonName} user={this.props.user} currentClassCode={this.props.currentClassCode} lessonId={this.props.lessonId} /></li>;
       });
     }
 
@@ -55,7 +56,7 @@ class TreeNode extends Component {
     }
     return (
       <div>
-        <h5 onClick={this.handleClick}>
+        <h5 style={styles.node} onClick={this.handleClick}>
           {this.props.node.title}
         </h5>
         <ul style={style}>
