@@ -73,7 +73,9 @@ class WatchLesson extends Component {
     return (
       <div className="lesson" style={style.lesson}>
         <div>
-          <h2>{classname}</h2>
+          <div style={style.titlebar}>
+            <h2>{classname}</h2>
+          </div>
           <div>
             <h5>Select a Previous Lesson</h5>
             <LessonDropDown />

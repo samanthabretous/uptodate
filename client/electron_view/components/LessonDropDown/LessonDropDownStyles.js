@@ -1,15 +1,16 @@
 import s from '../../containers/App/styles';
 
 export default {
-  displayClasses: {
-    marginTop: 30,
+  dropDown: {
+    
   },
-  h3: {
-    font: '400 1.6em Muli, san-serif',
+  select: {
+    borderStyle: 'none',
+    background: 'none',
+    border: `1px solid ${s.colors.gray}`,
+    fontSize: 24,
   },
-  ul: {
-    width: '100%',
-    marginLeft: 10,
-    font: 'italic 200 1.1em Muli, san-serif',
+  option: {
+
   },
 };

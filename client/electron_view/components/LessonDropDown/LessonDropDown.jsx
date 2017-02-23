@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import { selectedLessonAction } from '../../../redux/lesson';
+import style from './LessonDropDownStyles';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -24,6 +25,7 @@ const LessonDropDown = ({ selectedLessonAction, classLessons, lessonId }) => {
     const target = parseInt(e.target.value);
     // find the lesson associated with the lesson id
     const selectedLesson = _.find(classLessons, ['id', target]);
+    console.log(selectedLesson)
     const isfileWatchedBefore = selectedLesson.fileWatched !== null;
     selectedLessonAction({
       lessonId: target,
@@ -33,14 +35,19 @@ const LessonDropDown = ({ selectedLessonAction, classLessons, lessonId }) => {
     });
   };
   return (
-    <div>
+    <div style={style.dropDown}>
       <select
+        style={style.select}
         onChange={handleDropDownSelecton}
         value={`${lessonId}`}
       >
-        <option value="first"> Select a Previous Lesson</option>
+        <option
+          style={style.option}
+          value="first"
+        > Select a Previous Lesson</option>
         {classLessons && classLessons.map(lesson => (
           <option
+            style={style.option}
             key={lesson.id}
             value={`${lesson.id}`}
           >

@@ -33,7 +33,9 @@ const App = (props) => {
           {isMainView() && <DisplayClasses />}
         </div>
       </div>
-      {children}
+      <div style={style.children}>
+        {children}
+      </div>
     </div>
   );
 };
