@@ -7,9 +7,9 @@ export default {
     fontFamily: Roboto_Thin,
     width: '200px',
     maxWidth: '200px',
-    ':hover': {
-      backgroundColor: '#0074d9',
-    },
+    // ':hover': {
+    //   backgroundColor: '#0074d9',
+    // },
   },
   treeDiv: {
     backgroundColor: styles.colors.saltpan,
@@ -18,6 +18,10 @@ export default {
     width: '100px',
     margin: '0px',
     padding: '0px',
-    // listStyle: 'none',
+    listStyle: 'none',
+    lineHeight: '1px',
+    // ':hover': {
+    //   backgroundColor: '#0074d9',
+    // },
   },
 };

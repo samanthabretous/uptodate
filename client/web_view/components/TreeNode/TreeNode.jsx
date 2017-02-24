@@ -54,6 +54,8 @@ class TreeNode extends Component {
     let style;
     if (!this.state.visible) {
       style = { display: 'none' };
+    } else {
+      style = { paddingLeft: '12px' };
     }
     return (
       <StyleRoot style={styles.treeDiv}>

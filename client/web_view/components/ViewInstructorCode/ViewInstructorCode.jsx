@@ -6,6 +6,7 @@ import axios from 'axios';
 import { TreeNode, TextEditor } from '../../components/index';
 import { AsyncGetInstructorCode } from '../../../redux/lesson';
 import { socket } from '../../socket/socket';
+import styles from './ViewInstructorCodeStyles';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -54,10 +55,12 @@ class ViewInstructorCode extends Component {
   render() {
     return (
       <div style={{ display: 'flex' }}>
-        <div style={{height: '400px', overflow: 'scroll'}}>
-        <TreeNode node={this.state.directory} />
+        <div style={styles.treeDiv}>
+          <TreeNode node={this.state.directory} />
         </div>
-        <TextEditor />
+        <div style={styles.codeDiv}>
+          <TextEditor />
+        </div>
       </div>
     );
   }
