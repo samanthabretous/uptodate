@@ -61,7 +61,7 @@ class TreeNode extends Component {
           <h5 style={styles.node} onClick={this.handleClick}>
             {this.props.node.title}
           </h5>
-          <ul>
+          <ul style={style}>
             {childNodes}
           </ul>
         </div>
@@ -74,4 +74,6 @@ TreeNode.propTypes = {
   node: PropTypes.object.isRequired,
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Radium(TreeNode)));
+let TreeNodeRadium = Radium(TreeNode);
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TreeNodeRadium));
