@@ -25,7 +25,8 @@ const createWindow = () => {
     mainWindow = null;
   });
 };
-
+// allows for relative paths in ajx calls and images to load
+app.commandLine.appendSwitch('host-rules', 'MAP * localhost');
 app.on('ready', createWindow);
 
 app.on('window-all-closed', () => {

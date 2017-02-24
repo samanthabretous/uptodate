@@ -16,6 +16,7 @@ const mapDispatchToProps = dispatch => (
 
 const mapStateToProps = state => ({
   userInfo: state.titlebar.userInfo,
+  allUserClasses: state.titlebar.classes,
   currentClass: state.titlebar.currentClass,
   isShowAllClasses: state.titlebar.isShowAllClasses,
 });
@@ -28,8 +29,10 @@ class Titlebar extends Component {
 
   componentDidMount() {
     // add user to socket room to recieve all updates about class while in the class view
-    const classCode = JSON.parse(localStorage.classCode) || this.props.currentClass.enrollmentCode
-    socket.emit('join-classroom', classCode);
+    const classCode = JSON.parse(localStorage.classCode) || this.props.currentClass.enrollmentCode;
+    setTimeout(() => {
+      socket.emit('join-classroom', this.props.allUserClasses);
+    }, 2000)
   }
   showAllClasses() {
     this.props.isShowAllClassesAction(!this.props.isShowAllClasses);
@@ -95,15 +98,15 @@ class Titlebar extends Component {
 Titlebar.propTypes = {
   userInfo: PropTypes.object,
   currentClass: PropTypes.object,
-  classes: PropTypes.arrayOf(PropTypes.object),
   isShowAllClasses: PropTypes.bool.isRequired,
   router: PropTypes.object.isRequired,
+  allUserClasses: PropTypes.arrayOf(PropTypes.object),
 };
 
 Titlebar.defaultProps = {
   userInfo: null,
   currentClass: null,
-  classes: null,
+  allUserClasses: null,
 };
 
 

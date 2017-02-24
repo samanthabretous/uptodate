@@ -1,23 +1,34 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { LessonDropDown, MakeLesson } from '../../components';
 import fileWatcher from '../../utils/fileWatcher';
 import style from './WatchLessonStyles';
 import { socket } from '../../socket/socket';
+import { isMakeLessonVisibleAction } from '../../../redux/lesson';
+
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    isMakeLessonVisibleAction,
+  }, dispatch)
+);
+
 
 const mapStateToProps = state => ({
   folderPath: state.lesson.folderPath,
-  classname: state.lesson.classname,
+  classname: state.lesson.classname || state.classes.currentClass.name,
   lessonId: state.lesson.lessonId,
   lessonname: state.lesson.lessonname,
-  classCode: state.lesson.classCode,
+  classCode: state.lesson.classCode || state.classes.currentClass.enrollmentCode,
+  isMakeLessonVisible: state.lesson.isMakeLessonVisible,
+  // indicates previous directory has been watched before
+  isfileWatchedBefore: state.lesson.isfileWatchedBefore,
 });
 
 class WatchLesson extends Component {
   constructor() {
     super();
     this.state = {
-      isMakeLessonVisible: false,
       isWatchingFiles: false,
       stopWatchingFiles: null,
     };
@@ -30,6 +41,7 @@ class WatchLesson extends Component {
   startWatchingFiles(e) {
     e.preventDefault();
     const { folderPath, classname, lessonId, lessonname, classCode } = this.props;
+    console.log(lessonname)
     const watcher = fileWatcher(folderPath, classname, lessonId, lessonname, classCode);
     Promise.resolve(watcher)
     .then(() => {
@@ -51,23 +63,24 @@ class WatchLesson extends Component {
   }
 
   showMakeLessonForm() {
-    this.setState(prevState => ({
-      isMakeLessonVisible: !prevState.isMakeLessonVisible,
-    }));
+    // open and close the make lesson form
+    this.props.isMakeLessonVisibleAction(!this.props.isMakeLessonVisible);
   }
 
   render() {
-    const { folderPath } = this.props;
-    const { isMakeLessonVisible, isWatchingFiles } = this.state;
+    const { folderPath, isMakeLessonVisible, classname } = this.props;
+    const { isWatchingFiles } = this.state;
     return (
       <div className="lesson" style={style.lesson}>
         <div>
+          <div style={style.titlebar}>
+            <h2>{classname}</h2>
+          </div>
           <div>
             <h5>Select a Previous Lesson</h5>
             <LessonDropDown />
-            <h5>or Create New Lesson</h5>
             <button onClick={this.showMakeLessonForm}>
-              {isMakeLessonVisible ? 'x' : '+'}
+              Create New Lesson
             </button>
           </div>
           {isMakeLessonVisible && <MakeLesson />}
@@ -77,8 +90,8 @@ class WatchLesson extends Component {
           }
           <button
             onClick={this.startWatchingFiles}
+            disabled={isWatchingFiles || this.readyToStartLesson()}
           >
-            {/*disabled={isWatchingFiles || this.readyToStartLesson()}*/}
             Start Lesson
           </button>
           <button
@@ -96,9 +109,14 @@ class WatchLesson extends Component {
 WatchLesson.propTypes = {
   folderPath: PropTypes.string,
   classname: PropTypes.string,
-  lessonId: PropTypes.string,
+  lessonId: PropTypes.number,
   lessonname: PropTypes.string,
   classCode: PropTypes.string,
+  params: PropTypes.object.isRequired,
+  router: PropTypes.object.isRequired,
+  isMakeLessonVisible: PropTypes.bool.isRequired,
+  isMakeLessonVisibleAction: PropTypes.func.isRequired,
+  isfileWatchedBefore: PropTypes.bool,
 };
 
 WatchLesson.defaultProps = {
@@ -107,6 +125,8 @@ WatchLesson.defaultProps = {
   lessonId: '',
   lessonname: '',
   classCode: '',
+  children: null,
+  isfileWatchedBefore: false,
 };
 
-export default connect(mapStateToProps)(WatchLesson);
+export default connect(mapStateToProps, mapDispatchToProps)(WatchLesson);

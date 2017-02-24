@@ -10,6 +10,7 @@ const FETCH_LESSONS = 'fetch_lessons';
 const DROPPED_FOLDER = 'dropped_folder';
 const SELECTED_LESSON = 'selected_lesson';
 const GET_CODE = 'get_code';
+const SHOW_MAKE_LESSON = 'show_make_lesson';
 const SET_CURRENT_PATH = 'set_current_path';
 
 // -------------------
@@ -40,10 +41,14 @@ export const droppedFolderAction = folderPath => ({
   folderPath,
 });
 
-export const selectedLessonAction = (lessonId, lessonname) => ({
+export const selectedLessonAction = lessonInfo => ({
   type: SELECTED_LESSON,
-  lessonId,
-  lessonname,
+  lessonInfo,
+});
+
+export const isMakeLessonVisibleAction = isMakeLessonVisible => ({
+  type: SHOW_MAKE_LESSON,
+  isMakeLessonVisible,
 });
 
 export const setCurrentPath = (currentPath) => ({
@@ -107,6 +112,8 @@ const initialState = {
   lessonId: null,
   instructorCode: '// Code',
   currentPath: '/',
+  isMakeLessonVisible: false,
+  isfileWatchedBefore: false,
 };
 
 export default (state = initialState, action) => {
@@ -125,13 +132,23 @@ export default (state = initialState, action) => {
         classCode: action.data[0].class.enrollmentCode,
       });
     case CREATE_LESSON:
+      const appState = createStore.getState();
+      console.log(appState)
+      const classLessons = state.classLessons
+        ? state.classLessons.concat(action.data)
+        : appState.classes.currentClass.lessons.concat(action.data);
       return Object.assign({}, state, {
-        classLessons: state.classLessons.concat(action.data),
+        classLessons,
+        lessonname: action.data.name,
+        lessonId: action.data.id,
+        isMakeLessonVisible: false,
       });
     case SELECTED_LESSON:
       return Object.assign({}, state, {
-        lessonId: action.lessonId,
-        lessonname: action.lessonname,
+        lessonId: action.lessonInfo.lessonId,
+        lessonname: action.lessonInfo.lessonname,
+        folderPath: action.lessonInfo.folderPath,
+        isfileWatchedBefore: action.lessonInfo.isfileWatchedBefore,
       });
     case DROPPED_FOLDER:
       return Object.assign({}, state, { folderPath: action.folderPath });
@@ -139,6 +156,8 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, { instructorCode: action.code });
     case SET_CURRENT_PATH:
       return Object.assign({}, state, { currentPath: action.currentPath });
+    case SHOW_MAKE_LESSON:
+      return Object.assign({}, state, { isMakeLessonVisible: action.isMakeLessonVisible });
     default:
       return state;
   }
