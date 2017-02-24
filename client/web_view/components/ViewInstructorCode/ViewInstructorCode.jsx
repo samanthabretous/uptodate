@@ -54,7 +54,9 @@ class ViewInstructorCode extends Component {
   render() {
     return (
       <div style={{ display: 'flex' }}>
+        <div style={{height: '400px', overflow: 'scroll'}}>
         <TreeNode node={this.state.directory} />
+        </div>
         <TextEditor />
       </div>
     );

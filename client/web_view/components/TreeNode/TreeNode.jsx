@@ -47,7 +47,7 @@ class TreeNode extends Component {
     let childNodes;
     if (this.props.node.childNodes != null) {
       childNodes = this.props.node.childNodes.map((node) => {
-        return <li style={styles.node} key={shortid.generate()}><TreeNode AsyncGetInstructorCode={this.props.AsyncGetInstructorCode} setCurrentPath={this.props.setCurrentPath} router={this.props.router} node={node} className={this.props.className} lessonName={this.props.lessonName} user={this.props.user} currentClassCode={this.props.currentClassCode} lessonId={this.props.lessonId} /></li>;
+        return <li style={styles.listElements} key={shortid.generate()}><TreeNode AsyncGetInstructorCode={this.props.AsyncGetInstructorCode} setCurrentPath={this.props.setCurrentPath} router={this.props.router} node={node} className={this.props.className} lessonName={this.props.lessonName} user={this.props.user} currentClassCode={this.props.currentClassCode} lessonId={this.props.lessonId} /></li>;
       });
     }
 
