@@ -1,4 +1,6 @@
-import colors from '../../containers/App/colors';
+import styles from '../../containers/App/styles';
+
+const { colors } = styles;
 
 export default {
   dashbar: {
@@ -12,7 +14,7 @@ export default {
   firstDashbar: {
     display: 'flex',
     justifyContent: 'space-around',
-    backgroundColor: colors.teal,
+    backgroundColor: colors.mardiGras,
     height: '35%',
     color: colors.white,
   },
@@ -26,7 +28,7 @@ export default {
   },
   secondDashbar: {
     display: 'flex',
-    backgroundColor: colors.orange,
+    backgroundColor: colors.pomegranate,
     height: '65%',
   },
   classInfo: {
