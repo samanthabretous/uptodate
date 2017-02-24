@@ -24,20 +24,21 @@ class Dashboard extends Component {
       lessonname: '',
       lessonId: null,
       instructor: '',
+      classCode: '',
     };
   }
   componentDidMount() {
     // a new lesson has started make notification to let all users know
-    socket.on('lesson-started', ({ lessonname, lessonId, instructor }) => {
-      this.setState({ isNewLessonStarted: true, lessonname, lessonId, instructor });
+    socket.on('lesson-started', ({ lessonname, lessonId, instructor, classCode }) => {
+      this.setState({ isNewLessonStarted: true, lessonname, lessonId, instructor, classCode });
       setTimeout(() => {
         this.setState({ isNewLessonStarted: false, lessonname: '', lessonId: null, instructor: '' });
       }, 5000);
     });
   }
   render() {
-    const { children } = this.props;
-    const { isNewLessonStarted, lessonname, lessonId, instructor } = this.state;
+    const { children, params } = this.props;
+    const { isNewLessonStarted, lessonname, lessonId, instructor, classCode } = this.state;
     return (
       <div style={style.dashboard}>
         <Titlebar />
@@ -51,6 +52,8 @@ class Dashboard extends Component {
             lessonId={lessonId}
             lessonname={lessonname}
             instructor={instructor}
+            classCode={classCode}
+            userId={params.user}
           />
         }
       </div>
@@ -60,6 +63,7 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
   router: PropTypes.object.isRequired,
+  params: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
 };
 

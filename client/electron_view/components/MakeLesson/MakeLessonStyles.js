@@ -12,7 +12,4 @@ export default {
     marginLeft: 10,
     font: 'italic 200 1.1em Muli, san-serif',
   },
-  active: {
-    color: 'red',
-  },
 };

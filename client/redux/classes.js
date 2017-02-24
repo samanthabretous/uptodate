@@ -31,6 +31,11 @@ export const getAllClassNames = (nextState) => {
 const initialState = {
   classes: null,
   firstName: '',
+  currentClass: {
+    enrollmentCode: '',
+    lessons: null,
+    name: '',
+  },
 };
 
 export default (state = initialState, action) => {
@@ -39,6 +44,7 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         classes: action.classes.classes,
         firstName: action.classes.firstName,
+        currentClass: action.classes.currentClass,
       });
     default:
       return state;

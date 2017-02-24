@@ -18,8 +18,12 @@ const mapStateToProps = state => ({
 class DropFolder extends Component {
   constructor() {
     super();
+    this.state = {
+      isDragOver: false,
+    };
     this.handleDrop = this.handleDrop.bind(this);
-    this.handleDrag = this.handleDrag.bind(this);
+    this.handleDragEnter = this.handleDragEnter.bind(this);
+    this.handleDragLeave = this.handleDragLeave.bind(this);
     this.stopDropDefault = this.stopDropDefault.bind(this);
   }
   /* with out preventDefault on all drag and drop event
@@ -30,8 +34,14 @@ class DropFolder extends Component {
     e.preventDefault();
     return false;
   }
-  handleDrag(e) {
+  handleDragEnter(e) {
     e.preventDefault();
+    this.setState({ isDragOver: true });
+    return false;
+  }
+  handleDragLeave(e) {
+    e.preventDefault();
+    this.setState({ isDragOver: false });
     return false;
   }
 
@@ -43,6 +53,7 @@ class DropFolder extends Component {
         this.props.droppedFolderAction(file.path);
       }
     });
+    this.setState({ isDragOver: false });
     return false;
   }
 
@@ -50,13 +61,20 @@ class DropFolder extends Component {
     return (
       <div
         draggable
-        onDragOver={this.handleDrag}
+        onDragEnter={this.handleDragEnter}
         onDragLeave={this.stopDropDefault}
-        onDragEnd={this.stopDropDefault}
+        onDragOver={this.stopDropDefault}
+        onDrag={this.stopDropDefault}
         onDrop={this.handleDrop}
-        id="holder"
         style={style.dropFolder}
       >
+        {this.state.isDragOver &&
+          <div style={style.window}>
+            <div style={style.dragOver}>
+              <h3 style={style.h3}>Drop to upload to UpToDate</h3>
+            </div>
+          </div>
+        }
         { this.props.children }
       </div>
     );

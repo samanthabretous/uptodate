@@ -40,7 +40,7 @@ class LoginOrSignUp extends Component {
 
   checkFormValidation(errors) {
     this.setState(prevState => ({
-      loginFormErrors: Object.assign(prevState.loginFormErrors, errors),
+      loginFormErrors: Object.assign({}, prevState.loginFormErrors, errors),
     }));
   }
 

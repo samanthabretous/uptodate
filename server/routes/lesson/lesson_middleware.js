@@ -2,13 +2,14 @@ const models = require('../../db/models/index');
 
 const Lesson = models.lesson;
 
-// /api/lessons/new-lesson -- create new row in lesson table
+// /api/lessons/new_lesson -- create new row in lesson table
 const createNewLesson = (req, res) => {
+  // req.body = name, classId, lecture(can be null), link(can be null)
   Lesson.create(req.body)
-    .then((newLesson) => {
-      res.send(newLesson);
-    })
-    .catch(err => res.status(500).send(err.message));
+  .then((newLesson) => {
+    res.send(newLesson);
+  })
+  .catch(err => res.status(500).send(err.message));
 };
 
 // /api/lessons/:lessonId
