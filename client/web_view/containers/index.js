@@ -1,4 +1,4 @@
-import colors from './App/colors';
+import styles from './App/styles';
 import AddAssignment from './AddAssignment/AddAssignment';
 import AddLesson from './AddLesson/AddLesson';
 import App from './App/App';
@@ -16,7 +16,7 @@ import SubmitWork from './SubmitWork/SubmitWork';
 
 
 export {
-  colors,
+  styles,
   AddAssignment,
   AddLesson,
   App,

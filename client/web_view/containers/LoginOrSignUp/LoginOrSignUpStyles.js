@@ -1,4 +1,6 @@
-import colors from '../App/colors';
+import styles from '../App/styles';
+
+const { colors } = styles;
 
 export default {
   signupForm: {
@@ -10,7 +12,7 @@ export default {
   signupButton: {
     border: 'none',
     borderRadius: '1vw',
-    backgroundColor: colors.teal,
+    backgroundColor: colors.mardiGras,
     color: colors.white,
     fontSize: '1.5em',
     width: '100%',

@@ -1,19 +1,20 @@
-import colors from '../App/colors';
+import styles from '../App/styles';
+
+const { colors } = styles;
 
 export default {
   homebar: {
-    backgroundColor: colors.teal,
+    backgroundColor: colors.mardiGras,
     color: colors.white,
     textAlign: 'center',
     display: 'flex',
     alignContent: 'center',
 
-    height: '10vh',
+    //height: '10vh',
   },
   logo: {
-    border: '1px solid black',
-    width: '40%',
-    height: '90%',
+    height: '20%',
+    width: '20%',
   },
   loginButton: {
     backgroundColor: 'transparent',
