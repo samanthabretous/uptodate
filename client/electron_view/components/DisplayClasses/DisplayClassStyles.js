@@ -3,9 +3,10 @@ import s from '../../containers/App/styles';
 export default {
   displayClasses: {
     marginTop: 30,
+    color: s.colors.grannyApple,
   },
   h3: {
-    font: '400 1.6em Muli, san-serif',
+    font: '1.6em Muli-bold, san-serif',
   },
   ul: {
     width: '100%',
@@ -13,6 +14,6 @@ export default {
     font: 'italic 200 1.1em Muli, san-serif',
   },
   active: {
-    color: 'red',
+    color: s.colors.pomegranate,
   },
 };
