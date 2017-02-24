@@ -49,8 +49,8 @@ class Votes extends Component {
     socket.emit('create-vote', { topic: topicInput, lessonId, userId });
   }
   increaseVote(voteId) {
-    const { lessonId } = this.props;
-    socket.emit('increase-vote', { voteId, lessonId });
+    const { lessonId, lessonname } = this.props;
+    socket.emit('increase-vote', { voteId, lessonId, lessonname });
   }
 
   decreaseVote(voteId) {

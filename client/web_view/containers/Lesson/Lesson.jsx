@@ -2,12 +2,12 @@ import React, { PropTypes } from 'react';
 import { DiscussionChat, ViewInstructorCode, Votes } from '../../components';
 
 const Lesson = (props) => {
-  const { lessonId, user } = props.params;
+  const { lessonId, user, lesson } = props.params;
   return (
     <div>
       <ViewInstructorCode />
       <div>
-        <Votes userId={user} lessonId={lessonId} />
+        <Votes userId={user} lessonId={lessonId} lessonname={lesson} />
         <DiscussionChat lessonId={lessonId} />
       </div>
     </div>
