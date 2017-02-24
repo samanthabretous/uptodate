@@ -33,6 +33,10 @@ module.exports = {
         test: /\.(eot|svg|ttf|woff(2)?)(\?v=\d+\.\d+\.\d+)?/,
         loader: 'url',
       },
+      {
+        test: /\.(ico|jpg|png|gif|otf|webp|woff|)(\?.*)?$/,
+        loader: 'file',
+      },
     ],
   },
   devtool: 'source-map',
