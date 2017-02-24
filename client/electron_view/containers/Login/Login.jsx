@@ -107,7 +107,7 @@ class LoginOrSignUp extends Component {
   renderInput(type) {
     const { loginFormErrors } = this.state;
     return (
-      <div className={`input ${loginFormErrors[type] ? 'error' : ''}`}>
+      <div>
         <input
           style={style.userInput}
           id={type}
