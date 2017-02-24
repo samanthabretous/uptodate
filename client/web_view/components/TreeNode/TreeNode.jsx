@@ -3,6 +3,7 @@ import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import shortid from 'shortid';
+import Radium, { StyleRoot } from 'radium';
 import { AsyncGetInstructorCode, setCurrentPath } from '../../../redux/lesson';
 import styles from './TreeNodeStyles';
 
@@ -55,14 +56,16 @@ class TreeNode extends Component {
       style = { display: 'none' };
     }
     return (
-      <div>
-        <h5 style={styles.node} onClick={this.handleClick}>
-          {this.props.node.title}
-        </h5>
-        <ul style={style}>
-          {childNodes}
-        </ul>
-      </div>
+      <StyleRoot style={styles.treeDiv}>
+        <div style={styles.treeDiv}>
+          <h5 style={styles.node} onClick={this.handleClick}>
+            {this.props.node.title}
+          </h5>
+          <ul>
+            {childNodes}
+          </ul>
+        </div>
+      </StyleRoot>
     );
   }
 }
@@ -71,4 +74,4 @@ TreeNode.propTypes = {
   node: PropTypes.object.isRequired,
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TreeNode));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Radium(TreeNode)));
