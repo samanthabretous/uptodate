@@ -125,7 +125,7 @@ class LoginOrSignUp extends Component {
   renderInput(type) {
     const { loginFormErrors } = this.state;
     return (
-      <div className={`input ${!!loginFormErrors[type] ? 'error' : ''}`}>
+      <div style={style.userInputContainer}>
         <input
           style={style.userInput}
           id={type}
@@ -155,7 +155,7 @@ class LoginOrSignUp extends Component {
         {this.renderInput('password')}
         <button style={style.signupButton} onClick={this.handleSubmit}>
           {this.isSignupPage()
-            ? 'sign up for free'
+            ? 'Sign up for free'
             : 'Enter Classroom'
           }
         </button>

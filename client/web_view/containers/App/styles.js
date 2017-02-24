@@ -1,14 +1,19 @@
 import Roboto_Thin from '../../fonts/Roboto/Roboto-ThinItalic.ttf';
 
 export default {
+  overAllRules: {
+    '*': {
+      margin: 0,
+      padding: 0,
+      boxSizing: 'border-box',
+    },
+    button: {
+      border: 'none',
+      backgroundColor: 'none',
+    },
+  },
   colors: {
-    teal: '#36D7B6',
-    orange: '#F2AD38',
-    gray: '#A19584',
     white: '#ffffff',
-    black: '#000000',
-    blue: '#0000ff',
-    purple: '#551a8b',
     pomegranate: '#EE3233',
     mardiGras: '#331832',
     grannyApple: '#C7EFCF',
