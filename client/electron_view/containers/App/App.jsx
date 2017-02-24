@@ -18,20 +18,27 @@ const mapStateToProps = state => ({
 });
 
 const App = (props) => {
-  const { children, firstName, location: { pathname } } = props;
-  const isMainView = () => _.includes(pathname, 'add-lesson');
+  const { children, location: { pathname } } = props;
+  const isMainView = () => _.includes(pathname, 'add-lesson') || _.includes(pathname, 'make-lesson');
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'row' }}>
+    <div style={style.app}>
       <Style rules={style.overallRules} />
       <div style={style.infoBar}>
-        <div>
-          <h1>upToDate</h1>
-          {firstName && <h4>Hi, {firstName}</h4>}
+        <div style={style.infoContainer}>
+          <div style={style.logo}>
+            <img
+              style={style.logoImg}
+              alt="logo"
+              src="../web_view/public/images/logos/horizontal-white.png"
+            />
+          </div>
+          {isMainView() && <DisplayClasses />}
         </div>
-        {isMainView() && <DisplayClasses />}
       </div>
-      {children}
+      <div style={style.children}>
+        {children}
+      </div>
     </div>
   );
 };

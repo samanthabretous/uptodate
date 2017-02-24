@@ -1,31 +1,54 @@
-import colors from './colors';
+import s from './styles';
 
 export default {
   overallRules: {
     '*': {
       margin: 0,
+      font: 'Muli, sans-serif',
+      boxSizing: 'border-box',
+    },
+    '*:after, *:before': {
+      boxSizing: 'border-box',
     },
     body: {
       margin: 0,
-      fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif',
-      boxSizing: 'border-box',
-    },
-    h3: {
-      fontSize: '.7em',
     },
     ul: {
       margin: 0,
+      padding: 0,
     },
     li: {
       listStyle: 'none',
     },
+    button: {
+      border: 'none',
+      background: 'none',
+    },
+  },
+  app: {
+    display: 'flex',
+    flexDirection: 'row',
   },
   infoBar: {
-    width: 250,
     height: '100vh',
-    backgroundColor: colors.teal,
+    backgroundColor: s.colors.mardiGras,
     display: 'flex',
+    flex: '0 0 250px',
     flexDirection: 'column',
-    color: colors.white,
+    color: s.colors.white,
+  },
+  infoContainer: {
+    margin: '20px 20px',
+  },
+  logo: {
+    width: '90%',
+    height: 'auto',
+  },
+  logoImg: {
+    width: '100%',
+    height: '100%',
+  },
+  children: {
+    flex: '1 0 0',
   },
 };

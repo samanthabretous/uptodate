@@ -60,14 +60,28 @@ const fetchClassInfo = (req, res) => {
 const getAllUserClasses = (req, res) => {
   models.user.findById(req.params.userId, {
     attributes: ['firstName', 'id'],
-    include: [{
-      model: models.class,
-      attributes: ['id', 'name'],
-      order: ['name', 'DESC'],
-      through: {
-        attributes: [],
+    include: [
+      {
+        model: models.class,
+        attributes: ['id', 'name'],
+        order: ['name', 'DESC'],
+        through: {
+          attributes: [],
+        },
       },
-    }],
+      // information about the current class
+      {
+        model: models.class,
+        as: 'currentClass',
+        attributes: ['id', 'name', 'enrollmentCode'],
+        include: [
+          {
+            model: models.lesson,
+            attributes: ['id', 'name', 'fileWatched'],
+          },
+        ],
+      },
+    ],
   })
   .then((classes) => {
     res.send(classes);

@@ -1,23 +1,36 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { LessonDropDown, MakeLesson } from '../../components';
+import Radium from 'radium';
+import { bindActionCreators } from 'redux';
+import { LessonDropDown } from '../../components';
 import fileWatcher from '../../utils/fileWatcher';
 import style from './WatchLessonStyles';
 import { socket } from '../../socket/socket';
+import { isMakeLessonVisibleAction } from '../../../redux/lesson';
+
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    isMakeLessonVisibleAction,
+  }, dispatch)
+);
+
 
 const mapStateToProps = state => ({
   folderPath: state.lesson.folderPath,
-  classname: state.lesson.classname,
+  firstName: state.classes.firstName,
+  classname: state.lesson.classname || state.classes.currentClass.name,
   lessonId: state.lesson.lessonId,
   lessonname: state.lesson.lessonname,
-  classCode: state.lesson.classCode,
+  classCode: state.lesson.classCode || state.classes.currentClass.enrollmentCode,
+  isMakeLessonVisible: state.lesson.isMakeLessonVisible,
+  // indicates previous directory has been watched before
+  isfileWatchedBefore: state.lesson.isfileWatchedBefore,
 });
 
 class WatchLesson extends Component {
   constructor() {
     super();
     this.state = {
-      isMakeLessonVisible: false,
       isWatchingFiles: false,
       stopWatchingFiles: null,
     };
@@ -51,42 +64,46 @@ class WatchLesson extends Component {
   }
 
   showMakeLessonForm() {
-    this.setState(prevState => ({
-      isMakeLessonVisible: !prevState.isMakeLessonVisible,
-    }));
+    const { router, classCode, params: { userId } } = this.props;
+    router.push(`${userId}/${classCode}/make-lesson`);
   }
 
   render() {
     const { folderPath } = this.props;
-    const { isMakeLessonVisible, isWatchingFiles } = this.state;
+    const { isWatchingFiles } = this.state;
     return (
-      <div className="lesson" style={style.lesson}>
-        <div>
-          <div>
-            <h5>Select a Previous Lesson</h5>
-            <LessonDropDown />
-            <h5>or Create New Lesson</h5>
-            <button onClick={this.showMakeLessonForm}>
-              {isMakeLessonVisible ? 'x' : '+'}
-            </button>
+      <div style={style.lesson}>
+        <div style={style.watchLesson}>
+          <div style={style.main}>
+            <div style={style.selectLesson}>
+              <LessonDropDown />
+              <h3 style={style.or}>OR</h3>
+              <button
+                style={style.createLesson}
+                onClick={this.showMakeLessonForm}
+              >Create New Lesson</button>
+            </div>
+            <div style={style.watchInfo}>
+            {folderPath
+              ? <div><p>You are watching folder:</p> 
+                <span style={style.span}>{folderPath}</span></div>
+              : <div><p>You are not watching any files</p>
+                <p>Drop Folder to start watching</p></div>
+            }
+            </div>
           </div>
-          {isMakeLessonVisible && <MakeLesson />}
-          {folderPath
-            ? <p>You are watching folder: {folderPath}</p>
-            : <p>You are not watching any files</p>
-          }
-          <button
-            onClick={this.startWatchingFiles}
-          >
-            {/*disabled={isWatchingFiles || this.readyToStartLesson()}*/}
-            Start Lesson
-          </button>
-          <button
-            onClick={this.stopWatchingFiles}
-            disabled={!isWatchingFiles}
-          >
-            Stop Lesson
-          </button>
+          <div style={style.lessonButtonsContainer}>
+            <button
+              style={[style.lessonButtons, style.start]}
+              onClick={this.startWatchingFiles}
+              disabled={isWatchingFiles || this.readyToStartLesson()}
+            >Start Watching</button>
+            <button
+              style={[style.lessonButtons, style.stop]}
+              onClick={this.stopWatchingFiles}
+              disabled={!isWatchingFiles}
+            >Stop Watching</button>
+          </div>
         </div>
       </div>
     );
@@ -96,9 +113,15 @@ class WatchLesson extends Component {
 WatchLesson.propTypes = {
   folderPath: PropTypes.string,
   classname: PropTypes.string,
-  lessonId: PropTypes.string,
+  lessonId: PropTypes.number,
   lessonname: PropTypes.string,
   classCode: PropTypes.string,
+  params: PropTypes.object.isRequired,
+  router: PropTypes.object.isRequired,
+  isMakeLessonVisible: PropTypes.bool.isRequired,
+  isMakeLessonVisibleAction: PropTypes.func.isRequired,
+  isfileWatchedBefore: PropTypes.bool,
+  firstName: PropTypes.string,
 };
 
 WatchLesson.defaultProps = {
@@ -107,6 +130,11 @@ WatchLesson.defaultProps = {
   lessonId: '',
   lessonname: '',
   classCode: '',
+  children: null,
+  isfileWatchedBefore: false,
+  firstName: '',
 };
 
-export default connect(mapStateToProps)(WatchLesson);
+WatchLesson = Radium(WatchLesson);
+
+export default connect(mapStateToProps, mapDispatchToProps)(WatchLesson);
