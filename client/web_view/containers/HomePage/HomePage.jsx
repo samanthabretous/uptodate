@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux';
 import style from './HomePageStyles';
 import { loginModalAction } from '../../../redux/login';
 import { LoginOrSignUp } from '../index';
-import logo from '../../logo/logo-vertical-white.png';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -31,7 +30,7 @@ class HomePage extends Component {
       <div style={style.homepage}>
         <nav style={style.homebar}>
           <div style={style.logoContainer}>
-            <img style={style.logo} src={logo} alt="logo" />
+            <img style={style.logo} src="../images/logos/logo-vertical-white.png" alt="logo" />
           </div>
           <button style={style.loginButton} onClick={this.goToLogin}>Log In</button>
         </nav>
