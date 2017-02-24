@@ -17,7 +17,7 @@ const mapStateToProps = state => ({
   state,
 });
 
-class LoginOrSignUp extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -90,7 +90,7 @@ class LoginOrSignUp extends Component {
             position: res.data.position,
           });
           const usedDesktopBefore = res.data.usedDesktopBefore
-            ? `/add-lesson/${res.data.id}/${res.data.currentClass.enrollmentCode}`
+            ? `/${res.data.id}/${res.data.currentClass.enrollmentCode}/add-lesson`
             : 'welcome';
           this.props.router.push(usedDesktopBefore);
         }
@@ -107,7 +107,7 @@ class LoginOrSignUp extends Component {
   renderInput(type) {
     const { loginFormErrors } = this.state;
     return (
-      <div className={`input ${loginFormErrors[type] ? 'error' : ''}`}>
+      <div>
         <input
           style={style.userInput}
           id={type}
@@ -127,28 +127,35 @@ class LoginOrSignUp extends Component {
     const { authenticationError } = this.state;
     return (
       <div style={style.loginForm}>
+        <h2 style={style.loginHeader}>Account Login</h2>
         {this.renderInput('username')}
         {this.renderInput('password')}
-        <button style={style.signupButton} onClick={this.handleSubmit}>
-          Login
+        <button style={style.loginButton} onClick={this.handleSubmit}>
+          Sign In
         </button>
-        <button onClick={this.handleSignUp}>Sign Up</button>
+        <div style={style.webButtons}>
+          <button
+            onClick={this.handleSignUp}
+            style={style.signupButton}
+          >Sign Up</button>
+          <p style={style.forgot}>Forgot your password?</p>
+        </div>
         {authenticationError && <span>There was an error logging in</span>}
       </div>
     );
   }
 }
 
-LoginOrSignUp.propTypes = {
+Login.propTypes = {
   router: PropTypes.object.isRequired,
   pathname: PropTypes.string,
   signUpInfoAction: PropTypes.func.isRequired,
   userInfoAction: PropTypes.func.isRequired,
 };
 
-LoginOrSignUp.defaultProps = {
+Login.defaultProps = {
   pathname: '/login',
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginOrSignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
 

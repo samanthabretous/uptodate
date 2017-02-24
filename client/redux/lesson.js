@@ -69,7 +69,7 @@ export const enterGetLessons = (nextState) => {
 };
 
 export const AsyncPostLesson = data => (dispatch) => {
-  axios.post('/api/lessons/new_lesson', data)
+  axios.post('http://localhost:2020/api/lessons/new_lesson', data)
   .then((lesson) => {
     dispatch(postLesson(lesson.data));
   });
