@@ -14,7 +14,7 @@ const mapDispatchToProps = dispatch => (
 );
 
 const mapStateToProps = (state, ownprops) => ({
-  className: state.titlebar.currentClass && state.titlebar.currentClass.name|| JSON.parse(localStorage.currentClass),
+  className: state.titlebar.currentClass && state.titlebar.currentClass.name|| '',
   lessonName: ownprops.params.lesson,
   lessonId: ownprops.params.lessonId,
   currentPath: state.lesson.currentPath,

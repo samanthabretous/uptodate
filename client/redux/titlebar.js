@@ -46,7 +46,6 @@ export const getTitlebar = (titlebar) => {
 export const getTitlebarInfoAsync = (currentClassCode, userId) => dispatch => (
   axios.get(`/api/classes/titlebar/${currentClassCode}/${userId}`)
   .then((titlebarInfo) => {
-    localStorage.currentClass = JSON.stringify(titlebarInfo);
     dispatch(getTitlebar(titlebarInfo.data));
   })
   .catch(err => err)
