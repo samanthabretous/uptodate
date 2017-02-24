@@ -1,28 +1,46 @@
-import colors from '../App/colors';
+import styles from '../App/styles';
+
+const { colors } = styles;
 
 export default {
+  loginForm: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   signupForm: {
-    border: '1px solid black',
     width: '30%',
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
   },
-  signupButton: {
-    border: 'none',
-    borderRadius: '1vw',
-    backgroundColor: colors.teal,
-    color: colors.white,
-    fontSize: '1.5em',
+  userInputContainer: {
     width: '100%',
-    height: '8%',
+    boxSizing: 'box-sizing',
   },
   userInput: {
-    border: `3px solid ${colors.gray}`,
-    borderRadius: '1vw',
+    boxSizing: 'box-sizing',
+    width: '100%', 
+    border: `3px solid ${colors.mardiGras}`,
     fontSize: '1.5em',
-    padding: '.5vw',
-    width: '95%',
+    height: 50,
     marginBottom: '2vw',
+    color: colors.mardiGras,
+    textAlign: 'center',
+  },
+  signupButton: {
+    background: colors.grannyApple,
+    color: colors.white,
+    border: 'none',
+    fontSize: '1.5em',
+    width: '100%',
+    height: 50,
+  },
+  forgot: {
+    marginLeft: 10,
+    fontFamily: 'Muli-light, san-serif',
+    fontSize: '1rem',
   },
 
 };

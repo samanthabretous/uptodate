@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import TextTruncate from 'react-text-truncate';
+import Radium, { StyleRoot } from 'radium';
+import styles from './DisplayClassLessonsStyle';
 
 
 const mapDispatchToProps = dispatch => (
@@ -18,15 +20,28 @@ const DisplayClassLessons = ({ classLessons, params: { user, currentClassCode } 
     {
       classLessons
       ? classLessons.map(({ name, lecture, id }) => (
-        <div key={id}>
-          <Link to={`/dashboard/${user}/${currentClassCode}/${id}/${name}/none`}><h1> {name} </h1></Link>
-          <TextTruncate
-            line={2}
-            truncateText="…"
-            text={lecture}
-            textTruncateChild={<a href="#">Show more</a>}
-          />
-        </div>
+        <StyleRoot key={id}>
+          <div>
+            <Link to={`/dashboard/${user}/${currentClassCode}/${id}/${name}/none`}><h1> {name} </h1></Link>
+            <TextTruncate
+              id={`truncate-${id}`}
+              line={2}
+              truncateText="…"
+              text={lecture}
+              textTruncateChild={<p
+                key={id}
+                style={[styles.truncate.show]}
+                onClick={styles.truncate.show.func.bind(null, id)}
+              >Show more</p>}
+            />
+            <div id={`full-${id}`} hidden>{lecture}
+              <p
+                style={[styles.truncate.hide]}
+                onClick={styles.truncate.hide.func.bind(null, id)}
+              >hide</p>
+            </div>
+          </div>
+        </StyleRoot>
         ))
       :
       <div>
@@ -42,4 +57,5 @@ DisplayClassLessons.PropTypes = {
   params: PropTypes.object,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DisplayClassLessons);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Radium(DisplayClassLessons));

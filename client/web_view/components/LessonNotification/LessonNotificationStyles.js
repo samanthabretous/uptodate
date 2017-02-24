@@ -1,4 +1,7 @@
-import colors from '../../containers/App/colors';
+import styles from '../../containers/App/styles';
+
+const { colors } = styles;
+
 
 export default {
   box: {

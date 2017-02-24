@@ -1,44 +1,62 @@
-import colors from '../App/colors';
+import styles from '../App/styles';
+
+const { colors } = styles;
 
 export default {
+  homepage: {
+    backgroundColor: colors.mardiGras,
+    height: '100vh',
+  },
   homebar: {
-    backgroundColor: colors.teal,
     color: colors.white,
     textAlign: 'center',
     display: 'flex',
-    alignContent: 'center',
-
-    height: '10vh',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '35px 5%',
+  },
+  logoContainer: {
+    width: '15vw',
+    height: 'auto',
   },
   logo: {
-    border: '1px solid black',
-    width: '40%',
-    height: '90%',
+    height: '100%',
+    width: '100%',
   },
   loginButton: {
-    backgroundColor: 'transparent',
+    background: colors.pomegranate,
     border: 'none',
-    color: colors.black,
-    fontSize: '1.2em',
+    height: 60,
+    width: 200,
+    color: colors.white,
+    fontSize: '1.5em',
     ':hover': {
       background: colors.white,
+      color: colors.pomegranate,
     },
   },
   topSection: {
-    width: '100vw',
-    height: '90vh',
+    boxSizing: 'border-box',
+    width: '100%',
     display: 'flex',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
+    padding: '0 5%',
+    marginTop: '30px',
   },
   headlineContainer: {
-    border: '1px solid black',
-    width: '45%',
+    width: '60%',
   },
   headline: {
-    fontSize: '3em',
     margin: 0,
+    font: '4.4em Muli-bold, san-serif',
+    color: colors.grannyApple,
+    letterSpacing: '-3px',
+    lineHeight: '95%',
   },
   tagline: {
-    fontSize: '2em',
+    font: '2.4em Muli-light, san-serif',
+    color: colors.white,
+    lineHeight: '95%',
+
   },
 };
