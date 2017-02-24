@@ -1,9 +1,10 @@
 export default {
   colors: {
-    teal: '#36D7B6',
-    orange: '#F2AD38',
-    gray: '#A19584',
+    pomegranate: '#EE3233',
+    mardiGras: '#331832',
+    grannyApple: '#C7EFCF',
+    saltpan: '#EEF5DB',
+    lusty: '#772E25',
     white: '#ffffff',
-    black: '#000000',
   },
 };

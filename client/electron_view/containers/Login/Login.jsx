@@ -107,7 +107,7 @@ class LoginOrSignUp extends Component {
   renderInput(type) {
     const { loginFormErrors } = this.state;
     return (
-      <div className={`input ${loginFormErrors[type] ? 'error' : ''}`}>
+      <div>
         <input
           style={style.userInput}
           id={type}
@@ -127,12 +127,19 @@ class LoginOrSignUp extends Component {
     const { authenticationError } = this.state;
     return (
       <div style={style.loginForm}>
+        <h2 style={style.loginHeader}>Account Login</h2>
         {this.renderInput('username')}
         {this.renderInput('password')}
-        <button style={style.signupButton} onClick={this.handleSubmit}>
-          Login
+        <button style={style.loginButton} onClick={this.handleSubmit}>
+          Sign In
         </button>
-        <button onClick={this.handleSignUp}>Sign Up</button>
+        <div style={style.webButtons}>
+          <button
+            onClick={this.handleSignUp}
+            style={style.signupButton}
+          >Sign Up</button>
+          <p style={style.forgot}>Forgot your password?</p>
+        </div>
         {authenticationError && <span>There was an error logging in</span>}
       </div>
     );

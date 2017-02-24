@@ -18,7 +18,7 @@ const mapStateToProps = state => ({
 });
 
 const App = (props) => {
-  const { children, firstName, location: { pathname } } = props;
+  const { children, location: { pathname } } = props;
   const isMainView = () => _.includes(pathname, 'add-lesson');
 
   return (
@@ -26,9 +26,12 @@ const App = (props) => {
       <Style rules={style.overallRules} />
       <div style={style.infoBar}>
         <div style={style.infoContainer}>
-          <div>
-            <h1>upToDate</h1>
-            {firstName && <h4>Hi, {firstName}</h4>}
+          <div style={style.logo}>
+            <img
+              style={style.logoImg}
+              alt="logo"
+              src="../web_view/public/images/logos/horizontal-white.png"
+            />
           </div>
           {isMainView() && <DisplayClasses />}
         </div>

@@ -16,6 +16,7 @@ const mapDispatchToProps = dispatch => (
 
 const mapStateToProps = state => ({
   folderPath: state.lesson.folderPath,
+  firstName: state.classes.firstName,
   classname: state.lesson.classname || state.classes.currentClass.name,
   lessonId: state.lesson.lessonId,
   lessonname: state.lesson.lessonname,
@@ -68,13 +69,14 @@ class WatchLesson extends Component {
   }
 
   render() {
-    const { folderPath, isMakeLessonVisible, classname } = this.props;
+    const { folderPath, isMakeLessonVisible, classname, firstname } = this.props;
     const { isWatchingFiles } = this.state;
     return (
       <div className="lesson" style={style.lesson}>
         <div>
           <div style={style.titlebar}>
             <h2>{classname}</h2>
+            <h3>Hi, {firstname}</h3>
           </div>
           <div>
             <h5>Select a Previous Lesson</h5>
@@ -117,6 +119,7 @@ WatchLesson.propTypes = {
   isMakeLessonVisible: PropTypes.bool.isRequired,
   isMakeLessonVisibleAction: PropTypes.func.isRequired,
   isfileWatchedBefore: PropTypes.bool,
+  firstname: PropTypes.string.isRequired,
 };
 
 WatchLesson.defaultProps = {

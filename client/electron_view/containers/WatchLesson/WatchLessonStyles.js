@@ -5,10 +5,10 @@ export default {
     height: '100vh',
   },
   titlebar: {
-    borderBottom: `1px solid ${s.colors.gray}`,
+    borderBottom: `1px solid ${s.colors.mardiGras}`,
     height: 50,
     display: 'flex',
     alignItems: 'center',
-    paddingLeft: 15, 
+    paddingLeft: 15,
   },
 };

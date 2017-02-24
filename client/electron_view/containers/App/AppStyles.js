@@ -20,6 +20,10 @@ export default {
     li: {
       listStyle: 'none',
     },
+    button: {
+      border: 'none',
+      background: 'none',
+    }
   },
   app: {
     display: 'flex',
@@ -27,14 +31,22 @@ export default {
   },
   infoBar: {
     height: '100vh',
-    backgroundColor: s.colors.teal,
+    backgroundColor: s.colors.mardiGras,
     display: 'flex',
     flex: '0 0 250px',
     flexDirection: 'column',
     color: s.colors.white,
   },
   infoContainer: {
-    margin: '10px 20px',
+    margin: '20px 20px',
+  },
+  logo: {
+    width: '90%',
+    height: 'auto',
+  },
+  logoImg: {
+    width: '100%',
+    height: '100%',
   },
   children: {
     flex: '1 0 0',
