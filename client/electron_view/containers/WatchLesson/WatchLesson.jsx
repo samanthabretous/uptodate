@@ -84,12 +84,16 @@ class WatchLesson extends Component {
               >Create New Lesson</button>
             </div>
             <div style={style.watchInfo}>
-            {folderPath
-              ? <div><p>You are watching folder:</p> 
-                <span style={style.span}>{folderPath}</span></div>
+              {folderPath
+              ? <div>
+                  <p>You are watching folder:</p>
+                  <div style={style.span}>
+                    <h5>{folderPath}</h5>
+                  </div>
+                </div>
               : <div><p>You are not watching any files</p>
                 <p>Drop Folder to start watching</p></div>
-            }
+              }
             </div>
           </div>
           <div style={style.lessonButtonsContainer}>
@@ -118,10 +122,6 @@ WatchLesson.propTypes = {
   classCode: PropTypes.string,
   params: PropTypes.object.isRequired,
   router: PropTypes.object.isRequired,
-  isMakeLessonVisible: PropTypes.bool.isRequired,
-  isMakeLessonVisibleAction: PropTypes.func.isRequired,
-  isfileWatchedBefore: PropTypes.bool,
-  firstName: PropTypes.string,
 };
 
 WatchLesson.defaultProps = {

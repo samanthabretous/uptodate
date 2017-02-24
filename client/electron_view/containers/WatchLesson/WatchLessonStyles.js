@@ -54,9 +54,16 @@ export default {
     font: '1.6em Muli-bold, san-serif',
     textAlign: 'center',
     marginTop: '10%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   span: {
     font: '1em Muli-light, san-serif',
+    width: 400,
+    height: 'auto',
+    wordWrap: 'break-word',
   },
   start: {
     background: s.colors.grannyApple,
