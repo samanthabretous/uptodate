@@ -16,10 +16,11 @@ const seedFunction = () => {
   let enrollmentCode;
   models.sequelize.sync({ force: true })
   .then(() => {
-    models.class.create(classData[3]);
+    const lastClass = models.class.create(classData[0]);
     models.class.create(classData[1]);
     models.class.create(classData[2]);
-    return models.class.create(classData[0]);
+    models.class.create(classData[3]);
+    return lastClass;
   })
   .then((classOne) => {
     enrollmentCode = classOne.get('enrollmentCode');
