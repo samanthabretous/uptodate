@@ -17,7 +17,7 @@ const mapStateToProps = state => ({
   state,
 });
 
-class LoginOrSignUp extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -90,7 +90,7 @@ class LoginOrSignUp extends Component {
             position: res.data.position,
           });
           const usedDesktopBefore = res.data.usedDesktopBefore
-            ? `/add-lesson/${res.data.id}/${res.data.currentClass.enrollmentCode}`
+            ? `/${res.data.id}/${res.data.currentClass.enrollmentCode}/add-lesson`
             : 'welcome';
           this.props.router.push(usedDesktopBefore);
         }
@@ -146,16 +146,16 @@ class LoginOrSignUp extends Component {
   }
 }
 
-LoginOrSignUp.propTypes = {
+Login.propTypes = {
   router: PropTypes.object.isRequired,
   pathname: PropTypes.string,
   signUpInfoAction: PropTypes.func.isRequired,
   userInfoAction: PropTypes.func.isRequired,
 };
 
-LoginOrSignUp.defaultProps = {
+Login.defaultProps = {
   pathname: '/login',
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginOrSignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
 

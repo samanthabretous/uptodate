@@ -19,7 +19,7 @@ const mapStateToProps = state => ({
 
 const App = (props) => {
   const { children, location: { pathname } } = props;
-  const isMainView = () => _.includes(pathname, 'add-lesson');
+  const isMainView = () => _.includes(pathname, 'add-lesson') || _.includes(pathname, 'make-lesson');
 
   return (
     <div style={style.app}>

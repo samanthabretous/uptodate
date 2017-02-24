@@ -2,26 +2,16 @@ import s from '../App/styles';
 
 export default {
   lesson: {
-    height: '100vh',
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'stretch',
   },
-  titlebar: {
-    borderBottom: `1px solid ${s.colors.mardiGras}`,
-    font: '1rem Muli-bold, san-serif',
-    color: s.colors.pomegranate,
-    padding: '5px 15px 0 15px',
-    display: 'flex',
-    flex: '0 0 50px',
-    justifyContent: 'space-between',
-  },
   watchLesson: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    flex: '1 0 0',
+    height: '100%',
   },
   main: {
     width: '100%',

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Radium from 'radium';
 import { bindActionCreators } from 'redux';
-import { LessonDropDown, MakeLesson } from '../../components';
+import { LessonDropDown } from '../../components';
 import fileWatcher from '../../utils/fileWatcher';
 import style from './WatchLessonStyles';
 import { socket } from '../../socket/socket';
@@ -64,19 +64,15 @@ class WatchLesson extends Component {
   }
 
   showMakeLessonForm() {
-    // open and close the make lesson form
-    this.props.isMakeLessonVisibleAction(!this.props.isMakeLessonVisible);
+    const { router, classCode, params: { userId } } = this.props;
+    router.push(`${userId}/${classCode}/make-lesson`);
   }
 
   render() {
-    const { folderPath, isMakeLessonVisible, classname, firstName } = this.props;
+    const { folderPath } = this.props;
     const { isWatchingFiles } = this.state;
     return (
       <div style={style.lesson}>
-        <div style={style.titlebar}>
-          <h2>{classname.toLowerCase()}</h2>
-          <h2>Hi, {firstName}</h2>
-        </div>
         <div style={style.watchLesson}>
           <div style={style.main}>
             <div style={style.selectLesson}>
@@ -109,7 +105,6 @@ class WatchLesson extends Component {
             >Stop Watching</button>
           </div>
         </div>
-        {isMakeLessonVisible && <MakeLesson />}
       </div>
     );
   }
