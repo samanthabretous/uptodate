@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import Radium from 'radium';
 import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import { selectedLessonAction } from '../../../redux/lesson';
@@ -20,12 +21,11 @@ const mapStateToProps = state => ({
   lessonId: state.lesson.lessonId,
 });
 
-const LessonDropDown = ({ selectedLessonAction, classLessons, lessonId }) => {
+const LessonDropDown = Radium(({ selectedLessonAction, classLessons, lessonId }) => {
   const handleDropDownSelecton = (e) => {
     const target = parseInt(e.target.value);
     // find the lesson associated with the lesson id
     const selectedLesson = _.find(classLessons, ['id', target]);
-    console.log(selectedLesson)
     const isfileWatchedBefore = selectedLesson.fileWatched !== null;
     selectedLessonAction({
       lessonId: target,
@@ -57,7 +57,7 @@ const LessonDropDown = ({ selectedLessonAction, classLessons, lessonId }) => {
       </select>
     </div>
   );
-};
+});
 
 LessonDropDown.propTypes = {
   classLessons: PropTypes.arrayOf(PropTypes.object),

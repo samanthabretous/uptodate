@@ -17,19 +17,19 @@ export default {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    border: `15px dashed ${s.colors.orange}`,
+    border: `15px dashed ${s.colors.grannyApple}`,
   },
   dragOver: {
     width: 500,
     height: 300,
-    background: s.colors.black,
-    opacity: '0.8',
+    background: s.colors.mardiGras,
+    opacity: '0.9',
     borderRadius: 25,
     padding: 25,
   },
   h3: {
     color: s.colors.white,
-    fontSize: 50,
     textAlign: 'center',
+    font: '60px Muli-bold, san-serif',
   },
 };

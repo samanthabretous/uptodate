@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import Radium from 'radium';
 import { bindActionCreators } from 'redux';
 import { LessonDropDown, MakeLesson } from '../../components';
 import fileWatcher from '../../utils/fileWatcher';
@@ -42,7 +43,6 @@ class WatchLesson extends Component {
   startWatchingFiles(e) {
     e.preventDefault();
     const { folderPath, classname, lessonId, lessonname, classCode } = this.props;
-    console.log(lessonname)
     const watcher = fileWatcher(folderPath, classname, lessonId, lessonname, classCode);
     Promise.resolve(watcher)
     .then(() => {
@@ -69,40 +69,47 @@ class WatchLesson extends Component {
   }
 
   render() {
-    const { folderPath, isMakeLessonVisible, classname, firstname } = this.props;
+    const { folderPath, isMakeLessonVisible, classname, firstName } = this.props;
     const { isWatchingFiles } = this.state;
     return (
-      <div className="lesson" style={style.lesson}>
-        <div>
-          <div style={style.titlebar}>
-            <h2>{classname}</h2>
-            <h3>Hi, {firstname}</h3>
-          </div>
-          <div>
-            <h5>Select a Previous Lesson</h5>
-            <LessonDropDown />
-            <button onClick={this.showMakeLessonForm}>
-              Create New Lesson
-            </button>
-          </div>
-          {isMakeLessonVisible && <MakeLesson />}
-          {folderPath
-            ? <p>You are watching folder: {folderPath}</p>
-            : <p>You are not watching any files</p>
-          }
-          <button
-            onClick={this.startWatchingFiles}
-            disabled={isWatchingFiles || this.readyToStartLesson()}
-          >
-            Start Lesson
-          </button>
-          <button
-            onClick={this.stopWatchingFiles}
-            disabled={!isWatchingFiles}
-          >
-            Stop Lesson
-          </button>
+      <div style={style.lesson}>
+        <div style={style.titlebar}>
+          <h2>{classname.toLowerCase()}</h2>
+          <h2>Hi, {firstName}</h2>
         </div>
+        <div style={style.watchLesson}>
+          <div style={style.main}>
+            <div style={style.selectLesson}>
+              <LessonDropDown />
+              <h3 style={style.or}>OR</h3>
+              <button
+                style={style.createLesson}
+                onClick={this.showMakeLessonForm}
+              >Create New Lesson</button>
+            </div>
+            <div style={style.watchInfo}>
+            {folderPath
+              ? <div><p>You are watching folder:</p> 
+                <span style={style.span}>{folderPath}</span></div>
+              : <div><p>You are not watching any files</p>
+                <p>Drop Folder to start watching</p></div>
+            }
+            </div>
+          </div>
+          <div style={style.lessonButtonsContainer}>
+            <button
+              style={[style.lessonButtons, style.start]}
+              onClick={this.startWatchingFiles}
+              disabled={isWatchingFiles || this.readyToStartLesson()}
+            >Start Watching</button>
+            <button
+              style={[style.lessonButtons, style.stop]}
+              onClick={this.stopWatchingFiles}
+              disabled={!isWatchingFiles}
+            >Stop Watching</button>
+          </div>
+        </div>
+        {isMakeLessonVisible && <MakeLesson />}
       </div>
     );
   }
@@ -119,7 +126,7 @@ WatchLesson.propTypes = {
   isMakeLessonVisible: PropTypes.bool.isRequired,
   isMakeLessonVisibleAction: PropTypes.func.isRequired,
   isfileWatchedBefore: PropTypes.bool,
-  firstname: PropTypes.string.isRequired,
+  firstName: PropTypes.string,
 };
 
 WatchLesson.defaultProps = {
@@ -130,6 +137,9 @@ WatchLesson.defaultProps = {
   classCode: '',
   children: null,
   isfileWatchedBefore: false,
+  firstName: '',
 };
+
+WatchLesson = Radium(WatchLesson);
 
 export default connect(mapStateToProps, mapDispatchToProps)(WatchLesson);

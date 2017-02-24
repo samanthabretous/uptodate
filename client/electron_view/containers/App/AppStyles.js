@@ -4,7 +4,7 @@ export default {
   overallRules: {
     '*': {
       margin: 0,
-      fontFamily: 'Muli, sans-serif',
+      font: 'Muli, sans-serif',
       boxSizing: 'border-box',
     },
     '*:after, *:before': {
@@ -23,7 +23,7 @@ export default {
     button: {
       border: 'none',
       background: 'none',
-    }
+    },
   },
   app: {
     display: 'flex',
