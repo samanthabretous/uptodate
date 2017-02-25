@@ -41,7 +41,9 @@ export default (
         component={ShowAllWork}
         onEnter={enterGetWork}
       />
-      <Route path=":lessonId/:lesson/*" component={Lesson} />
+      <Route path=":lessonId/:lesson/*" component={Lesson}
+        onEnter={enterGetStudentInfo}
+      />
     </Route>
   </Route>
 );
