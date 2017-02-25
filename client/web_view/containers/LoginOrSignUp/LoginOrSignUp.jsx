@@ -23,9 +23,9 @@ class LoginOrSignUp extends Component {
     super(props);
     this.state = {
       loginFormErrors: {},
-      username: 'vfrizzle',
+      username: 'sam',
       email: '',
-      password: 'password1',
+      password: 'password2',
       authenticationError: null,
     };
     this.isSignupPage = this.isSignupPage.bind(this);
