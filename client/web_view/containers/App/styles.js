@@ -30,6 +30,7 @@ export default {
   ul: {
     listStyleType: 'none',
     listStyleImage: 'fa fa-angle-right',
+    paddingLeft: '20px',
     overflow: 'scroll',
   },
   ol: {

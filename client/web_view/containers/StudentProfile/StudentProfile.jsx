@@ -101,7 +101,7 @@ class StudentProfile extends Component {
     return (
       <div id="grades" style={style.grades} key="grades">
         <h1 style={appStyles.h1}>Recent Grades: </h1>
-        <ul style={appStyles.ul}>
+        <ul style={[appStyles.ul, { paddingLeft: '0px' }]}>
           {
             // moment formats our dates into something more palatable for the user
             submittedWork.map((work, idx) => (
@@ -119,14 +119,14 @@ class StudentProfile extends Component {
 
   renderDueAssignments() {
     const classAssignments = this.props.student.classAssignments;
-    const { user, currentClassCode } = (this.props.params)
+    const { user, currentClassCode } = this.props.params;
     return (
       <div id="assignments" style={style.assignments} key="assignments">
 
         <h1 style={appStyles.h1}>Upcoming due dates: </h1>
 
         {
-          classAssignments.map(({ due, instructions,id }, idx) => (
+          classAssignments.map(({ due, instructions, id }, idx) => (
 
             <div key={idx} style={style.assignments.item}>
 
