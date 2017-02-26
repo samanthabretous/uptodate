@@ -1,4 +1,4 @@
-import Roboto_Thin from '../../fonts/Roboto/Roboto-ThinItalic.ttf';
+import Roboto_Thin from '../../public/fonts/Roboto/Roboto-ThinItalic.ttf';
 import styles from '../../containers/App/styles';
 
 export default {
