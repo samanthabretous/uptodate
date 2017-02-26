@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { withRouter } from 'react-router';
 import FontAwesome from 'react-fontawesome';
 
-const AssignmentButton = ({ currentLocation, currentClassId, router }) => {
+const AssignmentButton = ({ currentLocation, currentClassId, userPosition, router }) => {
   const buttonClick = () => {
     let goTo = currentLocation.split('/');
     goTo = goTo.slice(1, 4).join('/');
@@ -18,12 +18,12 @@ const AssignmentButton = ({ currentLocation, currentClassId, router }) => {
   return (
     <div>
       <button onClick={goToAssignments}><h4>ASSIGNMENT</h4></button>
-      <button onClick={buttonClick}>
+      {userPosition !== 'Student' && <button onClick={buttonClick}>
         <FontAwesome
           name="plus"
           size="2x"
         />
-      </button>
+      </button>}
     </div>
   );
 };
@@ -31,12 +31,14 @@ const AssignmentButton = ({ currentLocation, currentClassId, router }) => {
 AssignmentButton.propTypes = {
   currentLocation: PropTypes.string,
   currentClassId: PropTypes.number,
+  userPosition: PropTypes.string,
   router: PropTypes.object.isRequired,
 };
 
 AssignmentButton.defaultProps = {
   currentLocation: '',
   currentClassId: null,
+  userPosition: '',
 };
 
 export default withRouter(AssignmentButton);

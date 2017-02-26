@@ -82,10 +82,12 @@ class Titlebar extends Component {
               <AssignmentButton
                 currentLocation={router.getCurrentLocation().pathname}
                 currentClassId={currentClass.id}
+                userPosition={userInfo.position}
               />
               <LessonButton
                 currentLocation={router.getCurrentLocation().pathname}
                 currentClassId={currentClass.id}
+                userPosition={userInfo.position}
               />
             </div>
           </div>
