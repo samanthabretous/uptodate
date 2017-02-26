@@ -7,8 +7,10 @@ export default {
     display: 'flex',
     margin: '2%',
     height: '80vh',
-    background: 'green',
   },
   directoryAndEditor: {
+  },
+  rightBar: {
+    marginLeft: '3%',
   },
 };

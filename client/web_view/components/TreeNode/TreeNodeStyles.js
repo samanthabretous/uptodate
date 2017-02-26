@@ -6,23 +6,18 @@ const { colors } = style;
 export default {
   node: {
     font: '1.2em Muli-light, san-serif',
-    border: '3px solid green',
   },
   treeDiv: {
-    width: '20%',
-    height: '100%',
+    width: '100%',
+    height: '85%',
     padding: '1%',
     color: colors.white,
-    backgroundColor: colors.lusty, 
+    backgroundColor: colors.lusty,
   },
   listElements: {
-    width: '100px',
+    width: '100%',
     margin: '0px',
     padding: '0px',
     listStyle: 'none',
-    lineHeight: '1px',
-  },
-  h3: {
-    font: '1.5em Muli-bold, san-serif',
   },
 };

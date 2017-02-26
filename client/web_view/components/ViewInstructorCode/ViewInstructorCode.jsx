@@ -77,7 +77,10 @@ class ViewInstructorCode extends Component {
   render() {
     return (
       <div style={style.directoryPlusEditor}>
-        <TreeNode node={this.state.directory} />
+        <div style={style.treeNodeContainer}>
+          <h3 style={style.h3}>{this.props.lessonName}</h3>
+          <TreeNode node={this.state.directory} />
+        </div>
         <TextEditor language={this.state.language} />
       </div>
     );

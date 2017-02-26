@@ -81,7 +81,6 @@ class TreeNode extends Component {
     }
     return (
       <div style={styles.treeDiv}>
-        <h3 style={style.h3}>{this.props.lessonName}</h3>
         <h5 style={styles.node} onClick={this.handleClick}>
           {this.props.node.title}
         </h5>

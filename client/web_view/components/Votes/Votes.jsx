@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import FontAwesome from 'react-fontawesome';
 import _ from 'lodash';
+import Radium from 'radium';
 import style from './VotesStyles';
 import { socket } from '../../socket/socket';
 import { getVotesAsync, allVotes } from '../../../redux/votes';
@@ -61,38 +62,43 @@ class Votes extends Component {
   render() {
     const { lessonVotes } = this.props;
     return (
-      <div style={style.voteContainer}>
-        <div>
+      <div style={style.vote}>
+        <h3 style={style.h3}>Vote on Topics</h3>
+        <div style={style.voteContainer}>
           {lessonVotes && _.map(lessonVotes, vote => (
-            <div key={vote.id}>
-              <p>{vote.topic}</p>
-              <p>{vote.numberOfVotes}</p>
-              <div>
+            <div style={style.topicContainer} key={vote.id}>
+              <p style={style.topic}>{vote.topic}</p>
+              <div style={style.voteButtons}>
                 <button
+                  style={style.up}
                   onClick={() => this.increaseVote(vote.id)}
                 >
                   <FontAwesome
                     name="arrow-up"
-                    size="2x"
+                    size="4x"
                   />
                 </button>
                 <button
+                  style={style.down}
                   onClick={() => this.decreaseVote(vote.id)}
                 >
                   <FontAwesome
                     name="arrow-down"
-                    size="2x"
+                    size="4x"
                   />
                 </button>
               </div>
             </div>
           ))}
         </div>
-        <input
-          type="text"
-          onChange={this.handleTopicInput}
-        />
-        <button onClick={this.addTopic}>Add Topic</button>
+        <div style={style.addTopicContainer}>
+          <input
+            style={style.input}
+            type="text"
+            onChange={this.handleTopicInput}
+          />
+          <button style={style.add} onClick={this.addTopic}>Add</button>
+        </div>
       </div>
     );
   }
@@ -110,4 +116,4 @@ Votes.defaultProps = {
   lessonVotes: null,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Votes);
+export default connect(mapStateToProps, mapDispatchToProps)(Radium(Votes));
