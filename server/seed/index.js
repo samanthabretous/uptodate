@@ -41,6 +41,66 @@ const seedFunction = () => {
   .then((user) => {
     user.addClasses([1, 2, 3]);
   })
+  .then(() => models.user.create(Object.assign(userData[4], { lastClassViewed: enrollmentCode })))
+  .then((user) => {
+    user.addClasses([1, 3]);
+  })
+  .then(() => models.user.create(Object.assign(userData[5], { lastClassViewed: enrollmentCode })))
+  .then((user) => {
+    user.addClasses([1, 2]);
+  })
+  .then(() => models.user.create(Object.assign(userData[6], { lastClassViewed: enrollmentCode })))
+  .then((user) => {
+    user.addClasses([1]);
+  })
+  .then(() => models.user.create(Object.assign(userData[7], { lastClassViewed: enrollmentCode })))
+  .then((user) => {
+    user.addClasses([1]);
+  })
+  .then(() => models.user.create(Object.assign(userData[8], { lastClassViewed: enrollmentCode })))
+  .then((user) => {
+    user.addClasses([1, 3]);
+  })
+  .then(() => models.user.create(Object.assign(userData[9], { lastClassViewed: enrollmentCode })))
+  .then((user) => {
+    user.addClasses([1, 3]);
+  })
+  .then(() => models.user.create(Object.assign(userData[10], { lastClassViewed: enrollmentCode })))
+  .then((user) => {
+    user.addClasses([1, 2]);
+  })
+  .then(() => models.user.create(Object.assign(userData[11], { lastClassViewed: enrollmentCode })))
+  .then((user) => {
+    user.addClasses([1, 2]);
+  })
+  .then(() => models.user.create(Object.assign(userData[12], { lastClassViewed: enrollmentCode })))
+  .then((user) => {
+    user.addClasses([1]);
+  })
+  .then(() => models.user.create(Object.assign(userData[13], { lastClassViewed: enrollmentCode })))
+  .then((user) => {
+    user.addClasses([1, 3]);
+  })
+    .then(() => models.user.create(Object.assign(userData[14], { lastClassViewed: enrollmentCode })))
+  .then((user) => {
+    user.addClasses([1, 2, 3]);
+  })
+  .then(() => models.user.create(Object.assign(userData[15], { lastClassViewed: enrollmentCode })))
+  .then((user) => {
+    user.addClasses([1, 2, 3]);
+  })
+  .then(() => models.user.create(Object.assign(userData[16], { lastClassViewed: enrollmentCode })))
+  .then((user) => {
+    user.addClasses([1, 2, 3]);
+  })
+  .then(() => models.user.create(Object.assign(userData[17], { lastClassViewed: enrollmentCode })))
+  .then((user) => {
+    user.addClasses([1, 2, 3]);
+  })
+  .then(() => models.user.create(Object.assign(userData[18], { lastClassViewed: enrollmentCode })))
+  .then((user) => {
+    user.addClasses([1, 2, 3]);
+  })
   // create lesson assoications
   .then(() => {
     models.lesson.bulkCreate(lessonData);
