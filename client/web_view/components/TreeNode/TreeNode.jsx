@@ -80,16 +80,15 @@ class TreeNode extends Component {
       style = { paddingLeft: '12px' };
     }
     return (
-      <StyleRoot style={styles.treeDiv}>
-        <div style={styles.treeDiv}>
-          <h5 style={styles.node} onClick={this.handleClick}>
-            {this.props.node.title}
-          </h5>
-          <ul style={style}>
-            {childNodes}
-          </ul>
-        </div>
-      </StyleRoot>
+      <div style={styles.treeDiv}>
+        <h3 style={style.h3}>{this.props.lessonName}</h3>
+        <h5 style={styles.node} onClick={this.handleClick}>
+          {this.props.node.title}
+        </h5>
+        <ul style={style}>
+          {childNodes}
+        </ul>
+      </div>
     );
   }
 }

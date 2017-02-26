@@ -1,18 +1,19 @@
 import Roboto_Thin from '../../public/fonts/Roboto/Roboto-ThinItalic.ttf';
-import styles from '../../containers/App/styles';
+import style from '../../containers/App/styles';
+
+const { colors } = style;
 
 export default {
   node: {
-    marginTop: '30px',
-    fontFamily: Roboto_Thin,
-    width: '200px',
-    maxWidth: '200px',
-    // ':hover': {
-    //   backgroundColor: '#0074d9',
-    // },
+    font: '1.2em Muli-light, san-serif',
+    border: '3px solid green',
   },
   treeDiv: {
-    backgroundColor: styles.colors.saltpan,
+    width: '20%',
+    height: '100%',
+    padding: '1%',
+    color: colors.white,
+    backgroundColor: colors.lusty, 
   },
   listElements: {
     width: '100px',
@@ -20,8 +21,8 @@ export default {
     padding: '0px',
     listStyle: 'none',
     lineHeight: '1px',
-    // ':hover': {
-    //   backgroundColor: '#0074d9',
-    // },
+  },
+  h3: {
+    font: '1.5em Muli-bold, san-serif',
   },
 };

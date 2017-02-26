@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 import CodeMirror from 'react-codemirror';
+import { Style } from 'radium';
 import 'codemirror/lib/codemirror.css';
+import 'codemirror/theme/blackboard.css';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/css/css';
 import 'codemirror/mode/xml/xml';
 import 'codemirror/mode/jsx/jsx';
-import styles from './TextEditorStyles';
+import style from './TextEditorStyles';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -36,10 +38,12 @@ class TextEditor extends Component {
       mode: this.props.language,
       htmlMode: this.props.language === 'xml',
       readOnly,
+      theme: 'blackboard',
     };
     return (
-      <div>
-        <CodeMirror style={styles.textEditor} value={this.props.instructorCode} options={options} />
+      <div style={style.textEditorContainer}>
+        <Style rules={style.codemirror} />
+        <CodeMirror value={this.props.instructorCode} options={options} />
       </div>
     );
   }
