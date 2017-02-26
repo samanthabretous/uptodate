@@ -40,7 +40,7 @@ class HomePage extends Component {
             <h1 style={style.headline}>Made by Students</h1>
             <h2 style={style.tagline}>We believe learning should be as seamless as possible. So we created a content management system to help increase productivity.</h2>
           </div>
-          <LoginOrSignUp pathname={this.props.location.pathname} />
+          <LoginOrSignUp pathname={this.props.location.pathname} home />
         </section>
         {this.props.children}
       </div>

@@ -12,6 +12,12 @@ export default {
       border: 'none',
       background: 'none',
     },
+    li: {
+      listStyle: 'none',
+    },
+    ul: {
+      margin: 0,
+    },
   },
   colors: {
     white: '#ffffff',

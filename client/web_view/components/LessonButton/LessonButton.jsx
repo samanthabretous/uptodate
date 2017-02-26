@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { withRouter } from 'react-router';
 import FontAwesome from 'react-fontawesome';
+import style from './LessonButtonStyles';
 
 const LessonButton = ({ currentLocation, currentClassId, router }) => {
   const buttonClick = () => {
@@ -16,9 +17,11 @@ const LessonButton = ({ currentLocation, currentClassId, router }) => {
   };
 
   return (
-    <div>
-      <button onClick={goToLessons}><h4>LESSONS</h4></button>
-      <button onClick={buttonClick}>
+    <div style={style.lesson}>
+      <button style={style.show} onClick={goToLessons}>
+        <h4>LESSONS</h4>
+      </button>
+      <button style={style.add} onClick={buttonClick}>
         <FontAwesome
           name="plus"
           size="2x"

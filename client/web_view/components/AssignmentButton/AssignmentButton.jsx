@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { withRouter } from 'react-router';
 import FontAwesome from 'react-fontawesome';
+import style from './AssignmentButtonStyles';
 
 const AssignmentButton = ({ currentLocation, currentClassId, router }) => {
   const buttonClick = () => {
@@ -16,9 +17,11 @@ const AssignmentButton = ({ currentLocation, currentClassId, router }) => {
   };
 
   return (
-    <div>
-      <button onClick={goToAssignments}><h4>ASSIGNMENT</h4></button>
-      <button onClick={buttonClick}>
+    <div style={style.assignment}>
+      <button style={style.show} onClick={goToAssignments}>
+        <h4>ASSIGNMENT</h4>
+      </button>
+      <button style={style.add} onClick={buttonClick}>
         <FontAwesome
           name="plus"
           size="2x"
