@@ -1,4 +1,4 @@
-import colors from '../App/colors';
+import colors from '../App/styles';
 
 const modalStyle = {
   signupForm: {
@@ -10,14 +10,14 @@ const modalStyle = {
   signupButton: {
     border: 'none',
     borderRadius: '1vw',
-    backgroundColor: colors.teal,
+    backgroundColor: colors.grannyApple,
     color: colors.white,
     fontSize: '1.5em',
     width: '100%',
     height: '8%',
   },
   userInput: {
-    border: `3px solid ${colors.gray}`,
+    border: `3px solid ${colors.mardiGras}`,
     borderRadius: '1vw',
     fontSize: '1.5em',
     padding: '.5vw',

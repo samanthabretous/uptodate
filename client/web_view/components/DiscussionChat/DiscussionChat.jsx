@@ -5,6 +5,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import { socket } from '../../socket/socket';
 import { AsyncGetDiscussion, addMessageAction } from '../../../redux/discussion';
+import style from './DiscussionChatStyles';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
@@ -56,22 +57,23 @@ class DiscussionChat extends Component {
   render() {
     const { chatMessages } = this.props;
     return (
-      <div>
-        <ul>
+      <div style={style.discussion}>
+        <ul style={style.ul}>
           {chatMessages && _.map(chatMessages, message => (
-            <li key={message.id}>
+            <li style={style.li} key={message.id}>
               <p><span>{message.user.username}</span>{moment(message.createdAt).format('MMMM Do, h:mm a')}</p>
               <p>{message.comment}</p>
             </li>
           ))}
         </ul>
-        <div>
+        <div style={style.chat}>
           <input
+            style={style.input}
             type="text"
             onChange={this.handleMessageInput}
             value={this.state.messageInput}
           />
-          <button onClick={this.sendMessage}>Send</button>
+          <button style={style.button} onClick={this.sendMessage}>Send</button>
         </div>
       </div>
     );

@@ -7,7 +7,6 @@ export default {
       margin: 0,
       padding: 0,
       boxSizing: 'border-box',
-      fontFamily: 'Helvetica',
     },
     button: {
       border: 'none',
@@ -30,7 +29,6 @@ export default {
   },
   h1: {
     color: '#EE3233',
-    fontFamily: robotoThin,
     fontSize: '1.5em',
   },
   ul: {

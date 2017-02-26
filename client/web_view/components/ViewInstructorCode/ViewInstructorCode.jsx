@@ -4,18 +4,18 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 import axios from 'axios';
 import { TreeNode, TextEditor } from '../../components/index';
-import { AsyncGetInstructorCode } from '../../../redux/lesson';
+import { getInstructorCode } from '../../../redux/lesson';
 import { socket } from '../../socket/socket';
-import styles from './ViewInstructorCodeStyles';
+import style from './ViewInstructorCodeStyles';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
-    AsyncGetInstructorCode,
+    getInstructorCode,
   }, dispatch)
 );
 
 const mapStateToProps = (state, ownprops) => ({
-  className: state.titlebar.currentClass && state.titlebar.currentClass.name|| '',
+  className: state.titlebar.currentClass && state.titlebar.currentClass.name || '',
   lessonName: ownprops.params.lesson,
   lessonId: ownprops.params.lessonId,
   currentPath: state.lesson.currentPath,
@@ -28,6 +28,7 @@ class ViewInstructorCode extends Component {
       directory: {
         title: 'lesson',
         childNodes: [],
+        language: '',
       },
     };
   }
@@ -43,7 +44,28 @@ class ViewInstructorCode extends Component {
        * every time a file updates first check if the subpath matches the url params
        */
       if (this.props.currentPath === subPath) {
-        this.props.AsyncGetInstructorCode(subPath, this.props.className, this.props.lessonName);
+        const fileType = subPath.split('.')[1];
+        let language = null;
+        Promise.resolve(fileType)
+        .then(() => {
+          switch (fileType) {
+            case 'js':
+              language = 'javascript';
+              break;
+            case 'css':
+              language = 'text/css';
+              break;
+            case 'html':
+              language = 'xml';
+              break;
+            default:
+              language = fileType;
+              break;
+          }
+        })
+        .then(() => {
+          this.props.getInstructorCode(data, language);
+        });
       }
     });
 
@@ -54,13 +76,12 @@ class ViewInstructorCode extends Component {
 
   render() {
     return (
-      <div style={{ display: 'flex' }}>
-        <div style={styles.treeDiv}>
+      <div style={style.directoryPlusEditor}>
+        <div style={style.treeNodeContainer}>
+          <h3 style={style.h3}>{this.props.lessonName}</h3>
           <TreeNode node={this.state.directory} />
         </div>
-        <div style={styles.codeDiv}>
-          <TextEditor />
-        </div>
+        <TextEditor language={this.state.language} />
       </div>
     );
   }
@@ -68,11 +89,15 @@ class ViewInstructorCode extends Component {
 ViewInstructorCode.propTypes = {
   lessonId: PropTypes.string.isRequired,
   lessonName: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  currentPath: PropTypes.string,
+  getInstructorCode: PropTypes.func.isRequired,
 };
 
 ViewInstructorCode.defaultProps = {
   className: '',
   lessonName: '',
+  currentPath: '',
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ViewInstructorCode));

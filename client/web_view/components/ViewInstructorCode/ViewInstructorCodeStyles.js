@@ -1,12 +1,24 @@
-import styles from '../../containers/App/styles';
+import style from '../../containers/App/styles';
+
+const { colors } = style;
 
 export default {
-  treeDiv: {
-    height: '400px',
-    overflow: 'scroll',
-    backgroundColor: styles.colors.saltpan,
+  directoryPlusEditor: {
+    display: 'flex',
+    height: '100%',
+    width: '60vw',
   },
-  codeDiv: {
-    marginTop: '30px',
-  }
-}
+  treeNodeContainer: {
+    width: '20%',
+    height: '100%',
+    padding: '1%',
+    display: 'flex',
+    flexDirection: 'column',
+    color: colors.white,
+    backgroundColor: colors.lusty,
+  },
+  h3: {
+    height: '15%',
+    font: '1.5em Muli-bold, san-serif',
+  },
+};
