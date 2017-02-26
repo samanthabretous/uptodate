@@ -50,39 +50,39 @@ const seedFunction = () => {
   })
   .then(() => models.work.create(workData[0]))
   .then((work) => {
-    work.addUser(1);
+    work.addUser(2);
     return models.work.create(workData[1]);
   })
   .then((work) => {
-    work.addUser(1);
+    work.addUser(2);
     return models.work.create(workData[2]);
   })
   .then((work) => {
-    work.addUser(1);
+    work.addUser(2);
     return models.work.create(workData[3]);
   })
   .then((work) => {
-    work.addUser(1);
+    work.addUser(2);
     return models.work.create(workData[4]);
   })
   .then((work) => {
-    work.addUser(1);
+    work.addUser(2);
     return models.work.create(workData[5]);
   })
   .then((work) => {
-    work.addUser(1);
+    work.addUser(2);
     return models.work.create(workData[6]);
   })
   .then((work) => {
-    work.addUser(1);
+    work.addUser(2);
     return models.work.create(workData[7]);
   })
   .then((work) => {
-    work.addUser(1);
+    work.addUser(2);
     return models.work.create(workData[8]);
   })
   .then((work) => {
-    work.addUser(1);
+    work.addUser(2);
     return models.work.create(workData[9]);
   })
   .then((work) => {
