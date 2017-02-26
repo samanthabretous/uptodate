@@ -57,6 +57,7 @@ export default {
   className: {
     font: '2em Muli-extra-light, san-serif',
     margin: 0,
+    whiteSpace: 'nowrap',
   },
   chevron: {
     marginLeft: '3%',

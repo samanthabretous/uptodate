@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import Radium from 'radium';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import _ from 'lodash';
@@ -24,14 +25,15 @@ const DisplayClasses = ({ classes, currentClass, router, userId, updateTitlebarI
 
   return (
     <div style={style.displayClasses}>
-      <ul>
-        <li>{currentClass.enrollmentCode}</li>
+      <ul style={style.ul}>
         {classes && _.map(classes, oneClass => (
           <li
+            style={style.listItem}
             key={oneClass.id}
             onClick={() => goToNextClass(oneClass.enrollmentCode)}
           >
             <h3>{oneClass.name}</h3>
+            <p>enrollment code: {oneClass.enrollmentCode}</p>
           </li>
         ))}
       </ul>
@@ -54,4 +56,4 @@ DisplayClasses.defaultProps = {
   userId: null,
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DisplayClasses));
+export default Radium(withRouter(connect(mapStateToProps, mapDispatchToProps)(DisplayClasses)));
