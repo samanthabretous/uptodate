@@ -28,7 +28,6 @@ class LoginOrSignUp extends Component {
       password: 'password1',
       authenticationError: null,
     };
-    this.isSignupPage = this.isSignupPage.bind(this);
     this.isValidEmail = this.isValidEmail.bind(this);
     this.isValidPassword = this.isValidPassword.bind(this);
     this.checkFormValidation = this.checkFormValidation.bind(this);
@@ -37,10 +36,6 @@ class LoginOrSignUp extends Component {
     this.renderInput = this.renderInput.bind(this);
   }
 
-  // check to see if we need to render the signup info
-  isSignupPage() {
-    return this.props.pathname === '/';
-  }
   isValidEmail(email) {
     return email.indexOf('@') === -1 && email.indexOf('.' === -1);
   }
@@ -75,13 +70,13 @@ class LoginOrSignUp extends Component {
 
   /* check the form to make sure the user enter the required data
   * do this before sending user infomation over to the back end*/
-  handleSubmit() {
+  handleSubmit(home) {
     const { username, email, password } = this.state;
     // form validation
     const errors = {};
     if (username === '') errors.username = 'Can not be empty';
     // only check email if the user is signing up
-    if (this.isSignupPage()) {
+    if (home) {
       if (this.isValidEmail(email)) errors.email = 'Must be a valid email';
     }
     if (this.isValidPassword(password)) errors.password = 'Password must be at least 6 characters long';
@@ -94,7 +89,7 @@ class LoginOrSignUp extends Component {
        * send info to the store
        * then continue asking questions on the next page
        */
-      if (this.isSignupPage()) {
+      if (home) {
         this.props.signUpInfoAction(username, email, password);
         this.props.router.push('/student-or-teacher');
       } else {
@@ -143,18 +138,19 @@ class LoginOrSignUp extends Component {
 
   render() {
     const { authenticationError } = this.state;
+    const { home } = this.props;
     return (
       <div
-        style={this.isSignupPage()
+        style={home
         ? style.signupForm
         : style.loginForm}
       >
         {/* render input box if user is trying to sign up */}
-        {this.isSignupPage() && this.renderInput('email')}
+        {home && this.renderInput('email')}
         {this.renderInput('username')}
         {this.renderInput('password')}
-        <button style={style.signupButton} onClick={this.handleSubmit}>
-          {this.isSignupPage()
+        <button style={style.signupButton} onClick={() => this.handleSubmit(home)}>
+          {home
             ? 'Sign up for free'
             : 'Enter Classroom'
           }
@@ -170,10 +166,12 @@ LoginOrSignUp.propTypes = {
   pathname: PropTypes.string,
   signUpInfoAction: PropTypes.func.isRequired,
   userInfoAction: PropTypes.func.isRequired,
+  home: PropTypes.bool,
 };
 
 LoginOrSignUp.defaultProps = {
   pathname: '/login',
+  home: false,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginOrSignUp));

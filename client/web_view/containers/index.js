@@ -7,7 +7,7 @@ import DisplayClassLessons from './DisplayClassLessons/DisplayClassLessons';
 import HomePage from './HomePage/HomePage';
 import Lesson from './Lesson/Lesson';
 import LoginOrSignUp from './LoginOrSignUp/LoginOrSignUp';
-import Modal from './App/Modal';
+import Modal from './Modal/Modal';
 import ShowAllAssignments from './ShowAllAssignments/ShowAllAssignments';
 import ShowAllWork from './ShowAllWork/ShowAllWork';
 import StudentOrTeacher from './StudentOrTeacher/StudentOrTeacher';

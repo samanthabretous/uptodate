@@ -10,19 +10,16 @@ export default {
     justifyContent: 'center',
   },
   signupForm: {
-    width: '30%',
+    width: '35%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
   },
   userInputContainer: {
     width: '100%',
-    boxSizing: 'box-sizing',
   },
   userInput: {
-    boxSizing: 'box-sizing',
-    width: '100%', 
-    border: `3px solid ${colors.mardiGras}`,
+    width: '100%',
     fontSize: '1.5em',
     height: 50,
     marginBottom: '2vw',
@@ -31,7 +28,7 @@ export default {
   },
   signupButton: {
     background: colors.grannyApple,
-    color: colors.white,
+    color: colors.pomegranate,
     border: 'none',
     fontSize: '1.5em',
     width: '100%',
