@@ -136,6 +136,7 @@ export default {
     height: '40%',
     justifyContent: 'center',
     font: '1em Muli-light, san-serif',
+    marginTop: '3%',
     border: `5px solid ${colors.lusty}`,
     ':hover': {
       backgroundColor: '#e5efc7',
