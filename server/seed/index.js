@@ -16,10 +16,11 @@ const seedFunction = () => {
   let enrollmentCode;
   models.sequelize.sync({ force: true })
   .then(() => {
-    models.class.create(classData[0]);
+    const lastClass = models.class.create(classData[0]);
     models.class.create(classData[1]);
     models.class.create(classData[2]);
-    return models.class.create(classData[3]);
+    models.class.create(classData[3]);
+    return lastClass;
   })
   .then((classOne) => {
     enrollmentCode = classOne.get('enrollmentCode');
@@ -49,39 +50,39 @@ const seedFunction = () => {
   })
   .then(() => models.work.create(workData[0]))
   .then((work) => {
-    work.addUser(1);
+    work.addUser(2);
     return models.work.create(workData[1]);
   })
   .then((work) => {
-    work.addUser(1);
+    work.addUser(2);
     return models.work.create(workData[2]);
   })
   .then((work) => {
-    work.addUser(1);
+    work.addUser(2);
     return models.work.create(workData[3]);
   })
   .then((work) => {
-    work.addUser(1);
+    work.addUser(2);
     return models.work.create(workData[4]);
   })
   .then((work) => {
-    work.addUser(1);
+    work.addUser(2);
     return models.work.create(workData[5]);
   })
   .then((work) => {
-    work.addUser(1);
+    work.addUser(2);
     return models.work.create(workData[6]);
   })
   .then((work) => {
-    work.addUser(1);
+    work.addUser(2);
     return models.work.create(workData[7]);
   })
   .then((work) => {
-    work.addUser(1);
+    work.addUser(2);
     return models.work.create(workData[8]);
   })
   .then((work) => {
-    work.addUser(1);
+    work.addUser(2);
     return models.work.create(workData[9]);
   })
   .then((work) => {

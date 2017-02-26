@@ -14,7 +14,7 @@ const mapDispatchToProps = dispatch => (
 );
 
 const mapStateToProps = (state, ownprops) => ({
-  className: state.titlebar.currentClass.name,
+  className: state.titlebar.currentClass && state.titlebar.currentClass.name|| '',
   lessonName: ownprops.params.lesson,
   lessonId: ownprops.params.lessonId,
   currentPath: state.lesson.currentPath,
@@ -61,10 +61,13 @@ class ViewInstructorCode extends Component {
   }
 }
 ViewInstructorCode.propTypes = {
-  params: PropTypes.object.isRequired,
   lessonId: PropTypes.string.isRequired,
-  className: PropTypes.string.isRequired,
   lessonName: PropTypes.string.isRequired,
+};
+
+ViewInstructorCode.defaultProps = {
+  className: '',
+  lessonName: '',
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ViewInstructorCode));

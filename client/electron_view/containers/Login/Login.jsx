@@ -22,7 +22,7 @@ class Login extends Component {
     super(props);
     this.state = {
       loginFormErrors: {},
-      username: 'vfrizzle',
+      username: 'gfrizzle',
       password: 'password1',
       authenticationError: null,
     };

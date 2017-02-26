@@ -47,9 +47,12 @@ module.exports = ((app, io) => {
       });
     });
 
-    socket.on('increase-vote', ({ voteId, lessonId }) => {
+    socket.on('increase-vote', ({ voteId, lessonId, lessonname }) => {
       models.vote.findById(voteId)
         .then(vote => vote.increment('numberOfVotes'))
+        .then((vote) => {
+          io.emit('vote-notification', {vote, lessonname });
+        })
         .then(() => findAllVotes(lessonId))
         .then(votes => io.emit('update-votes', { votes, lesson: lessonId }));
     });
