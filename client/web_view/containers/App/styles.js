@@ -11,7 +11,13 @@ export default {
     },
     button: {
       border: 'none',
-      backgroundColor: 'none',
+      background: 'none',
+    },
+    li: {
+      listStyle: 'none',
+    },
+    ul: {
+      margin: 0,
     },
   },
   colors: {
