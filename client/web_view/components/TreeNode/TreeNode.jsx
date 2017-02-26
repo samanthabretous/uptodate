@@ -33,9 +33,31 @@ class TreeNode extends Component {
   }
 
   handleClick() {
+    const { className, lessonName, node: { path } } = this.props;
     if (this.props.node.path) {
-      this.props.AsyncGetInstructorCode(this.props.node.path, this.props.className, this.props.lessonName);
-      this.props.setCurrentPath(this.props.node.path);
+      const fileType = this.props.node.path.split('.')[1];
+      let language = null;
+      Promise.resolve(fileType)
+      .then(() => {
+        switch (fileType) {
+          case 'js':
+            language = 'javascript';
+            break;
+          case 'css':
+            language = 'text/css';
+            break;
+          case 'html':
+            language = 'xml';
+            break;
+          default:
+            language = fileType;
+            break;
+        }
+      })
+      .then(() => {
+        this.props.AsyncGetInstructorCode(path, className, lessonName, language);
+        this.props.setCurrentPath(path);
+      });
     } else {
       this.setState(prevState => ({
         visible: !prevState.visible,
@@ -74,8 +96,10 @@ class TreeNode extends Component {
 
 TreeNode.propTypes = {
   node: PropTypes.object.isRequired,
+  AsyncGetInstructorCode: PropTypes.func.isRequired,
+  setCurrentPath: PropTypes.func.isRequired,
 };
 
-let TreeNodeRadium = Radium(TreeNode);
+const TreeNodeRadium = Radium(TreeNode);
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TreeNodeRadium));

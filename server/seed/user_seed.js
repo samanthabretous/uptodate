@@ -7,6 +7,7 @@ module.exports = [
     password: 'password1',
     position: 'Instructor',
     image: null,
+    usedDesktopBefore: true,
   }, {
     firstName: 'Samantha',
     lastName: 'Bretous',

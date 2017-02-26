@@ -16,9 +16,10 @@ const SET_CURRENT_PATH = 'set_current_path';
 // -------------------
 // actions
 // -------------------
-const getInstructorCode = code => ({
+export const getInstructorCode = (code, language) => ({
   type: GET_CODE,
   code,
+  language,
 });
 
 const postLesson = data => ({
@@ -85,7 +86,7 @@ export const AsyncFetchLessons = (classCode, platform) => (dispatch) => {
 export const enterFetchLessons = ({ params }) => createStore.dispatch(AsyncFetchLessons(params.currentClassCode, 'web'));
 
 
-export const AsyncGetInstructorCode = (subPath, className, lessonName) => (dispatch) => {
+export const AsyncGetInstructorCode = (subPath, className, lessonName, language) => (dispatch) => {
   axios.get('/api/repoFile/getFile', {
     params: {
       subPath,
@@ -94,7 +95,7 @@ export const AsyncGetInstructorCode = (subPath, className, lessonName) => (dispa
     },
   })
  .then((code) => {
-   dispatch(getInstructorCode(code.data));
+   dispatch(getInstructorCode(code.data, language));
  });
 };
 
@@ -112,6 +113,7 @@ const initialState = {
   lessonId: null,
   instructorCode: '// Code',
   currentPath: '/',
+  language: '',
   isMakeLessonVisible: false,
   isfileWatchedBefore: false,
 };
@@ -133,7 +135,6 @@ export default (state = initialState, action) => {
       });
     case CREATE_LESSON:
       const appState = createStore.getState();
-      console.log(appState)
       const classLessons = state.classLessons
         ? state.classLessons.concat(action.data)
         : appState.classes.currentClass.lessons.concat(action.data);
@@ -152,8 +153,9 @@ export default (state = initialState, action) => {
       });
     case DROPPED_FOLDER:
       return Object.assign({}, state, { folderPath: action.folderPath });
+    // update text editor code and text editor syntax language
     case GET_CODE:
-      return Object.assign({}, state, { instructorCode: action.code });
+      return Object.assign({}, state, { instructorCode: action.code, language: action.language });
     case SET_CURRENT_PATH:
       return Object.assign({}, state, { currentPath: action.currentPath });
     case SHOW_MAKE_LESSON:
