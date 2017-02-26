@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { withRouter } from 'react-router';
+import Radium from 'radium';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import FontAwesome from 'react-fontawesome';
@@ -32,20 +33,20 @@ class Titlebar extends Component {
     const classCode = JSON.parse(localStorage.classCode) || this.props.currentClass.enrollmentCode;
     setTimeout(() => {
       socket.emit('join-classroom', this.props.allUserClasses);
-    }, 2000)
+    }, 2000);
   }
   showAllClasses() {
     this.props.isShowAllClassesAction(!this.props.isShowAllClasses);
   }
 
   render() {
-    const { userInfo, currentClass, router, params, isShowAllClasses } = this.props;
+    const { userInfo, currentClass, router, params: { user }, isShowAllClasses } = this.props;
     return (
       <div style={style.dashbar}>
         { /* first title bar */ }
         <div style={style.firstDashbar}>
-          <div>
-            <h1 style={style.logo}>Up To Date</h1>
+          <div style={style.logoContainer}>
+            <img style={style.logo} alt="logo" src="/images/logos/logo-horizontal-white.png" />
           </div>
           <h2 style={style.firstName}>Hi, {userInfo.firstName}</h2>
         </div>
@@ -53,49 +54,48 @@ class Titlebar extends Component {
         { currentClass &&
         <div style={style.secondDashbar}>
           <div style={style.classInfo}>
-            <div>
-              <div>
-                <h2 style={style.className}>{currentClass.name}</h2>
-                <button onClick={this.showAllClasses}>
-                  <FontAwesome
-                    name="chevron-down"
-                    size="2x"
-                  />
-                </button>
-                {isShowAllClasses &&
-                  <DisplayClasses
-                    userId={params.user}
-                  />
-                }
-              </div>
-              <p style={style.enrollmentCode}>enrollment code: {currentClass.enrollmentCode}</p>
+            <div style={style.classnameContainer}>
+              <h2 style={style.className}>{currentClass.name}</h2>
+              <button style={style.chevron} onClick={this.showAllClasses}>
+                <FontAwesome
+                  name="chevron-down"
+                  size="2x"
+                />
+              </button>
             </div>
+            {isShowAllClasses &&
+              <DisplayClasses
+                userId={user}
+              />
+            }
             <div style={style.classUserInfo}>
-              <div style={style.userTotal}>
+              <div style={[style.userTotal, style.studentInfo]}>
                 <h6 style={style.type}>Students</h6>
                 <h3 style={style.amount}>{currentClass.students.length}</h3>
               </div>
-              <div style={style.userTotal}>
+              <div style={[style.userTotal, style.instructorInfo]}>
                 <h6 style={style.type}>Instructors</h6>
                 <h3 style={style.amount}>{currentClass.instructors.length}</h3>
               </div>
-              <AssignmentButton
-                currentLocation={router.getCurrentLocation().pathname}
-                currentClassId={currentClass.id}
-                userPosition={userInfo.position}
-              />
-              <LessonButton
-                currentLocation={router.getCurrentLocation().pathname}
-                currentClassId={currentClass.id}
-                userPosition={userInfo.position}
-              />
             </div>
           </div>
-        </div> }
+          <div style={style.assignLesson}>
+            <AssignmentButton
+              currentLocation={router.getCurrentLocation().pathname}
+              currentClassId={currentClass.id}
+              userPosition={userInfo.position}
+            />
+            <LessonButton
+              currentLocation={router.getCurrentLocation().pathname}
+              currentClassId={currentClass.id}
+              userPosition={userInfo.position}
+            />
+          </div>
+        </div>}
       </div>
     );
   }
-};
+}
 
 Titlebar.propTypes = {
   userInfo: PropTypes.object,
@@ -103,6 +103,7 @@ Titlebar.propTypes = {
   isShowAllClasses: PropTypes.bool.isRequired,
   router: PropTypes.object.isRequired,
   allUserClasses: PropTypes.arrayOf(PropTypes.object),
+  params: PropTypes.object.isRequired,
 };
 
 Titlebar.defaultProps = {
@@ -111,5 +112,6 @@ Titlebar.defaultProps = {
   allUserClasses: null,
 };
 
+Titlebar = Radium(Titlebar);
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Titlebar));
