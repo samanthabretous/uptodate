@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Style } from 'radium';
+import { Style, StyleRoot } from 'radium';
 import { overAllRules } from './styles';
 
 const App = (props) => {
@@ -7,7 +7,9 @@ const App = (props) => {
   return (
     <div>
       <Style rules={overAllRules} />
-      {children}
+      <StyleRoot>
+        {children}
+      </StyleRoot>
     </div>
   );
 };
