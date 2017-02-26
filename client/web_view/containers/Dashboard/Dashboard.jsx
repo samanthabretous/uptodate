@@ -43,9 +43,7 @@ class Dashboard extends Component {
       <div style={style.dashboard}>
         <Titlebar />
         <section style={style.mainView}>
-          <div style={style.content}>
-            {children}
-          </div>
+          {children}
         </section>
         {isNewLessonStarted &&
           <LessonNotification

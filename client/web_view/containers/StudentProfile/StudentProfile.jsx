@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import Radium from 'radium';
+import Radium, { Style } from 'radium';
 import moment from 'moment';
 import TextTruncate from 'react-text-truncate';
 import FontAwesome from 'react-fontawesome';
@@ -71,7 +71,7 @@ class StudentProfile extends Component {
     const currentPath = this.props.location.pathname.split('/student').join('');
     return (
       <div id="discussions" style={style.discussions}>
-        <h1 style={appStyles.h1}>Recent comments: </h1>
+        <h1 style={style.discussions.userComments}>Recent comments: </h1>
         {
           recentDiscussions.map(({ comment, lessonId, lesson: { name } }, idx) => (
             <div
@@ -100,15 +100,14 @@ class StudentProfile extends Component {
     const submittedWork = this.props.student.submittedWork;
     return (
       <div id="grades" style={style.grades} key="grades">
-        <h1 style={appStyles.h1}>Recent Grades: </h1>
-        <ul style={[appStyles.ul, { paddingLeft: '0px' }]}>
+        <h1 style={style.grades.userGrades}>Recent Grades: </h1>
+        <ul style={[appStyles.ul, style.grades.ul]}>
           {
             // moment formats our dates into something more palatable for the user
             submittedWork.map((work, idx) => (
               <li key={`${idx}-work`} style={style.grades.li}>
-                <FontAwesome name="angle-right" />
-                &ensp;
-                <span style={style.grades.span}>{work.grade}</span> {`for work submitted on ${moment(work.submitted).format('MMMM Do YYYY')}`}
+                <p style={style.grades.grade}>{work.grade}</p>
+                <p style={style.grades.date}>{`for work submitted on ${moment(work.submitted).format('MMMM Do YYYY')}`}</p>
               </li>),
             )
           }
@@ -123,27 +122,29 @@ class StudentProfile extends Component {
     return (
       <div id="assignments" style={style.assignments} key="assignments">
 
-        <h1 style={appStyles.h1}>Upcoming due dates: </h1>
+        <h1 style={style.assignments.dueDate}>Upcoming due dates: </h1>
+        <div style={style.assignments.container} >
+          {
+            classAssignments.map(({ due, instructions, id, classId }, idx) => (
 
-        {
-          classAssignments.map(({ due, instructions, id }, idx) => (
+              <div key={id} className={idx % 2 === 0 ? 'green' : 'salty'} style={style.assignments.item}>
 
-            <div key={idx} style={style.assignments.item}>
+                <h3 style={style.assignments.date}>{moment(due).format('l')}</h3>
+                {/* The truncated text here redirects to nowhere at the moment */}
+                <TextTruncate
+                  style={style.assignments.instructions}
+                  line={2}
+                  truncateText="…"
+                  text={instructions}
+                />
+                <Link style={style.assignments.arrow} to={`/dashboard/${user}/${currentClassCode}/assignment/${classId}/showAll`}>
+                  <FontAwesome name="chevron-right" size="3x" />
+                </Link>
+              </div>
 
-              <h3>{moment(due).format('l')}</h3>
-              {/* The truncated text here redirects to nowhere at the moment */}
-              <TextTruncate
-                style={style.assignments.instructions}
-                line={1}
-                truncateText="…"
-                text={instructions}
-                textTruncateChild={<Link style={style.assignments.a} to={`/dashboard/${user}/${currentClassCode}/assignments/${id}/showAll`}>Go to assignment page</Link>}
-              />
-
-            </div>
-
-          ))
-        }
+            ))
+          }
+        </div>
 
       </div>
     );
@@ -153,7 +154,7 @@ class StudentProfile extends Component {
     const { username } = this.props.student;
     return (
       <div id="profile" style={style.profile}>
-
+        <Style rules={style.notifications} />
         { !username ? null : this.renderDueAssignments() }
 
         <div style={style.stats}>
@@ -163,11 +164,6 @@ class StudentProfile extends Component {
           { !username ? null : this.renderDiscussionThreads() }
 
         </div>
-
-        { /* !username ? <FontAwesome name="circle-o-notch" spin /> : this.renderAccountInfo() */ }
-
-        { /* !username ? <FontAwesome name="circle-o-notch" spin /> : this.renderSchedule() */}
-
       </div>
     );
   }
