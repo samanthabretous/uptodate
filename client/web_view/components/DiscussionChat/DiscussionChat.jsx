@@ -58,10 +58,11 @@ class DiscussionChat extends Component {
     const { chatMessages } = this.props;
     return (
       <div style={style.discussion}>
+        <h3 style={style.h3}>Discussion</h3>
         <ul style={style.ul}>
           {chatMessages && _.map(chatMessages, message => (
             <li style={style.li} key={message.id}>
-              <p><span>{message.user.username}</span>{moment(message.createdAt).format('MMMM Do, h:mm a')}</p>
+              <p><span style={style.username}>{message.user.username}</span>{moment(message.createdAt).format('MMMM Do, h:mm a')}</p>
               <p>{message.comment}</p>
             </li>
           ))}
