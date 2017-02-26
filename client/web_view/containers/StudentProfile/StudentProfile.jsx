@@ -53,7 +53,7 @@ class StudentProfile extends Component {
   renderAccountInfo() {
     const { username, email, firstName, lastName } = this.props.student;
     return (
-      <div id="accountInfo">
+      <div id="accountInfo" style={style.accountInfo}>
 
         <h1 style={appStyles.h1}>Personal information: </h1>
 
@@ -70,14 +70,15 @@ class StudentProfile extends Component {
     // saving current path into variable for later redirect
     const currentPath = this.props.location.pathname.split('/student').join('');
     return (
-      <div id="discussions">
+      <div id="discussions" style={style.discussions}>
         <h1 style={appStyles.h1}>Recent comments: </h1>
         {
           recentDiscussions.map(({ comment, lessonId, lesson: { name } }, idx) => (
             <div
               onClick={this.handleCommentClick.bind(null, `${currentPath}/${lessonId}/${name}/none`)}
               title="Go to comment thread"
-              key={idx}
+              key={`${idx}-comment`}
+              style={style.discussions.comment}
             >
               {/* Truncating text largely for asthetic reasons.
                   Whole div will redirect to the lesson where discussion originated from. */}
@@ -87,6 +88,7 @@ class StudentProfile extends Component {
                 text={comment}
                 textTruncateChild={<a href="#">Go to thread</a>}
               />
+              <br />
             </div>
           ))
         }
@@ -97,15 +99,16 @@ class StudentProfile extends Component {
   renderGrades() {
     const submittedWork = this.props.student.submittedWork;
     return (
-      <div id="grades">
+      <div id="grades" style={style.grades} key="grades">
         <h1 style={appStyles.h1}>Recent Grades: </h1>
         <ul style={appStyles.ul}>
           {
             // moment formats our dates into something more palatable for the user
             submittedWork.map((work, idx) => (
-              <li key={idx}>
-                <FontAwesome name="angle-right"/>
-                {` ${work.grade} for work submitted on ${moment(work.submitted).format('MMMM Do YYYY')}`}
+              <li key={`${idx}-work`} style={style.grades.li}>
+                <FontAwesome name="angle-right" />
+                &ensp;
+                <span style={style.grades.span}>{work.grade}</span> {`for work submitted on ${moment(work.submitted).format('MMMM Do YYYY')}`}
               </li>),
             )
           }
@@ -116,23 +119,32 @@ class StudentProfile extends Component {
 
   renderDueAssignments() {
     const classAssignments = this.props.student.classAssignments;
+    const { user, currentClassCode } = (this.props.params)
     return (
-      <div id="assignments">
+      <div id="assignments" style={style.assignments} key="assignments">
+
         <h1 style={appStyles.h1}>Upcoming due dates: </h1>
+
         {
-          classAssignments.map(({ due, instructions }, idx) => (
-            <div key={idx}>
+          classAssignments.map(({ due, instructions,id }, idx) => (
+
+            <div key={idx} style={style.assignments.item}>
+
               <h3>{moment(due).format('l')}</h3>
               {/* The truncated text here redirects to nowhere at the moment */}
               <TextTruncate
+                style={style.assignments.instructions}
                 line={1}
                 truncateText="…"
                 text={instructions}
-                textTruncateChild={<Link to="#">Go to assignment page</Link>}
+                textTruncateChild={<Link style={style.assignments.a} to={`/dashboard/${user}/${currentClassCode}/assignments/${id}/showAll`}>Go to assignment page</Link>}
               />
+
             </div>
+
           ))
         }
+
       </div>
     );
   }
@@ -142,15 +154,19 @@ class StudentProfile extends Component {
     return (
       <div id="profile" style={style.profile}>
 
-        { !username ? <FontAwesome name="spinner" spin /> : this.renderGrades() }
+        { !username ? null : this.renderDueAssignments() }
 
-        { !username ? <FontAwesome name="spinner" spin /> : this.renderDueAssignments() }
+        <div style={style.stats}>
 
-        { !username ? <FontAwesome name="spinner" spin /> : this.renderDiscussionThreads() }
+          { !username ? <FontAwesome name="circle-o-notch fa-2x" spin /> : this.renderGrades() }
 
-        { !username ? <FontAwesome name="spinner" spin /> : this.renderAccountInfo() }
+          { !username ? null : this.renderDiscussionThreads() }
 
-        { !username ? <FontAwesome name="spinner" spin /> : this.renderSchedule() }
+        </div>
+
+        { /* !username ? <FontAwesome name="circle-o-notch" spin /> : this.renderAccountInfo() */ }
+
+        { /* !username ? <FontAwesome name="circle-o-notch" spin /> : this.renderSchedule() */}
 
       </div>
     );

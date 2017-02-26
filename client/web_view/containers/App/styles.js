@@ -1,4 +1,5 @@
-import Roboto_Thin from '../../fonts/Roboto/Roboto-ThinItalic.ttf';
+import robotoThin from '../../public/fonts/Roboto/Roboto-ThinItalic.ttf';
+import quicksand from '../../public/fonts/Quicksand/Quicksand-Regular.ttf';
 
 export default {
   overAllRules: {
@@ -6,6 +7,7 @@ export default {
       margin: 0,
       padding: 0,
       boxSizing: 'border-box',
+      fontFamily: 'Helvetica',
     },
     button: {
       border: 'none',
@@ -22,11 +24,11 @@ export default {
   },
   h1: {
     color: '#EE3233',
-    fontFamily: Roboto_Thin,
+    fontFamily: robotoThin,
     fontSize: '1.5em',
   },
   ul: {
-    listStyle: 'none',
+    listStyleType: 'none',
     listStyleImage: 'fa fa-angle-right',
     overflow: 'scroll',
   },
@@ -37,6 +39,20 @@ export default {
   // In almost all situation you should be using the styling for ul and ol over it.
   li: {
     listStyle: 'none',
+  },
+  a: {
+    ':link': {
+      color: '#EE3233',
+    },
+    ':visited': {
+      color: '#EE3233',
+    },
+    ':hover': {
+      color: '#331832',
+    },
+    ':active': {
+      color: '#EE3233',
+    },
   },
   button: {
     border: 'none',
