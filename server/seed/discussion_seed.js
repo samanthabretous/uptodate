@@ -4,17 +4,17 @@ module.exports = [{
   userId: 3,
   lessonId: 2,
 }, {
-  comment: 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.',
+  comment: 'For stateless components how do we pass props to sibling components?',
   responeToId: 1,
   userId: 2,
   lessonId: 2,
 }, {
-  comment: 'Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.',
+  comment: 'I got an error when I tried to npm install the react assignment. Is anyone having that same issue?',
   responeToId: 2,
   userId: 3,
   lessonId: 2,
 }, {
-  comment: 'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.\n\nCras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
+  comment: 'What is the point of super is ES6 react components?',
   responeToId: null,
   userId: 1,
   lessonId: 1,
