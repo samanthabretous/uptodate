@@ -1,5 +1,5 @@
 module.exports = [{
-  comment: 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.\n\nMaecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.',
+  comment: 'I just realized the readme.md for the connect for assignment isn\'t working. I think the link needs to be resent.',
   responeToId: null,
   userId: 3,
   lessonId: 2,
@@ -19,32 +19,32 @@ module.exports = [{
   userId: 1,
   lessonId: 1,
 }, {
-  comment: 'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.',
+  comment: 'What time is our React Connect Four app due?',
   responeToId: null,
   userId: 4,
   lessonId: 1,
 }, {
-  comment: 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.\n\nMorbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.',
+  comment: 'I found this awesome article for building stateless components with react. Check it out: https://hackernoon.com/react-stateless-functional-components-nine-wins-you-might-have-overlooked-997b0d933dbc#.5v27pbov6',
   responeToId: 5,
   userId: 1,
   lessonId: 1,
 }, {
-  comment: 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.',
+  comment: 'I need help on url requests.',
   responeToId: null,
   userId: 2,
   lessonId: 4,
 }, {
-  comment: 'Phasellus in felis. Donec semper sapien a libero. Nam dui.\n\nProin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.',
+  comment: 'This article really helped me understand react router: https://css-tricks.com/learning-react-router/',
   responeToId: null,
   userId: 4,
   lessonId: 4,
 }, {
-  comment: 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.\n\nAliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.\n\nSed ante. Vivamus tortor. Duis mattis egestas metus.',
+  comment: 'I won\'t be in class tomorrow, can someone please slack me the notes for the in-class assignment.',
   responeToId: null,
   userId: 1,
   lessonId: 3,
 }, {
-  comment: 'Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.',
+  comment: 'I found this awesome article for building stateless components with react. Check it out: https://hackernoon.com/react-stateless-functional-components-nine-wins-you-might-have-overlooked-997b0d933dbc#.5v27pbov6',
   responeToId: 9,
   userId: 4,
   lessonId: 3,
