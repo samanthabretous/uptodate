@@ -12,7 +12,8 @@
     "web:watch": "webpack --config webpack.config.js --watch",
     "seed": "node ./server/seed",
     "test": "DEBUG=API_ROUTES,SOCKET concurrently -k 'yarn server' 'mocha --watch --colors --timeout 3500'",
-    "eslint": "./node_modules/.bin/eslint ."
+    "eslint": "./node_modules/.bin/eslint .",
+    "start" : "node start & ./node_modules/.bin/electron server/electron/main.js"
   },
   "babel": {
     "presets": [
