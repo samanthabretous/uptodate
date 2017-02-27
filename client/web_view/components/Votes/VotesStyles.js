@@ -14,7 +14,7 @@ export default {
     height: '50%',
   },
   h3: {
-    height: '15%',
+    height: '20%',
     color: colors.white,
     textAlign: 'center',
     background: colors.mardiGras,

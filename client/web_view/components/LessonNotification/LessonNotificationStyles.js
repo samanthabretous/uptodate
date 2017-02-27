@@ -12,7 +12,6 @@ export default {
     right: 50,
     top: 50,
     zIndex: 1000,
-    padding: '1%',
     margin: 0,
     color: colors.white,
     background: colors.pomegranate,
