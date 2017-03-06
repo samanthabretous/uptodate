@@ -54,10 +54,11 @@ Instructor on the web app can:
 
 ### Installation
 
-UpToDate requires [Node](https://nodejs.org/en/) and [Yarn](https://yarnpkg.com/en/) to run.
+UpToDate requires [Node](https://nodejs.org/en/) and al global installation of [Webpack](https://webpack.github.io/) to run.
 
 ```sh
 $ npm install
+$ npm install -g webpack
 $ yarn
 ```
 
