@@ -54,7 +54,7 @@ Instructor on the web app can:
 
 ### Installation
 
-UpToDate requires [Node](https://nodejs.org/en/) and al global installation of [Webpack](https://webpack.github.io/) to run.
+UpToDate requires [Node](https://nodejs.org/en/) and a global installation of [Webpack](https://webpack.github.io/) to run.
 
 ```sh
 $ npm install
@@ -62,17 +62,17 @@ $ npm install -g webpack
 $ yarn
 ```
 
-To run only the web app:
+To run both the desktop and web app, in seperate terminal windows:
 
 ```sh
-$ yarn run web
+$ npm run electron-build && npm run web:watch
 ```
-
-To run both the desktop and web app:
 
 ```sh
-$ yarn run electron
+$ npm start
 ```
+
+
 
 ---
 
