@@ -26,8 +26,8 @@ module.exports = {
           'babel-loader?presets[]=react,presets[]=es2015'],
       },
       {
-        test: /\.jpe?g$|\.gif$|\.png$|^(?!.*\.inline\.svg$).*\.svg$/,
-        loader: 'url-loader',
+        test: /\.jpe?g$|\.gif$|\.png$|\.ttf$|\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$|\.eot$|^(?!.*\.inline\.svg$).*\.svg$/,
+        loaders: ['url-loader', 'file-loader'],
       },
     ],
   },
