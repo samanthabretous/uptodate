@@ -18,7 +18,7 @@ if (process.env.DATABASE_URL) {
     logging: true, //false
   });
 } else {
-  var config = require(path.join(__dirname, '/../config/config.json'))[env];
+  var config = require(path.join(__dirname, '../', 'config/config.json'))[env];
   if(config.use_env_variable) {
     var sequelize = new Sequelize(process.env[config.use_env_variable]);
   } else {
