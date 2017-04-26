@@ -3,7 +3,6 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: [
-    'webpack-hot-middleware/client?reload=true&path=http://localhost:2020/__webpack_hmr',
     './client/web_view/Entry.jsx',
   ],
   output: {
@@ -11,7 +10,6 @@ module.exports = {
     filename: 'bundle.js',
     devtoolModuleFilenameTemplate: '[resourcePath]',
     devtoolFallbackModuleFilenameTemplate: '[resourcePath]?[hash]',
-    publicPath: 'http://localhost:2020/client/web_view/bundle/',
   },
   module: {
     loaders: [
