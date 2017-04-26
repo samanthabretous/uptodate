@@ -13,14 +13,20 @@
     "seed": "node ./server/seed",
     "test": "DEBUG=API_ROUTES,SOCKET concurrently -k 'yarn server' 'mocha --watch --colors --timeout 3500'",
     "eslint": "./node_modules/.bin/eslint .",
-    "start" : "node start & ./node_modules/.bin/electron server/electron/main.js"
+    "start": "node start & yarn electron-start",
+    "heroku-postbuild": "node_modules/.bin/webpack -p --config ./webpack.prod.config.js --progress"
+
   },
   "babel": {
     "presets": [
       "es2015",
-      "stage-0",
+      "stage-2",
       "react"
     ]
+  },
+  "engines": {
+    "node": "7.4.0",
+    "npm": "4.3.0"
   },
   "keywords": [],
   "author": "",
@@ -33,21 +39,19 @@
     "babel-loader": "^6.2.8",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
-    "babel-preset-stage-0": "^6.22.0",
     "babel-preset-stage-2": "^6.22.0",
     "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.15.2",
-    "chai": "^3.5.0",
     "chokidar": "^1.6.1",
     "codemirror": "^5.23.0",
     "color": "^1.0.3",
     "concurrently": "^3.1.0",
     "cross-env": "^3.1.4",
+    "css-loader": "^0.26.1",
     "debug": "^2.6.0",
     "electron": "^1.4.15",
     "electron-packager": "^8.5.1",
     "express": "^4.14.0",
-    "express-session": "^1.14.2",
     "file-loader": "^0.10.0",
     "font-awesome": "^4.7.0",
     "fs": "^0.0.1-security",
@@ -56,12 +60,8 @@
     "json-loader": "^0.5.4",
     "lodash": "^4.17.4",
     "mkdirp": "^0.5.1",
-    "mocha-loader": "^1.1.0",
-    "mocha-webpack": "^0.7.0",
     "moment": "^2.17.1",
     "multer": "^1.3.0",
-    "nock": "^9.0.4",
-    "node-sass": "^4.5.0",
     "nodemon": "^1.11.0",
     "pg": "^6.1.0",
     "pg-hstore": "^2.3.2",
@@ -78,7 +78,6 @@
     "react-router": "^3.0.0",
     "react-text-truncate": "^0.8.3",
     "redux": "^3.6.0",
-    "redux-mock-store": "^1.2.2",
     "redux-thunk": "^2.2.0",
     "sass-loader": "^4.1.1",
     "sequelize": "^3.27.0",
@@ -86,6 +85,7 @@
     "shortid": "^2.2.6",
     "socket.io": "^1.7.2",
     "socket.io-client": "^1.7.2",
+    "style-loader": "^0.13.1",
     "supertest": "^2.0.1",
     "test-bed": "^0.77.77",
     "underscore.string": "^3.3.4",
@@ -96,14 +96,12 @@
     "webpack-target-electron-renderer": "^0.4.0"
   },
   "devDependencies": {
-    "css-loader": "^0.26.1",
+    "chai": "^3.5.0",
     "eslint": "^3.14.1",
     "eslint-config-airbnb": "^14.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^3.0.2",
     "eslint-plugin-react": "^6.9.0",
-    "jest": "^18.1.0",
-    "mocha": "^3.2.0",
-    "style-loader": "^0.13.1"
+    "mocha": "^3.2.0"
   }
 }

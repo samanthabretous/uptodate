@@ -1,16 +1,6 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const path = require('path');
-const webpack = require('webpack');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
-
-// determine which config file to execute base on the node enviroment
-const config = process.env.NODE_ENV === 'electron'
- ? require('../../webpack.config.electron_dev')
- : require('../../webpack.config');
-
-const compiler = webpack(config);
 
 // add all middleware to the following function:
 const applyExpressMiddleware = (app) => {
@@ -23,16 +13,27 @@ const applyExpressMiddleware = (app) => {
   app.use(bodyParser.json());
   app.use(express.static(path.join(__dirname, '../../', '/client/web_view/public')));
 
-  app.use(webpackDevMiddleware(compiler, {
-    publicPath: config.output.publicPath,
-    stats: {
-      colors: true,
-    },
-    watchOptions: { ignored: /node_modules/ },
-    noInfo: true,
-  }));
+  if (process.env.NODE_ENV !== 'production') {
+    const webpack = require('webpack');
+    const webpackDevMiddleware = require('webpack-dev-middleware');
+    const webpackHotMiddleware = require('webpack-hot-middleware');
 
-  app.use(webpackHotMiddleware(compiler));
+    // determine which config file to execute base on the node enviroment
+    const config = process.env.NODE_ENV === 'electron'
+     ? require('../../webpack.config.electron_dev')
+     : require('../../webpack.config');
+    const compiler = webpack(config);
+
+    app.use(webpackHotMiddleware(compiler));
+    app.use(webpackDevMiddleware(compiler, {
+      publicPath: config.output.publicPath,
+      stats: {
+        colors: true,
+      },
+      watchOptions: { ignored: /node_modules/ },
+      noInfo: true,
+    }));
+  }
 };
 
 module.exports = applyExpressMiddleware;
