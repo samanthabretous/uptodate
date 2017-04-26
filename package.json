@@ -15,7 +15,6 @@
     "eslint": "./node_modules/.bin/eslint .",
     "start": "node start & yarn electron-start",
     "heroku-postbuild": "node_modules/.bin/webpack -p --config ./webpack.prod.config.js --progress"
-
   },
   "babel": {
     "presets": [
@@ -79,7 +78,6 @@
     "react-text-truncate": "^0.8.3",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
-    "sass-loader": "^4.1.1",
     "sequelize": "^3.27.0",
     "sequelize-cli": "^2.5.1",
     "shortid": "^2.2.6",

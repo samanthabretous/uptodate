@@ -3,12 +3,15 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: [
-    './client/view/Entry.jsx',
+    'webpack-hot-middleware/client?reload=true&path=http://localhost:2020/__webpack_hmr',
+    './client/web_view/Entry.jsx',
   ],
   output: {
-    path: path.join(__dirname, '/client/public/bundle'),
+    path: path.join(__dirname, '/client/web_view/public/bundle'),
     filename: 'bundle.js',
-    publicPath: '/client/public/bundle',
+    devtoolModuleFilenameTemplate: '[resourcePath]',
+    devtoolFallbackModuleFilenameTemplate: '[resourcePath]?[hash]',
+    publicPath: 'http://localhost:2020/client/web_view/bundle/',
   },
   module: {
     loaders: [

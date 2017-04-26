@@ -26,8 +26,8 @@ module.exports = {
         },
       },
       {
-        test: [/\.scss$/, /\.css$/],
-        loader: 'style-loader!css-loader!sass-loader',
+        test: [/\.css$/],
+        loader: 'style-loader!css-loader',
       },
       {
         test: /\.(eot|svg|ttf|woff(2)?)(\?v=\d+\.\d+\.\d+)?/,
@@ -41,7 +41,7 @@ module.exports = {
   },
   devtool: 'source-map',
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
