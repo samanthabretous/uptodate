@@ -14,7 +14,7 @@
     "test": "DEBUG=API_ROUTES,SOCKET concurrently -k 'yarn server' 'mocha --watch --colors --timeout 3500'",
     "eslint": "./node_modules/.bin/eslint .",
     "start": "node start.js",
-    "heroku-postbuild": "node_modules/.bin/webpack --config ./webpack.prod.config.js --progress",
+    "heroku-postbuild": "node_modules/.bin/webpack --config ./webpack.prod.config.js --progress && node server/seed/index.js",
     "web-build": "node_modules/.bin/webpack --config ./webpack.prod.config.js --progress"
   },
   "babel": {
