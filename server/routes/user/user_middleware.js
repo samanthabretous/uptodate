@@ -16,8 +16,6 @@ class SocketConnection {
         }],
       },
       defaults: {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
         email: req.body.email,
         username: req.body.username,
         password: req.body.password,
@@ -26,6 +24,7 @@ class SocketConnection {
       },
     })
     .spread((user, created) => {
+      console.log(user);
       if (created) {
         res.send(user);
       } else {

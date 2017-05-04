@@ -1,19 +1,35 @@
 import styles from '../App/styles';
 
-const { colors } = styles;
+const { colors: { white, mardiGras, grannyApple, pomegranate } } = styles;
 
 export default {
   loginForm: {
+    background: pomegranate,
+    width: '100%',
+    height: '100%',
+  },
+  signupForm: {
+    width: '35%',
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '100%',
+  },
+  modalForm: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    margin: '0 auto',
+    width: '85%',
+    height: '100%',
   },
-  signupForm: {
-    width: '35%',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+  welcome: {
+    color: white,
+    fontSize: '3rem',
+    marginBottom: '3%',
   },
   userInputContainer: {
     width: '100%',
@@ -23,16 +39,28 @@ export default {
     fontSize: '1.5em',
     height: 50,
     marginBottom: '2vw',
-    color: colors.mardiGras,
+    color: mardiGras,
     textAlign: 'center',
   },
+  formErrorsInput: {
+    background: pomegranate,
+    opacity: '.5',
+    color: white,
+  },
+  formErrors: {
+    color: white,
+  },
   signupButton: {
-    background: colors.grannyApple,
-    color: colors.pomegranate,
+    background: grannyApple,
+    color: pomegranate,
     border: 'none',
     fontSize: '1.5em',
     width: '100%',
     height: 50,
+  },
+  login: {
+    background: mardiGras,
+    color: white,
   },
   forgot: {
     marginLeft: 10,

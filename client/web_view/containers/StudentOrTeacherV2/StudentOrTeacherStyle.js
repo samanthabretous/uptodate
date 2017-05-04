@@ -40,48 +40,4 @@ export default {
     background: mardiGras,
     color: white,
   },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '85%',
-    margin: '0 auto',
-  },
-  names: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    width: '100%',
-  },
-  nameInput: {
-    width: '47%',
-  },
-  input: {
-    marginTop: '5%',
-    background: white,
-    fontSize: '1.5rem',
-    border: `5px solid ${mardiGras}`,
-    padding: '2%',
-    width: '100%',
-    textAlign: 'center',
-  },
-  or: {
-    marginTop: '3%',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    fontSize: '1.5rem',
-    fontWeight: 'bold',
-  },
-  line: {
-    height: 5,
-    width: '35%',
-    background: mardiGras,
-  },
-  enter: {
-    marginTop: '3%',
-    background: mardiGras,
-    width: '100%',
-    fontSize: '1.5rem',
-    padding: '2%',
-    color: white,
-  },
 };

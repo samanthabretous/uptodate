@@ -57,6 +57,6 @@ export default {
     font: '2.4em Muli-light, san-serif',
     color: colors.white,
     lineHeight: '95%',
-
+    marginTop: '3%',
   },
 };

@@ -193,7 +193,7 @@ class StudentOrTeacher extends Component {
         style: style.createClassStyle(position, createClass),
       },
     ];
-// map over buttons/inputs arrays to create 
+// map over buttons/inputs arrays to create
     const renderButtons = buttons.map((val, idx) => (
       <div key={idx}>
         {this.renderButton(val.name, val.clickHandler, val.style)}

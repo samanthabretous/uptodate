@@ -1,10 +1,10 @@
 export default {
   modal: {
     position: 'fixed',
-    top: '20%',
-    right: '30%',
-    bottom: '20%',
-    left: '30%',
+    top: '15%',
+    right: '25%',
+    bottom: '15%',
+    left: '25%',
     overflow: 'auto',
     background: '#fff',
   },

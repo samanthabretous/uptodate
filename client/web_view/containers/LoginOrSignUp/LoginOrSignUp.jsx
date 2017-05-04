@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
+import Radium from 'radium';
 import { signUpInfoAction, userInfoAction, studentTeacherModalAction } from '../../../redux/login';
 import style from './LoginOrSignUpStyles';
 
@@ -121,8 +122,10 @@ class LoginOrSignUp extends Component {
     const { loginFormErrors } = this.state;
     return (
       <div style={style.userInputContainer}>
+        {/* display error message when user enters infomation incorrectly */}
+        {loginFormErrors[type] && <span style={style.formErrors}>{loginFormErrors[type]}</span>}
         <input
-          style={style.userInput}
+          style={[style.userInput, loginFormErrors[type] && style.formErrorsInput]}
           id={type}
           type={type === 'password' ? 'password' : 'text'}
           onChange={this.handleChange}
@@ -130,8 +133,6 @@ class LoginOrSignUp extends Component {
           value={this.state[type]}
           placeholder={`Enter ${type}`}
         />
-        {/* display error message when user enters infomation incorrectly */}
-        {loginFormErrors[type] && <span>{loginFormErrors[type]}</span>}
       </div>
     );
   }
@@ -145,17 +146,20 @@ class LoginOrSignUp extends Component {
         ? style.signupForm
         : style.loginForm}
       >
-        {/* render input box if user is trying to sign up */}
-        {home && this.renderInput('email')}
-        {this.renderInput('username')}
-        {this.renderInput('password')}
-        <button style={style.signupButton} onClick={() => this.handleSubmit(home)}>
-          {home
-            ? 'Sign up for free'
-            : 'Enter Classroom'
-          }
-        </button>
-        {authenticationError && <span>There was an error logging in.</span>}
+        <div style={home ? style.form : style.modalForm}>
+          {!home && <h2 style={style.welcome}>WELCOME BACK</h2>}
+          {/* render input box if user is trying to sign up */}
+          {home && this.renderInput('email')}
+          {this.renderInput('username')}
+          {this.renderInput('password')}
+          <button style={[style.signupButton, !home && style.login]} onClick={() => this.handleSubmit(home)}>
+            {home
+              ? 'Sign up for free'
+              : 'Enter Classroom'
+            }
+          </button>
+          {authenticationError && <span>There was an error logging in.</span>}
+        </div>
       </div>
     );
   }
@@ -174,5 +178,4 @@ LoginOrSignUp.defaultProps = {
   home: false,
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginOrSignUp));
-
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Radium(LoginOrSignUp)));

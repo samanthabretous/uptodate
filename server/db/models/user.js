@@ -5,18 +5,10 @@ module.exports = (sequelize, DataTypes) => {
     firstName: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        notEmpty: true,
-        len: [1, 25],
-      },
     },
     lastName: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        notEmpty: true,
-        len: [1, 40],
-      },
     },
     email: {
       type: DataTypes.STRING,
@@ -50,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
     // this is to differentiate between which views to serve up depending on type of user.
       type: DataTypes.STRING,
       allowNull: false,
-      isIn: [['Instructor', 'Student', 'Mentor', 'T.A.']],
+      isIn: [['teacher', 'student', 'mentor', 'ta']],
     },
     usedDesktopBefore: {
       type: DataTypes.BOOLEAN,
