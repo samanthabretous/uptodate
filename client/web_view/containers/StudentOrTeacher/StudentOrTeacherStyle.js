@@ -1,59 +1,43 @@
-import colors from '../App/styles';
+import styles from '../App/styles';
 
-const modalStyle = {
-  signupForm: {
-    border: '1px solid black',
-    width: '30%',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  signupButton: {
-    border: 'none',
-    borderRadius: '1vw',
-    backgroundColor: colors.grannyApple,
-    color: colors.white,
-    fontSize: '1.5em',
-    width: '100%',
-    height: '8%',
-  },
-  userInput: {
-    border: `3px solid ${colors.mardiGras}`,
-    borderRadius: '1vw',
-    fontSize: '1.5em',
-    padding: '.5vw',
-    width: '95%',
-    marginBottom: '2vw',
-  },
-
-};
-
+const { colors: { pomegranate, white, mardiGras } } = styles;
 
 export default {
-  enterClassroomStyle: (position, createClass) => {
-    const style = Object.assign({}, modalStyle);
-    if (position === 'Student' || position === 'Instructor' && createClass === false) {
-      style.display = 'initial';
-    } else {
-      style.display = 'none';
-    }
-    return style;
+  signIn: {
+    width: '100%',
+    height: '100%',
+    background: pomegranate,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
-  isInstructorStyle: (position) => {
-    const style = Object.assign({}, modalStyle);
-    if (position === 'Instructor') {
-      style.display = 'initial';
-    } else {
-      style.display = 'none';
-    }
-    return style;
+  areYou: {
+    color: white,
+    fontSize: '3rem',
+    marginTop: '10%',
   },
-  createClassStyle: (position, createClass) => {
-    const style = Object.assign({}, modalStyle);
-    if (position === 'Instructor' && createClass) {
-      style.display = 'initial';
-    } else {
-      style.display = 'none';
-    }
-    return style;
+  position: {
+    width: '85%',
+    height: '15%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginTop: '2%',
+  },
+  positionButton: {
+    width: '45%',
+    height: '100%',
+    border: `5px solid ${mardiGras}`,
+    background: white,
+    color: mardiGras,
+    fontSize: '2rem',
+    padding: '2%',
+    ':hover': {
+      background: mardiGras,
+      color: white,
+    },
+  },
+  active: {
+    background: mardiGras,
+    color: white,
   },
 };

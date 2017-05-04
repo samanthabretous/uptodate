@@ -1,11 +1,18 @@
 import React, { PropTypes } from 'react';
 import { withRouter } from 'react-router';
 import style from './ModalStyles';
+import FontAwesome from 'react-fontawesome';
 
 const Modal = ({ children, router }) => (
   <div>
     <div style={style.modal}>
-      <p><button onClick={router.goBack}>Back</button></p>
+      <button style={style.back} onClick={router.goBack}>
+        <FontAwesome
+          name="times"
+          size="3x"
+          style={style.x}
+        />
+      </button>
       {children}
     </div>
   </div>
@@ -13,7 +20,7 @@ const Modal = ({ children, router }) => (
 
 Modal.propTypes = {
   children: PropTypes.element.isRequired,
-  router: PropTypes.object.isRequired,
+  router: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default withRouter(Modal);
