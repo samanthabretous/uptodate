@@ -7,6 +7,7 @@ class SocketConnection {
   }
   // /api/users/registration -- user registration
   postNewUser(req, res) {
+    console.log("post new user", req.body);
     models.user.findOrCreate({
       where: {
         $or: [{
@@ -16,6 +17,8 @@ class SocketConnection {
         }],
       },
       defaults: {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
         email: req.body.email,
         username: req.body.username,
         password: req.body.password,
@@ -24,7 +27,8 @@ class SocketConnection {
       },
     })
     .spread((user, created) => {
-      console.log(user);
+      console.log("user=======================",user);
+      console.log("user", user);
       if (created) {
         res.send(user);
       } else {
@@ -51,11 +55,13 @@ class SocketConnection {
       }],
     })
     .then((user) => {
+      console.log(user);
       if (user) {
         // if password matches send over user info
         const isPasswordMatch = bcrypt.compareSync(req.body.password, user.get('password'));
         if (isPasswordMatch) {
           user.password = null;
+          console.log(user);
           res.send(user);
         }
       } else {

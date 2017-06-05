@@ -31,7 +31,11 @@ class SignUpForm extends Component {
   submit(event) {
     event.preventDefault();
     let userData = null;
+    console.log("clicked");
+
     axios.post('/api/users/registration', {
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
       username: this.props.username,
       email: this.props.email,
       password: this.props.password,

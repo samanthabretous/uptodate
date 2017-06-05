@@ -23,52 +23,45 @@ class StudentOrTeacher extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: '',
-      lastName: '',
+      firstName: 'sam',
+      lastName: 'smith',
       name: '',
       description: '',
       schedule: '',
       location: '',
-      enrollmentCode: '',
-      createClass: '',
+      enrollmentCode: 'fullstackweb819',
+      createClass: false,
       position: '',
       registrationError: null,
     };
     this.setPosition = this.setPosition.bind(this);
-    this.enterOrCreateClass = this.enterOrCreateClass.bind(this);
     this.handleWhichSubmit = this.handleWhichSubmit.bind(this);
-    this.handleStudentAndInstructorSubmit = this.handleStudentAndInstructorSubmit.bind(this);
-    this.handleInstructorAndNewClassSubmit = this.handleInstructorAndNewClassSubmit.bind(this);
+    this.confirmClass = this.confirmClass.bind(this);
+    this.createNewClass = this.createNewClass.bind(this);
     this.handleRegistration = this.handleRegistration.bind(this);
     this.renderInput = this.renderInput.bind(this);
-    this.updateWhichInput = this.updateWhichInput.bind(this);
+    this.updateInput = this.updateInput.bind(this);
   }
 
   setPosition(position) {
-    this.setState({ position, createClass: null });
+    event.target.name === 'createClass'
+    ? this.setState({ position, createClass: true })
+    : this.setState({ position, createClass: false })
   }
 
-  enterOrCreateClass(e) {
-    if (e.target.name === 'createClass') {
-      this.setState({ createClass: true });
-    } else {
-      this.setState({ createClass: false });
-    }
+  updateInput(event) {
+    this.setState({ [event.target.name]: event.target.value });
   }
 
-  updateWhichInput(e) {
-    this.setState({ [e.target.name]: e.target.value });
-  }
-
-  handleRegistration(position, firstName, lastName, data) {
+  handleRegistration(data) {
     let userData = null;
     axios.post('/api/users/registration', {
-      firstName,
-      lastName,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
       email: this.props.email,
       username: this.props.username,
       password: this.props.password,
-      position,
+      position: this.state.position,
       lastClassViewed: data.enrollmentCode,
     })
     .then((res) => {
@@ -76,36 +69,33 @@ class StudentOrTeacher extends Component {
       return localStorage.classCode = JSON.stringify(res.data.lastClassViewed);
     })
     .then(() => {
-      userData.position === 'Student'
-      ? this.props.router.push(`/dashboard/${userData.id}/${userData.lastClassViewed}/student`)
-      : this.props.router.push(`/dashboard/${userData.id}/${userData.lastClassViewed}`);
+      this.props.router.push(`/dashboard/${userData.id}/${userData.lastClassViewed}`)
     })
-    .catch((err) => {
+    .catch(() => {
       this.setState({ registrationError: true });
     });
   }
 
 // handles registration when user already has enrollment code
-  handleStudentAndInstructorSubmit(position, firstName, lastName, enrollmentCode) {
-    axios.get(`/api/classes/${enrollmentCode}`)
-    .then(res => (
-      res.data
-    ))
+  confirmClass() {
+    console.log(this.state.position);
+    axios.get(`/api/classes/${this.state.enrollmentCode}`)
+    .then(({ data }) => {
+      console.log(data);
+      this.handleRegistration(data);
+    })
     .catch(() => {
       this.setState({ registrationError: true });
-    })
-    .then((data) => {
-      this.handleRegistration(position, firstName, lastName, data);
     });
   }
 
 // handles instructor registration when instructor also needs to register a new class
-  handleInstructorAndNewClassSubmit(position, firstName, lastName, enrollmentCode, name, description, schedule, location) {
+  createNewClass() {
     axios.post('/api/classes/newclass', {
-      name,
-      description,
-      schedule,
-      location,
+      name: this.state.name,
+      description: this.state.description,
+      schedule: this.state.schedule,
+      location: this.state.location,
     })
     .catch(() => {
       this.setState({ registrationError: true });
@@ -114,25 +104,26 @@ class StudentOrTeacher extends Component {
       res.data
     ))
     .then((data) => {
-      this.handleRegistration(position, firstName, lastName, data);
+      this.handleRegistration(data);
     });
   }
 
   handleWhichSubmit() {
-    const { position, createClass, firstName, lastName, enrollmentCode, name, description, schedule, location } = this.state;
-    if (position === 'Student' || createClass === false) {
-      this.handleStudentAndInstructorSubmit(position, firstName, lastName, enrollmentCode);
+    const { position, createClass } = this.state;
+    if (position === 'student' || !createClass) {
+      this.confirmClass();
     } else if (createClass) {
-      this.handleInstructorAndNewClassSubmit(position, firstName, lastName, enrollmentCode, name, description, schedule, location);
+      this.createNewClass();
     }
   }
-// dynamically creates input fields
+
+  // dynamically creates input fields
   renderInput(field, nameInput) {
     return (
       <input
         style={[style.input, nameInput && style.nameInput]}
         type="text"
-        onChange={this.updateWhichInput}
+        onChange={this.updateInput}
         name={field}
         value={this.state[field]}
         placeholder={`Enter ${field.split(/(?=[A-Z])/).join(' ').toLowerCase()}`}
@@ -162,7 +153,7 @@ class StudentOrTeacher extends Component {
           {this.renderButton('student')}
           {this.renderButton('teacher')}
         </div>
-        {position && <div style={style.form} onSubmit={this.submit}>
+        {position && <div style={style.form}>
           <div style={style.names}>
             {this.renderInput('firstName', true)}
             {this.renderInput('lastName', true)}
