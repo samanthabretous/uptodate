@@ -63,6 +63,7 @@ class StudentOrTeacher extends Component {
       password: this.props.password,
       position: this.state.position,
       lastClassViewed: data.enrollmentCode,
+      classId: data.id,
     })
     .then((res) => {
       userData = res.data;

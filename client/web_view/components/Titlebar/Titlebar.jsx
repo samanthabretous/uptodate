@@ -36,6 +36,7 @@ class Titlebar extends Component {
     }, 2000);
   }
   showAllClasses() {
+    console.log(!this.props.isShowAllClasses);
     this.props.isShowAllClassesAction(!this.props.isShowAllClasses);
   }
 
@@ -63,11 +64,10 @@ class Titlebar extends Component {
                 />
               </button>
             </div>
-            {isShowAllClasses &&
-              <DisplayClasses
-                userId={user}
-              />
-            }
+            <DisplayClasses
+              userId={user}
+              animate={isShowAllClasses}
+            />
             <div style={style.classUserInfo}>
               <div style={[style.userTotal, style.studentInfo]}>
                 <h6 style={style.type}>Students</h6>

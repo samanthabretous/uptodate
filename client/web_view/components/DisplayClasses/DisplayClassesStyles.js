@@ -9,10 +9,14 @@ export default {
     top: '16vh',
     background: colors.mardiGras,
     width: '30vw',
-    height: '30vh',
+    height: '85vh',
     padding: '1% 3%',
-    overflow: 'scroll',
     color: colors.white,
+    left: '-30vw',
+    transition: 'left 1s',
+  },
+  slideIn: {
+    left: 0,
   },
   ul: {
     height: '100%',

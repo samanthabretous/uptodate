@@ -17,14 +17,15 @@ const mapStateToProps = state => ({
   currentClass: state.titlebar.currentClass,
 });
 
-const DisplayClasses = ({ classes, currentClass, router, userId, updateTitlebarInfoAsync }) => {
+const DisplayClasses = ({ classes, currentClass, router, userId, animate, updateTitlebarInfoAsync }) => {
+  console.log(classes);
   const goToNextClass = (enrollmentCode) => {
     updateTitlebarInfoAsync(enrollmentCode, userId);
     router.push(`/dashboard/${userId}/${enrollmentCode}`);
   };
 
   return (
-    <div style={style.displayClasses}>
+    <div style={[style.displayClasses, animate && style.slideIn]}>
       <ul style={style.ul}>
         {classes && _.map(classes, oneClass => (
           <li
@@ -44,7 +45,7 @@ const DisplayClasses = ({ classes, currentClass, router, userId, updateTitlebarI
 
 DisplayClasses.propTypes = {
   classes: PropTypes.arrayOf(PropTypes.object),
-  currentClass: PropTypes.string,
+  currentClass: PropTypes.objectOf(PropTypes.any),
   userId: PropTypes.string,
   updateTitlebarInfoAsync: PropTypes.func.isRequired,
   router: PropTypes.object.isRequired,
@@ -52,8 +53,8 @@ DisplayClasses.propTypes = {
 
 DisplayClasses.defaultProps = {
   classes: null,
-  currentClass: '',
+  currentClass: null,
   userId: null,
 };
 
-export default Radium(withRouter(connect(mapStateToProps, mapDispatchToProps)(DisplayClasses)));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Radium(DisplayClasses)));

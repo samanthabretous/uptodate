@@ -7,7 +7,7 @@ class SocketConnection {
   }
   // /api/users/registration -- user registration
   postNewUser(req, res) {
-    console.log("post new user", req.body);
+    console.log(req.body);
     models.user.findOrCreate({
       where: {
         $or: [{
@@ -27,15 +27,15 @@ class SocketConnection {
       },
     })
     .spread((user, created) => {
-      console.log("user=======================",user);
-      console.log("user", user);
       if (created) {
+        user.addClasses([req.body.classId])
         res.send(user);
       } else {
         throw new Error('Invalid registration info.');
       }
     })
     .catch((err) => {
+      console.log(err);
       res.status(500).send(err.message);
     });
   }
