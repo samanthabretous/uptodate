@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
-import TextTruncate from 'react-text-truncate';
 import Radium, { StyleRoot } from 'radium';
 import moment from 'moment';
 import style from './DisplayClassLessonsStyle';

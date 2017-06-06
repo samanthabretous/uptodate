@@ -12,7 +12,7 @@ export default {
     height: '85%',
     padding: '1%',
     color: colors.white,
-    backgroundColor: colors.lusty,
+    backgroundColor: 'transparent',
   },
   listElements: {
     width: '100%',

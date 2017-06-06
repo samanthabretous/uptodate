@@ -8,6 +8,7 @@ export default {
     display: 'flex',
     marginTop: '16vh',
     height: '80vh',
+    width: '100%',
   },
   content: {
     width: '100vw',
