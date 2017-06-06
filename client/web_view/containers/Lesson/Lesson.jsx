@@ -9,10 +9,6 @@ const Lesson = (props) => {
       <div style={style.directoryAndEditor}>
         <ViewInstructorCode />
       </div>
-      <div style={style.rightBar}>
-        <Votes userId={user} lessonId={lessonId} lessonname={lesson} />
-        <DiscussionChat lessonId={lessonId} />
-      </div>
     </div>
   );
 };

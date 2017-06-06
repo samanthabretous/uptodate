@@ -18,7 +18,6 @@ const mapStateToProps = state => ({
 });
 
 const DisplayClasses = ({ classes, currentClass, router, userId, animate, updateTitlebarInfoAsync }) => {
-  console.log(classes);
   const goToNextClass = (enrollmentCode) => {
     updateTitlebarInfoAsync(enrollmentCode, userId);
     router.push(`/dashboard/${userId}/${enrollmentCode}`);

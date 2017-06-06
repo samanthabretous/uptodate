@@ -4,7 +4,8 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import TextTruncate from 'react-text-truncate';
 import Radium, { StyleRoot } from 'radium';
-import styles from './DisplayClassLessonsStyle';
+import moment from 'moment';
+import style from './DisplayClassLessonsStyle';
 
 
 const mapDispatchToProps = dispatch => (
@@ -15,32 +16,25 @@ const mapStateToProps = state => ({
   classLessons: state.lesson.classLessons,
 });
 
-const DisplayClassLessons = ({ classLessons, params: { user, currentClassCode } }) => (
-  <div>
+const DisplayClassLessons = ({ classLessons, params: { user, currentClassCode } }) => {
+  console.log(classLessons);
+return (
+  <div style={style.classLessons}>
     {
       classLessons
-      ? classLessons.map(({ name, lecture, id }) => (
-        <StyleRoot key={id}>
-          <div>
-            <Link to={`/dashboard/${user}/${currentClassCode}/${id}/${name}/none`}><h1> {name} </h1></Link>
-            <TextTruncate
-              id={`truncate-${id}`}
-              line={2}
-              truncateText="…"
-              text={lecture}
-              textTruncateChild={<p
-                key={id}
-                style={[styles.truncate.show]}
-                onClick={styles.truncate.show.func.bind(null, id)}
-              >Show more</p>}
-            />
-            <div id={`full-${id}`} hidden>{lecture}
-              <p
-                style={[styles.truncate.hide]}
-                onClick={styles.truncate.hide.func.bind(null, id)}
-              >hide</p>
+      ? classLessons.map(({ name, lecture, id, createdAt }) => (
+        <StyleRoot key={id} style={style.card}>
+          <div style={style.info}>
+            <div style={style.topInfo}>
+              <h4 style={style.h4}>{name}</h4>
+              <p>{moment(createdAt).format('MMM Do')}</p>
             </div>
+            <p>{lecture.substr(0, 225)}</p>
           </div>
+          <Link
+            to={`/dashboard/${user}/${currentClassCode}/${id}/${name}/none`}
+            style={style.viewLesson}
+          >View Lesson</Link>
         </StyleRoot>
         ))
       :
@@ -50,7 +44,7 @@ const DisplayClassLessons = ({ classLessons, params: { user, currentClassCode } 
       </div>
     }
   </div>
-);
+)};
 
 DisplayClassLessons.PropTypes = {
   classLessons: PropTypes.array,
