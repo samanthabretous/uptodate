@@ -1,0 +1,49 @@
+module.exports = [{
+  zipFile: 'pede_lobortis_ligula.js',
+  grade: 92,
+  assignmentId: 1,
+}, {
+  zipFile: 'in.html',
+  grade: 91,
+  assignmentId: 1,
+}, {
+  zipFile: 'velit_vivamus.js',
+  grade: 97,
+  assignmentId: 1,
+}, {
+  zipFile: 'posuere.js',
+  grade: 98,
+  assignmentId: 2,
+}, {
+  zipFile: 'maecenas_ut_massa.css',
+  grade: 96,
+  assignmentId: 2,
+}, {
+  zipFile: 'diam_cras.js',
+  grade: 93,
+  assignmentId: 2,
+}, {
+  zipFile: 'mi_integer.js',
+  grade: 92,
+  assignmentId: 3,
+}, {
+  zipFile: 'ut_nulla.js',
+  grade: 92,
+  assignmentId: 3,
+}, {
+  zipFile: 'auctor.js',
+  grade: 96,
+  assignmentId: 3,
+}, {
+  zipFile: 'venenatis.java',
+  grade: 98,
+  assignmentId: 4,
+}, {
+  zipFile: 'cras.js',
+  grade: 97,
+  assignmentId: 4,
+}, {
+  zipFile: 'a_odio.css',
+  grade: 99,
+  assignmentId: 5,
+}];

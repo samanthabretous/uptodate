@@ -1,0 +1,46 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Electron App</title>
+  <script>
+    const chokidar = require('chokidar');
+    const fs = require('fs');
+  </script>
+  <style type="text/css">
+    @font-face {
+      font-family: 'Muli-bold';
+      src: url('../web_view/public/fonts/muli/Muli-Bold.ttf');
+    }
+    @font-face {
+      font-family: 'Muli';
+      src: url('../web_view/public/fonts/muli/Muli.ttf');
+    }
+    @font-face {
+      font-family: 'Muli-semi';
+      src: url('../web_view/public/fonts/muli/Muli-Semi-Bold.ttf');
+    }
+    @font-face {
+      font-family: 'Muli-light';
+      src: url('../web_view/public/fonts/muli/Muli-LightItalic.ttf');
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script>
+    (function () {
+      let bundlePath = './build/bundle.js';
+
+      if (typeof process !== 'undefined' && process.env.ENVIRONMENT === 'DEV') {
+        bundlePath = 'http://localhost:2020/client/electron_view/build/bundle.js';
+      }
+
+      const bundleScriptEl = document.createElement('script');
+      bundleScriptEl.src = bundlePath;
+      document.currentScript.parentNode.insertBefore(bundleScriptEl, document.currentScript);
+    }());
+  </script>
+</body>
+</html>

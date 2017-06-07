@@ -1,0 +1,13 @@
+.DS_store
+node_modules
+bundle
+build/
+npm-debug.log
+.tmp/
+z_electron_notes.js
+client/redux/test.js
+/repo
+/assignments
+/work
+MyKeyPairUpToDate.pem
+uptodate.pem

@@ -1,0 +1,73 @@
+module.exports = [{
+  instructions: 'Giphy clone: Make AJAX calls to the Giphy API to build a Giphy clone. Create categories of GIFs. Use props to pass data from the parent component to child components.',
+  exercises: 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.\n\nPraesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.\n\nMorbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.',
+  due: '02/20/2017',
+  classId: 1,
+  lessonId: 1,
+}, {
+  instructions: 'To-do list: Create a to-do list app that has a text box and button. When you write in the box and click the button, it adds the to-do item to the page. Bonus: When you click on the to-do item, it\'ll put a line through the item on the page.',
+  exercises: 'Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.',
+  due: '02/15/2017',
+  classId: 1,
+  lessonId: 1,
+}, {
+  instructions: 'Google Maps API: We\'ve worked with the Google Maps JavaScript API in the past. It gives us access to two objects: Marker and Map. We can display markers on the map. With React, we can now store an array of Markers in the state. To show multiple markers, we have to iterate through the array and render each marker. Pick your five favorite places to eat and render them onto a Google Map as markers!',
+  exercises: 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.\n\nSuspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.',
+  due: '02/10/2017',
+  classId: 1,
+  lessonId: 2,
+}, {
+  instructions: 'Timer: Start a timer at 0:00. Have a start and stop button on the page. When you click the start button, it should increase the timer by 1 second to 0:01. The stop button will stop the timer from going.',
+  exercises: 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.\n\nSed ante. Vivamus tortor. Duis mattis egestas metus.\n\nAenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.',
+  due: '02/07/2017',
+  classId: 1,
+  lessonId: 2,
+}, {
+  instructions: 'React Calculator: Make a calculator app that has clickable elements for numbers 0 through 9. The app should also have clickable elements for the basic math operations: adding, subtracting, multiplying, and dividing.',
+  exercises: 'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.\n\nDuis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.',
+  due: '02/01/2017',
+  classId: 1,
+  lessonId: 2,
+}, {
+  instructions: 'Movie app: Use the OMDb API to build a simple movie app that lists your favorite movies. Each movie should show a picture of the movie poster, a description, the genre, release date, and a list of the cast members.',
+  exercises: 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.',
+  due: '01/27/2017',
+  classId: 1,
+  lessonId: 4,
+}, {
+  instructions: 'Congress Person: Use the Sunlight API to build a basic app that allows users to search for Congress representatives based on their address or zip code.',
+  exercises: 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.',
+  due: '01/17/2017',
+  classId: 1,
+  lessonId: 3,
+}, {
+  instructions: 'Currency converter: Use React to build a currency converter. Users should be able to enter a country and an amount of money and have that amount converted to currency from another country.',
+  exercises: 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.',
+  due: '01/14/2017',
+  classId: 1,
+  lessonId: 3,
+}, {
+  instructions: 'Good Burger App: Build an app for Good Burger, or your favorite restaurant. The app needs to have a menu page with items and their descriptions and prices. It should also have an about page with a description of the restaurant as well as contact information and restaurant hours.',
+  exercises: 'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.\n\nDuis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.',
+  due: '01/10/2017',
+  classId: 1,
+  lessonId: 2,
+}, {
+  instructions: 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.\n\nMorbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.',
+  exercises: 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.',
+  due: '01/06/2017',
+  classId: 4,
+  lessonId: 4,
+}, {
+  instructions: 'React connect four: This is really really challenging! Checking for a winner is the hardest part.',
+  exercises: 'Suspense potenti. In eleifend quam a odio. In hac habitasse platea dictumst.',
+  due: '12/26/2017',
+  classId: 1,
+  lessonId: 3,
+}, {
+  instructions: 'React Tic-tac-toe: Make a tic-tac-toe game using React. You\'ll want to use a matrix( array of arrays) to store the game state. You\'ll need a variable to store the player turn. You\'ll also need a variable to check to see if the game is over.',
+  exercises: 'Integer tincante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.',
+  due: '12/12/2016',
+  classId: 1,
+  lessonId: 3,
+}];

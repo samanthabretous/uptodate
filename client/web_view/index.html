@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style type='text/css'>
+    @font-face {
+      font-family: 'Muli';
+      src: url('/fonts/muli/Muli.ttf');
+    }
+    @font-face {
+      font-family: 'Muli-light';
+      src: url('/fonts/muli/Muli-LightItalic.ttf');
+    }    
+    @font-face {
+      font-family: 'Muli-extra-light';
+      src: url('/fonts/muli/Muli-ExtraLight.ttf');
+    }
+    @font-face {
+      font-family: 'Muli-bold';
+      src: url('/fonts/muli/Muli-Bold.ttf');
+    }
+    @font-face {
+      font-family: 'Muli-extra-light';
+      src: url('/fonts/muli/Muli-ExtraLightItalic.ttf');
+    }
+    @font-face {
+      font-family: 'Quicksand';
+      src: url('/fonts/Quicksand/Quicksand-Regular.ttf');
+    }
+    @font-face {
+      font-family: 'Roboto-thin';
+      src: url('/fonts/Roboto/Roboto-Thin.ttf');0
+    }
+    body {
+      margin:0;
+      padding: 0;
+      font-family: 'Quicksand', 'Helvetica', 'sans-serif';
+    }
+    a:link {
+      color: #EE3233;
+    }
+  </style>
+  <link href='https://fonts.googleapis.com/css?family=Quicksand|Roboto:100,400' rel='stylesheet'>
+
+</head>
+<body>
+  <div id='root'></div>
+<script>
+  (function () {
+    let bundlePath = '/bundle/bundle.js';
+
+    if (typeof process !== 'undefined' && process.env.ENVIRONMENT === 'DEV') {
+      bundlePath = 'http://localhost:2020/client/web_view/public/bundle/bundle.js';
+    }
+
+    const bundleScriptEl = document.createElement('script');
+    bundleScriptEl.src = bundlePath;
+    document.currentScript.parentNode.insertBefore(bundleScriptEl, document.currentScript);
+  }());
+</script>
+</body>
+</html>
