@@ -17,4 +17,7 @@ router.route('/allClasses/:userId')
 router.route('/newclass')
   .post(middleware.postNewClass);
 
+router.route('/addUserToClass')
+  .post(middleware.addUserToClass);
+
 module.exports = router;

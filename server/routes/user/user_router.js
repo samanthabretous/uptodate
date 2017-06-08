@@ -19,5 +19,4 @@ router.route('/:userId/usedDesktop')
 router.route('/student/:userId/:classCode')
   .get(middleware.fetchStudentInfo);
 
-
 module.exports = router;

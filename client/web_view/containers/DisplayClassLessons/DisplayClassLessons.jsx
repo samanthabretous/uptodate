@@ -15,9 +15,7 @@ const mapStateToProps = state => ({
   classLessons: state.lesson.classLessons,
 });
 
-const DisplayClassLessons = ({ classLessons, params: { user, currentClassCode } }) => {
-  console.log(classLessons);
-return (
+const DisplayClassLessons = ({ classLessons, params: { user, currentClassCode } }) => (
   <div style={style.classLessons}>
     {
       classLessons
@@ -43,7 +41,7 @@ return (
       </div>
     }
   </div>
-)};
+);
 
 DisplayClassLessons.PropTypes = {
   classLessons: PropTypes.array,

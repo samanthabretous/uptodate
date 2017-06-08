@@ -48,7 +48,7 @@ export default {
   },
   headline: {
     margin: 0,
-    font: '4.4em Muli-bold, san-serif',
+    font: '4.2em Muli-bold, san-serif',
     color: colors.grannyApple,
     letterSpacing: '-3px',
     lineHeight: '95%',

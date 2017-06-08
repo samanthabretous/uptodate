@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import FontAwesome from 'react-fontawesome';
 import style from './TitlebarStyles';
-import { AssignmentButton, DisplayClasses, LessonButton } from '../';
+import { DisplayClasses } from '../';
 import { isShowAllClassesAction } from '../../../redux/titlebar';
 import { socket } from '../../socket/socket';
 
@@ -36,12 +36,11 @@ class Titlebar extends Component {
     }, 2000);
   }
   showAllClasses() {
-    console.log(!this.props.isShowAllClasses);
     this.props.isShowAllClassesAction(!this.props.isShowAllClasses);
   }
 
   render() {
-    const { userInfo, currentClass, router, params: { user }, isShowAllClasses } = this.props;
+    const { userInfo, currentClass, params: { user }, isShowAllClasses } = this.props;
     return (
       <div style={style.dashbar}>
         { /* first title bar */ }
@@ -86,12 +85,11 @@ class Titlebar extends Component {
 }
 
 Titlebar.propTypes = {
-  userInfo: PropTypes.object,
-  currentClass: PropTypes.object,
+  userInfo: PropTypes.objectOf(PropTypes.any),
+  currentClass: PropTypes.objectOf(PropTypes.any),
   isShowAllClasses: PropTypes.bool.isRequired,
-  router: PropTypes.object.isRequired,
   allUserClasses: PropTypes.arrayOf(PropTypes.object),
-  params: PropTypes.object.isRequired,
+  params: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 Titlebar.defaultProps = {
@@ -100,6 +98,4 @@ Titlebar.defaultProps = {
   allUserClasses: null,
 };
 
-Titlebar = Radium(Titlebar);
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Titlebar));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Radium(Titlebar)));

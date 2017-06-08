@@ -147,6 +147,16 @@ const updateUserCurrentClass = (req, res) => {
   });
 };
 
+// /api/classes/addUserToClass
+const addUserToClass = (req, res) => {
+  models.class.find({
+    where: { enrollmentCode: req.body.enrollmentCode },
+  })
+  .then(foundClass => foundClass.addUsers([req.body.userId]))
+  .then(() => res.send({ added: true }))
+  .catch(() => res.sendStatus(500));
+};
+
 module.exports = {
   postNewClass,
   getClassByEnrollmentCode,
@@ -154,4 +164,5 @@ module.exports = {
   getAllUserClasses,
   getTitlebarInfo,
   updateUserCurrentClass,
+  addUserToClass,
 };

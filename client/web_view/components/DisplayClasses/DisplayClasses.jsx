@@ -1,5 +1,7 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Radium from 'radium';
+import FontAwesome from 'react-fontawesome';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import _ from 'lodash';
@@ -17,37 +19,94 @@ const mapStateToProps = state => ({
   currentClass: state.titlebar.currentClass,
 });
 
-const DisplayClasses = ({ classes, currentClass, router, userId, animate, updateTitlebarInfoAsync }) => {
-  const goToNextClass = (enrollmentCode) => {
-    updateTitlebarInfoAsync(enrollmentCode, userId);
-    router.push(`/dashboard/${userId}/${enrollmentCode}`);
-  };
-
-  return (
-    <div style={[style.displayClasses, animate && style.slideIn]}>
-      <ul style={style.ul}>
-        {classes && _.map(classes, oneClass => (
-          <li
-            style={style.listItem}
-            key={oneClass.id}
-            onClick={() => goToNextClass(oneClass.enrollmentCode)}
+class DisplayClasses extends Component {
+  constructor() {
+    super();
+    this.state = {
+      isAddClass: false,
+      enrollmentCode: '',
+    };
+    this.goToNextClass = this.goToNextClass.bind(this);
+    this.showInput = this.showInput.bind(this);
+    this.handleInput = this.handleInput.bind(this);
+    this.addUserToClass = this.addUserToClass.bind(this);
+  }
+  goToNextClass(userId, enrollmentCode) {
+    this.props.updateTitlebarInfoAsync(enrollmentCode, userId);
+    this.props.router.push(`/dashboard/${userId}/${enrollmentCode}`);
+  }
+  showInput() {
+    this.setState(prevState => ({
+      isAddClass: !prevState.isAddClass,
+    }));
+  }
+  handleInput(event) {
+    this.setState({ enrollmentCode: event.target.value });
+  }
+  addUserToClass() {
+    const { userId } = this.props;
+    const { enrollmentCode } = this.state;
+    axios.post('/api/classes/addUserToClass', {
+      userId,
+      enrollmentCode,
+    })
+    .then(() => {
+      this.goToNextClass(this.props.userId, this.state.enrollmentCode);
+      this.setState({ enrollmentCode: '', isAddClass: false });
+    });
+  }
+  render() {
+    const { classes, userId, animate } = this.props;
+    console.log(classes);
+    return (
+      <div style={[style.displayClasses, animate && style.slideIn]}>
+        <ul style={style.ul}>
+          {classes && _.map(classes, oneClass => (
+            <li
+              style={style.listItem}
+              key={oneClass.id}
+              onClick={() => this.goToNextClass(userId, oneClass.enrollmentCode)}
+            >
+              <h3>{oneClass.name}</h3>
+              <p>enrollment code: {oneClass.enrollmentCode}</p>
+            </li>
+          ))}
+        </ul>
+        <button
+          style={style.showInputButton}
+          onClick={this.showInput}
+        >Add Class</button>
+        {this.state.isAddClass && <div style={style.inputContainer}>
+          <input
+            style={style.input}
+            type="text"
+            name="addEnrollmentCode"
+            onChange={this.handleInput}
+            placeholder="Enrollment Code"
+          />
+          <button
+            style={style.addButton}
+            onClick={this.addUserToClass}
           >
-            <h3>{oneClass.name}</h3>
-            <p>enrollment code: {oneClass.enrollmentCode}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
+            <FontAwesome
+              name="plus"
+              size="2x"
+              style={style.plus}
+            />
+          </button>
+        </div>}
+      </div>
+    );
+  }
+}
 
 
 DisplayClasses.propTypes = {
   classes: PropTypes.arrayOf(PropTypes.object),
-  currentClass: PropTypes.objectOf(PropTypes.any),
   userId: PropTypes.string,
   updateTitlebarInfoAsync: PropTypes.func.isRequired,
-  router: PropTypes.object.isRequired,
+  router: PropTypes.objectOf(PropTypes.any).isRequired,
+  animate: PropTypes.bool.isRequired,
 };
 
 DisplayClasses.defaultProps = {

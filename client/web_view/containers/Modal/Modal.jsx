@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
+import FontAwesome from 'react-fontawesome';
 import { withRouter } from 'react-router';
 import style from './ModalStyles';
-import FontAwesome from 'react-fontawesome';
 
 const Modal = ({ children, router }) => (
   <div>

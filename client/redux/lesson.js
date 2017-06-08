@@ -52,16 +52,23 @@ export const isMakeLessonVisibleAction = isMakeLessonVisible => ({
   isMakeLessonVisible,
 });
 
-export const setCurrentPath = (currentPath) => ({
+export const setCurrentPath = currentPath => ({
   type: SET_CURRENT_PATH,
   currentPath,
 });
 
 export const AsyncGetLessons = (classId, platform) => (dispatch) => {
-  axios.get(`http://localhost:2020/api/lessons/byClass/${platform}/${classId}`)
-  .then((lessons) => {
-    dispatch(getLessons(lessons.data));
-  });
+  if (platform === 'web') {
+    axios.get(`/api/lessons/byClass/${platform}/${classId}`)
+    .then((lessons) => {
+      dispatch(getLessons(lessons.data));
+    });
+  } else {
+    axios.get(`http://localhost:2020/api/lessons/byClass/${platform}/${classId}`)
+    .then((lessons) => {
+      dispatch(getLessons(lessons.data));
+    });
+  }
 };
 
 export const enterGetLessons = (nextState) => {
@@ -77,10 +84,17 @@ export const AsyncPostLesson = data => (dispatch) => {
 };
 
 export const AsyncFetchLessons = (classCode, platform) => (dispatch) => {
-  axios.get(`http://localhost:2020/api/lessons/byClassCode/${platform}/${classCode}`)
+  if (platform === 'web') {
+    axios.get(`/api/lessons/byClassCode/${platform}/${classCode}`)
     .then((lessons) => {
       dispatch(fetchLessons(lessons.data));
     });
+  } else {
+    axios.get(`http://localhost:2020/api/lessons/byClassCode/${platform}/${classCode}`)
+    .then((lessons) => {
+      dispatch(fetchLessons(lessons.data));
+    });
+  }
 };
 
 export const enterFetchLessons = ({ params }) => createStore.dispatch(AsyncFetchLessons(params.currentClassCode, 'web'));

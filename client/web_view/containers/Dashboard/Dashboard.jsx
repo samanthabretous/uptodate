@@ -26,6 +26,7 @@ class Dashboard extends Component {
       instructor: '',
       classCode: '',
     };
+    this.lessonClicked = this.lessonClicked.bind(this);
   }
   componentDidMount() {
     // a new lesson has started make notification to let all users know
@@ -36,34 +37,35 @@ class Dashboard extends Component {
       }, 5000);
     });
   }
+
+  lessonClicked() {
+    const { lessonname, lessonId, classCode } = this.state;
+    this.setState({ isNewLessonStarted: false });
+    this.props.router.push(`/dashboard/${this.props.params.userId}/${classCode}/${lessonId}/${lessonname}/none`);
+  }
   render() {
-    const { children, params } = this.props;
-    const { isNewLessonStarted, lessonname, lessonId, instructor, classCode } = this.state;
+    const { lessonname, instructor, isNewLessonStarted } = this.state;
     return (
       <div style={style.dashboard}>
         <Titlebar />
         <section style={style.mainView}>
-          {children}
+          {this.props.children}
         </section>
-        {isNewLessonStarted &&
-          <LessonNotification
-            lessonId={lessonId}
-            lessonname={lessonname}
-            instructor={instructor}
-            classCode={classCode}
-            userId={params.user}
-          />
-        }
+        <LessonNotification
+          lessonname={lessonname}
+          instructor={instructor}
+          isNewLessonStarted={isNewLessonStarted}
+          lessonClicked={this.lessonClicked}
+        />
       </div>
     );
   }
 }
 
 Dashboard.propTypes = {
-  router: PropTypes.object.isRequired,
-  params: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
+  router: PropTypes.objectOf(PropTypes.any).isRequired,
+  params: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
-
-export default Radium(connect(mapStateToProps, mapDispatchToProps)(Dashboard));
+export default connect(mapStateToProps, mapDispatchToProps)(Radium(Dashboard));

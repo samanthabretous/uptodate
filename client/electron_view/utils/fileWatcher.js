@@ -18,6 +18,7 @@ export default (pathWatch, className, lessonId, lessonName, classCode) => {
       classCode,
     });
   };
+
   watcher
   .on('addDir', (path) => {
     // to prevent ajax call on root directory watch

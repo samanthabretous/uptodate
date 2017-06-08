@@ -23,13 +23,13 @@ class StudentOrTeacher extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: 'sam',
-      lastName: 'smith',
+      firstName: '',
+      lastName: '',
       name: '',
       description: '',
       schedule: '',
       location: '',
-      enrollmentCode: 'fullstackweb819',
+      enrollmentCode: '',
       createClass: false,
       position: '',
       registrationError: null,

@@ -1,25 +1,23 @@
 import React, { PropTypes } from 'react';
+import Radium from 'radium';
 import { withRouter } from 'react-router';
 import style from './LessonNotificationStyles';
 
-const LessonNotification = ({ lessonname, lessonId, instructor, router, userId, classCode }) => {
-  const goToLesson = () => {
-    router.push(`/dashboard/${userId}/${classCode}/${lessonId}/${lessonname}/none`);
-  };
-  return (
-    <div style={style.box} onClick={goToLesson}>
-      <h3>{instructor} has started a {lessonname}</h3>
-    </div>
-  );
-};
+const LessonNotification = ({ lessonname, instructor, isNewLessonStarted, lessonClicked }) => (
+  <button style={[style.box, isNewLessonStarted && style.showBox]} onClick={lessonClicked}>
+    <h3>{instructor} has started a {lessonname}</h3>
+  </button>
+);
 
 LessonNotification.propTypes = {
-  lessonname: PropTypes.string.isRequired,
-  lessonId: PropTypes.number.isRequired,
-  instructor: PropTypes.string.isRequired,
-  router: PropTypes.object.isRequired,
-  userId: PropTypes.string.isRequired,
-  classCode: PropTypes.string.isRequired,
+  lessonname: PropTypes.string,
+  instructor: PropTypes.string,
+  isNewLessonStarted: PropTypes.bool.isRequired,
+  lessonClicked: PropTypes.func.isRequired,
+};
+LessonNotification.defaultProps = {
+  lessonname: '',
+  instructor: '',
 };
 
-export default withRouter(LessonNotification);
+export default withRouter(Radium(LessonNotification));

@@ -19,11 +19,31 @@ export default {
     left: 0,
   },
   ul: {
-    height: '100%',
+    height: 'auto',
     font: '1.2em Muli-bold, san-serif',
   },
   listItem: {
     borderBottom: `1px solid ${colors.pomegranate}`,
     paddingBottom: '1%',
+  },
+  showInputButton: {
+    background: colors.pomegranate,
+    color: colors.white,
+    marginTop: '5%',
+    fontSize: '1.2em',
+    width: '100%',
+  },
+  inputContainer: {
+    display: 'flex',
+    marginTop: '5%',
+    justifyContent: 'space-between',
+  },
+  input: {
+    fontSize: '1.2em',
+    width: '85%',
+  },
+  addButton: {
+    color: colors.white,
+    width: '10%',
   },
 };

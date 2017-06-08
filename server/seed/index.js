@@ -6,10 +6,6 @@ const models = require('../db/models/index');
 const userData = require('./user_seed');
 const classData = require('./class_seed');
 const lessonData = require('./lesson_seed');
-const discussionData = require('./discussion_seed');
-const assignmentData = require('./assignment_seed');
-const workData = require('./work_seed');
-const voteData = require('./vote_seed');
 
 // add user and work associations
 const seedFunction = () => {
@@ -105,63 +101,6 @@ const seedFunction = () => {
   .then(() => {
     models.lesson.bulkCreate(lessonData);
   })
-  .then(() => {
-    models.assignment.bulkCreate(assignmentData);
-  })
-  .then(() => models.work.create(workData[0]))
-  .then((work) => {
-    work.addUser(2);
-    return models.work.create(workData[1]);
-  })
-  .then((work) => {
-    work.addUser(2);
-    return models.work.create(workData[2]);
-  })
-  .then((work) => {
-    work.addUser(2);
-    return models.work.create(workData[3]);
-  })
-  .then((work) => {
-    work.addUser(2);
-    return models.work.create(workData[4]);
-  })
-  .then((work) => {
-    work.addUser(2);
-    return models.work.create(workData[5]);
-  })
-  .then((work) => {
-    work.addUser(2);
-    return models.work.create(workData[6]);
-  })
-  .then((work) => {
-    work.addUser(2);
-    return models.work.create(workData[7]);
-  })
-  .then((work) => {
-    work.addUser(2);
-    return models.work.create(workData[8]);
-  })
-  .then((work) => {
-    work.addUser(2);
-    return models.work.create(workData[9]);
-  })
-  .then((work) => {
-    work.addUser(1);
-    return models.work.create(workData[10]);
-  })
-  .then((work) => {
-    work.addUser(1);
-    return models.work.create(workData[11]);
-  })
-  .then((work) => {
-    work.addUser(2);
-  })
-  .then(() => models.vote.bulkCreate(voteData))
-  .then(() => models.discussion.bulkCreate(discussionData))
-  .then(() => models.vote.findById(2))
-  .then(vote => vote.addUser(1));
-};
 
 seedFunction();
 module.exports = seedFunction;
-
