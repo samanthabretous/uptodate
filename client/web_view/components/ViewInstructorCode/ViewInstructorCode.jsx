@@ -34,10 +34,11 @@ class ViewInstructorCode extends Component {
   }
 
   componentDidMount() {
-    const that = this;
     axios.get(`/api/repoFile/${this.props.lessonId}`)
     .then((data) => {
-      that.setState({ directory: Object.assign({}, that.state.directory, { childNodes: data.data }) });
+      this.setState({
+        directory: Object.assign({}, this.state.directory, { childNodes: data.data }),
+      });
     });
     socket.on('updated-file', ({ subPath, data }) => {
       /*
@@ -56,7 +57,7 @@ class ViewInstructorCode extends Component {
               language = 'text/css';
               break;
             case 'html':
-              language = 'xml';
+              language = 'htmlmixed';
               break;
             default:
               language = fileType;

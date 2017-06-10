@@ -7,7 +7,7 @@ export default {
     '.ReactCodeMirror': {
       height: '100%',
       width: '100%',
-      fontSize: '2em',
+      fontSize: '1em',
     },
     '.CodeMirror': {
       height: '100%',

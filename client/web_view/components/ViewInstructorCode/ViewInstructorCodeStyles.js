@@ -6,7 +6,7 @@ export default {
   directoryPlusEditor: {
     display: 'flex',
     height: '100%',
-    width: '60vw',
+    width: '80vw',
   },
   treeNodeContainer: {
     width: '25%',

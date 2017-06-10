@@ -3,7 +3,7 @@ import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import shortid from 'shortid';
-import Radium, { StyleRoot } from 'radium';
+import Radium from 'radium';
 import { AsyncGetInstructorCode, setCurrentPath } from '../../../redux/lesson';
 import styles from './TreeNodeStyles';
 
@@ -15,7 +15,7 @@ const mapDispatchToProps = dispatch => (
 );
 
 const mapStateToProps = (state, ownprops) => ({
-  className: state.titlebar.currentClass && state.titlebar.currentClass.name|| '',
+  className: state.titlebar.currentClass && state.titlebar.currentClass.name || '',
   user: ownprops.params.user,
   currentClassCode: ownprops.params.currentClassCode,
   lessonId: ownprops.params.lessonId,
@@ -47,7 +47,7 @@ class TreeNode extends Component {
             language = 'text/css';
             break;
           case 'html':
-            language = 'xml';
+            language = 'htmlmixed';
             break;
           default:
             language = fileType;

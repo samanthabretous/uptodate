@@ -9,6 +9,7 @@ import 'codemirror/theme/blackboard.css';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/css/css';
 import 'codemirror/mode/xml/xml';
+import 'codemirror/mode/htmlmixed/htmlmixed';
 import 'codemirror/mode/jsx/jsx';
 import style from './TextEditorStyles';
 
@@ -35,8 +36,8 @@ class TextEditor extends Component {
     const { readOnly } = this.state;
     const options = {
       lineNumbers: true,
+      lineWrapping: true,
       mode: this.props.language,
-      htmlMode: this.props.language === 'xml',
       readOnly,
       theme: 'blackboard',
     };
