@@ -34,6 +34,7 @@ class TreeNode extends Component {
 
   handleClick() {
     const { className, lessonName, node: { path } } = this.props;
+    console.log("click");
     if (this.props.node.path) {
       const fileType = this.props.node.path.split('.')[1];
       let language = null;
@@ -55,6 +56,7 @@ class TreeNode extends Component {
         }
       })
       .then(() => {
+        console.log(path, className, lessonName, language);
         this.props.AsyncGetInstructorCode(path, className, lessonName, language);
         this.props.setCurrentPath(path);
       });

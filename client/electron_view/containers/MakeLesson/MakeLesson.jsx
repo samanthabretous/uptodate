@@ -60,7 +60,7 @@ class MakeLesson extends Component {
       */
       const { AsyncPostLesson, classId, classCode, router, params: { userId } } = this.props;
       AsyncPostLesson({ ...this.state, classId });
-      router.push(`add-lesson/${userId}/${classCode}`);
+      router.push(`/${userId}/${classCode}/add-lesson`);
     }
   }
   goBack() {

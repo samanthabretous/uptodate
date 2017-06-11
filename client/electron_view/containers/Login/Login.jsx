@@ -22,8 +22,8 @@ class Login extends Component {
     super(props);
     this.state = {
       loginFormErrors: {},
-      username: 'gfrizzle',
-      password: 'password1',
+      username: '',
+      password: '',
       authenticationError: null,
     };
     this.isValidPassword = this.isValidPassword.bind(this);
@@ -158,4 +158,3 @@ Login.defaultProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
-

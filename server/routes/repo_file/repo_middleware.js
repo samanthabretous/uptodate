@@ -201,13 +201,15 @@ class SocketConnection {
   // ~ this is to get a file in webs repo file directory
   getFile(req, res) {
     const { subPath, className, lessonName } = req.query;
-    const pathToRepoStorage = path.join(__dirname, `../../../repo/${className}/${lessonName}`, subPath);
+    const pathToRepoStorage = path.join(__dirname, '../../../repo/', className, lessonName, subPath);
+    console.log(pathToRepoStorage, subPath);
     fs.readFile(pathToRepoStorage, 'utf8', (err, data) => {
-      if (err) {
-        res.sendStatus(500).send(err);
-      } else {
-        res.send(data);
-      }
+      // if (err) {
+      //   return res.sendStatus(500).send(err);
+      // } else {
+        console.log(data);
+        return res.send(data);
+      // }
     });
   }
 
@@ -243,4 +245,3 @@ class SocketConnection {
 }
 
 module.exports = SocketConnection;
-

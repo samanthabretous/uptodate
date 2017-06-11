@@ -47,6 +47,7 @@ class WatchLesson extends Component {
     Promise.resolve(watcher)
     .then(() => {
       const instructor = JSON.parse(localStorage.userInfo).username;
+      console.log("started lesson");
       socket.emit('start-lesson', { classCode, lessonId, lessonname, instructor });
       this.setState({ isWatchingFiles: true, stopWatchingFiles: watcher });
     });
@@ -135,6 +136,4 @@ WatchLesson.defaultProps = {
   firstName: '',
 };
 
-WatchLesson = Radium(WatchLesson);
-
-export default connect(mapStateToProps, mapDispatchToProps)(WatchLesson);
+export default connect(mapStateToProps, mapDispatchToProps)(Radium(WatchLesson));

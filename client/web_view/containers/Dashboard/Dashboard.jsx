@@ -5,10 +5,11 @@ import { bindActionCreators } from 'redux';
 import { LessonNotification, Titlebar } from '../../components';
 import style from './DashboardStyles';
 import { socket } from '../../socket/socket';
+import { clearCode } from '../../../redux/lesson';
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
-
+    clearCode,
   }, dispatch)
 );
 
@@ -32,6 +33,7 @@ class Dashboard extends Component {
     // a new lesson has started make notification to let all users know
     socket.on('lesson-started', ({ lessonname, lessonId, instructor, classCode }) => {
       this.setState({ isNewLessonStarted: true, lessonname, lessonId, instructor, classCode });
+      console.log(lessonname);
       setTimeout(() => {
         this.setState({ isNewLessonStarted: false, lessonname: '', lessonId: null, instructor: '' });
       }, 5000);
@@ -41,7 +43,9 @@ class Dashboard extends Component {
   lessonClicked() {
     const { lessonname, lessonId, classCode } = this.state;
     this.setState({ isNewLessonStarted: false });
-    this.props.router.push(`/dashboard/${this.props.params.userId}/${classCode}/${lessonId}/${lessonname}/none`);
+    console.log(this.props.params);
+    this.props.clearCode();
+    this.props.router.push(`/dashboard/${this.props.params.user}/${classCode}/${lessonId}/${lessonname}/none`);
   }
   render() {
     const { lessonname, instructor, isNewLessonStarted } = this.state;

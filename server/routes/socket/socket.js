@@ -82,7 +82,9 @@ module.exports = ((app, io) => {
     });
 
     socket.on('start-lesson', ({ classCode, lessonId, lessonname, instructor }) => {
-      io.sockets.to(classCode).emit('lesson-started', { lessonId, lessonname, instructor, classCode });
+      console.log(classCode, "============");
+      console.log(lessonId, "============");
+      io.sockets.emit('lesson-started', { lessonId, lessonname, instructor, classCode });
     });
 
     const socketOn = new SocketListeners(socket);

@@ -12,6 +12,7 @@ const SELECTED_LESSON = 'selected_lesson';
 const GET_CODE = 'get_code';
 const SHOW_MAKE_LESSON = 'show_make_lesson';
 const SET_CURRENT_PATH = 'set_current_path';
+const CLEAR_CODE = 'clear_code';
 
 // -------------------
 // actions
@@ -25,6 +26,7 @@ export const getInstructorCode = (code, language) => ({
 const postLesson = data => ({
   type: CREATE_LESSON,
   data,
+  folderPath: null,
 });
 
 const getLessons = data => ({
@@ -55,6 +57,10 @@ export const isMakeLessonVisibleAction = isMakeLessonVisible => ({
 export const setCurrentPath = currentPath => ({
   type: SET_CURRENT_PATH,
   currentPath,
+});
+
+export const clearCode = () => ({
+  type: CLEAR_CODE,
 });
 
 export const AsyncGetLessons = (classId, platform) => (dispatch) => {
@@ -101,15 +107,17 @@ export const enterFetchLessons = ({ params }) => createStore.dispatch(AsyncFetch
 
 
 export const AsyncGetInstructorCode = (subPath, className, lessonName, language) => (dispatch) => {
-  axios.get('/api/repoFile/getFile', {
+  console.log('/api');
+  return axios.get('/api/repoFile/getFile', {
     params: {
       subPath,
       className,
       lessonName,
     },
   })
- .then((code) => {
-   dispatch(getInstructorCode(code.data, language));
+ .then(({ data }) => {
+   console.log(data);
+   dispatch(getInstructorCode(data, language));
  });
 };
 
@@ -157,6 +165,7 @@ export default (state = initialState, action) => {
         lessonname: action.data.name,
         lessonId: action.data.id,
         isMakeLessonVisible: false,
+        folderPath: action.folderPath,
       });
     case SELECTED_LESSON:
       return Object.assign({}, state, {
@@ -174,6 +183,8 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, { currentPath: action.currentPath });
     case SHOW_MAKE_LESSON:
       return Object.assign({}, state, { isMakeLessonVisible: action.isMakeLessonVisible });
+    case CLEAR_CODE:
+      return Object.assign({}, state, { instructorCode: '// Code' });
     default:
       return state;
   }
