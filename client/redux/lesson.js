@@ -107,7 +107,6 @@ export const enterFetchLessons = ({ params }) => createStore.dispatch(AsyncFetch
 
 
 export const AsyncGetInstructorCode = (subPath, className, lessonName, language) => (dispatch) => {
-  console.log('/api');
   return axios.get('/api/repoFile/getFile', {
     params: {
       subPath,
@@ -116,7 +115,6 @@ export const AsyncGetInstructorCode = (subPath, className, lessonName, language)
     },
   })
  .then(({ data }) => {
-   console.log(data);
    dispatch(getInstructorCode(data, language));
  });
 };
